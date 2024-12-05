@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
 	<!-- Navigation-->
@@ -107,7 +106,7 @@
 						</ul></li>
 				</ul>
 
-				<a href="#" class="nav-link active me-3">LogIn</a> <a href="#"
+				<a href="/shop/login.do" class="nav-link active me-3">LogIn</a> <a href="#"
 					class="nav-link active me-3">LogOut</a>
 				<form class="d-flex">
 					<button class="btn btn-outline-dark" type="submit">
