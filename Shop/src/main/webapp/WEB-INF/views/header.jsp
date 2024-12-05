@@ -106,8 +106,8 @@
 						</ul></li>
 				</ul>
 
-				<a href="/shop/login.do" class="nav-link active me-3">LogIn</a> <a href="#"
-					class="nav-link active me-3">LogOut</a>
+				<a href="/shop/login" class="nav-link active me-3">LogIn</a> <a
+					href="#" class="nav-link active me-3">LogOut</a>
 				<form class="d-flex">
 					<button class="btn btn-outline-dark" type="submit">
 						<i class="bi-cart-fill me-1"></i> Cart <span
