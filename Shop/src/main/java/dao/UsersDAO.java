@@ -5,13 +5,11 @@ import org.apache.ibatis.session.SqlSession;
 import vo.UsersVO;
 
 public class UsersDAO {
-	
 	SqlSession sqlSession;
 	
 	public void setSqlSession(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
+		this.sqlSession=sqlSession;
 	}
-	
 	public UsersVO selectone(String id) {
 		UsersVO users = sqlSession.selectOne("u.selectOne",id);
 		
@@ -25,4 +23,5 @@ public class UsersDAO {
 		
 		return res;
 	}
+
 }
