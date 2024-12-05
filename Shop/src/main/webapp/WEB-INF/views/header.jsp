@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 </head>
-<body>
+<body> 
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container px-4 px-lg-5">
