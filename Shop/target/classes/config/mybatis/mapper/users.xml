@@ -11,15 +11,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into users values(seq_users_idx.nextval,#{id},#{pwd},#{name},#{email},#{addr},0,0)
 	</insert>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-

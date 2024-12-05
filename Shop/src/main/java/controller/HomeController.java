@@ -1,7 +1,5 @@
 package controller;
 
-import java.lang.ProcessBuilder.Redirect;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -27,11 +25,13 @@ public class HomeController {
 	HttpServletRequest request;
 	
 	public void setUsers_dao(UsersDAO users_dao) {
+		System.out.println("setdao");
 		this.users_dao = users_dao;
 	}
-	
+
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
 	public String home() {
+		
 		return Common.Path.VIEW_PATH + "home.jsp";
 	}
 	
