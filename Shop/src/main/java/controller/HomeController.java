@@ -22,7 +22,7 @@ public class HomeController {
 		return Common.Path.VIEW_PATH + "home.jsp";
 	}
 	
-	@RequestMapping("/login.do")
+	@RequestMapping("/login")
 	public String login() {
 		return Common.Path.VIEW_PATH + "login.jsp";
 	}
