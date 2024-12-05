@@ -9,10 +9,28 @@
 	</settings>
 	
 	<typeAliases>
-		<!--  <typeAlias type="vo.BoardVO" alias="board"/> -->
+		  <typeAlias type="vo.BabyVO" alias="baby"/> 
+		  <typeAlias type="vo.BeautyVO" alias="beauty"/> 
+		  <typeAlias type="vo.ElectronicVO" alias="electronic"/> 
+		  <typeAlias type="vo.FashionVO" alias="fashion"/> 
+		  <typeAlias type="vo.FoodVO" alias="food"/> 
+		  <typeAlias type="vo.HobbyVO" alias="hobby"/> 
+		  <typeAlias type="vo.InteriorVO" alias="interior"/> 
+		  <typeAlias type="vo.Life_kitchenVO" alias="life"/> 
+		  <typeAlias type="vo.PetVO" alias="pet"/> 
+		  <typeAlias type="vo.UsersVO" alias="users"/> 
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="config/mybatis/mapper/baby.xml" />
+		<mapper resource="config/mybatis/mapper/beauty.xml" />
+		<mapper resource="config/mybatis/mapper/electronic.xml" />
+		<mapper resource="config/mybatis/mapper/fashion.xml" />
 		<mapper resource="config/mybatis/mapper/food.xml" />
+		<mapper resource="config/mybatis/mapper/hobby.xml" />
+		<mapper resource="config/mybatis/mapper/interior.xml" />
+		<mapper resource="config/mybatis/mapper/life_kitchen.xml" />
+		<mapper resource="config/mybatis/mapper/pet.xml" />
+		<mapper resource="config/mybatis/mapper/users.xml" />
 	</mappers>
 </configuration>

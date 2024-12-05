@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-</head>
+</head> 
+
 <body>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,89 +21,97 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+						class="nav-link dropdown-toggle" id="navbarDropdown" 
+						onclick="location.href='/shop/fashion.do?product=의류&category='"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">의류</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">겉옷</a></li>
-							<li><a class="dropdown-item" href="#!">상의</a></li>
-							<li><a class="dropdown-item" href="#!">하의</a></li>
-							<li><a class="dropdown-item" href="#!">잠옷 ⦁ 속옷</a></li>
-							<li><a class="dropdown-item" href="#!">신발</a></li>
+							<li><a class="dropdown-item" href="/shop/fashion.do?product=의류&category=겉옷">겉옷</a></li>
+							<li><a class="dropdown-item" href="/shop/fashion.do?product=의류&category=상의">상의</a></li>
+							<li><a class="dropdown-item" href="/shop/fashion.do?product=의류&category=하의">하의</a></li>
+							<li><a class="dropdown-item" href="/shop/fashion.do?product=의류&category=잠옷속옷">잠옷 ⦁ 속옷</a></li>
+							<li><a class="dropdown-item" href="/shop/fashion.do?product=의류&category=신발">신발</a></li>
 						</ul></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+						class="nav-link dropdown-toggle" id="navbarDropdown" 
+						onclick="location.href='/shop/food.do?product=식품&category='"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">식품</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">육류</a></li>
-							<li><a class="dropdown-item" href="#!">채소</a></li>
-							<li><a class="dropdown-item" href="#!">조미료</a></li>
+							<li><a class="dropdown-item" href="/shop/food.do?product=식품&category=육류">육류</a></li>
+							<li><a class="dropdown-item" href="/shop/food.do?product=식품&category=채소">채소</a></li>
+							<li><a class="dropdown-item" href="/shop/food.do?product=식품&category=조미료">조미료</a></li>
 						</ul></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+						class="nav-link dropdown-toggle" id="navbarDropdown"
+						onclick="location.href='/shop/electronic.do?product=전자&category='"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">전자
 							⦁ 가전</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">TV</a></li>
-							<li><a class="dropdown-item" href="#!">냉장고</a></li>
-							<li><a class="dropdown-item" href="#!">세탁기</a></li>
-							<li><a class="dropdown-item" href="#!">건조기</a></li>
-							<li><a class="dropdown-item" href="#!">청소기</a></li>
-							<li><a class="dropdown-item" href="#!">PC</a></li>
-							<li><a class="dropdown-item" href="#!">휴대폰</a></li>
+							<li><a class="dropdown-item" href="/shop/electronic.do?product=전자&category=TV">TV</a></li>
+							<li><a class="dropdown-item" href="/shop/electronic.do?product=전자&category=냉장고">냉장고</a></li>
+							<li><a class="dropdown-item" href="/shop/electronic.do?product=전자&category=세탁기">세탁기</a></li>
+							<li><a class="dropdown-item" href="/shop/electronic.do?product=전자&category=건조기">건조기</a></li>
+							<li><a class="dropdown-item" href="/shop/electronic.do?product=전자&category=청소기">청소기</a></li>
+							<li><a class="dropdown-item" href="/shop/electronic.do?product=전자&category=PC">PC</a></li>
+							<li><a class="dropdown-item" href="/shop/electronic.do?product=전자&category=휴대폰">휴대폰</a></li>
 						</ul></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+						class="nav-link dropdown-toggle" id="navbarDropdown"
+						onclick="location.href='/shop/interior.do?product=인테리어&category='"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">인테리어</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">디퓨저</a></li>
-							<li><a class="dropdown-item" href="#!">침구류</a></li>
-							<li><a class="dropdown-item" href="#!">커튼 ⦁ 블라인드</a></li>
-							<li><a class="dropdown-item" href="#!">조명</a></li>
-							<li><a class="dropdown-item" href="#!">생활용품</a></li>
-							<li><a class="dropdown-item" href="#!">가구</a></li>
+							<li><a class="dropdown-item" href="/shop/interior.do?product=인테리어&category=디퓨저">디퓨저</a></li>
+							<li><a class="dropdown-item" href="/shop/interior.do?product=인테리어&category=침구류">침구류</a></li>
+							<li><a class="dropdown-item" href="/shop/interior.do?product=인테리어&category=커튼블라인드">커튼 ⦁ 블라인드</a></li>
+							<li><a class="dropdown-item" href="/shop/interior.do?product=인테리어&category=조명">조명</a></li>
+							<li><a class="dropdown-item" href="/shop/interior.do?product=인테리어&category=생활용품">생활용품</a></li>
+							<li><a class="dropdown-item" href="/shop/interior.do?product=인테리어&category=가구">가구</a></li>
 						</ul></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+						class="nav-link dropdown-toggle" id="navbarDropdown"
+						onclick="location.href='/shop/baby.do?product=유아&category='"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">유아</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">생필품</a></li>
-							<li><a class="dropdown-item" href="#!">완구</a></li>
-							<li><a class="dropdown-item" href="#!">가구</a></li>
-							<li><a class="dropdown-item" href="#!">식품</a></li>
+							<li><a class="dropdown-item" href="/shop/baby.do?product=유아&category=생필품">생필품</a></li>
+							<li><a class="dropdown-item" href="/shop/baby.do?product=유아&category=완구">완구</a></li>
+							<li><a class="dropdown-item" href="/shop/baby.do?product=유아&category=가구">가구</a></li>
+							<li><a class="dropdown-item" href="/shop/baby.do?product=유아&category=식품">식품</a></li>
 						</ul></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+						class="nav-link dropdown-toggle" id="navbarDropdown"
+						onclick="location.href='/shop/hobby.do?product=취미&category='"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">취미</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">생필품</a></li>
-							<li><a class="dropdown-item" href="#!">완구</a></li>
-							<li><a class="dropdown-item" href="#!">가구</a></li>
-							<li><a class="dropdown-item" href="#!">식품</a></li>
+							<li><a class="dropdown-item" href="/shop/hobby.do?product=취미&category=생필품">생필품</a></li>
+							<li><a class="dropdown-item" href="/shop/hobby.do?product=취미&category=완구">완구</a></li>
+							<li><a class="dropdown-item" href="/shop/hobby.do?product=취미&category=가구">가구</a></li>
+							<li><a class="dropdown-item" href="/shop/hobby.do?product=취미&category=식품">식품</a></li>
 						</ul></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+						class="nav-link dropdown-toggle" id="navbarDropdown"
+						onclick="location.href='/shop/pet.do?product=반려동물&category='"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">반려동물</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">생필품</a></li>
-							<li><a class="dropdown-item" href="#!">완구</a></li>
-							<li><a class="dropdown-item" href="#!">가구</a></li>
-							<li><a class="dropdown-item" href="#!">식품</a></li>
+							<li><a class="dropdown-item" href="/shop/pet.do?product=반려동물&category=생필품">생필품</a></li>
+							<li><a class="dropdown-item" href="/shop/pet.do?product=반려동물&category=완구">완구</a></li>
+							<li><a class="dropdown-item" href="/shop/pet.do?product=반려동물&category=가구">가구</a></li>
+							<li><a class="dropdown-item" href="/shop/pet.do?product=반려동물&category=식품">식품</a></li>
 						</ul></li>
 
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
+						class="nav-link dropdown-toggle" id="navbarDropdown"
+						onclick="location.href='/shop/life.do?product=생활용품&category='"
 						role="button" data-bs-toggle="dropdown" aria-expanded="false">생활용품</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="#!">생필품</a></li>
-							<li><a class="dropdown-item" href="#!">완구</a></li>
-							<li><a class="dropdown-item" href="#!">가구</a></li>
-							<li><a class="dropdown-item" href="#!">식품</a></li>
+							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=생필품">생필품</a></li>
+							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=완구">완구</a></li>
+							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=가구">가구</a></li>
+							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=식품">식품</a></li>
 						</ul></li>
 				</ul>
 

@@ -3,7 +3,44 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<bean id="baby_daoBean" class="dao.BabyDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="beauty_daoBean" class="dao.BeautyDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="electronic_daoBean" class="dao.ElectronicDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="fashion_daoBean" class="dao.FashionDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="food_daoBean" class="dao.FoodDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="hobby_daoBean" class="dao.HobbyDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="interior_daoBean" class="dao.InteriorDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="lifeKitchen_daoBean" class="dao.Life_kitchenDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
+	<bean id="pet_daoBean" class="dao.PetDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>  
+	</bean>
+	
 	<bean id="users_daoBean" class="dao.UsersDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
+
 </beans>

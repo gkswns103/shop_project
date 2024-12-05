@@ -1253,6 +1253,10 @@ textarea.form-control-lg {
   top: 100%;
   left: 0;
   margin-top: var(--bs-dropdown-spacer);
+  
+   display: block !important; /* 드롭다운이 항상 표시되도록 강제 */
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 .dropdown-menu-start {
@@ -1788,9 +1792,11 @@ textarea.form-control-lg {
 .navbar-nav .nav-link.active {
   color: var(--bs-navbar-active-color);
 }
-.navbar-nav .dropdown-menu {
-  position: static;
-}
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block; /* 마우스 오버 시 드롭다운 표시 */
+    top: 100%; /* 부모 아래에 위치 */
+    left: 0;
+} 
 
 .navbar-text {
   padding-top: 0.5rem;

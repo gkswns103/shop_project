@@ -13,12 +13,13 @@ public class HomeController {
 	UsersDAO users_dao;
 	
 	public void setUsers_dao(UsersDAO users_dao) {
+		System.out.println("setdao");
 		this.users_dao = users_dao;
 	}
 	
 	@RequestMapping(value={"/"})
 	public String test(Model model) {
-
+		System.out.println("gd");
 		return Common.Path.VIEW_PATH + "home.jsp";
 	}
 	
