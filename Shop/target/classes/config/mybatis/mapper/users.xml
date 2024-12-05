@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u">
+	<select id="selectOne" parameterType="String" resultType="users">
+		select * from users where id=#{id}
+	</select>
+	
+	<insert id="insert" parameterType="users">
+		insert into users values(seq_users_idx.nextval,#{id},#{pwd},#{name},#{email},#{addr},0,0)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

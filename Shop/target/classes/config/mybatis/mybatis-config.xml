@@ -9,10 +9,10 @@
 	</settings>
 	
 	<typeAliases>
-		<!--  <typeAlias type="vo.BoardVO" alias="board"/> -->
+		<typeAlias type="vo.UsersVO" alias="users"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="config/mybatis/mapper/food.xml" />
+		<mapper resource="config/mybatis/mapper/users.xml" />
 	</mappers>
 </configuration>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,9 +106,15 @@
 							<li><a class="dropdown-item" href="#!">식품</a></li>
 						</ul></li>
 				</ul>
-
-				<a href="/shop/login" class="nav-link active me-3">LogIn</a> <a
-					href="#" class="nav-link active me-3">LogOut</a>
+				
+				<c:if test="${empty users}">
+				<a href="/shop/signin" class="nav-link active me-3">SignIn</a> <a
+					href="/shop/signup" class="nav-link active me-3">SignUp</a>
+				</c:if>
+				<c:if test="${!empty users}">
+					<a href="#" class="nav-link active me-3">${users.name}님 환영합니다</a>
+					<a href="logout" class="nav-link active me-3">로그아웃</a>
+				</c:if>
 				<form class="d-flex">
 					<button class="btn btn-outline-dark" type="submit">
 						<i class="bi-cart-fill me-1"></i> Cart <span
