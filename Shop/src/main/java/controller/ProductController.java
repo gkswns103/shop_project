@@ -28,6 +28,7 @@ import vo.PetVO;
 
 @Controller
 public class ProductController {
+	
 	FoodDAO food_dao;
 	BabyDAO baby_dao;
 	BeautyDAO beauty_dao;
@@ -74,7 +75,7 @@ public class ProductController {
 		this.food_dao = food_dao;
 	}
 	
-	@RequestMapping("/fashion.do")
+	@RequestMapping("/fashion")
 	public String fashionView(String category,String product,Model model) {
 		List<FashionVO> list=fashion_dao.selectList();
 		
@@ -83,7 +84,7 @@ public class ProductController {
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
 	
-	@RequestMapping("/food.do")
+	@RequestMapping("/food")
 	public String foodView(String category,String product,Model model) {
 		List<FoodVO> list=food_dao.selectList();
 		
@@ -92,7 +93,7 @@ public class ProductController {
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
 	
-	@RequestMapping("/electronic.do")
+	@RequestMapping("/electronic")
 	public String electronicView(String category,String product,Model model) {
 		List<ElectronicVO> list=electronic_dao.selectList();
 		
@@ -100,7 +101,8 @@ public class ProductController {
 		
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
-	@RequestMapping("/interior.do")
+	
+	@RequestMapping("/interior")
 	public String interiorView(String category,String product,Model model) {
 		List<InteriorVO> list=interior_dao.selectList();
 		
@@ -108,7 +110,8 @@ public class ProductController {
 		
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
-	@RequestMapping("/baby.do")
+	
+	@RequestMapping("/baby")
 	public String babyView(String category,String product,Model model) {
 		List<BabyVO> list=baby_dao.selectList();
 		
@@ -116,7 +119,8 @@ public class ProductController {
 		
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
-	@RequestMapping("/hobby.do")
+	
+	@RequestMapping("/hobby")
 	public String hobbyView(String category,String product,Model model) {
 		List<HobbyVO> list=hobby_dao.selectList();
 		
@@ -124,7 +128,8 @@ public class ProductController {
 		
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
-	@RequestMapping("/pet.do")
+	
+	@RequestMapping("/pet")
 	public String petView(String category,String product,Model model) {
 		List<PetVO> list=pet_dao.selectList();
 		
@@ -132,7 +137,8 @@ public class ProductController {
 		
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
-	@RequestMapping("/beauty.do")
+	
+	@RequestMapping("/beauty")
 	public String beautyView(String category,String product,Model model) {
 		List<BeautyVO> list=beauty_dao.selectList();
 		
@@ -140,7 +146,8 @@ public class ProductController {
 		
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
-	@RequestMapping("/life.do")
+	
+	@RequestMapping("/life")
 	public String lifeView(String category,String product,Model model) {
 		List<Life_kitchenVO> list=lifeKitchen_dao.selectList();
 		
@@ -149,7 +156,15 @@ public class ProductController {
 		return Common.Path.VIEW_PATH+"/productView.jsp?product="+product+"&category="+category;
 	}
 	
+	@RequestMapping("/detail")
+	public String detailView(String product,int idx) {
+		
+		
+		
+		return Common.Path.VIEW_PATH+"/productDetail.jsp";
+	}
 	
+
 	 
 	
 	
