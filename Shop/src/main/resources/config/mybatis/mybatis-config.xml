@@ -9,7 +9,7 @@
 	</settings>
 	
 	<typeAliases>
-		<!--  <typeAlias type="vo.BoardVO" alias="board"/> -->
+		 <typeAlias type="vo.FoodVO" alias="food"/> 
 	</typeAliases>
 	
 	<mappers>

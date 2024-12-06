@@ -7,4 +7,7 @@ public class Common {
 		public final static String VIEW_PATH = "/WEB-INF/views/";
 		
 	}
+	
+
+	
 }
