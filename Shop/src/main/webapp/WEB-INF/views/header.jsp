@@ -5,10 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
+
 </head>
 <body> 
-=======
+
 </head> 
 
 <body>
