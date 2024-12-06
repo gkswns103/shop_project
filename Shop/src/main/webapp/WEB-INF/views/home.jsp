@@ -37,7 +37,7 @@
 					<div class="card h-100">
 						<!-- Product image-->
 						<img class="card-img-top" src="/shop/resources/img/고등어.jpg"
-							alt="..." />
+							alt="..." onclick="location.href=''"/>
 						<!-- Product details-->
 						<div class="card-body p-4">
 							<div class="text-center">
@@ -45,13 +45,6 @@
 								<h5 class="fw-bolder">노르웨이 팔딱팔딱 간고등어</h5>
 								<!-- Product price-->
 								50000원
-							</div>
-						</div>
-						<!-- Product actions-->
-						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center">
-								<a class="btn btn-outline-dark mt-auto" href="#">View
-									options</a>
 							</div>
 						</div>
 					</div>

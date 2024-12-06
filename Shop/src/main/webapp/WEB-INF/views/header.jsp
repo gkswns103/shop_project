@@ -115,7 +115,7 @@
 						onclick="location.href='/shop/life.do?product=생활용품&category='"
 						role="button" aria-expanded="false">생활용품</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=생활">생필</a></li>
+							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=생활">생활</a></li>
 							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=주방">주방</a></li>
 							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=청소">청소</a></li>
 							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=빨래">빨래</a></li>
@@ -153,9 +153,8 @@
 		style="background-image: url('/shop/resources/img/당근.jpg')">
 		<div class="container px-4 px-lg-5 my-5">
 			<div class="text-center text-white">
-				<h1 class="display-4 fw-bolder">Shop in style</h1>
-				<p class="lead fw-normal text-white-50 mb-0">With this shop
-					homepage template</p>
+				<h1 class="display-4 fw-bolder">  </h1>
+				<p class="lead fw-normal text-white-50 mb-0">  </p>
 			</div>
 		</div>
 	</header>
