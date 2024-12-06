@@ -25,7 +25,6 @@ public class HomeController {
 	HttpServletRequest request;
 	
 	public void setUsers_dao(UsersDAO users_dao) {
-		System.out.println("setdao");
 		this.users_dao = users_dao;
 	}
 
@@ -58,8 +57,6 @@ public class HomeController {
 	public String signup_form(UsersVO users) {
 		if(users_dao.selectone(users.getId()) == null) { //회원이 없는경우
 			int res = users_dao.insert(users);
-			
-			session.setAttribute("users", users);
 			return "가입 성공";
 		}
 		return "중복된 아이디 입니다.";
