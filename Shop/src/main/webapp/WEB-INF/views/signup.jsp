@@ -49,7 +49,7 @@
 			let msg = xhr.responseText;
 			alert(msg);
 			if(msg == "가입 성공"){
-				location.href="/shop/signin"
+				location.href="/shop/signin_form"
 			}
 			else{
 				return;
