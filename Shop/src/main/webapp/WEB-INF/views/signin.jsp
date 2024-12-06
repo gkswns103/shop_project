@@ -17,6 +17,59 @@
 	<link rel="stylesheet" type="text/css" href="/shop/resources/vendor/daterangepicker/daterangepicker.css">
 	<link rel="stylesheet" type="text/css" href="/shop/resources/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/shop/resources/css/main.css">
+	
+	<script>
+	function send(f){
+		let id = f.id.value;
+		let pwd = f.pwd.value;
+	
+	if(id === ''){
+		alert("아이디를 입력하세요");
+	 	return;
+	}
+	
+	if(pwd === ''){
+		alert("비밀번호를 입력하세요");
+	 	return;
+	}
+	
+	let id_test = /^[a-zA-Z0-9._-]{3,50}$/;
+	let pwd_test = /^[a-zA-Z0-9._-]{3,100}$/;
+	
+	if(!id_test.test(id)){
+		alert("올바른 아이디를 입력하세요");
+		return;
+	}
+	if(!pwd_test.test(pwd)){
+		alert("올바른 비밀번호를 입력하세요");
+		return;
+	}
+	
+	let url = "login.do";
+	let param = "id=" + id + "&pwd=" + encodeURIComponent(pwd);
+	sendRequest(url, param, resultlog, "post");
+	}
+	
+	function resultlog(){
+		if( xhr.readyState == 4 && xhr.status == 200){
+			let date = xhr.responseText;
+			alert("asdas");
+		
+		if(date === 'no_id'){
+			alert("없는 id");
+			return;
+		}else if(date === 'no_pwd'){
+			alert("비밀번호가 틀립니다.");
+			return;
+		}else{
+			location.href = "/shop/";
+		}
+		
+	}
+
+
+	}
+	</script>
 </head>
 <body>
 	
@@ -39,12 +92,12 @@
 					</a>
 					
 					<div class="p-t-31 p-b-9">
-						<span class="txt1">
+						<span class="txt1" >
 							Username
 						</span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Username is required">
-						<input class="input100" type="text" name="username" >
+						<input class="input100" type="text" name="id" >
 						<span class="focus-input100"></span>
 					</div>
 					
@@ -58,14 +111,13 @@
 						</a>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" >
+						<input class="input100" type="password" name="pwd" >
 						<span class="focus-input100"></span>
+						
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
-						<button class="login100-form-btn">
-							Sign In
-						</button>
+						<input type="button" class="login100-form-btn" value="Sign Up" onclick="send(this.form)"/>
 					</div>
 
 					<div class="w-full text-center p-t-55">
@@ -94,6 +146,7 @@
 	<script src="/shop/resources/vendor/daterangepicker/daterangepicker.js"></script>
 	<script src="/shop/resources/vendor/countdowntime/countdowntime.js"></script>
 	<script src="/shop/resources/js/main.js"></script>
+	<script src="/shop/resources/js/httpRequest.js"></script>
 
 </body>
 </html>
