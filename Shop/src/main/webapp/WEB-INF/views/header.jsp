@@ -120,6 +120,15 @@
 							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=청소">청소</a></li>
 							<li><a class="dropdown-item" href="/shop/life.do?product=생활용품&category=빨래">빨래</a></li>
 						</ul></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" id="navbarDropdown"
+						onclick="location.href='/shop/beauty.do?product=뷰티&category='"
+						role="button" aria-expanded="false">뷰티</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="/shop/beauty.do?product=뷰티&category=화장품">화장품</a></li>
+							<li><a class="dropdown-item" href="/shop/beauty.do?product=뷰티&category=스킨케어">스킨케어</a></li>
+							<li><a class="dropdown-item" href="/shop/beauty.do?product=뷰티&category=향수">향수</a></li>
+						</ul></li>
 				</ul>
 				
 				<c:if test="${empty users}">
