@@ -30,8 +30,9 @@ public class ProductController {
 	
 	@RequestMapping("/product")
 	public String product_list(Model model, String division, String category) {
-			System.out.println("하이");
-		
+			HomeController controller=new HomeController();
+			controller.setHeaderData(model);
+			
 			List<ProductVO> list;
 			
 			if(category == "") {

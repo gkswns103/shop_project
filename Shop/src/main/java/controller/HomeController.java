@@ -36,9 +36,20 @@ public class HomeController {
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
-
+	
+	public void setHeaderData(Model model) {
+		List<ProductVO> list=product_dao.selectMenu();
+		List<ProductVO> divs=product_dao.selectDiv();
+		
+		model.addAttribute("menu", list);
+		model.addAttribute("divs",divs);   
+		
+	}
+	
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
 	public String home(Model model) {
+		setHeaderData(model);
+		
 		List<ProductVO> list = product_dao.select_list();
 		
 		model.addAttribute("list", list);
@@ -48,13 +59,14 @@ public class HomeController {
 	
 	@RequestMapping("/logout")
 	public String logout() {
+		
 		session.removeAttribute("users");
 		
 		return "redirect:/";
 	}
 	
 	@RequestMapping("/signin")
-	public String signin(Model model) {
+	public String signin() {
 
 		return Common.Path.VIEW_PATH + "signin.jsp";
 	}
