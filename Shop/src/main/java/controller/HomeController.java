@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.Common;
+import dao.ProductDAO;
 import dao.UsersDAO;
+import vo.ProductVO;
 import vo.UsersVO;
 
 @Controller
 public class HomeController {
 	
 	UsersDAO users_dao;
+	ProductDAO product_dao;
 	
 	@Autowired
 	HttpSession session;
@@ -27,9 +32,16 @@ public class HomeController {
 	public void setUsers_dao(UsersDAO users_dao) {
 		this.users_dao = users_dao;
 	}
+	
+	public void setProduct_dao(ProductDAO product_dao) {
+		this.product_dao = product_dao;
+	}
 
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
-	public String home() {
+	public String home(Model model) {
+		List<ProductVO> list = product_dao.select_list();
+		
+		model.addAttribute("list", list);
 		
 		return Common.Path.VIEW_PATH + "home.jsp";
 	}

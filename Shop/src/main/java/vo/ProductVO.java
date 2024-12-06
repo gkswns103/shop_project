@@ -1,10 +1,15 @@
 package vo;
 
-public class BabyVO {
+public class ProductVO {
 	private int idx,price,discount,inventory,selleridx;
-	private String name,explanation,filepath,category;
+	private String name,explanation,filepath,category,division;
 	
-	
+	public String getDivision() {
+		return division;
+	}
+	public void setDivision(String division) {
+		this.division = division;
+	}
 	public String getCategory() {
 		return category;
 	}
