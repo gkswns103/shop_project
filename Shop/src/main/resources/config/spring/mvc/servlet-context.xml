@@ -23,18 +23,11 @@
 		
 	<beans:bean class="controller.HomeController">
 		<beans:property name="users_dao" ref="users_daoBean"/>
+		<beans:property name="product_dao" ref="product_daoBean"/>
 	</beans:bean>
 	
 	<beans:bean class="controller.ProductController">
-		<beans:property name="baby_dao" ref="baby_daoBean"/>
-		<beans:property name="beauty_dao" ref="beauty_daoBean"/>
-		<beans:property name="electronic_dao" ref="electronic_daoBean"/>
-		<beans:property name="fashion_dao" ref="fashion_daoBean"/> 
-		<beans:property name="food_dao" ref="food_daoBean"/>
-		<beans:property name="hobby_dao" ref="hobby_daoBean"/>
-		<beans:property name="interior_dao" ref="interior_daoBean"/>
-		<beans:property name="lifeKitchen_dao" ref="lifeKitchen_daoBean"/>
-		<beans:property name="pet_dao" ref="pet_daoBean"/>
+		<beans:property name="product_dao" ref="product_daoBean"/>
 	</beans:bean>
 	
 	
