@@ -17,6 +17,32 @@
 	<link rel="stylesheet" type="text/css" href="/shop/resources/vendor/daterangepicker/daterangepicker.css">
 	<link rel="stylesheet" type="text/css" href="/shop/resources/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/shop/resources/css/main.css">
+		
+		<script src="js/http/Request.js"></script>
+		
+        <script>
+       	function send(f){
+       		let id = f.id.value;
+       		let pwd = f.pwd.value;
+       		
+       		
+       		if(id == ''){
+       			alert("아이디를 입력하세요");
+       			return;
+       		}
+       		
+       		if(pwd == ''){
+       			alert("비밀번호를 입력하세요");
+       			return;
+       		}
+       		
+       		
+       		
+       		
+       	}
+    </script>
+	
+	
 </head>
 <body>
 	
@@ -44,7 +70,9 @@
 						</span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Username is required">
-						<input class="input100" type="text" name="username" >
+					
+						<input class="input100" type="text" name="id" >
+						
 						<span class="focus-input100"></span>
 					</div>
 					
@@ -58,15 +86,24 @@
 						</a>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" >
+					
+						<input class="input100" type="password" name="pwd" >
+						
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
-						<button class="login100-form-btn">
+					
+						<button class="login100-form-btn" id="olginButton" class="login100-form-btn"
+						
+						onclick="send(this.form)">
+						
 							Sign In
+							
 						</button>
+						
 					</div>
+					
 
 					<div class="w-full text-center p-t-55">
 						<span class="txt2">
