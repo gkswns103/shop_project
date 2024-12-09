@@ -19,7 +19,6 @@
 		<link href="/shop/resources/css/style4.css" rel="stylesheet" />
 		<link href="/shop/resources/css/style5.css" rel="stylesheet" />
 		<link href="/shop/resources/css/style6.css" rel="stylesheet" />
-		
 		<script src="/shop/resources/js/amount_counter.js"></script>
 	</head>
 	
@@ -32,7 +31,10 @@
 		
 		<div class="container1">
 			<div>
-				홈 > ${vo.category} > ${vo.division} <br><br>
+				<a href="/shop/">홈</a> > 
+				<a href="/shop/product?division=${vo.division}&category=">${vo.division}</a> > 
+				<a href="/shop/product?division=${vo.division}&category=${vo.category}">${vo.category}</a> 
+				<br><br>
 				<img alt="" src="/shop/resources/img/${vo.filepath }">
 			</div>
 			

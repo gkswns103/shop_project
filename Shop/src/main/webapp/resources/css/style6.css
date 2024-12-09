@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+a {
+    text-decoration: none;  /* 밑줄 제거 */
+    color: inherit;         /* 부모 색상 사용 */
+}
 .container1 {
     display: flex;
     flex-direction: row;
