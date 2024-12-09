@@ -20,12 +20,39 @@
 		<link href="/shop/resources/css/style5.css" rel="stylesheet" />
 		<link href="/shop/resources/css/style6.css" rel="stylesheet" />
 		<script src="/shop/resources/js/amount_counter.js"></script>
+		
+		<script>
+			function add(f){
+				// 로그인 되있는지 확인
+				<c:if test="${!empty users}">
+			        var usersExist = true;
+			    </c:if>
+			    
+			    <c:if test="${empty users}">
+			        var usersExist = false;
+			    </c:if>
+
+		    
+			    if (!usersExist) {
+			        //로그인 안되있을때
+			        alert("로그인이 필요한 서비스입니다");
+			        location.href="signin_form";
+			    }
+			     else {
+			       //로그인 되있을때
+				   f.method="get";
+			       f.action="cart_insert";
+			       f.submit;
+				}
+			}
+		</script>
+		
 	</head>
 	
 	<body>
 		<jsp:include page="header.jsp"></jsp:include>
 	
-		<input type="hidden" value=${vo.idx } name="idx">
+		<input type="hidden" value=${vo.product_idx } name="product_idx">
 		<input type="hidden" value=${vo.selleridx } name="selleridx">
 		<input type="hidden" value=${vo.inventory } id="inventory">
 		
@@ -38,25 +65,27 @@
 				<img alt="" src="/shop/resources/img/${vo.filepath }">
 			</div>
 			
-			<div>
-				<br>${vo.name } <br>
-				<hr>
-				${vo.price }원 ( 할인율 : ${vo.discount }% )<br>
-				남은수량 : ${vo.inventory }개
-				<hr>
-				배송비 : <br>
-				<hr>
-				${vo.explain }
-				
-				<div class="counter-container">
-			        <input id="amount" name="amount" value="1">
-			        <button id="decrease" onclick="decrease()">▼</button>
-			        <button id="increase" onclick="increase()">▲</button>
-			        
-					<input type="button" value="장바구니 담기" onclick="">
-					<input type="button" value="바로 구매" onclick="">
-   			    </div>
-			</div>
+			<form>
+				<div>
+					<br>${vo.name } <br>
+					<hr>
+					${vo.price }원 ( 할인율 : ${vo.discount }% )<br>
+					남은수량 : ${vo.inventory }개
+					<hr>
+					배송비 : <br>
+					<hr>
+					${vo.explain }
+					
+					<div class="counter-container">
+				        <input id="amount" name="amount" value="1">
+				        <button id="decrease" onclick="decrease()">▼</button>
+				        <button id="increase" onclick="increase()">▲</button>
+				      
+						<input type="button" value="장바구니 담기" onclick="add(this.form)">
+						<input type="button" value="바로 구매" onclick="">
+	   			    </div>
+				</div>
+			</form>
 	
 			
 		</div>
