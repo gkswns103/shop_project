@@ -1,14 +1,15 @@
 package vo;
 
 public class UsersVO {
-	private int idx, age, sellerauth;
+	private int user_idx, age, sellerauth;
 	private String id, pwd, name, email, addr;
 	
-	public int getIdx() {
-		return idx;
+	
+	public int getUser_idx() {
+		return user_idx;
 	}
-	public void setIdx(int idx) {
-		this.idx = idx;
+	public void setUser_idx(int user_idx) {
+		this.user_idx = user_idx;
 	}
 	public int getAge() {
 		return age;

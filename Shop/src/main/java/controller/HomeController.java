@@ -54,7 +54,7 @@ public class HomeController {
 	public String logout() {
 		
 		session.removeAttribute("users");
-
+		
 		return "redirect:/";
 	}
 
@@ -109,6 +109,10 @@ public class HomeController {
 		}
 		return "중복된 아이디 입니다.";
 	}
+	
+	
+	
+	
 
 	@RequestMapping(value = "/my_imformation")
 	public String my_imformation(int user_idx, Model model) {

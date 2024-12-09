@@ -20,8 +20,8 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/detail")
-	public String detailView(Model model,int idx) {
-		ProductVO vo=product_dao.selectOne(idx);
+	public String detailView(Model model,int product_idx) {
+		ProductVO vo=product_dao.selectOne(product_idx);
 		
 		model.addAttribute("vo",vo);
 		
