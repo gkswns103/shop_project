@@ -1,6 +1,5 @@
 package controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -98,5 +97,12 @@ public class HomeController {
 		}
 		return "중복된 아이디 입니다.";
 	}
-
+	
+	@RequestMapping("/kakaologin")
+	public String kakaologin(UsersVO users,Model model) {
+			session.setAttribute("users", users);
+			return "redirect:/";
+		
+		
+	}
 }
