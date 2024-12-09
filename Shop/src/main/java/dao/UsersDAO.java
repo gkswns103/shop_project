@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import vo.UsersVO;
 
 public class UsersDAO {
+	
 	SqlSession sqlSession;
 	
 	public void setSqlSession(SqlSession sqlSession) {
@@ -23,5 +24,10 @@ public class UsersDAO {
 		
 		return res;
 	}
-
+	
+	public UsersVO selectIdx(int idx) {
+		UsersVO user = sqlSession.selectOne("u.select_imfo", idx);
+		
+		return user;
+	}
 }

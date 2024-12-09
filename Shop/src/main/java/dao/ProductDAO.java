@@ -31,4 +31,14 @@ public class ProductDAO {
 		
 		return list;
 	}
+	public List<ProductVO> selectMenu(int idx){
+		List<ProductVO> list= sqlSession.selectList("p.select_Menu");
+		
+		return list;
+	}
+	public ProductVO selectOne(int idx){
+		ProductVO vo= sqlSession.selectOne("p.select_one",idx);
+	
+		return vo;
+	}
 }
