@@ -1,8 +1,9 @@
 package common;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class Bcrypt {
+public class BCryptPwd {
 
 	//해야하는거 회원가입시 비밀번호 받아와서 암호화
 	//암호화 상태로 db저장 
