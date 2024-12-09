@@ -54,7 +54,7 @@ public class HomeController {
    public String logout() {
       
       session.removeAttribute("users");
-
+      
       return "redirect:/";
    }
 
@@ -62,26 +62,23 @@ public class HomeController {
    @RequestMapping("/signin")
    @ResponseBody
    public String signin(String id, String c_pwd) {
-	    // 1. 사용자 정보 조회
-	    UsersVO user = users_dao.selectone(id);
+      UsersVO user = users_dao.selectone(id);
+      // 복호화 할 자리
+      BCryptPwd bcp = new BCryptPwd();
+      boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 
-	    // 2. 사용자 존재 여부 확인
-	    if (user == null) {
-	        return "no_id"; // 사용자 ID가 없음
-	    }
+      if (user == null) {
+         return "no_id";
+      } else {
+         if (isValid) {
+            session.setAttribute("users", user);
+            return "ok";
+         } else {
+            return "no_pwd";
+         }
+      }
 
-	    // 3. 비밀번호 검증
-	    BCryptPwd bcp = new BCryptPwd();
-	    boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
-
-	    // 4. 비밀번호 검증 결과 확인
-	    if (isValid) {
-	        session.setAttribute("users", user);
-	        return "ok"; // 로그인 성공
-	    } else {
-	        return "no_pwd"; // 비밀번호 불일치
-	    }
-	}
+   }
    
    @RequestMapping("/signin_form")
    public String signin_form() {
@@ -112,5 +109,7 @@ public class HomeController {
       }
       return "중복된 아이디 입니다.";
    }
-
+   
+   
+   
 }

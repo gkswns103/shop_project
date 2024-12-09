@@ -10,5 +10,8 @@
 	<bean id="users_daoBean" class="dao.UsersDAO">
 		<property name="sqlSession" ref="sqlSessionBean"/>
 	</bean>
+	<bean id="cart_daoBean" class="dao.CartDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
 
 </beans>

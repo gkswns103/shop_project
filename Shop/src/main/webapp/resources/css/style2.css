@@ -1106,6 +1106,8 @@ textarea.form-control-lg {
   --bs-btn-disabled-bg: transparent;
   --bs-btn-disabled-border-color: #212529;
   --bs-gradient: none;
+  
+   z-index: 10;
 }
 
 .btn-link {

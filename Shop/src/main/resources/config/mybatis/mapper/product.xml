@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="select_division" resultType="product" parameterType="String">
 		select * from product where division=#{division}
 	</select>
-	
+	 
 	<!-- 메뉴바 검색 -->
 	<select id="select_Menu" resultType="product">
 		select distinct division, category from product
@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 제품 상세보기 -->
 	<select id="select_one" resultType="product" parameterType="int">
-		 select * from product where idx=#{idx}
+		 select * from product where product_idx=#{product_idx}
 	</select>
 </mapper>
 

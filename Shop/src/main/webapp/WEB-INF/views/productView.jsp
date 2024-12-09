@@ -42,7 +42,7 @@
 								<!-- Product image-->
 								<img class="card-img-top"
 									src="/shop/resources/img/${vo.filepath}" 
-									onclick="location.href='/shop/detail?idx=${vo.idx}'" alt="..." />
+									onclick="location.href='/shop/detail?product_idx=${vo.product_idx}'" alt="..." />
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">
@@ -62,7 +62,7 @@
 								<!-- Product image-->
 								<img class="card-img-top"
 									src="/shop/resources/img/${vo.filepath}" 
-									onclick="location.href='/shop/detail?idx=${vo.idx}'" alt="..." />
+									onclick="location.href='/shop/detail?product_idx=${vo.product_idx}'" alt="..." />
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">
