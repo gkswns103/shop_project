@@ -138,7 +138,7 @@
                href="signup" class="nav-link active me-3">SignUp</a>
             </c:if>
             <c:if test="${!empty users}">
-               <a href="#" class="nav-link active me-3">${users.name}님 환영합니다</a>
+               <a href="my_imformation?idx=${users.idx}" class="nav-link active me-3">${users.name}님 환영합니다</a>
                <a href="logout" class="nav-link active me-3">로그아웃</a>
             </c:if>
             <form class="d-flex">

@@ -110,4 +110,13 @@ public class HomeController {
 		return "중복된 아이디 입니다.";
 	}
 
+	@RequestMapping(value = "/my_imformation")
+	public String my_imformation(int user_idx, Model model) {
+		
+		System.out.println("idx=" + user_idx );
+		UsersVO user = users_dao.selectIdx(user_idx);
+		model.addAttribute("user", user);
+		return Common.Path.VIEW_PATH + "my_imformation.jsp";
+	}
+	
 }
