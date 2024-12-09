@@ -24,9 +24,14 @@
 <link href="/shop/resources/css/style3.css" rel="stylesheet" />
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
+
+
+
 </head>
 <body>
+   <!-- Header-->
    <jsp:include page="header.jsp"></jsp:include>
+  	<jsp:include page="headerImg.jsp"></jsp:include>
    <!-- Section-->
 
    <section class="py-5">

@@ -20,11 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 메뉴바 검색 -->
 	<select id="select_Menu" resultType="product">
-		select category,division from product
+		select distinct division, category from product
 	</select>
 	
-	<select id="select_Div" resultType="String">
-		SELECT DISTINCT division FROM product
+	<!-- 제품 상세보기 -->
+	<select id="select_one" resultType="product" parameterType="int">
+		 select * from product where idx=#{idx}
 	</select>
 </mapper>
 

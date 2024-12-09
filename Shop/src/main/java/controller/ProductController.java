@@ -20,8 +20,10 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/detail")
-	public String detailView(String product,int idx) {
+	public String detailView(Model model,int idx) {
+		ProductVO vo=product_dao.selectOne(idx);
 		
+		model.addAttribute("vo",vo);
 		
 		return Common.Path.VIEW_PATH+"/productDetail.jsp";
 	}
@@ -30,8 +32,6 @@ public class ProductController {
 	
 	@RequestMapping("/product")
 	public String product_list(Model model, String division, String category) {
-			HomeController controller=new HomeController();
-			controller.setHeaderData(model);
 			
 			List<ProductVO> list;
 			
