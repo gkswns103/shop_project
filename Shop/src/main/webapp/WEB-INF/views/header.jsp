@@ -108,7 +108,7 @@
 							<li><a class="dropdown-item" href="/shop/product?division=반려동물&category=반려용품">반려용품</a></li>
 							<li><a class="dropdown-item" href="/shop/product?division=반려동물&category=반려의류">반려의류</a></li>
 						</ul></li>
-
+			
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdown"
 						onclick="location.href='/shop/product?division=생활용품&category='"

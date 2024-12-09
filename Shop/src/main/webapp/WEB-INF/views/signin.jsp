@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png"
-	href="/shop/resoutces/images/icons/favicon.ico" />
+	href="/shop/resources/images/icons/favicon.ico" />
 <link rel="stylesheet" type="text/css"
 	href="/shop/resources/vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
@@ -30,6 +30,35 @@
 	href="/shop/resources/css/main.css">
 
 <script>
+	//카카오로그인
+	function kakaoLogin() {
+
+		$.ajax({
+			url : '/shop/getKakaoAuthUrl',
+			type : 'get',
+			async : false,
+			dataType : 'text',
+			success : function(res) {
+				location.href = res;
+			}
+		});
+
+	}
+
+	$(document).ready(
+			function() {
+
+				var kakaoInfo = '${kakaoInfo}';
+
+				if (kakaoInfo != "") {
+					var data = JSON.parse(kakaoInfo);
+
+					alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+					alert("user : \n" + "email : " + data['email']
+							+ "\n nickname : " + data['nickname']);
+				}
+			});
+
 	function send(f) {
 		let id = f.id.value;
 		let pwd = f.pwd.value;
@@ -86,13 +115,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
 				<form class="login100-form validate-form flex-sb flex-w">
-					<span class="login100-form-title p-b-53"> Want It </span> <a
-						href="#" class="btn-face m-b-20"> <i
-						class="fa fa-facebook-official"></i> Facebook
-					</a> <a href="#" class="btn-google m-b-20"> <img
-						src="/shop/resources/images/icons/icon-google.png" alt="GOOGLE">
-						Google
-					</a>
+					<span class="login100-form-title p-b-53"> Want It </span>
 
 					<div class="p-t-31 p-b-9">
 						<span class="txt1"> Username </span>
@@ -111,16 +134,19 @@
 						data-validate="Password is required">
 						<input class="input100" type="password" name="pwd"> <span
 							class="focus-input100"></span>
-
 					</div>
-
+					
+					<div class="container-login100-form-btn m-t-17">
+						<img alt=".." src="/shop/resources/images/icons/카카오로그인.png" style="width: 460px; height: 60px; border-radius: 10px"
+						onclick="kakaoLogin(); return false;">
+					</div>
 					<div class="container-login100-form-btn m-t-17">
 						<input type="button" class="login100-form-btn" value="Sign Up"
 							onclick="send(this.form)" />
 					</div>
 
 					<div class="w-full text-center p-t-55">
-						<span class="txt2"> Not a member? </span> <a href="#"
+						<span class="txt2"> Not a member? </span> <a href="/shop/signup"
 							class="txt2 bo1"> Sign up now </a>
 					</div>
 				</form>
@@ -141,6 +167,8 @@
 	<script src="/shop/resources/vendor/countdowntime/countdowntime.js"></script>
 	<script src="/shop/resources/js/main.js"></script>
 	<script src="/shop/resources/js/httpRequest.js"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </body>
 </html>

@@ -30,6 +30,10 @@
 		<beans:property name="product_dao" ref="product_daoBean"/>
 	</beans:bean>
 	
+	<beans:bean class="controller.KakaoController">
+		
+	</beans:bean>
+	
 	
 </beans:beans>
 	
