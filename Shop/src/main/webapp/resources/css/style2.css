@@ -1615,6 +1615,8 @@ textarea.form-control-lg {
   list-style: none;
 }
 
+
+
 .nav-link {
   display: block;
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
@@ -1798,18 +1800,18 @@ textarea.form-control-lg {
 .navbar-nav .nav-link.active {
   color: var(--bs-navbar-active-color);
 }
-<<<<<<< HEAD
+
 
 .navbar-nav .dropdown-menu {
   position: static;
 }
-=======
+
 .nav-item.dropdown:hover .dropdown-menu {
     display: block; /* 마우스 오버 시 드롭다운 표시 */
     top: 100%; /* 부모 아래에 위치 */
     left: 0;
 } 
->>>>>>> refs/remotes/origin/이한준
+
 
 .navbar-text {
   padding-top: 0.5rem;
@@ -1843,6 +1845,9 @@ textarea.form-control-lg {
     transition: none;
   }
 }
+
+
+
 .navbar-toggler:hover {
   text-decoration: none;
 }
