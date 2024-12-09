@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png"
-   href="/shop/resources/images/icons/favicon.ico" />
+   href="/shop/resoutces/images/icons/favicon.ico" />
 <link rel="stylesheet" type="text/css"
    href="/shop/resources/vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
@@ -30,43 +30,36 @@
    href="/shop/resources/css/main.css">
 
 <script>
-function send(f) {
-    let id = f.id.value;
-    let c_pwd = f.c_pwd.value;
+   function send(f) {
+      let id = f.id.value;
+      let c_pwd = f.c_pwd.value;
+      
 
-    let id_test = /^[a-zA-Z0-9._-]{3,50}$/; 
-    let c_pwd_test = /^[a-zA-Z0-9._-]{3,100}$/;
+      if (id === '') {
+         alert("아이디를 입력하세요");
+         return;
+      }
 
-    if (id === '') {
-       alert("아이디를 입력하세요");
-       return;
-    }
+      if (c_pwd === '') {
+         alert("비밀번호를 입력하세요");
+         return;
+      }
 
-    if (c_pwd === '') {
-       alert("비밀번호를 입력하세요");
-       return;
-    }
+      
 
-    if (!id_test.test(id)) {
-       alert("올바른 아이디를 입력하세요");
-       return;
-    }
-    if (!c_pwd_test.test(c_pwd)) {
-       alert("올바른 비밀번호를 입력하세요");
-       return;
-    }
-
-    let url = "signin";
-    let param = "id=" + id + "&c_pwd=" + c_pwd;
-    sendRequest(url, param, resultlog, "post");
- }
+      let url = "signin";
+      let param = "id=" + id + "&c_pwd=" + encodeURIComponent(c_pwd);
+      sendRequest(url, param, resultlog, "post");
+      
+   }
 
    function resultlog() {
+	   
       if (xhr.readyState == 4 && xhr.status == 200) {
          let date = xhr.responseText;
 
          if (date === 'no_id') {
-            alert("없는 id");
+            alert("등록되지 않은 ID입니다");
             return;
          } else if (date === 'no_pwd') {
             alert("비밀번호가 틀립니다.");
@@ -81,7 +74,7 @@ function send(f) {
 </script>
 </head>
 <body>
-<input type="hidden" name="pwd" value="${vo.pwd}">
+
    <div class="limiter">
       <div class="container-login100">
          <div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
@@ -107,21 +100,21 @@ function send(f) {
                   <span class="txt1"> Password </span> <a href="#"
                      class="txt2 bo1 m-l-5"> Forgot? </a>
                </div>
+               
                <div class="wrap-input100 validate-input"
                   data-validate="Password is required">
                   <input class="input100" type="password" name="c_pwd"> <span
                      class="focus-input100"></span>
-                      
 
                </div>
-
+               
                <div class="container-login100-form-btn m-t-17">
                   <input type="button" class="login100-form-btn" value="Sign Up"
                      onclick="send(this.form)" />
                </div>
 
                <div class="w-full text-center p-t-55">
-                  <span class="txt2"> Not a member? </span> <a href="#"
+                  <span class="txt2"> Not a member? </span> <a href="signup"
                      class="txt2 bo1"> Sign up now </a>
                </div>
             </form>

@@ -1,8 +1,6 @@
 package controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,13 +14,25 @@ import vo.ProductVO;
 public class ProductController {
 	
 	ProductDAO product_dao;
-	 
+
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
 	
+	@RequestMapping("/detail")
+	public String detailView(Model model,int idx) {
+		ProductVO vo=product_dao.selectOne(idx);
+		
+		model.addAttribute("vo",vo);
+		
+		return Common.Path.VIEW_PATH+"/productDetail.jsp";
+	}
+	
+
+	
 	@RequestMapping("/product")
 	public String product_list(Model model, String division, String category) {
+			
 			List<ProductVO> list;
 			
 			if(category == "") {

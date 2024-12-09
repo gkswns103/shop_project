@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import vo.UsersVO;
 
 public class UsersDAO {
+	
 	SqlSession sqlSession;
 	
 	public void setSqlSession(SqlSession sqlSession) {

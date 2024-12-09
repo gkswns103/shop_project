@@ -27,6 +27,7 @@
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="headerImg.jsp"></jsp:include>
 	<!-- Section-->
 
 	<section class="py-5">
@@ -40,7 +41,8 @@
 							<div class="card h-100">
 								<!-- Product image-->
 								<img class="card-img-top"
-									src="/shop/resources/img/${vo.filepath}" alt="..." />
+									src="/shop/resources/img/${vo.filepath}" 
+									onclick="location.href='/shop/detail?idx=${vo.idx}'" alt="..." />
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">
@@ -52,13 +54,15 @@
 								</div>
 							</div>
 						</div>
+						 
 					</c:if>
 					<c:if test="${param.category eq vo.category}">
 						<div class="col mb-5">
 							<div class="card h-100">
 								<!-- Product image-->
 								<img class="card-img-top"
-									src="/shop/resources/img/${vo.filepath}" alt="..." />
+									src="/shop/resources/img/${vo.filepath}" 
+									onclick="location.href='/shop/detail?idx=${vo.idx}'" alt="..." />
 								<!-- Product details-->
 								<div class="card-body p-4">
 									<div class="text-center">
