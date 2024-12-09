@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import common.BCryptPwd;
 import common.Common;
 import dao.ProductDAO;
 import dao.UsersDAO;
@@ -56,14 +57,16 @@ public class HomeController {
 
 	@RequestMapping("/signin")
 	@ResponseBody
-	public String signin(String id, String pwd) {
+	public String signin(String id, String c_pwd) {
 		UsersVO user = users_dao.selectone(id);
 		// 복호화 할 자리
+		BCryptPwd bcp = new BCryptPwd();
+		boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 
 		if (user == null) {
 			return "no_id";
 		} else {
-			if (user.getPwd().equals(pwd)) {
+			if (isValid) {
 				session.setAttribute("users", user);
 				return "ok";
 			} else {
@@ -89,7 +92,11 @@ public class HomeController {
 		if (users_dao.selectone(users.getId()) == null) { // 회원이 없는경우
 			
 			//암호화 할 자리
+			BCryptPwd bcp = new BCryptPwd();
+			String encodePwd = bcp.encryption(users.getPwd());
 			//암호화 하고 다시 set
+			users.setPwd(encodePwd);
+			
 			
 			int res = users_dao.insert(users);
 

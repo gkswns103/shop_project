@@ -32,32 +32,23 @@
 <script>
 	function send(f) {
 		let id = f.id.value;
-		let pwd = f.pwd.value;
+		let c_pwd = f.c_pwd.value;
+		
 
 		if (id === '') {
 			alert("아이디를 입력하세요");
 			return;
 		}
 
-		if (pwd === '') {
+		if (c_pwd === '') {
 			alert("비밀번호를 입력하세요");
 			return;
 		}
 
-		let id_test = /^[a-zA-Z0-9._-]{3,50}$/;
-		let pwd_test = /^[a-zA-Z0-9._-]{3,100}$/;
-
-		if (!id_test.test(id)) {
-			alert("올바른 아이디를 입력하세요");
-			return;
-		}
-		if (!pwd_test.test(pwd)) {
-			alert("올바른 비밀번호를 입력하세요");
-			return;
-		}
+		
 
 		let url = "signin";
-		let param = "id=" + id + "&pwd=" + encodeURIComponent(pwd);
+		let param = "id=" + id + "&c_pwd=" + encodeURIComponent(c_pwd);
 		sendRequest(url, param, resultlog, "post");
 	}
 
@@ -107,13 +98,14 @@
 						<span class="txt1"> Password </span> <a href="#"
 							class="txt2 bo1 m-l-5"> Forgot? </a>
 					</div>
+					
 					<div class="wrap-input100 validate-input"
 						data-validate="Password is required">
-						<input class="input100" type="password" name="pwd"> <span
+						<input class="input100" type="password" name="c_pwd"> <span
 							class="focus-input100"></span>
 
 					</div>
-
+					
 					<div class="container-login100-form-btn m-t-17">
 						<input type="button" class="login100-form-btn" value="Sign Up"
 							onclick="send(this.form)" />
