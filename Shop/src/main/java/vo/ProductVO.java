@@ -1,9 +1,10 @@
 package vo;
 
 public class ProductVO {
-	private int idx,price,discount,inventory,selleridx;
-	private String name,explanation,filepath,category,division;
+	private int product_idx,price,discount,inventory,selleridx;
+	private String name,explain,filepath,category,division;
 	
+	 
 	public String getDivision() {
 		return division;
 	}
@@ -16,11 +17,12 @@ public class ProductVO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public int getIdx() {
-		return idx;
+	
+	public int getProduct_idx() {
+		return product_idx;
 	}
-	public void setIdx(int idx) {
-		this.idx = idx;
+	public void setProduct_idx(int product_idx) {
+		this.product_idx = product_idx;
 	}
 	public int getPrice() {
 		return price;
@@ -52,11 +54,11 @@ public class ProductVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getExplanation() {
-		return explanation;
+	public String getExplain() {
+		return explain;
 	}
-	public void setExplanation(String explanation) {
-		this.explanation = explanation;
+	public void setExplain(String explain) {
+		this.explain = explain;
 	}
 	public String getFilepath() {
 		return filepath;

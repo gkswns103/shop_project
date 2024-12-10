@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import common.BCryptPwd;
 import common.Common;
 import dao.ProductDAO;
 import dao.UsersDAO;
@@ -36,9 +37,12 @@ public class HomeController {
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
-
+	
+	
+	
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
 	public String home(Model model) {
+		
 		List<ProductVO> list = product_dao.select_list();
 
 		model.addAttribute("list", list);
@@ -48,21 +52,26 @@ public class HomeController {
 
 	@RequestMapping("/logout")
 	public String logout() {
+		
 		session.removeAttribute("users");
-
+		
 		return "redirect:/";
 	}
 
+
 	@RequestMapping("/signin")
 	@ResponseBody
-	public String signin(String id, String pwd) {
+	public String signin(String id, String c_pwd) {
 		UsersVO user = users_dao.selectone(id);
-		// 복호화 할 자리
 
 		if (user == null) {
 			return "no_id";
-		} else {
-			if (user.getPwd().equals(pwd)) {
+		} 
+		else {
+			// 복호화 할 자리
+			BCryptPwd bcp = new BCryptPwd();
+			boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
+			if (isValid) {
 				session.setAttribute("users", user);
 				return "ok";
 			} else {
@@ -88,7 +97,11 @@ public class HomeController {
 		if (users_dao.selectone(users.getId()) == null) { // 회원이 없는경우
 			
 			//암호화 할 자리
+			BCryptPwd bcp = new BCryptPwd();
+			String encodePwd = bcp.encryption(users.getPwd());
 			//암호화 하고 다시 set
+			users.setPwd(encodePwd);
+			
 			
 			int res = users_dao.insert(users);
 
@@ -98,6 +111,10 @@ public class HomeController {
 		return "중복된 아이디 입니다.";
 	}
 	
+	
+	
+	
+
 	@RequestMapping("/kakaologin")
 	public String kakaologin(UsersVO users,Model model) {
 			session.setAttribute("users", users);
@@ -105,4 +122,14 @@ public class HomeController {
 		
 		
 	}
+
+	@RequestMapping(value = "/my_imformation")
+	public String my_imformation(int user_idx, Model model) {
+		
+		System.out.println("idx=" + user_idx );
+		UsersVO user = users_dao.selectIdx(user_idx);
+		model.addAttribute("user", user);
+		return Common.Path.VIEW_PATH + "my_imformation.jsp";
+	}
+
 }
