@@ -130,7 +130,7 @@
 					
 					<div class="container-login100-form-btn m-t-17">
 						<img alt=".." src="/shop/resources/images/icons/카카오로그인.png" style="width: 460px; height: 60px; border-radius: 10px"
-						onclick="kakaoLogin(); return false;">
+						onclick="kakaoLogin();">
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">

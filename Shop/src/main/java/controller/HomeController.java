@@ -63,14 +63,14 @@ public class HomeController {
 	@ResponseBody
 	public String signin(String id, String c_pwd) {
 		UsersVO user = users_dao.selectone(id);
-		// 복호화 할 자리
-		BCryptPwd bcp = new BCryptPwd();
-		boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 
 		if (user == null) {
 			return "no_id";
 		} 
 		else {
+			// 복호화 할 자리
+			BCryptPwd bcp = new BCryptPwd();
+			boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 			if (isValid) {
 				session.setAttribute("users", user);
 				return "ok";
