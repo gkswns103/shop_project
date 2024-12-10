@@ -19,31 +19,49 @@
 		<link href="/shop/resources/css/style4.css" rel="stylesheet" />
 		<link href="/shop/resources/css/style5.css" rel="stylesheet" />
 		<link href="/shop/resources/css/style6.css" rel="stylesheet" />
+		
 		<script src="/shop/resources/js/amount_counter.js"></script>
+		<script src="/shop/resources/js/httpRequest.js"></script>
 		
 		<script>
-			function add(f){
+			function add(){
 				// 로그인 되있는지 확인
 				<c:if test="${!empty users}">
-			        var usersExist = true;
+			        let usersExist = true;
 			    </c:if>
 			    
 			    <c:if test="${empty users}">
-			        var usersExist = false;
-			    </c:if>
-
-		    
-			    if (!usersExist) {
-			        //로그인 안되있을때
-			        alert("로그인이 필요한 서비스입니다");
+				    alert("로그인이 필요한 서비스입니다");
 			        location.href="signin_form";
-			    }
-			     else {
-			       //로그인 되있을때
-				   f.method="get";
-			       f.action="cart_insert";
-			       f.submit;
+			        return;
+			    </c:if>
+			    
+			    let quantity=document.getElementById("amount").value;
+			   
+			    let url="cart_insert";
+			    let param=
+"user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+			    
+			    sendRequest(url,param,addFn,"post");
+			}
+			
+			function addFn(){
+				if(xhr.readyState==4 && xhr.status == 200){
+					let data=xhr.responseText;
+					if(data =='fail'){
+						alert("장바구니에 넣지못함");
+						return;
+					}else if(data=='duplicate'){
+						alert("이미 장바구니에 있습니다");
+					}else if(data =='success') {
+						 if (confirm("장바구니에 넣었습니다. 장바구니로 이동하시겠습니까?")) {
+						        location.href='/shop/cart?user_idx=${sessionScope.users.user_idx}';
+						    }
+					}
+			
+				
 				}
+				
 			}
 		</script>
 		
@@ -65,7 +83,7 @@
 				<img alt="" src="/shop/resources/img/${vo.filepath }">
 			</div>
 			
-			<form>
+			
 				<div>
 					<br>${vo.name } <br>
 					<hr>
@@ -78,14 +96,15 @@
 					
 					<div class="counter-container">
 				        <input id="amount" name="amount" value="1">
+				     
 				        <button id="decrease" onclick="decrease()">▼</button>
 				        <button id="increase" onclick="increase()">▲</button>
-				      
-						<input type="button" value="장바구니 담기" onclick="add(this.form)">
+						<input type="button" value="장바구니 담기" onclick="add()">
 						<input type="button" value="바로 구매" onclick="">
 	   			    </div>
+				    
 				</div>
-			</form>
+			
 	
 			
 		</div>
