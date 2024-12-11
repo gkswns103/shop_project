@@ -33,7 +33,8 @@
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=잠옷">잠옷</a></li>
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=속옷">속옷</a></li>
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=신발">신발</a></li>
-                  </ul></li>
+                  </ul>
+                 </li>
 
                <li class="nav-item dropdown"><a
                   class="nav-link dropdown-toggle" id="navbarDropdown" 

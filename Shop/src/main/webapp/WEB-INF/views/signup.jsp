@@ -28,36 +28,6 @@
 	href="/shop/resources/css/util.css">
 <link rel="stylesheet" type="text/css"
 	href="/shop/resources/css/main.css">
-
-<script>
-	function signup(f) {
-		
-		let email_p = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-		
-		if(!email_p.test(f.email.value)){
-			alert("잘못된 이메일 형식입니다.");
-			return;
-		}
-		let url = "signup_form";
-		let param = "id=" + encodeURIComponent(f.id.value) + "&pwd=" + encodeURIComponent(f.pwd.value) + "&name=" + f.name.value + "&email=" + f.email.value + "&addr=" +f.addr.value;
-		
-		sendRequest(url,param,signupFn,"POST");
-	}
-	
-	function signupFn() {
-		if(xhr.readyState == 4 && xhr.status == 200){
-			let msg = xhr.responseText;
-			alert(msg);
-			if(msg == "가입 성공"){
-				location.href="/shop/signin_form"
-			}
-			else{
-				return;
-			}
-		}
-	}
-</script>
-
 </head>
 <body>
 
@@ -75,7 +45,7 @@
 						<input class="input100" type="text" name="id"> <span
 							class="focus-input100"></span>
 					</div>
-					
+
 					<div class="p-t-10 p-b-9">
 						<span class="txt1"> 비밀번호 </span>
 					</div>
@@ -86,7 +56,7 @@
 					</div>
 
 					<div class="p-t-10 p-b-9">
-						<span class="txt1"> 이름 </span>
+						<span class="txt1"> 	이름 </span>
 					</div>
 					<div class="wrap-input100 validate-input"
 						data-validate="Name is required">
@@ -94,14 +64,6 @@
 							class="focus-input100"></span>
 					</div>
 
-					<div class="p-t-10 p-b-9">
-						<span class="txt1"> 이메일 </span>
-					</div>
-					<div class="wrap-input100 validate-input"
-						data-validate="Email is required">
-						<input class="input100" type="email" name="email"> <span
-							class="focus-input100"></span>
-					</div>
 
 					<div class="p-t-10 p-b-9">
 						<span class="txt1"> 주소 </span>
@@ -113,8 +75,33 @@
 					</div>
 
 
+					<div class="p-t-10 p-b-9">
+						<span class="txt1"> 이메일 </span>
+					</div>
+					<div class="wrap-input100 validate-input"
+						data-validate="Email is required"
+						style="display: flex; align-items: center;">
+						<input class="input100" type="email" id="email"
+							style="flex: 1; margin-right: 10px;"> <input
+							type="button" onclick="sendEmail();" value="인증"
+							style="padding: 8px 16px; background: none;">
+					</div>
+
+					<div class="p-t-10 p-b-9">
+						<span class="txt1"> 인증코드 </span>
+					</div>
+					<div class="wrap-input100 validate-input"
+						data-validate="Email is required"
+						style="display: flex; align-items: center;">
+						<input class="input100" id="veriftcode"
+							style="flex: 1; margin-right: 10px; " readonly> <input
+							type="button" onclick="codecheck()" value="확인"
+							style="padding: 8px 16px; background: none;">
+					</div>
+
 					<div class="container-login100-form-btn m-t-50">
-						<input type="button" class="login100-form-btn" onclick="signup(this.form)" value="Sign Up">
+						<input type="button" class="login100-form-btn"
+							onclick="signup(this.form)" value="Sign Up">
 					</div>
 				</form>
 			</div>
@@ -134,6 +121,7 @@
 	<script src="/shop/resources/vendor/countdowntime/countdowntime.js"></script>
 	<script src="/shop/resources/js/main.js"></script>
 	<script src="/shop/resources/js/httpRequest.js"></script>
+	<script src="/shop/resources/js/signup.js"></script>
 
 </body>
 </html>
