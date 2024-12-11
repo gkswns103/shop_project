@@ -138,8 +138,8 @@
             </ul>
             
             <c:if test="${empty users}">
-            <a href="signin_form" class="nav-link active me-3">SignIn</a> <a
-               href="signup" class="nav-link active me-3">SignUp</a>
+            <a href="signin_form" class="nav-link active me-3">SignIn</a> 
+            <a href="signup" class="nav-link active me-3">SignUp</a>
             </c:if>
             <c:if test="${!empty users}">
                <a href="#" class="nav-link active me-3">${users.name}님<br> 환영합니다</a>

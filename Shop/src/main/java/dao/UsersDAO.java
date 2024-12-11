@@ -24,5 +24,12 @@ public class UsersDAO {
 		
 		return res;
 	}
+	
+	public UsersVO selectOne(String id) {
+	    if (id == null) {
+	        throw new IllegalArgumentException("ID는 null일 수 없습니다.");
+	    }
+	    return sqlSession.selectOne("namespace.selectone", id);
+	}
 
 }

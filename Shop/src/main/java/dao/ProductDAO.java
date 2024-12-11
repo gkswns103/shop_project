@@ -41,4 +41,37 @@ public class ProductDAO {
 	
 		return vo;
 	}
+	
+    public List<String> getDistinctCategories() {
+        return sqlSession.selectList("p.select_distinct_categories");
+    }
+
+    public List<String> getDistinctDivisions(String category) {
+        return sqlSession.selectList("p.select_distinct_divisions", category);
+    }
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
