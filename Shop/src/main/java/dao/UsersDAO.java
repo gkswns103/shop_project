@@ -25,9 +25,24 @@ public class UsersDAO {
 		return res;
 	}
 	
-	public UsersVO selectIdx(int idx) {
-		UsersVO user = sqlSession.selectOne("u.select_imfo", idx);
+	public UsersVO selectIdx(int user_idx) {
+		UsersVO user = sqlSession.selectOne("u.select_imfo", user_idx);
 		
 		return user;
 	}
+	
+	public UsersVO selectOne(int user_idx) {
+		UsersVO user = sqlSession.selectOne("u.select_imfo",user_idx);
+		return user;
+	}
+	
+	
+	
+	public int update(UsersVO user_up) {
+		 
+		int res = sqlSession.update("u.update",user_up);
+		
+		return res;
+	}
+	
 }

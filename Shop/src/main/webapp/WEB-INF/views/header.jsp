@@ -133,15 +133,15 @@
                </li>
             </ul>
             
-            <c:if test="${empty users}">
+             <c:if test="${empty users}"> 
             <a href="signin_form" class="nav-link active me-3">SignIn</a> <a
                href="signup" class="nav-link active me-3">SignUp</a>
-            </c:if>
-            <c:if test="${!empty users}">
-               <a href="my_imformation?idx=${users.idx}" class="nav-link active me-3">${users.name}님 환영합니다</a>
+             </c:if> 
+             <c:if test="${!empty users}">
+               <a href="my_imformation?user_idx=${users.user_idx}" class="nav-link active me-3">${users.name}님 환영합니다</a>
                <a href="logout" class="nav-link active me-3">로그아웃</a>
-            </c:if>
-            <c:if test="${!empty users}">
+             </c:if> 
+           
             
             <form class="d-flex">
                <a href="/shop/cart?user_idx= ${sessionScope.users.user_idx}" class="btn btn-outline-dark">
@@ -149,7 +149,7 @@
    				  <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
 			   </a>
             </form>
-            </c:if>
+           
             
          </div>
       </div>

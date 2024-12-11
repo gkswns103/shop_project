@@ -12,6 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="select_imfo" parameterType ="int" resultType="users">
-	select * from users where idx = #{idx}
+	select * from users where user_idx = #{user_idx}
 	</select>
+	
+	<update id="update" parameterType="users">
+	update users set 
+	id=#{id}, pwd=#{pwd}, name=#{name}, email=#{email} ,addr=#{addr} where user_idx = #{user_idx}
+	</update>
+	
 </mapper>
