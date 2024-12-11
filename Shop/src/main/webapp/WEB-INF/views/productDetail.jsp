@@ -40,7 +40,7 @@
 			   
 			    let url="cart_insert";
 			    let param=
-"user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+"user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
 			    
 			    sendRequest(url,param,addFn,"post");
 			}
@@ -87,7 +87,8 @@
 				<div>
 					<br>${vo.name } <br>
 					<hr>
-					${vo.price }원 ( 할인율 : ${vo.discount }% )<br>
+					${vo.price }원 ${vo.discount }% 할인 <br>
+					${vo.realprice }
 					남은수량 : ${vo.inventory }개
 					<hr>
 					배송비 : <br>

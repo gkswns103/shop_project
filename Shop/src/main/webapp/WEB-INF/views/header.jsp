@@ -100,6 +100,7 @@
                      <li><a class="dropdown-item" href="/shop/product?division=취미&category=낚시">낚시</a></li>
                   </ul></li>
 
+
                <li class="nav-item dropdown"><a
                   class="nav-link dropdown-toggle" id="navbarDropdown"
                   onclick="location.href='/shop/product?division=반려동물&category='"
@@ -137,23 +138,27 @@
             <a href="signin_form" class="nav-link active me-3">SignIn</a> <a
                href="signup" class="nav-link active me-3">SignUp</a>
             </c:if>
+            
             <c:if test="${!empty users}">
                <a href="#" class="nav-link active me-3">${users.name}님 환영합니다</a>
                <a href="logout" class="nav-link active me-3">로그아웃</a>
             </c:if>
-            <c:if test="${!empty users}">
             
-            <form class="d-flex">
-               <a href="/shop/cart?user_idx= ${sessionScope.users.user_idx}" class="btn btn-outline-dark">
-   				  <i class="bi-cart-fill me-1"></i> Cart 
-   				  <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-			   </a>
-            </form>
+            <c:if test="${!empty users}">
+	            <form class="d-flex">
+	               <a href="/shop/cart?user_idx=${sessionScope.users.user_idx}" class="btn btn-outline-dark">
+	   				  <i class="bi-cart-fill me-1"></i> Cart 
+	   				  <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.cart_count }</span>
+				   </a>
+	            </form>
             </c:if>
             
          </div>
       </div>
    </nav>
    
+
+	
+
 </body>
 </html>

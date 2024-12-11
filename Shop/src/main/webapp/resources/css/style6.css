@@ -39,3 +39,99 @@ input[name="amount"] {
             border: 1px solid #ccc; /* 테두리 */
             border-radius: 4px; /* 둥근 모서리 */
         }
+        
+        
+        
+.cart-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  width:1200px;
+  margin: 0 auto;
+}
+
+.container2 {
+  display: flex;
+  position: relative;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+.item {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.box1 {
+  flex: 0 0 150px;
+}
+
+.cartImg {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.box2 {
+  max-width:500px;
+  margin-top:30px;
+  flex: 1;
+  display: block;
+ /*  display: flex; */
+  flex-direction: column;
+  justify-content: center;
+  word-wrap: break-word; /* 긴 단어를 줄바꿈 */
+  word-break: break-word; /* 단어가 너무 길면 줄바꿈 */	
+}
+
+.box3 {
+  position: sticky;
+  top: 35%;
+  margin-left: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  width: 900px;
+  height: fit-content;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid black; 
+  margin: 10px 0;
+}
+
+.cartImg{
+	width:200px;
+}
+
+.discount{
+
+	color: red;
+}
+.price{
+	color:gray;
+	text-decoration: line-through;
+}
+.discount, .price {
+  display: inline-block;  /* 두 요소를 동일한 줄에 배치 */
+  margin-right: 10px; /* 두 요소 사이의 간격 */
+  vertical-align: middle; /* 수직 정렬 */
+}
+
+
+
+
+
+
+

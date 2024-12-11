@@ -25,4 +25,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and option = ${option}
 			</if> -->
 	</select>
+	
+	<select id="cart_count" parameterType="int" resultType="int">
+		select count(*) from cart where user_idx=#{user_idx}
+	</select>
+	
+	<delete id="cart_delete" parameterType="cart">
+		delete from cart where user_idx=${user_idx} and product_idx=${product_idx}
+	</delete>
+	
+	<update id="cart_update" parameterType="cart">
+		update cart SET quantity = #{quantity} WHERE user_idx=${user_idx} and product_idx=${product_idx}
+
+	</update>
 </mapper>

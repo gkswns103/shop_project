@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.BCryptPwd;
 import common.Common;
+import dao.CartDAO;
 import dao.ProductDAO;
 import dao.UsersDAO;
 import vo.ProductVO;
@@ -23,6 +24,7 @@ public class HomeController {
 
 	UsersDAO users_dao;
 	ProductDAO product_dao;
+	CartDAO cart_dao;
 
 	@Autowired
 	HttpSession session;
@@ -37,9 +39,12 @@ public class HomeController {
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
+	public void setCart_dao(CartDAO cart_dao) {
+		this.cart_dao = cart_dao;
+	}
 	
 	
-	
+	//기본 url
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
 	public String home(Model model) {
 		
@@ -54,6 +59,7 @@ public class HomeController {
 	public String logout() {
 		
 		session.removeAttribute("users");
+		session.removeAttribute("cart_count");
 		
 		return "redirect:/";
 	}
@@ -72,6 +78,12 @@ public class HomeController {
 		} else {
 			if (isValid) {
 				session.setAttribute("users", user);
+				
+				int user_idx=user.getUser_idx();
+				System.out.println("useridx="+user_idx);
+
+				int cart_count=cart_dao.cart_count(user_idx);
+				session.setAttribute("cart_count", cart_count);
 				return "ok";
 			} else {
 				return "no_pwd";
@@ -101,7 +113,6 @@ public class HomeController {
 			//암호화 하고 다시 set
 			users.setPwd(encodePwd);
 			
-			
 			int res = users_dao.insert(users);
 
 			session.setAttribute("users", users);
@@ -110,8 +121,13 @@ public class HomeController {
 		return "중복된 아이디 입니다.";
 	}
 	
-	
-	
-	
+
+	@RequestMapping("/kakaologin")
+	public String kakaologin(UsersVO users,Model model) {
+			session.setAttribute("users", users);
+			return "redirect:/";
+		
+		
+	}
 
 }

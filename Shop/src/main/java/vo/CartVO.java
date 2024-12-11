@@ -1,10 +1,17 @@
 package vo;
 
 public class CartVO {
-	int cart_idx,user_idx,product_idx,quantity,price,discount;
+	int cart_idx,user_idx,product_idx,quantity,price,discount,realprice;
 	String status,name,filepath;
 	
 	
+	
+	public int getRealprice() {
+        return (int) (price * (1 - discount / 100.0)); 
+    }
+	public void setRealprice(int realprice) {
+		this.realprice = realprice;
+	}
 	public int getPrice() {
 		return price;
 	}
