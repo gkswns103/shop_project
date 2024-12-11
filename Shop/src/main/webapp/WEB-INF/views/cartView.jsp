@@ -9,13 +9,19 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-	  장바구니임
+	  장바구니임 <br>
 	  <c:forEach var="vo" items="${list }">
-  	  	${vo.cart_idx }
-  	  	${vo.user_idx }
-  	  	${vo.product_idx }
-  	  	${vo.quantity }
-  	  	${vo.status }
+  	  cart_idx : ${vo.cart_idx }
+  	  user_idx : ${vo.user_idx }
+  	  product_idx :	${vo.product_idx }
+  	  quantity : ${vo.quantity }
+  	  status : ${vo.status }
+  	  name : ${vo.name }
+  	  price : ${vo.price }
+  	  discount : ${vo.discount }
+	  filepath : ${vo.filepath }
+
+  	  	<br>
 	  </c:forEach>
 	</body>
 </html>

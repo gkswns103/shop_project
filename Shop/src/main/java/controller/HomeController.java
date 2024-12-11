@@ -64,13 +64,14 @@ public class HomeController {
 	@ResponseBody
 	public String signin(String id, String c_pwd) {
 		UsersVO user = users_dao.selectone(id);
-		// 복호화 할 자리
-		BCryptPwd bcp = new BCryptPwd();
-		boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 
 		if (user == null) {
 			return "no_id";
-		} else {
+		} 
+		else {
+			// 복호화 할 자리
+			BCryptPwd bcp = new BCryptPwd();
+			boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 			if (isValid) {
 				session.setAttribute("users", user);
 				return "ok";
@@ -110,7 +111,15 @@ public class HomeController {
 		}
 		return "중복된 아이디 입니다.";
 	}
-
+	
+	@RequestMapping("/kakaologin")
+	public String kakaologin(UsersVO users,Model model) {
+			session.setAttribute("users", users);
+			return "redirect:/";
+		
+		
+	}
+	
 	// 정보확인을 위한 1명 조회
 	@RequestMapping(value = "/my_imformation")
 	public String my_imformation(int user_idx, Model model) {
@@ -158,4 +167,5 @@ public class HomeController {
 			return "yes";
 		}
 	}
+
 }

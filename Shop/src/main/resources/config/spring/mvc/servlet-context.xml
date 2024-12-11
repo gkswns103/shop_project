@@ -33,6 +33,14 @@
 		<beans:property name="cart_dao" ref="cart_daoBean"/>
 	</beans:bean>
 	
+	<beans:bean class="controller.KakaoController">
+		
+	</beans:bean>
+	
+	<beans:bean class="controller.MailController">
+	
+	</beans:bean>
+	
 	
 </beans:beans>
 	

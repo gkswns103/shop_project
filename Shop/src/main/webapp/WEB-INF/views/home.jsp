@@ -44,7 +44,7 @@
                   <div class="card h-100">
                      <!-- Product image-->
                      <img class="card-img-top" src="/shop/resources/img/${vo.filepath}"
-                        alt="..." />
+                        alt="..." onclick="location.href='/shop/detail?product_idx=${vo.product_idx}'"/>
                      <!-- Product details-->
                      <div class="card-body p-4">
                         <div class="text-center">
