@@ -10,4 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="users">
 		insert into users values(seq_users_idx.nextval,#{id},#{pwd},#{name},#{email},#{addr},0,0)
 	</insert>
+	
+	<select id="select_imfo" parameterType ="int" resultType="users">
+	select * from users where idx = #{idx}
+	</select>
 </mapper>

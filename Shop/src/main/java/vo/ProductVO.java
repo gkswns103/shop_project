@@ -17,7 +17,6 @@ public class ProductVO {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
 	public int getProduct_idx() {
 		return product_idx;
 	}

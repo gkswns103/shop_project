@@ -1,8 +1,34 @@
 package vo;
 
 public class CartVO {
-	int cart_idx,user_idx,product_idx,quantity;
-	String status;
+	int cart_idx,user_idx,product_idx,quantity,price,discount;
+	String status,name,filepath;
+	
+	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public int getDiscount() {
+		return discount;
+	}
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getFilepath() {
+		return filepath;
+	}
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
 	public int getCart_idx() {
 		return cart_idx;
 	}

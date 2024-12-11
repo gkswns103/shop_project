@@ -1,1 +1,1 @@
-# shop_project
+# KH 쇼핑몰 프로젝트

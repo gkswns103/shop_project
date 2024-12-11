@@ -37,7 +37,8 @@
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=잠옷">잠옷</a></li>
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=속옷">속옷</a></li>
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=신발">신발</a></li>
-                  </ul></li>
+                  </ul>
+                 </li>
 
                <li class="nav-item dropdown"><a
                   class="nav-link dropdown-toggle" id="navbarDropdown" 
@@ -149,9 +150,9 @@
             
             <form class="d-flex">
                <a href="/shop/cart?user_idx= ${sessionScope.users.user_idx}" class="btn btn-outline-dark">
-   				  <i class="bi-cart-fill me-1"></i> Cart 
-   				  <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-			   </a>
+                 <i class="bi-cart-fill me-1"></i> Cart 
+                 <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+            </a>
             </form>
             </c:if>
             

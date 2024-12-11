@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.Common;
 import dao.CartDAO;
+import dao.ProductDAO;
 import vo.CartVO;
 
 @Controller
 public class CartController {
 	CartDAO cart_dao;
-
+	ProductDAO product_dao;
 	public void setCart_dao(CartDAO cart_dao) {
 		this.cart_dao = cart_dao;
 	}
@@ -30,10 +31,29 @@ public class CartController {
 	}
 
 
-	@RequestMapping("cart_insert")
+	@RequestMapping("/cart_insert")
 	@ResponseBody
-	public String cartInsert() {
+	public String cartInsert(CartVO vo) {
 		
-		return "";
+		boolean isDuplicate = cart_dao.check_duplicate(vo);
+		  
+		String result="";
+		
+		//카트에 이미 똑같은 물건이 담겨있을 때
+		//중복이면
+		if(isDuplicate) {
+			result="duplicate";
+			return result;
+		}
+		
+		int res=cart_dao.insert_cart(vo);
+		
+		System.out.println("카트 insert 결과 : "+res);
+		if(res==0) {
+			result="fail";
+		}else {
+			result="success";
+		}
+		return result;
 	}
 }
