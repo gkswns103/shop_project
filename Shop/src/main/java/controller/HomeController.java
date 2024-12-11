@@ -50,7 +50,7 @@ public class HomeController {
 
 		return Common.Path.VIEW_PATH + "home.jsp";
 	}
-
+	//로그아웃
 	@RequestMapping("/logout")
 	public String logout() {
 
@@ -58,7 +58,8 @@ public class HomeController {
 
 		return "redirect:/";
 	}
-
+	
+	//로그인
 	@RequestMapping("/signin")
 	@ResponseBody
 	public String signin(String id, String c_pwd) {
@@ -90,7 +91,7 @@ public class HomeController {
 		return Common.Path.VIEW_PATH + "signup.jsp";
 	}
 
-	// 로그인
+	// 회원가입
 	@RequestMapping(value = "/signup_form", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String signup_form(UsersVO users) {

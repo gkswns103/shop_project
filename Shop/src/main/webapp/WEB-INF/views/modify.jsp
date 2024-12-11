@@ -11,13 +11,22 @@
 <script>
 
 	let can_i = "no"
+	let can_i_pass = "no"
+	function pass(checkbox){
+		const checkbox = document.getElementById("checkbox");
+		if(checkbox.checked){
+			checkbox.style.display ="table-row"; //보이기
+		}else{
+			passwordFields.style.display = "none";//숨기기
+		}
+	}
 	
 	function send(f){
 		
-	if(can_i==="yes"){	
+	if(can_i==="yes" &&& can_i_pass==="yes"){	
 		let id = f.id.value;
 		let pwd = f.pwd.value;
-		
+		let new_pwd = f.new_pwd.value;
 		let name = f.name.value;
 		let email = f.email.value;
 		let addr = f.addr.value;
@@ -26,9 +35,7 @@
 			alert("id를 입력하세요");
 			return;
 		}
-		if( pwd === ''){
-			alert("pwd를 입력하세요");
-			return;
+		
 		}
 		if( name === ''){
 			alert("이름을 입력하세요");
@@ -61,10 +68,6 @@
 			return;
 		}
 		
-		if( email === ''){
-			alert("메일을 입력하세요");
-			return;
-		}
 		
 		let url = "idEmailCheck";
 		let param = "id="+id;
@@ -106,11 +109,7 @@
 			<tr>
 				<td><input name="id" value="${ user.id }"></td>
 			</tr>
-
-			<tr>
-				<td><input name="pwd" type="password" value="${ user.pwd }"></td>
-			</tr>
-
+			
 			<tr>
 				<td><input name="name" value="${ user.name }"></td>
 			</tr>
@@ -129,7 +128,19 @@
 
 			<tr>
 				<td>
-				<input type="button" value="중복체크" onclick="check(this.form);"> 
+					<input type="checkbox" id="passwordCheck" onclick="pass(this);">
+					<label for="passwordCheck">비밀번호 변경</label>
+				</td>
+			</tr>
+
+			<tr id="password_check" style="display: none;">
+				<td><input name="pwd" type="password" placeholder="기존 비밀번호 입력"></td>
+				<td><input name="new_pwd" type="password" placeholder="새 비밀번호 입력"></td>
+			</tr>
+			
+			<tr>
+				<td>
+				<input type="button" value="중복체크" onclick="check(this.form);">
 				<input type="button" value="수정하기" onclick="send(this.form);"> 
 				<input type="button" value="취소" onclick="history.back();">
 				</td>
