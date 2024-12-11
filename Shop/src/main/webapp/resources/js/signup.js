@@ -82,6 +82,7 @@
 			code = xhr.responseText;
 			let verift = document.getElementById("veriftcode");
 			verift.removeAttribute("readonly");
+			alert("이메일 전송 완료");
 		}
 	}
 	
