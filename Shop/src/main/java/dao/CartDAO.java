@@ -21,5 +21,25 @@ public class CartDAO {
 		
 		return list;
 	}
+	
+	public int insert_cart(CartVO vo) {
+		
+		int res=sqlSession.insert("c.insert_cart", vo);
+		
+		return res;
+		
+	}
+	public int select_idx(CartVO vo) {
+		
+		int res=sqlSession.selectOne("c.select_idx",vo);
+		
+		return res;
+	}
+	
+	public boolean check_duplicate(CartVO vo) {
+		int count=sqlSession.selectOne("c.check_duplicate",vo);
+		
+		return count>0;
+	}
 
 }
