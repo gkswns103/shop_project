@@ -26,8 +26,6 @@ public class MailController {
 	@ResponseBody
 	public String emailAuth(String email) {
 		
-		System.out.println("전달 받은 이메일 주소 : " + email);
-		
 		//난수의 범위 111111 ~ 999999 (6자리 난수)
 		Random random = new Random();
 		int checkNum = random.nextInt(888888)+111111;
@@ -51,17 +49,9 @@ public class MailController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("랜덤숫자 : " + checkNum);
+
 		
 		return Integer.toString(checkNum);
-	}
-	
-	@RequestMapping(value= "/verify")
-	public String verify(String code , Model model) {
-		model.addAttribute("code",code);
-		
-		return Common.Path.VIEW_PATH + "verify.jsp";
 	}
 }
     
