@@ -38,6 +38,10 @@
 		
 	</beans:bean>
 	
+	<beans:bean class="controller.MailController">
+	
+	</beans:bean>
+	
 	
 </beans:beans>
 	

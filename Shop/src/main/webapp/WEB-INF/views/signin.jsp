@@ -94,6 +94,7 @@
 
    }
 </script>
+
 </head>
 <body>
 
@@ -112,6 +113,7 @@
                      class="focus-input100"></span>
                </div>
 
+
                <div class="p-t-13 p-b-9">
                   <span class="txt1"> Password </span> <a href="#"
                      class="txt2 bo1 m-l-5"> Forgot? </a>
@@ -123,15 +125,19 @@
                      class="focus-input100"></span>
                </div>
                
-               <div class="container-login100-form-btn m-t-17">
-                  <img alt=".." src="/shop/resources/images/icons/카카오로그인.png" style="width: 460px; height: 60px; border-radius: 10px"
-                  onclick="kakaoLogin();">
-               </div>
+					
+					<div class="container-login100-form-btn m-t-17">
+						<img alt=".." src="/shop/resources/images/icons/카카오로그인.png" style="width: 460px; height: 60px; border-radius: 10px"
+						onclick="kakaoLogin();">
+					</div>
 
-               <div class="container-login100-form-btn m-t-17">
-                  <input type="button" class="login100-form-btn" value="Sign Up"
-                     onclick="send(this.form)" />
-               </div>
+					<div class="container-login100-form-btn m-t-17">
+						<input type="button" class="login100-form-btn" value="Sign Up"
+							onclick="send(this.form)" />
+					</div>
+
+
+           
 
                <div class="w-full text-center p-t-55">
                   <span class="txt2"> Not a member? </span> <a href="/shop/signup" class="txt2 bo1"> Sign up now </a>
@@ -141,21 +147,21 @@
       </div>
    </div>
 
-
    <div id="dropDownSelect1"></div>
 
-   <script src="/shop/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
-   <script src="/shop/resources/vendor/animsition/js/animsition.min.js"></script>
-   <script src="/shop/resources/vendor/bootstrap/js/popper.js"></script>
-   <script src="/shop/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
-   <script src="/shop/resources/vendor/select2/select2.min.js"></script>
-   <script src="/shop/resources/vendor/daterangepicker/moment.min.js"></script>
-   <script src="/shop/resources/vendor/daterangepicker/daterangepicker.js"></script>
-   <script src="/shop/resources/vendor/countdowntime/countdowntime.js"></script>
-   <script src="/shop/resources/js/main.js"></script>
-   <script src="/shop/resources/js/httpRequest.js"></script>
-   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="/shop/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/shop/resources/vendor/animsition/js/animsition.min.js"></script>
+	<script src="/shop/resources/vendor/bootstrap/js/popper.js"></script>
+	<script src="/shop/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/shop/resources/vendor/select2/select2.min.js"></script>
+	<script src="/shop/resources/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/shop/resources/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="/shop/resources/vendor/countdowntime/countdowntime.js"></script>
+	<script src="/shop/resources/js/main.js"></script>
+	<script src="/shop/resources/js/httpRequest.js"></script>
+	<script src="/shop/resources/js/signin.js"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </body>
 </html>

@@ -33,7 +33,8 @@
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=잠옷">잠옷</a></li>
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=속옷">속옷</a></li>
                      <li><a class="dropdown-item" href="/shop/product?division=의류&category=신발">신발</a></li>
-                  </ul></li>
+                  </ul>
+                 </li>
 
                <li class="nav-item dropdown"><a
                   class="nav-link dropdown-toggle" id="navbarDropdown" 
@@ -134,16 +135,16 @@
                </li>
             </ul>
             
-            <c:if test="${empty users}">
+             <c:if test="${empty users}"> 
             <a href="signin_form" class="nav-link active me-3">SignIn</a> <a
                href="signup" class="nav-link active me-3">SignUp</a>
             </c:if>
             
             <c:if test="${!empty users}">
-               <a href="#" class="nav-link active me-3">${users.name}님 환영합니다</a>
+               <a href="my_imformation?user_idx=${users.user_idx}" class="nav-link active me-3">${users.name}님 환영합니다</a>
                <a href="logout" class="nav-link active me-3">로그아웃</a>
             </c:if>
-            
+
             <c:if test="${!empty users}">
 	            <form class="d-flex">
 	               <a href="/shop/cart?user_idx=${sessionScope.users.user_idx}" class="btn btn-outline-dark">
@@ -152,13 +153,10 @@
 				   </a>
 	            </form>
             </c:if>
+
             
          </div>
       </div>
    </nav>
-   
-
-	
-
 </body>
 </html>
