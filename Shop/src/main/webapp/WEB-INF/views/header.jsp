@@ -137,15 +137,12 @@
              <c:if test="${empty users}"> 
             <a href="signin_form" class="nav-link active me-3">SignIn</a> <a
                href="signup" class="nav-link active me-3">SignUp</a>
-<<<<<<< HEAD
+
              </c:if> 
-             <c:if test="${!empty users}">
-               <a href="my_imformation?user_idx=${users.user_idx}" class="nav-link active me-3">${users.name}님 환영합니다</a>
-=======
-            </c:if>
+             
             <c:if test="${!empty users}">
-               <a href="#" class="nav-link active me-3">${users.name}님 환영합니다</a>
->>>>>>> refs/remotes/origin/이한준
+               <a href="my_imformation?user_idx=${users.user_idx}" class="nav-link active me-3">${users.name}님 환영합니다</a>
+
                <a href="logout" class="nav-link active me-3">로그아웃</a>
              </c:if> 
            

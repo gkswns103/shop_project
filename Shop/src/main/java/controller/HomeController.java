@@ -141,19 +141,65 @@ public class HomeController {
 
 	// 수정
 	@RequestMapping(value = "/modify_form")
-	public String modify(UsersVO user) {
+	public String modify(UsersVO user, String new_pwd, String us_pwd) {
+		
+		BCryptPwd bcp = new BCryptPwd();
+		
+		//비밀번호 변경X 기존 비밀번호 유지
+		if(us_pwd == null || us_pwd.isEmpty()) {
+			System.out.println("비밀번호 교체 X");
+			
+			int res = users_dao.update_no_pass(user);
 
-		int res = users_dao.update(user);
+			if (res > 0) {
+				System.out.println("정보수정 완료");
+			} else {
+				System.out.println("정보수정 실패");
+			}
+			
+		}else {
+			
+		//비밀번호 변경 
+			
+		//기존 사용자 정보 조회	
+		UsersVO vo = users_dao.selectIdx(user.getUser_idx());
+		
+		//기존 비밀 번호 검증
+		boolean passRight = bcp.decryption(vo.getPwd(), us_pwd);
+		
+		//기존 비밀 번호가 맞다면
+		if(passRight) {
+		
+			if(new_pwd !=null && !new_pwd.isEmpty()) {
+				
+				//암호화
+				String encryptedPwd = bcp.encryption(new_pwd);
+				
+				user.setPwd(encryptedPwd);
+				
+				System.out.println(vo.getPwd());
+			}else {
+				user.setPwd(us_pwd);
+			}
+			
+			//기존 비밀번호가 틀리다면
+			}else {
+				System.out.println("오류! 수정이 불가합니다");
+				return "redirect:/modify?user_idx="+user.getUser_idx();
+				}
+			
+		int res = users_dao.update(user,new_pwd);
 
 		if (res > 0) {
-			System.out.println("정보수정 완");
+			System.out.println("정보수정 완료");
 		} else {
-			System.out.println("정보수정 불");
-		}
-
+			System.out.println("정보수정 실패");
+		}//res
+		
+		}//비밀번호 변경
 		return "redirect:/my_imformation?user_idx=" + user.getUser_idx();
 
-	}
+	}//수정
 
 	// 아이디 이메일 중복체크
 	@RequestMapping(value = "/idEmailCheck" )
