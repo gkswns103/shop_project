@@ -25,30 +25,93 @@
 		<script src="/shop/resources/js/httpRequest.js"></script>
 		
 		<script>  
+		
 		function amountChange(product_idx) {
+		    
 	        let amountInput = document.getElementById("amount-" + product_idx).value;
+	        let inventory = document.getElementById("inventory-"+product_idx).value;
 	        let user_idx = "${sessionScope.users.user_idx}";
-
+	    	
+	        if(amountInput > inventory){
+	        	alert("남은 수량은"+inventory+"개 입니다");
+	        	amountInput=inventory;
+		        location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
+		        return;
+	        }
+	        
+	        if(amountInput < 1){
+	        	alert("최소수량입니다");
+	        	amountInput=1;  	
+	        }
+	        if(amountInput >50){
+	        	alert("구매한도는 50개 입니다");
+	        	amountInput=50;
+	        }
+	    
+			
 	        location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
 	    }
 
 	    function decrease(product_idx) {
-	        let amountInput = document.getElementById("amount-" + product_idx);
-	        amountInput.value = parseInt(amountInput.value) - 1;
-	        amountChange(product_idx);
+	        let amountInput = document.getElementById("amount-" + product_idx).value;
+	        let inventory = document.getElementById("inventory-"+product_idx).value;
+	        let user_idx = "${sessionScope.users.user_idx}";
+	        
+	        if(amountInput == 1){
+	        	alert("최소수량입니다");
+	        	return;
+	        }
+	        amountInput = parseInt(amountInput) - 1;
+	       
+	        location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
 	    }
 
 	    function increase(product_idx) {
-	        let amountInput = document.getElementById("amount-" + product_idx);
-	        amountInput.value = parseInt(amountInput.value) + 1;
-	        amountChange(product_idx);
+	    	let amountInput = document.getElementById("amount-" + product_idx).value;
+	        let inventory = document.getElementById("inventory-"+product_idx).value;
+	        let user_idx = "${sessionScope.users.user_idx}";
+	        
+	        if(amountInput == inventory){
+	        	alert("남은 수량은"+inventory+"개 입니다");
+	        	return;
+	        }
+	        if(amountInput.value >50){
+	        	alert("구매한도는 50개 입니다");
+	        	return;
+	        }
+	        amountInput= parseInt(amountInput) + 1;
+	        
+	        location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
+	    }
+	    function updateTotal() {
+	        let totalPrice = 0;
+	        let totalDiscount = 0;
+	        
+	        document.querySelectorAll('.item').forEach(item => {
+	            const checkbox = item.querySelector('input[type="checkbox"]');
+	            if (checkbox.checked) {
+	                const price = parseFloat(item.querySelector('#price').textContent.replace(/[^0-9.-]+/g,""));
+	                const realPrice = parseFloat(item.querySelector('h4').textContent.replace(/[^0-9.-]+/g,""));
+	                
+	                totalPrice += price;
+	                totalDiscount += (price - realPrice);
+	            }
+	        });
+	        
+	        document.getElementById('totalprice').textContent = totalPrice.toLocaleString() + '원';
+	        document.getElementById('totaldiscount').textContent = totalDiscount.toLocaleString() + '원';
+	        document.getElementById('finalsum').textContent = (totalPrice - totalDiscount).toLocaleString() + '원';
+	    }
+
+	    function check(product_idx) {
+	        updateTotal();
 	    }
 		   
 		</script>
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
-
+ 
 	<c:if test="${!empty users }">
  
   <c:set var="totalprice" value="0" />
@@ -62,19 +125,22 @@
   <div class="container2">
     <div class="items-container">
       <c:forEach var="vo" items="${list}">
+        <c:if test=""></c:if>
         <c:set var="totalprice"  value="${totalprice + vo.price*vo.quantity}" />
         <c:set var="totaldiscount"  value="${totaldiscount + vo.price*vo.quantity-vo.realprice *vo.quantity}" /> 
         <div class="item">
+        <input type="checkbox" onclick="check(${vo.product_idx})" checked> 
     <div class="box1">
         <img class="cartImg" src="/shop/resources/img/${vo.filepath}" alt="상품 이미지" onclick="location.href='/shop/detail?product_idx=${vo.product_idx}'">
     </div>
     <div class="box2">
-        ${vo.name} <br>
+        ${vo.name} 
+        <input type="hidden" id="inventory-${vo.product_idx}" value="${vo.inventory }">(남은 수량:${vo.inventory }개) <br>
         <span id="discount" class="discount"><fmt:formatNumber value="${vo.discount}" type="number" groupingUsed="true"/>%</span>
         <span id="price" class="price"><fmt:formatNumber value="${vo.price * vo.quantity}" type="number" groupingUsed="true"/>원</span><br>
         <h4><fmt:formatNumber value="${vo.realprice * vo.quantity}" type="number" groupingUsed="true"/>원</h4>
         <div class="counter-container">
-		    <input id="prodidx-${vo.product_idx}" type="hidden" value="${vo.product_idx}">
+		    <input id="prodidx-${vo.product_idx}" type="hidden" value="${vo.product_idx}" maxlength="3">
 		    수량 <input id="amount-${vo.product_idx}" name="amount" value="${vo.quantity}" onchange="amountChange(${vo.product_idx})">
 		     
 		    <button id="decrease" onclick="decrease(${vo.product_idx})">▼</button>
@@ -84,7 +150,7 @@
             <br>
           </div>
           <div>
-          	<input type="button" value="X" onclick="location.href='/shop/delete?product_idx=${vo.product_idx}&user_idx=${users.user_idx}'">
+          	<input type="button" value=" X " onclick="location.href='/shop/delete?product_idx=${vo.product_idx}&user_idx=${users.user_idx}'">
        	  </div>  	
         </div>
       </c:forEach>

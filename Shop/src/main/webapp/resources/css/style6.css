@@ -55,6 +55,8 @@ input[name="amount"] {
   position: relative;
   max-width: 1000px;
   width: 100%;
+  margin-left: 200px;
+ 
 }
 
 .items-container {
@@ -68,8 +70,8 @@ input[name="amount"] {
   display: flex;
   gap: 10px;
   width: 100%;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+  border: 1px solid #ddd;
+  padding:10px;
 }
 
 .box1 {

@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
@@ -79,8 +78,8 @@ function add(){
 		    let quantity=document.getElementById("amount").value;
 		   
 		    let url="cart_insert";
-		    let param="user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
-		    
+		    let param="inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+		
 		    sendRequest(url,param,addFn,"post");
 }
 		
@@ -100,6 +99,7 @@ function add(){
 		
 			
 			}
+		}
 </script>
 
 </head>

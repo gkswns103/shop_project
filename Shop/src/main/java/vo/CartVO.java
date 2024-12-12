@@ -1,11 +1,17 @@
 package vo;
 
 public class CartVO {
-	int cart_idx,user_idx,product_idx,quantity,price,discount,realprice;
+	int cart_idx,user_idx,product_idx,quantity,price,discount,realprice,inventory;
 	String status,name,filepath;
 	
 	
 	
+	public int getInventory() {
+		return inventory;
+	}
+	public void setInventory(int inventory) {
+		this.inventory = inventory;
+	}
 	public int getRealprice() {
         return (int) (price * (1 - discount / 100.0)); 
     }
