@@ -28,6 +28,36 @@
 	href="/shop/resources/css/util.css">
 <link rel="stylesheet" type="text/css"
 	href="/shop/resources/css/main.css">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c7aefd977d4d59940d84d9223e46d62&libraries=services,clusterer,drawing"></script>
+<script>
+	let addr = ''; // 주소 변수
+	function addr_search() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+
+						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							addr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							addr = data.jibunAddress;
+						}
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById("addr").value = addr;
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById("addr2").focus();
+					}
+				}).open();
+				
+				document.getElementById('addr2').removeAttribute("readonly");
+	}
+</script>
+
 </head>
 <body>
 
@@ -56,7 +86,7 @@
 					</div>
 
 					<div class="p-t-10 p-b-9">
-						<span class="txt1"> 	이름 </span>
+						<span class="txt1"> 이름 </span>
 					</div>
 					<div class="wrap-input100 validate-input"
 						data-validate="Name is required">
@@ -64,16 +94,24 @@
 							class="focus-input100"></span>
 					</div>
 
-
 					<div class="p-t-10 p-b-9">
 						<span class="txt1"> 주소 </span>
 					</div>
 					<div class="wrap-input100 validate-input"
 						data-validate="Addr is required">
-						<input class="input100" type="text" name="addr"> <span
+						<input class="input100" type="text" name="addr" id="addr"
+							onclick="addr_search()" readonly> <span
 							class="focus-input100"></span>
 					</div>
 
+					<div class="p-t-10 p-b-9">
+						<span class="txt1"> 상세 주소 </span>
+					</div>
+					<div class="wrap-input100 validate-input"
+						data-validate="Addr is required">
+						<input class="input100" type="text" name="addr2" id="addr2" readonly> <span
+							class="focus-input100"></span>
+					</div>
 
 					<div class="p-t-10 p-b-9">
 						<span class="txt1"> 이메일 </span>
@@ -94,7 +132,7 @@
 						data-validate="Email is required"
 						style="display: flex; align-items: center;">
 						<input class="input100" id="veriftcode"
-							style="flex: 1; margin-right: 10px; " readonly> <input
+							style="flex: 1; margin-right: 10px;" readonly> <input
 							type="button" onclick="codecheck()" value="확인"
 							style="padding: 8px 16px; background: none;">
 					</div>
@@ -122,6 +160,5 @@
 	<script src="/shop/resources/js/main.js"></script>
 	<script src="/shop/resources/js/httpRequest.js"></script>
 	<script src="/shop/resources/js/signup.js"></script>
-
 </body>
 </html>
