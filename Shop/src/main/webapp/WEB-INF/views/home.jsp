@@ -24,9 +24,6 @@
 <link href="/shop/resources/css/style3.css" rel="stylesheet" />
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
-
-
-
 </head>
 <body>
    <!-- Header-->

@@ -24,7 +24,7 @@ public class ProductController {
 		ProductVO vo=product_dao.selectOne(product_idx);
 		
 		model.addAttribute("vo",vo);
-		
+		 
 		return Common.Path.VIEW_PATH+"/productDetail.jsp";
 	}
 	

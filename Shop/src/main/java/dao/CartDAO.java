@@ -41,5 +41,25 @@ public class CartDAO {
 		
 		return count>0;
 	}
+	
+	public int cart_count(int user_idx) {
+		int count=sqlSession.selectOne("c.cart_count", user_idx);
+		
+		return count;
+	}
+	
+	public int delete(CartVO vo) {
+		
+		int res=sqlSession.delete("c.cart_delete", vo);
+		
+		return res;
+	}
+	
+	public int cart_update(CartVO vo) {
+		
+		int res=sqlSession.update("c.cart_update", vo);
+		
+		return res;
+	}
 
 }
