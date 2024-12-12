@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -135,19 +136,37 @@ public class HomeController {
 	public String select_modify(int user_idx, Model model) {
 		UsersVO user = users_dao.selectIdx(user_idx);
 		model.addAttribute("user", user);
+
 		return Common.Path.VIEW_PATH + "modify.jsp";
 
 	}
 
 	// 수정
+	
+	@RequestMapping(value = "/modify_id")
+	@ResponseBody
+	public String modify_id(UsersVO user) {
+		int res = users_dao.update_id(user);
+		System.out.println("수정결과 : "+res);
+		if(res > 0 ) {
+			return "yes";
+		}else {
+			return "no";
+		}
+	}
+	
 	@RequestMapping(value = "/modify_form")
 	public String modify(UsersVO user, String new_pwd, String us_pwd) {
 		
 		BCryptPwd bcp = new BCryptPwd();
+		//기존 사용자 정보 조회	
+		UsersVO vo = users_dao.selectIdx(user.getUser_idx());
+		
+		//아이디 변경 O
+		if(vo.getId() != user.getId()) {
 		
 		//비밀번호 변경X 기존 비밀번호 유지
 		if(us_pwd == null || us_pwd.isEmpty()) {
-			System.out.println("비밀번호 교체 X");
 			
 			int res = users_dao.update_no_pass(user);
 
@@ -157,13 +176,9 @@ public class HomeController {
 				System.out.println("정보수정 실패");
 			}
 			
-		}else {
-			
+		}else {	
 		//비밀번호 변경 
 			
-		//기존 사용자 정보 조회	
-		UsersVO vo = users_dao.selectIdx(user.getUser_idx());
-		
 		//기존 비밀 번호 검증
 		boolean passRight = bcp.decryption(vo.getPwd(), us_pwd);
 		
@@ -197,12 +212,63 @@ public class HomeController {
 		}//res
 		
 		}//비밀번호 변경
+		
+		}else {
+		//아이디 변경 X
+			//비밀번호 변경X 기존 비밀번호 유지
+			if(us_pwd == null || us_pwd.isEmpty()) {
+				
+				int res = users_dao.update_no_id_no_pass(user);
+
+				if (res > 0) {
+					System.out.println("정보수정 완료");
+				} else {
+					System.out.println("정보수정 실패");
+				}
+				
+			}else {	
+			//비밀번호 변경 
+				
+			//기존 비밀 번호 검증
+			boolean passRight = bcp.decryption(vo.getPwd(), us_pwd);
+			
+			//기존 비밀 번호가 맞다면
+			if(passRight) {
+			
+				if(new_pwd !=null && !new_pwd.isEmpty()) {
+					
+					//암호화
+					String encryptedPwd = bcp.encryption(new_pwd);
+					
+					user.setPwd(encryptedPwd);
+					
+					System.out.println(vo.getPwd());
+				}else {
+					user.setPwd(us_pwd);
+				}
+				
+				//기존 비밀번호가 틀리다면
+				}else {
+					System.out.println("오류! 수정이 불가합니다");
+					return "redirect:/modify?user_idx="+user.getUser_idx();
+					}
+				
+			int res = users_dao.update_no_id(user,new_pwd);
+
+			if (res > 0) {
+				System.out.println("정보수정 완료");
+			} else {
+				System.out.println("정보수정 실패");
+			}//res
+			}
+		}
+		
 		return "redirect:/my_imformation?user_idx=" + user.getUser_idx();
 
 	}//수정
 
-	// 아이디 이메일 중복체크
-	@RequestMapping(value = "/idEmailCheck" )
+	// 아이디 중복체크
+	@RequestMapping(value = "/idCheck" )
 	@ResponseBody
 	public String check(String id) {
 		UsersVO user = users_dao.selectone(id);

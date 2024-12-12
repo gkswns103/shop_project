@@ -9,108 +9,109 @@
 <script src="/shop/resources/js/httpRequest.js"></script>
 
 <script>
-	let can_i = "no"
-	let can_i_pass = "no"
+	
+	let change_id = false;
+	
+	//중복체크 변수
+	let can_i = "no";
+	
+	//비밀번호 체크박스 변수
+	let can_i_pass = "no";
 	
 	//비밀번호 변경 체크박스
-	function pass(checkbox) {
+	function pass(checkbox_pwd) {
 		const passwordFields = document.getElementById("password_check");
-		if (checkbox.checked) {
+		if (checkbox_pwd.checked) {
 			can_i_pass = "yes";
 			passwordFields.style.display = "table-row"; // 보이기
 		} else {
 			can_i_pass = "no";
 			passwordFields.style.display = "none"; // 숨기기
 		}
-	}
-	//아이디 중복 체크
+	}//비밀번호 체크박스
+	
+	//아이디 변경 체크박스
+	function toggleChange(){
+		
+		const text = document.querySelector('input[name="id_update_text"]');
+		const but = document.querySelectorAll('input[name="id_update_button"]');
+		const toggleBut = document.getElementById('toggleButton');
+		
+		if(!change_id){
+			text.type = "text";//텍스트 필드 활성화
+			but.forEach((button, index) => {
+				button.type = "button";//버튼 활성화
+				if(index === 0 ){
+					button.setAttribute("onclick", "check();");
+	            } else if (index === 1) {
+	                button.setAttribute("onclick", "send_id();");
+					
+				}
+			});
+			toggleBut.value = "아이디 변경 취소";
+		}else{
+			//원래 상태 복구
+			text.type ="hidden";//텍스트 비활성
+			but.forEach((button) => {
+				button.type ="hidden";//버튼 비활성
+				button.removeAttribute("onclick");
+			});
+			toggleBut.value = "아이디 변경"
+		}
+		
+		change_id = !change_id;
+		
+	}//아이디 변경 체크박스
 	
 	//수정하기
-	function send(f) {	
-		
-		if (can_i === 'yes' && can_i_pass ==='yes') {
-			let id = f.id.value;
-			let us_pwd = f.us_pwd.value;
-			let new_pwd = f.new_pwd.value;
-			let name = f.name.value;
-			let email = f.email.value;
-			let addr = f.addr.value;
-
-				if (id === '') {
-					alert("id를 입력하세요");
-					return;
-				}//아이디 유무 확인
-
-				if (us_pwd === '') {
-					alert("기존 비밀번호를 입력하세요");
-					return;
-				}//비밀번호 유무 확인
-				
-				if (new_pwd === '') {
-					alert("새로운 비밀번호를 입력하세요");
-					return;
-				}//새로운 비밀번호 유무 확인
-				if (name === '') {
-					alert("이름을 입력하세요");
-					return;
-				}//이름 유무확인
-				
-				if (email === '') {
-					alert("메일을 입력하세요");
-					return;
-				}//이메일 유무 확인
-				
-				if (addr === '') {
-					alert("주소를 입력하세요");
-					return;
-				}//주소 유무확인
-
-				f.action = "modify_form";
-				f.method = "post";
-				f.submit();
-				
-			} else if ( can_i === 'yes' && can_i_pass === 'no') {
-							
-				let id = f.id.value;
-				let name = f.name.value;
-				let email = f.email.value;
-				let addr = f.addr.value;
-
-				if (id === '') {
-					alert("id를 입력하세요");
-					return;
-					}//아이디 유무 확인
-				
-				if (name === '') {
-						alert("이름을 입력하세요");
-						return;
-					}//이름 유무 확인
-				
-				if (email === '') {
-						alert("메일을 입력하세요");
-						return;
-					}//이메일 유무확인
-				
-				if (addr === '') {
-						alert("주소를 입력하세요");
-						return;
-					}//주소 유무확인
-
-					f.action = "modify_form";
-					f.method = "post";
-					f.submit();
-				
+	function send_id() {	
+		alert("버튼눌림");
+		//아이디 중복 체크 확인
+		if(can_i === "yes"){
+			
+			let user_idx=document.getElementById("user_idx").value;
+			alert(user_idx);
+			const get_newId = document.querySelector('input[name="id_update_text"]');//값 가져오기 1
+			const id = get_newId.value.trim();//공백제거 및 값 가졍오기 2
+			
+			if(id===''){
+				alert("아이디를 입력하세요");
+				return;
+			}
+			
+			let url = "modify_id";
+			let param = "id="+ id + "&user_idx=" + user_idx;
+			
+			sendRequest(url, param, result_id, "post");
+			
+			
 			} else {
 				alert("중복체크를 먼저 해주세요");
 				return;
-			}//중복체크 확인
-
-		
-		
-	}//send(f)
+		}
+	}//send()
 	
-	function check(f) {
-		let id = f.id.value;
+	function result_id(){
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			let date = xhr.responseText.trim();
+		
+			if(date==="yes"){
+				alert("아이디가 변경되었습니다");
+				
+				
+				
+			}else{
+				alert("변경에 실패하였습니다");
+				return;
+			}
+			
+		}
+	}//result_id
+	
+	//아이디 중복 체크
+	function check() {
+		const get_newId = document.querySelector('input[name="id_update_text"]');//값 가져오기 1
+		const id = get_newId.value.trim();//공백제거 및 값 가졍오기 2
 		
 
 		if (id === '') {
@@ -118,11 +119,11 @@
 			return;
 		}
 
-		let url = "idEmailCheck";
+		let url = "idCheck";
 		let param = "id=" + id;
 		sendRequest(url, param, resultcheck, "post");
 
-	}
+	}//check
 
 	
 	function resultcheck() {
@@ -144,56 +145,57 @@
 
 		}
 	
-	}
+	}//resultcheck
+	
 </script>
 
 </head>
 <body>
 
 	<form>
-		<input type="hidden" name="user_idx" value="${user.user_idx}">
-		<input type="hidden" name="pwd" value="${user.pwd}">
-		<table>
+	
+		<input type="hidden" id="user_idx" name="user_idx" value="${user.user_idx}">
+		<input type="hidden" id="pwd" name="pwd" value="${user.pwd}">
+		
 
-			<tr>
-				<td><input name="id" value="${ user.id }"></td>
-			</tr>
+			<div>
+				<input name="id" value="${user.id}">
+				<input type="button" id="toggleButton" value="아이디 변경" onclick="toggleChange();">
+				<input type="hidden" name="id_update_text">
+				<input type="hidden" name="id_update_button" value="중복 체크" onclick="check();">
+				<input type="hidden" name="id_update_button" value="변경하기" onclick="send_id();">
+			</div>
 
-			<tr>
-				<td><input name="name" value="${ user.name }"></td>
-			</tr>
+			<div>
+				<div><input name="email" value="${ user.email }"></div>
+			</div>
 
-			<tr>
-				<td><input name="email" value="${ user.email }"></td>
-			</tr>
-
-			<tr>
-				<td><input name="addr" value="${ user.addr }"></td>
-			</tr>
+			<div>
+				<div><input name="addr" value="${ user.addr }"></div>
+			</div>
 
 			<%-- <tr>
 		<td><input name="" value="${ user.age }"></td>
 		</tr> --%>
 
-			<tr>
-				<td><input type="checkbox" id="passwordCheck" onclick="pass(this);">
+			<div>
+				<div><input type="checkbox" id="passwordCheck" onclick="pass(this);">
 				    <label for="passwordCheck">비밀번호 변경</label>
-				</td>
-			</tr>
+				</div>
+			</div>
 
-			<tr id="password_check" style="display: none;">
-				<td><input name="us_pwd" type="password" placeholder="기존 비밀번호 입력"></td>
-				<td><input name="new_pwd" type="password" placeholder="새 비밀번호 입력"></td>
-			</tr>
+			<div id="password_check" style="display: none;">
+				<div><input name="us_pwd" type="password" placeholder="기존 비밀번호 입력"></div>
+				<div><input name="new_pwd" type="password" placeholder="새 비밀번호 입력"></div>
+			</div>
 
-			<tr>
-				<td><input type="button" value="중복체크" onclick="check(this.form);">
-					<input type="button" value="수정하기" onclick="send(this.form);">
+			<div>
+				<div>
 					<input type="button" value="취소" onclick="history.back();">
-				</td>
-			</tr>
+				</div>
+			</div>
 
-		</table>
+		
 
 	</form>
 

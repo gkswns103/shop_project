@@ -15,14 +15,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from users where user_idx = #{user_idx}
 	</select>
 	
-	<update id="update_no_pass" parameterType="users">
-	update users set 
-	id=#{id}, name=#{name}, email=#{email} ,addr=#{addr} where user_idx = #{user_idx}
-	</update>
-	
 	<update id="update" parameterType="users">
 	update users set 
 	id=#{id}, pwd=#{pwd}, name=#{name}, email=#{email} ,addr=#{addr} where user_idx = #{user_idx}
+	</update>
+	
+	<update id="update_id" parameterType="users">
+	update users set
+	id=#{id} where user_idx = #{user_idx}
 	</update>
 	
 </mapper>

@@ -42,10 +42,27 @@ public class UsersDAO {
 		return res;
 	}
 	
+	public int update_no_id_no_pass(UsersVO user_up_no_pass) {
+		int res = sqlSession.update("u.update_no_id_no_pass",user_up_no_pass);
+		return res;
+	}
+	
+	public int update_no_id(UsersVO user_up, String pwd) {
+		 
+		int res = sqlSession.update("u.update_no_id",user_up);
+		
+		return res;
+	}
+	
 	public int update(UsersVO user_up, String pwd) {
 		 
 		int res = sqlSession.update("u.update",user_up);
 		
+		return res;
+	}
+	
+	public int update_id(UsersVO user) {
+		int res = sqlSession.update("u.update_id", user);
 		return res;
 	}
 	
