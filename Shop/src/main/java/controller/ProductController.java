@@ -26,6 +26,8 @@ public class ProductController {
         return Common.Path.VIEW_PATH + "/productDetail.jsp";
     }
 
+
+
     @RequestMapping("/product")
     public String product_list(Model model, String division, String category) {
         List<ProductVO> list;
@@ -61,6 +63,7 @@ public class ProductController {
 	  
 	  System.out.println("상품 insert 결과 :" + res);
 	  System.out.println(product_idx);
+	
 	  return "redirect:/detail?product_idx="+product_idx;
 	  
 	  

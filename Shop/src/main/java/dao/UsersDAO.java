@@ -26,6 +26,7 @@ public class UsersDAO {
 	}
 	
 
+
 	public UsersVO selectOne(String id) {
 	    if (id == null) {
 	        throw new IllegalArgumentException("ID는 null일 수 없습니다.");
@@ -34,9 +35,29 @@ public class UsersDAO {
 	}
 
 
-	public UsersVO selectIdx(int idx) {
-		UsersVO user = sqlSession.selectOne("u.select_imfo", idx);
+	public UsersVO selectIdx(int user_idx) {
+		UsersVO user = sqlSession.selectOne("u.select_imfo", user_idx);
+
 		
 		return user;
 	}
+	
+	public UsersVO selectOne(int user_idx) {
+		UsersVO user = sqlSession.selectOne("u.select_imfo",user_idx);
+		return user;
+	}
+	
+	
+	public int update_no_pass(UsersVO user_up_no_pass) {
+		int res = sqlSession.update("u.update_no_pass",user_up_no_pass);
+		return res;
+	}
+	
+	public int update(UsersVO user_up, String pwd) {
+		 
+		int res = sqlSession.update("u.update",user_up);
+		
+		return res;
+	}
+	
 }

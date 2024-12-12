@@ -15,17 +15,55 @@
     <link href="/shop/resources/css/style6.css" rel="stylesheet" />
     <link href="/shop/resources/css/style7.css" rel="stylesheet" />
     <script src="/shop/resources/js/amount_counter.js"></script>
-    
+    <script src="/shop/resources/js/httpRequest.js"></script>
   	
   	
   	<script>
-  	function send(f) {
+  /* 	function send(f) {
   		
   		f.method="get";
   		f.action="addproduct";
   		f.submit();
-  	}	    
+  	}	  */   
 	
+  	function send(f) {
+  	    event.preventDefault(); // 기본 동작 방지
+			
+  	    let url="dd.do";
+  	    let param="idx=23&prod=2134";
+  	    let method="post"
+  	    
+  	   sendRequest(url, param, callBack, method);
+  	}
+  	function callBack(){
+  		if(xhr.readyState===4 && xhr.readystatus===200){
+  			let data=xhr.response;
+  			
+  			if(data=="성공")
+  		}
+  	}
+  	    
+  	    let formData = new FormData(f);
+
+  	    let xhr = new XMLHttpRequest();
+  	    xhr.open('POST', '/addproduct', true);
+
+  	    xhr.onreadystatechange = function () {
+  	        if (xhr.readyState === 4) {
+  	            if (xhr.status === 200) {
+  	                alert('상품이 성공적으로 등록되었습니다.');
+  	                window.location.href = '/product';
+  	            } else {
+  	                alert('상품 등록 중 오류가 발생했습니다.');
+  	            }
+  	        }
+  	    };
+
+  	    xhr.send(formData);
+  	}
+  	
+  	
+  	
 	</script>
   	
   	

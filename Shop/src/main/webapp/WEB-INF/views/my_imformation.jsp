@@ -5,19 +5,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script>
+
+function modify(f){
+	let user_idx = f.user_idx.value;
+	
+	
+	f.action = 'modify';
+	f.method = 'post';
+	f.submit();
+}
+
+
+
+</script>
+
 </head>
 <body>
-
+<form>
+<input type="hidden" name="user_idx" value="${user.user_idx}">
 <table border="1">
-<input type="hidden" name="idx" value="${user.user_idx}">
+
 
 <tr>
 <th>아이디</th>
 <td>${user.id}</td>
-</tr>
-<tr>
-<th>비밀번호</th>
-<td>${user.pwd}</td>
 </tr>
 <tr>
 <th>이름</th>
@@ -41,12 +54,15 @@
 <td>${user.sellerauth}</td>
 </tr>
 
-<tr>
-<td><input type="button" value="수정하기" onclick=""></td>
-<td><input type="button"></td>
+<tr colspan="3">
+<td><input type="button" value="뒤로가기" onclick="history.back();"></td>
+<td>
+<input type="button" value="수정하기" onclick="modify(this.form);">
+<input type="button" value="계정삭제" onclick="">
+</td>
 </tr>
 
 </table>
-
+</form>
 </body>
 </html>

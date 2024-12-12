@@ -1,10 +1,17 @@
 package vo;
 
 public class ProductVO {
-	private int product_idx,price,discount,inventory,selleridx;
+	private int product_idx,price,discount,inventory,selleridx,realprice;
 	private String name,explain,filepath,category,division;
 	
-	 
+	  
+	
+	public int getRealprice() {
+		 return (int) (price * (1 - discount / 100.0)); 
+	}
+	public void setRealprice(int realprice) {
+		this.realprice = realprice;
+	}
 	public String getDivision() {
 		return division;
 	}
