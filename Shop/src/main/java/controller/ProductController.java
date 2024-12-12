@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import common.Common;
 import dao.ProductDAO;
@@ -39,26 +38,57 @@ public class ProductController {
         return Common.Path.VIEW_PATH + "productView.jsp";
     }
 
-    // 상품 등록 페이지로 이동
-    @RequestMapping("/product/registerForm")
-    public String showRegisterForm() {
+    @RequestMapping("/registerForm")
+    public String showRegisterForm(Model model) {
+        // 메인 카테고리 목록 가져오기
+        List<String> divisions = product_dao.getDistinctDivisions();
+        model.addAttribute("divisions", divisions);
+
+        // 서브 카테고리 목록 가져오기
+        List<String> categories = product_dao.getAllDistinctCategories();
+        model.addAttribute("categories", categories);
+        
+        
         return Common.Path.VIEW_PATH + "register.jsp";
     }
-
-    @RequestMapping("/product/updateForm")
-    public String showUpdateForm(Model model, @RequestParam(required = false) Integer product_idx) {
-
-		/*
-		 * ProductVO vo = product_dao.selectOne(product_idx); model.addAttribute("vo",
-		 * vo);
-		 * 
-		 * List<String> categories = product_dao.getCategories(); List<String> divisions
-		 * = product_dao.getDivisions(); model.addAttribute("categories", categories);
-        model.addAttribute("divisions", divisions);
-		 */
-
-        return Common.Path.VIEW_PATH + "update.jsp"; // JSP 파일 경로 반환
-    }
-
-
+	
+	
+	  @RequestMapping("/addproduct")
+	  public String addProduct(ProductVO vo) {
+	  
+	  int res=product_dao.insertProduct(vo);
+	  int product_idx=product_dao.selectAdd(vo);
+	  
+	  System.out.println("상품 insert 결과 :" + res);
+	  System.out.println(product_idx);
+	  return "redirect:/detail?product_idx="+product_idx;
+	  
+	  
+	  }
+	 
+    
+  
+    
+   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

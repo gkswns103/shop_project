@@ -28,20 +28,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 select * from product where product_idx=#{product_idx}
 	</select>
 	
-	<!-- 카테고리 -->
-	<select id="select_categories" resultType="string">
-	    SELECT DISTINCT category FROM product
-	</select>
-	
-	<select id="select_divisions" resultType="string">
-	    SELECT DISTINCT division FROM product
-	</select>
-	
-	
-	
-    
-    
-    
+	 <select id="getDistinctDivisions" resultType="string">
+    SELECT DISTINCT division
+    FROM PRODUCT
+    ORDER BY division
+</select>
+
+<select id="getAllDistinctCategories" resultType="string">
+    SELECT DISTINCT category
+    FROM PRODUCT
+    ORDER BY category
+</select>
+
+<insert id="insertProduct" parameterType="product">
+    insert into product
+    (product_idx,name,price,discount,inventory,explain,selleridx,filepath,category,division)
+    values 
+    (seq_product_idx.nextval, #{name}, #{price}, #{discount}, #{inventory},
+    	 #{explain}, #{selleridx}, #{filepath}, #{category}, #{division})
+</insert>
+
+<select id="selectAdd" parameterType="product" resultType="int">
+	select product_idx from product where name=#{name} and price=#{price} and discount=#{discount} and inventory=#{inventory}
+</select>    
+
 	
 </mapper>
 

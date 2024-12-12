@@ -38,7 +38,7 @@
 	  	<jsp:include page="headerImg.jsp"></jsp:include>
 	   <!-- Section-->
 	   <c:if test="${!empty users}">
-		<input type="button" value="상품등록" onclick="location.href='/shop/product/updateForm'">
+		<input type="button" value="상품등록" onclick="location.href='/shop/registerForm'">
 		</c:if>
 	   <section class="py-5">
 	      <div class="container px-4 px-lg-5 mt-5">
@@ -82,29 +82,6 @@
 	</body>
 </html>
 
-
-
-
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
    <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
          <div
@@ -146,4 +123,4 @@
    <script src="/shop/resources/js/scripts.js"></script>
 </body>
 </html>
->>>>>>> refs/remotes/origin/이한준
+
