@@ -64,8 +64,7 @@
    <!-- Footer-->
    <footer class="py-5 bg-dark">
       <div class="container">
-         <p class="m-0 text-center text-white">Copyright &copy; Your
-            Website 2023</p>
+         <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6</p>
       </div>
    </footer>
    <!-- Bootstrap core JS-->

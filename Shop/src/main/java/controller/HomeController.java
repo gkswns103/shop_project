@@ -109,7 +109,7 @@ public class HomeController {
 	// 회원가입
 	@RequestMapping(value = "/signup_form", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
-	public String signup_form(UsersVO users) {
+	public String signup_form(UsersVO users ,String addr2) {
 		if (users_dao.selectone(users.getId()) == null) { // 회원이 없는경우
 
 			// 암호화 할 자리
@@ -118,6 +118,9 @@ public class HomeController {
 			// 암호화 하고 다시 set
 			users.setPwd(encodePwd);
 
+			users.setAddr(users.getAddr() + addr2);
+			
+
 			int res = users_dao.insert(users);
 
 			session.setAttribute("users", users);
@@ -125,8 +128,7 @@ public class HomeController {
 		}
 		return "중복된 아이디 입니다.";
 	}
-	
-
+	 
 	@RequestMapping("/kakaologin")
 	public String kakaologin(UsersVO users,Model model) {
 			session.setAttribute("users", users);
@@ -145,6 +147,7 @@ public class HomeController {
 		model.addAttribute("user", user);
 		return Common.Path.VIEW_PATH + "my_imformation.jsp";
 	}
+
 
 	// 수정을 위한 1명 조회
 	@RequestMapping(value = "/modify")
@@ -229,6 +232,9 @@ public class HomeController {
 			return "yes";
 		}
 	}
-
+	@RequestMapping("/addr_search")
+	public String addr_search() {
+		return Common.Path.VIEW_PATH + "addr.jsp";
+	}
 
 }

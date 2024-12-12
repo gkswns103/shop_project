@@ -33,7 +33,7 @@
 		}
 		
 		let url = "signup_form";
-		let param = "id=" + encodeURIComponent(f.id.value) + "&pwd=" + encodeURIComponent(f.pwd.value) + "&name=" + f.name.value + "&email=" + f.email.value + "&addr=" +f.addr.value;
+		let param = "id=" + encodeURIComponent(f.id.value) + "&pwd=" + encodeURIComponent(f.pwd.value) + "&name=" + f.name.value + "&email=" + f.email.value + "&addr=" +f.addr.value + "&addr2=" + f.addr2.value;
 		
 		sendRequest(url,param,signupFn,"POST");
 	}
