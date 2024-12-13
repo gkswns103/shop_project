@@ -131,8 +131,14 @@ public class HomeController {
 	 
 	@RequestMapping("/kakaologin")
 	public String kakaologin(UsersVO users,Model model) {
+		if(users_dao.selectone(users.getId()) == null) {
+		
+			return "redirect:/";
+		}
+		else {
 			session.setAttribute("users", users);
 			return "redirect:/";
+		}
 		
 		
 	}

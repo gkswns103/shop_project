@@ -50,8 +50,11 @@ public class KakaoController {
 		String name = (String)kakaoInfo.get("nickname");
 		String email = (String)kakaoInfo.get("email");
 		
-		model.addAttribute("name",name);
-		model.addAttribute("email",email);
+		UsersVO user = new UsersVO();
+		user.setEmail(email);
+		user.setName(name);
+		user.setId(email);
+		model.addAttribute("user",user);
 	
 		return "redirect:/kakaologin"; // 본인 원하는 경로 설정
 	}
