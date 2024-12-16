@@ -12,7 +12,7 @@ public class UsersDAO {
 		this.sqlSession=sqlSession;
 	}
 	
-	public UsersVO selectone(String id) {
+	public UsersVO selectId(String id) {
 		UsersVO users = sqlSession.selectOne("u.selectOne",id);
 		
 		return users;
@@ -28,11 +28,6 @@ public class UsersDAO {
 	public UsersVO selectIdx(int user_idx) {
 		UsersVO user = sqlSession.selectOne("u.select_imfo", user_idx);
 		
-		return user;
-	}
-	
-	public UsersVO selectOne(int user_idx) {
-		UsersVO user = sqlSession.selectOne("u.select_imfo",user_idx);
 		return user;
 	}
 	

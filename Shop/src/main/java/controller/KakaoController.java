@@ -7,32 +7,52 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.http.HttpRequest;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestAttributes;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import common.Common;
+import dao.UsersDAO;
+import lombok.RequiredArgsConstructor;
 import vo.UsersVO;
 
 @Controller
 public class KakaoController {
+
+	@Autowired
+	HttpSession session;
+
 	
+	UsersDAO users_dao;
+
+	public void setUsers_dao(UsersDAO users_dao) {
+		this.users_dao = users_dao;
+	}
+
 	@RequestMapping(value = "/getKakaoAuthUrl")
 	public @ResponseBody String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
-		String reqUrl = "https://kauth.kakao.com/oauth/authorize" 
-			    + "?client_id=45484c448a366908d833bb7f9a36a50b" // REST API 키
-			    + "&redirect_uri=http://localhost:9090/shop/oauth_kakao" // 리다이렉트 URI
-			    + "&response_type=code"; // 응답 타입
+		String reqUrl = "https://kauth.kakao.com/oauth/authorize" + "?client_id=45484c448a366908d833bb7f9a36a50b" // REST
+																													// API
+																													// 키
+				+ "&redirect_uri=http://localhost:9090/shop/oauth_kakao" // 리다이렉트 URI
+				+ "&response_type=code"; // 응답 타입
 
 		return reqUrl;
 	}
@@ -46,17 +66,32 @@ public class KakaoController {
 
 		HashMap<String, Object> userInfo = getUserInfo(access_Token);
 		JSONObject kakaoInfo = new JSONObject(userInfo);
-		
-		String name = (String)kakaoInfo.get("nickname");
-		String email = (String)kakaoInfo.get("email");
-		
+
+		String name = (String) kakaoInfo.get("nickname");
+		String email = (String) kakaoInfo.get("email");
 		UsersVO user = new UsersVO();
-		user.setEmail(email);
-		user.setName(name);
-		user.setId(email);
-		model.addAttribute("user",user);
-	
-		return "redirect:/kakaologin"; // 본인 원하는 경로 설정
+		if (users_dao.selectId(email) != null) { // 카카오로 회원가입 한경우
+			user = users_dao.selectId(email);
+			session.setAttribute("users", user);
+			return "redirect:/"; // 본인 원하는 경로 설정
+		} else {
+			user.setEmail(email);
+			user.setName(name);
+			user.setPwd(access_Token);
+			user.setId(email);
+
+			model.addAttribute("user", user);
+
+			return Common.Path.VIEW_PATH + "kakao_signup.jsp";
+		}
+	}
+
+	@RequestMapping("/kakao_signup")
+	public String kakao_signup(UsersVO user, Model model) {
+		users_dao.insert(user);
+		System.out.println("가입성공");
+		session.setAttribute("users", user);
+		return "redirect:/"; // 본인 원하는 경로 설정
 	}
 
 	// 토큰발급
@@ -86,7 +121,6 @@ public class KakaoController {
 
 			// 결과 코드가 200이라면 성공
 			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode : " + responseCode);
 
 			// 요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -102,7 +136,7 @@ public class KakaoController {
 
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();
 			refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
-			
+
 			br.close();
 			bw.close();
 		} catch (IOException e) {

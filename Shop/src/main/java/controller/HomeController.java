@@ -71,7 +71,7 @@ public class HomeController {
 	@RequestMapping("/signin")
 	@ResponseBody
 	public String signin(String id, String c_pwd) {
-		UsersVO user = users_dao.selectone(id);
+		UsersVO user = users_dao.selectId(id);
 
 		if (user == null) {
 			return "no_id";
@@ -110,7 +110,7 @@ public class HomeController {
 	@RequestMapping(value = "/signup_form", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String signup_form(UsersVO users ,String addr2) {
-		if (users_dao.selectone(users.getId()) == null) { // 회원이 없는경우
+		if (users_dao.selectId(users.getId()) == null) { // 회원이 없는경우
 
 			// 암호화 할 자리
 			BCryptPwd bcp = new BCryptPwd();
@@ -128,22 +128,7 @@ public class HomeController {
 		}
 		return "중복된 아이디 입니다.";
 	}
-	 
-	@RequestMapping("/kakaologin")
-	public String kakaologin(UsersVO users,Model model) {
-		if(users_dao.selectone(users.getId()) == null) {
-		
-			return "redirect:/";
-		}
-		else {
-			session.setAttribute("users", users);
-			return "redirect:/";
-		}
-		
-		
-	}
 
-	
 	// 정보확인을 위한 1명 조회
 	@RequestMapping(value = "/my_imformation")
 	public String my_imformation(int user_idx, Model model) {
@@ -230,7 +215,7 @@ public class HomeController {
 	@RequestMapping(value = "/idEmailCheck" )
 	@ResponseBody
 	public String check(String id) {
-		UsersVO user = users_dao.selectone(id);
+		UsersVO user = users_dao.selectId(id);
 
 		if (user != null ) {
 			return "no";

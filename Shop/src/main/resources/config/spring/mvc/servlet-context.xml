@@ -35,7 +35,7 @@
 	</beans:bean>
 	
 	<beans:bean class="controller.KakaoController">
-		
+		<beans:property name="users_dao" ref="users_daoBean"/>
 	</beans:bean>
 	
 	<beans:bean class="controller.MailController">

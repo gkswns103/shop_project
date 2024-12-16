@@ -181,7 +181,7 @@ function check(product_idx) {
 					최종 금액: <span id="finalsum"><fmt:formatNumber
 							value="${totalprice - totaldiscount}" type="number"
 							groupingUsed="true" />원</span> <input type="button" value="구매하기"
-						onclick="requestPay();">
+						onclick="location.href='/shop/'">
 				</div>
 			</div>
 		</div>
