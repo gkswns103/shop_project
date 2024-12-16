@@ -1,11 +1,17 @@
 package vo;
 
 public class CartVO {
-	int cart_idx,user_idx,product_idx,quantity,price,discount,realprice,inventory;
+	int cart_idx,user_idx,product_idx,quantity,price,discount,realprice,inventory,checked;
 	String status,name,filepath;
 	
 	
 	
+	public int getChecked() {
+		return checked;
+	}
+	public void setChecked(int checked) {
+		this.checked = checked;
+	}
 	public int getInventory() {
 		return inventory;
 	}

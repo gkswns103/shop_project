@@ -13,16 +13,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import common.Common;
 import dao.CartDAO;
 import dao.ProductDAO;
+import dao.UsersDAO;
 import vo.CartVO;
+import vo.UsersVO;
 
 @Controller
 public class CartController {
 	CartDAO cart_dao;
 	ProductDAO product_dao;
+	UsersDAO users_dao;
 	
 	@Autowired
 	HttpSession session;
-	
+	public void setProduct_dao(ProductDAO product_dao) {
+		this.product_dao = product_dao;
+	}
+	public void setUsers_dao(UsersDAO users_dao) {
+		this.users_dao = users_dao;
+	}
 	public void setCart_dao(CartDAO cart_dao) {
 		this.cart_dao = cart_dao;
 	}
@@ -99,5 +107,32 @@ public class CartController {
 	    
 		return "redirect:/cart?user_idx="+user_idx;
 	} 
+	
+	@RequestMapping("/updateChecked")
+	@ResponseBody
+	public String updateChecked(CartVO vo) {
+		int res=cart_dao.updateCheck(vo);
+		String result="";
+		if(res>=1) {
+			result="success";
+		}else{
+			result="fail";
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping("/cart_purchaseForm")
+	public String purchaseForm(int user_idx,int finalAmount,Model model) {
+		List<CartVO> list=cart_dao.select_cart_list(user_idx);
+		UsersVO user=users_dao.selectOne(user_idx);
+		
+		model.addAttribute("finalAmount",finalAmount);
+		model.addAttribute("list",list);
+		model.addAttribute("user",user);
+		
+		return Common.Path.VIEW_PATH + "purchaseForm.jsp";
+		
+	}
 	
 }

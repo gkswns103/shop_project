@@ -5,7 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link
+		   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		   rel="stylesheet" />
+		<!-- Core theme CSS (includes Bootstrap)-->
+		<link href="/shop/resources/css/style1.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style2.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style3.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style4.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style5.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style6.css" rel="stylesheet" />
 <script>
 
 function modify(f){
@@ -23,6 +32,9 @@ function modify(f){
 
 </head>
 <body>
+
+	<jsp:include page="header.jsp"></jsp:include>
+
 <form>
 <input type="hidden" name="user_idx" value="${user.user_idx}">
 <table border="1">
