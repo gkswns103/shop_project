@@ -65,7 +65,7 @@
 <script src="/shop/resources/js/httpRequest.js"></script>
 
 <script>
-function add(){
+function cartAdd(){
 	if(${!empty users}){
 		 let usersExist = true;
 	}
@@ -131,6 +131,7 @@ function add(){
 			<hr>
 			배송비 : <br>
 			<hr>
+		
 			${vo.explain }
 
 			<div class="counter-container">
@@ -138,7 +139,7 @@ function add(){
 
 				<button id="decrease" onclick="decrease()">▼</button>
 				<button id="increase" onclick="increase()">▲</button>
-				<input type="button" value="장바구니 담기" onclick="add()"> <input
+				<input type="button" value="장바구니 담기" onclick="cartAdd()"> <input
 					type="button" value="바로 구매" onclick="">
 			</div>
 

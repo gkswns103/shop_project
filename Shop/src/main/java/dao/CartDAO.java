@@ -61,5 +61,18 @@ public class CartDAO {
 		
 		return res;
 	}
+	
+	public int updateCheck(CartVO vo) {
+		
+		int res=sqlSession.update("c.updateCheck" ,vo);
+		System.out.println("체크박스 변경"+res);
+		return res;
+	}
+	
+	public List<CartVO> select_cart_list(int user_idx){
+		List<CartVO> list=sqlSession.selectList("c.cart_list",user_idx);
+		
+		return list;
+	}
 
 }

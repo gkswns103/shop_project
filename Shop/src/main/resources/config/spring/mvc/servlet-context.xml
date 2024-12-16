@@ -31,6 +31,8 @@
 		<beans:property name="product_dao" ref="product_daoBean"/>
 	</beans:bean>
 	<beans:bean class="controller.CartController">
+		<beans:property name="users_dao" ref="users_daoBean"/>
+		<beans:property name="product_dao" ref="product_daoBean"/>
 		<beans:property name="cart_dao" ref="cart_daoBean"/>
 	</beans:bean>
 	

@@ -25,37 +25,44 @@
 		<script src="/shop/resources/js/httpRequest.js"></script>
 		
 		<script>  
+		window.onload = function() {
+		    // 모든 체크박스를 찾기
+		    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+		    checkboxes.forEach(function(checkbox) {
+		        // 각 체크박스의 data-checked 값을 확인하여 체크 상태 설정
+		        const isChecked = checkbox.getAttribute('data-checked') === '1'; // '1'이면 체크
+		        checkbox.checked = isChecked;
+		    });
+			updateTotal();
+		};
 		
 		function amountChange(product_idx) {
 		    
-	        let amountInput = document.getElementById("amount-" + product_idx).value;
-	        let inventory = document.getElementById("inventory-"+product_idx).value;
-	        let user_idx = "${sessionScope.users.user_idx}";
-	    	
+			let amountInput = parseInt(document.getElementById("amount-" + product_idx).value, 10);
+			let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
+			let user_idx = "${sessionScope.users.user_idx}";
+	        
+	        if(amountInput >50 && amountInput < inventory){
+	        	alert("구매한도는 50개 입니다");
+		        location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=50";
+	        	return;
+	        }
 	        if(amountInput > inventory){
 	        	alert("남은 수량은"+inventory+"개 입니다");
-	        	amountInput=inventory;
-		        location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
+		        location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + inventory;
 		        return;
 	        }
 	        
-	        if(amountInput < 1){
-	        	alert("최소수량입니다");
-	        	amountInput=1;  	
-	        }
-	        if(amountInput >50){
-	        	alert("구매한도는 50개 입니다");
-	        	amountInput=50;
-	        }
 	    
 			
 	        location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
 	    }
 
 	    function decrease(product_idx) {
-	        let amountInput = document.getElementById("amount-" + product_idx).value;
-	        let inventory = document.getElementById("inventory-"+product_idx).value;
-	        let user_idx = "${sessionScope.users.user_idx}";
+	    	let amountInput = parseInt(document.getElementById("amount-" + product_idx).value, 10);
+			let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
+			let user_idx = "${sessionScope.users.user_idx}";
 	        
 	        if(amountInput == 1){
 	        	alert("최소수량입니다");
@@ -67,15 +74,15 @@
 	    }
 
 	    function increase(product_idx) {
-	    	let amountInput = document.getElementById("amount-" + product_idx).value;
-	        let inventory = document.getElementById("inventory-"+product_idx).value;
-	        let user_idx = "${sessionScope.users.user_idx}";
+	    	let amountInput = parseInt(document.getElementById("amount-" + product_idx).value, 10);
+			let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
+			let user_idx = "${sessionScope.users.user_idx}";
 	        
 	        if(amountInput == inventory){
 	        	alert("남은 수량은"+inventory+"개 입니다");
 	        	return;
 	        }
-	        if(amountInput.value >50){
+	        if(amountInput>=50){
 	        	alert("구매한도는 50개 입니다");
 	        	return;
 	        }
@@ -104,8 +111,63 @@
 	    }
 
 	    function check(product_idx) {
-	        updateTotal();
+	    	let cb="#prodidx-"+product_idx;
+
+	    	const checkbox = document.querySelector(cb);
+	    	
+	    	if(!checkbox){
+	    		alert("없어"+product_idx);
+	    		return;
+	    	}
+	    	
+	        const user_idx = "${sessionScope.users.user_idx}";  // JSP 표현식으로 값 받기
+	        const isChecked = checkbox.checked;
+			let res=0;
+	        if(isChecked){
+				res=1;
+			}else{
+				res=0;
+			}
+	        // JavaScript에서 URL 인코딩을 처리
+	        const url = "updateChecked";
+	        const param = "product_idx=" + product_idx + 
+	                     "&user_idx=" + encodeURIComponent(user_idx) + 
+	                     "&checked=" + res;
+	        // AJAX 요청 전송
+	        sendRequest(url, param, resultCheck, "POST");
 	    }
+
+	    function resultCheck() {
+	        if (xhr.readyState === 4 && xhr.status === 200) {
+	            const data = xhr.responseText; 
+	            console.log( data); 
+	            
+	            if(data=="success"){
+	            updateTotal(); 
+	            }else{
+	            	alert("오류발생");
+	            }
+	        }
+	    }
+	    
+	  
+	    function purchase(){
+	    	let finalAmount = document.getElementById("finalsum").textContent.trim(); // '원'을 제외하고 숫자만 필요하면 추가 처리
+
+	        // '원'을 제외하고 숫자만 추출
+	        finalAmount = finalAmount.replace("원", "").trim();
+
+	        // finalAmount는 문자열이므로 숫자로 변환
+	        finalAmount = parseInt(finalAmount.replace(/,/g, ''), 10);
+			if(finalAmount==0){
+				alert("구매할항목이 없습니다.");
+				return;
+			}
+			
+			location.href='cart_purchaseForm?user_idx=${sessionScope.users.user_idx}&finalAmount='+finalAmount;
+			
+	    }
+	  
 		   
 		</script>
 	</head>
@@ -129,7 +191,12 @@
         <c:set var="totalprice"  value="${totalprice + vo.price*vo.quantity}" />
         <c:set var="totaldiscount"  value="${totaldiscount + vo.price*vo.quantity-vo.realprice *vo.quantity}" /> 
         <div class="item">
-        <input type="checkbox" onclick="check(${vo.product_idx})" checked> 
+         
+        <input id="prodidx-${vo.product_idx}" 
+       type="checkbox" 
+       onclick="check(${vo.product_idx})" 
+       data-checked="${vo.checked}">
+       
     <div class="box1">
         <img class="cartImg" src="/shop/resources/img/${vo.filepath}" alt="상품 이미지" onclick="location.href='/shop/detail?product_idx=${vo.product_idx}'">
     </div>
@@ -161,8 +228,8 @@
     총 상품가격: <span id="totalprice"><fmt:formatNumber value="${totalprice}" type="number" groupingUsed="true"/>원</span><br>
     총 할인: <span id="totaldiscount"><fmt:formatNumber value="${totaldiscount}" type="number" groupingUsed="true"/>원</span><br>
     <hr>
-    최종 금액: <span id="finalsum"><fmt:formatNumber value="${totalprice - totaldiscount}" type="number" groupingUsed="true"/>원</span>
-    <input type="button" value="구매하기" onclick="">
+    최종 금액: <span id="finalsum"><fmt:formatNumber  value="${totalprice - totaldiscount}" type="number" groupingUsed="true"/>원</span>
+    <input type="button" value="구매하기" onclick="purchase();">
 </div>
   </div>
 </div>
