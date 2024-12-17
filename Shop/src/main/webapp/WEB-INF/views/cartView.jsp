@@ -152,19 +152,25 @@
 	    
 	  
 	    function purchase(){
-	    	let finalAmount = document.getElementById("finalsum").textContent.trim(); // '원'을 제외하고 숫자만 필요하면 추가 처리
+	    	let finalAmount = document.getElementById("finalsum").textContent.trim(); // '원'을 제외하고 숫자만 처리
+	        let totaldiscount = document.getElementById("totaldiscount").textContent.trim();
+	        let totalprice = document.getElementById("totalprice").textContent.trim();
 
 	        // '원'을 제외하고 숫자만 추출
 	        finalAmount = finalAmount.replace("원", "").trim();
-
-	        // finalAmount는 문자열이므로 숫자로 변환
+	        totaldiscount = totaldiscount.replace("원", "").trim();
+	        totalprice = totalprice.replace("원", "").trim();	
+	        //  문자열이므로 숫자로 변환
 	        finalAmount = parseInt(finalAmount.replace(/,/g, ''), 10);
+	        totaldiscount =parseInt(totaldiscount.replace(/,/g, ''), 10);
+	        totalprice =parseInt(totalprice.replace(/,/g, ''), 10);
+	 
 			if(finalAmount==0){
 				alert("구매할항목이 없습니다.");
 				return;
 			}
 			
-			location.href='cart_purchaseForm?user_idx=${sessionScope.users.user_idx}&finalAmount='+finalAmount;
+			location.href='cart_purchaseForm?user_idx=${sessionScope.users.user_idx}&finalAmount='+finalAmount+"&totaldiscount="+totaldiscount+"&totalprice="+totalprice;
 			
 	    }
 	  

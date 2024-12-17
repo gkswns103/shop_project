@@ -123,10 +123,12 @@ public class CartController {
 	}
 	
 	@RequestMapping("/cart_purchaseForm")
-	public String purchaseForm(int user_idx,int finalAmount,Model model) {
+	public String purchaseForm(int user_idx,int finalAmount,int totalprice,int totaldiscount,Model model) {
 		List<CartVO> list=cart_dao.select_cart_list(user_idx);
 		UsersVO user=users_dao.selectOne(user_idx);
-		
+		 
+		model.addAttribute("totaldiscount",totaldiscount);
+		model.addAttribute("totalprice",totalprice);
 		model.addAttribute("finalAmount",finalAmount);
 		model.addAttribute("list",list);
 		model.addAttribute("user",user);
