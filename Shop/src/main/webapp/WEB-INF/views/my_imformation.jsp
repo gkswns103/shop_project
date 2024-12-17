@@ -5,7 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link
+		   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		   rel="stylesheet" />
+		<!-- Core theme CSS (includes Bootstrap)-->
+		<link href="/shop/resources/css/style1.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style2.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style3.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style4.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style5.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style6.css" rel="stylesheet" />
 <script>
 
 function modify(f){
@@ -17,12 +26,21 @@ function modify(f){
 	f.submit();
 }
 
-
+ function delete_account(f){
+	
+	
+	f.action = 'delete_user';
+	f.method = 'post';
+	f.submit();
+} 
 
 </script>
 
 </head>
 <body>
+
+	<jsp:include page="header.jsp"></jsp:include>
+
 <form>
 <input type="hidden" name="user_idx" value="${user.user_idx}">
 <table border="1">
@@ -58,7 +76,7 @@ function modify(f){
 <td><input type="button" value="뒤로가기" onclick="history.back();"></td>
 <td>
 <input type="button" value="수정하기" onclick="modify(this.form);">
-<input type="button" value="계정삭제" onclick="">
+<input type="button" value="계정삭제" onclick="delete_account(this.form);">
 </td>
 </tr>
 
