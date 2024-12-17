@@ -3,6 +3,47 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link rel="icon" type="image/x-icon"
+  		 href="/shop/resources/img/favicon.ico" />
+		<!-- Bootstrap icons-->
+		<link
+		   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+		   rel="stylesheet" />
+		<!-- Core theme CSS (includes Bootstrap)-->
+		<link href="/shop/resources/css/style1.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style2.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style3.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style4.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style5.css" rel="stylesheet" />
+		<link href="/shop/resources/css/style6.css" rel="stylesheet" />
+		
+		<script src="/shop/resources/js/amount_counter.js"></script>
+		<script src="/shop/resources/js/httpRequest.js"></script>
+		
+		<script>
+			function add(){
+				// 로그인 되있는지 확인
+				<c:if test="${!empty users}">
+			        let usersExist = true;
+			    </c:if>
+			    
+			    <c:if test="${empty users}">
+				    alert("로그인이 필요한 서비스입니다");
+			        location.href="signin_form";
+			        return;
+			    </c:if>
+			    
+			    let quantity=document.getElementById("amount").value;
+			   
+			    let url="cart_insert";
+			    let param=
+"user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+			    
+			    sendRequest(url,param,addFn,"post");
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -37,8 +78,8 @@ function add(){
 		    let quantity=document.getElementById("amount").value;
 		   
 		    let url="cart_insert";
-		    let param="user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
-		    
+		    let param="inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+		
 		    sendRequest(url,param,addFn,"post");
 }
 		
@@ -58,7 +99,6 @@ function add(){
 		
 			
 			}
-			
 		}
 </script>
 
@@ -79,6 +119,7 @@ function add(){
 				href="/shop/product?division=${vo.division}&category=${vo.category}">${vo.category}</a>
 			<br> <br> <img alt=""
 				src="/shop/resources/img/${vo.filepath }">
+
 		</div>
 
 

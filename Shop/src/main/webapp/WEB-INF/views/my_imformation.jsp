@@ -17,7 +17,13 @@ function modify(f){
 	f.submit();
 }
 
-
+function delete(f){
+	let user_idx = f.user_idx.value;
+	
+	f.action = 'delete';
+	f.method = 'post';
+	f.submit();
+}
 
 </script>
 
@@ -58,7 +64,7 @@ function modify(f){
 <td><input type="button" value="뒤로가기" onclick="history.back();"></td>
 <td>
 <input type="button" value="수정하기" onclick="modify(this.form);">
-<input type="button" value="계정삭제" onclick="">
+<input type="button" value="계정삭제" onclick="delete_account(this.form);">
 </td>
 </tr>
 

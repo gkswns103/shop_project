@@ -1,8 +1,6 @@
 package controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,10 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import common.BCryptPwd;
 import common.Common;
+import dao.CartDAO;
 import dao.ProductDAO;
 import dao.UsersDAO;
 import vo.ProductVO;
@@ -27,6 +26,7 @@ public class HomeController {
 
 	UsersDAO users_dao;
 	ProductDAO product_dao;
+	CartDAO cart_dao;
 
 	@Autowired
 	HttpSession session;
@@ -41,7 +41,12 @@ public class HomeController {
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
-
+	public void setCart_dao(CartDAO cart_dao) {
+		this.cart_dao = cart_dao;
+	}
+	
+	
+	//기본 url
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
 	public String home(Model model) {
 
@@ -51,11 +56,18 @@ public class HomeController {
 
 		return Common.Path.VIEW_PATH + "home.jsp";
 	}
+	
+//------------------------------------------------------------------------------------------------
+//로그인 기능 
+	
 	//로그아웃
 	@RequestMapping("/logout")
 	public String logout() {
 
 		session.removeAttribute("users");
+
+		session.removeAttribute("cart_count");
+		
 
 		return "redirect:/";
 	}
@@ -75,6 +87,12 @@ public class HomeController {
 			boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 			if (isValid) {
 				session.setAttribute("users", user);
+				
+				int user_idx=user.getUser_idx();
+				System.out.println("useridx="+user_idx);
+
+				int cart_count=cart_dao.cart_count(user_idx);
+				session.setAttribute("cart_count", cart_count);
 				return "ok";
 			} else {
 				return "no_pwd";
@@ -82,12 +100,22 @@ public class HomeController {
 		}
 
 	}
-
+	
 	@RequestMapping("/signin_form")
 	public String signin_form() {
 		return Common.Path.VIEW_PATH + "signin.jsp";
 	}
 
+	@RequestMapping("/kakaologin")
+	public String kakaologin(UsersVO users,Model model) {
+			session.setAttribute("users", users);
+			return "redirect:/";
+		
+		
+	}
+	
+//------------------------------------------------------------------------------------------------
+//회원가입	
 	@RequestMapping(value = "/signup", produces = "text/plain; charset=UTF-8")
 	public String signup() {
 		return Common.Path.VIEW_PATH + "signup.jsp";
@@ -106,7 +134,6 @@ public class HomeController {
 			users.setPwd(encodePwd);
 
 
-
 			users.setAddr(users.getAddr() + addr2);
 			
 
@@ -117,14 +144,9 @@ public class HomeController {
 		}
 		return "중복된 아이디 입니다.";
 	}
-	
-	@RequestMapping("/kakaologin")
-	public String kakaologin(UsersVO users,Model model) {
-			session.setAttribute("users", users);
-			return "redirect:/";
-		
-		
-	}
+	 
+//------------------------------------------------------------------------------------------------
+//정보확인
 	
 	// 정보확인을 위한 1명 조회
 	@RequestMapping(value = "/my_imformation")
@@ -136,7 +158,9 @@ public class HomeController {
 		return Common.Path.VIEW_PATH + "my_imformation.jsp";
 	}
 
-
+//------------------------------------------------------------------------------------------------	
+//수정
+	
 	// 수정을 위한 1명 조회
 	@RequestMapping(value = "/modify")
 	public String select_modify(int user_idx, Model model) {
@@ -146,51 +170,57 @@ public class HomeController {
 		return Common.Path.VIEW_PATH + "modify.jsp";
 
 	}
-
-	// 수정
 	
-	@RequestMapping(value = "/modify_id")
+	//아이디 변경
+	@RequestMapping(value = "/update_id")
 	@ResponseBody
-	public String modify_id(UsersVO user) {
+	public String update_id(UsersVO user) {
 		int res = users_dao.update_id(user);
 		System.out.println("수정결과 : "+res);
 		if(res > 0 ) {
-			return "yes";
+			return "suc";
 		}else {
-			return "no";
+			return "fail";
 		}
 	}
 	
-	@RequestMapping(value = "/modify_form")
-	public String modify(UsersVO user, String new_pwd, String us_pwd) {
-		
-		BCryptPwd bcp = new BCryptPwd();
-		//기존 사용자 정보 조회	
+	//이메일 변경
+	@RequestMapping(value = "/update_email")
+	@ResponseBody
+	public String update_email(UsersVO user) {
+		int res = users_dao.update_email(user);
+		System.out.println("수정결과 : " + res);
+		if(res > 0 ) {
+			return "suc";
+		}else {
+			return "fail";
+		}
+	}
+	
+	//주소 변경
+	@RequestMapping(value = "/update_addr")
+	@ResponseBody
+	public String update_addr(UsersVO user) {
+		System.out.println(user.getAddr());
+		int res = users_dao.update_addr(user);
+		System.out.println("수정결과 : " + res);
+		if(res > 0) {
+			return "suc";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value = "/update_pwd")
+	@ResponseBody
+	public String update_pwd(UsersVO user, String new_pwd, String pwd) {
 		UsersVO vo = users_dao.selectIdx(user.getUser_idx());
+		BCryptPwd bcp = new BCryptPwd();
 		
-		//아이디 변경 O
-		if(vo.getId() != user.getId()) {
+		boolean passRight = bcp.decryption(vo.getPwd(), pwd);
 		
-		//비밀번호 변경X 기존 비밀번호 유지
-		if(us_pwd == null || us_pwd.isEmpty()) {
-			
-			int res = users_dao.update_no_pass(user);
-
-			if (res > 0) {
-				System.out.println("정보수정 완료");
-			} else {
-				System.out.println("정보수정 실패");
-			}
-			
-		}else {	
-		//비밀번호 변경 
-			
-		//기존 비밀 번호 검증
-		boolean passRight = bcp.decryption(vo.getPwd(), us_pwd);
-		
-		//기존 비밀 번호가 맞다면
 		if(passRight) {
-		
+			
 			if(new_pwd !=null && !new_pwd.isEmpty()) {
 				
 				//암호화
@@ -200,78 +230,25 @@ public class HomeController {
 				
 				System.out.println(vo.getPwd());
 			}else {
-				user.setPwd(us_pwd);
+				user.setPwd(pwd);
 			}
+		}else {
+			System.out.println("오류! 수정이 불가합니다");
+			return "fail";
 			
-			//기존 비밀번호가 틀리다면
-			}else {
-				System.out.println("오류! 수정이 불가합니다");
-				return "redirect:/modify?user_idx="+user.getUser_idx();
-				}
-			
-		int res = users_dao.update(user,new_pwd);
+		}
+		
+		int res = users_dao.update_pwd(user);
 
 		if (res > 0) {
 			System.out.println("정보수정 완료");
+				return "suc";
 		} else {
 			System.out.println("정보수정 실패");
+			return "fail";
 		}//res
 		
-		}//비밀번호 변경
-		
-		}else {
-		//아이디 변경 X
-			//비밀번호 변경X 기존 비밀번호 유지
-			if(us_pwd == null || us_pwd.isEmpty()) {
-				
-				int res = users_dao.update_no_id_no_pass(user);
-
-				if (res > 0) {
-					System.out.println("정보수정 완료");
-				} else {
-					System.out.println("정보수정 실패");
-				}
-				
-			}else {	
-			//비밀번호 변경 
-				
-			//기존 비밀 번호 검증
-			boolean passRight = bcp.decryption(vo.getPwd(), us_pwd);
-			
-			//기존 비밀 번호가 맞다면
-			if(passRight) {
-			
-				if(new_pwd !=null && !new_pwd.isEmpty()) {
-					
-					//암호화
-					String encryptedPwd = bcp.encryption(new_pwd);
-					
-					user.setPwd(encryptedPwd);
-					
-					System.out.println(vo.getPwd());
-				}else {
-					user.setPwd(us_pwd);
-				}
-				
-				//기존 비밀번호가 틀리다면
-				}else {
-					System.out.println("오류! 수정이 불가합니다");
-					return "redirect:/modify?user_idx="+user.getUser_idx();
-					}
-				
-			int res = users_dao.update_no_id(user,new_pwd);
-
-			if (res > 0) {
-				System.out.println("정보수정 완료");
-			} else {
-				System.out.println("정보수정 실패");
-			}//res
-			}
-		}
-		
-		return "redirect:/my_imformation?user_idx=" + user.getUser_idx();
-
-	}//수정
+	}
 
 	// 아이디 중복체크
 	@RequestMapping(value = "/idCheck" )
@@ -285,12 +262,34 @@ public class HomeController {
 			return "yes";
 		}
 	}
-
-
+	
+	// 이메일 중복체크
+	@RequestMapping(value = "/emailCheck")
+	@ResponseBody
+	public String check_email(String email) {
+		UsersVO user = users_dao.selectone(email);
+		
+		if (user != null) {
+			return "no";
+		}else {
+			return "yes";
+		}
+	}
+	
+	
 	@RequestMapping("/addr_search")
 	public String addr_search() {
 		return Common.Path.VIEW_PATH + "addr.jsp";
 	}
 	
+	/*
+	 * @RequestMapping(value = "/delete") public String delete_account(Model model,
+	 * int user_idx) { int res = users_dao.delete(user_idx);
+	 * 
+	 * if(res > 0) {
+	 * 
+	 * return "redirect:/"; }else { System.out.println("회원 삭제 실패"); return
+	 * Common.Path.VIEW_PATH + "my_imformation.jsp"; } }
+	 */
 
 }

@@ -25,4 +25,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	id=#{id} where user_idx = #{user_idx}
 	</update>
 	
+	<update id="update_email" parameterType="users">
+	update users set
+	email=#{email} where user_idx = #{user_idx}
+	</update>
+	
+	<update id="update_addr" parameterType="users">
+	update users set
+	addr=#{addr} where user_idx = #{user_idx}
+	</update>
+	
+	<update id="update_pwd" parameterType="users">
+	update users set
+	pwd=#{pwd} where user_idx = #{user_idx}
+	</update>
+	
 </mapper>
