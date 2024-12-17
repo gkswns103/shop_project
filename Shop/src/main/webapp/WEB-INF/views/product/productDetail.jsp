@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="../header/header.jsp"></jsp:include>
 
 	<input type="hidden" value=${vo.product_idx } name="product_idx">
 	<input type="hidden" value=${vo.selleridx } name="selleridx">
@@ -56,8 +56,8 @@
 
 				<button id="decrease" onclick="decrease()">▼</button>
 				<button id="increase" onclick="increase()">▲</button>
-				<input type="button" value="장바구니 담기" onclick="cartAdd()"> 
-				<input type="button" value="바로 구매" onclick="">
+				<input type="button" value="장바구니 담기" onclick="cartAdd()"> <input
+					type="button" value="바로 구매" onclick="">
 			</div>
 
 		</div>
@@ -65,6 +65,8 @@
 
 
 	</div>
+	<script src="/shop/resources/js/amount_counter.js"></script>
+	<script src="/shop/resources/js/httpRequest.js"></script>
 	<script>
 	function cartAdd(){
 		if(${!empty users}){
@@ -102,7 +104,5 @@
 				}
 			}
 	</script>
-	<script src="/shop/resources/js/amount_counter.js"></script>
-	<script src="/shop/resources/js/httpRequest.js"></script>
 </body>
 </html>

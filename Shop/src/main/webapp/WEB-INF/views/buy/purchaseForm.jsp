@@ -93,7 +93,7 @@
 		</style>
 	</head>
 	<body>
-		 <jsp:include page="header.jsp"></jsp:include> 
+		 <jsp:include page="../header/header.jsp"></jsp:include> 
 	    <form>
 		<br>
 		<div class="container" style="width:1000px;">
@@ -112,7 +112,7 @@
 				</tr>
 				<tr>
 					<th>이메일</th>
-					<td><${user.email }</td>
+					<td>${user.email }</td>
 				</tr>
 				<tr>
 					<th>배송 주소</th> 
@@ -196,6 +196,7 @@
 		<input type="hidden" name="totaldiscount" value="${totaldiscount}">
 		<input type="hidden" name="finalAmount" value="${finalAmount}">
 		</form>
+		
 		<script>
 			function purchase(){
 				const checkbox = document.querySelector('#account_transfer');

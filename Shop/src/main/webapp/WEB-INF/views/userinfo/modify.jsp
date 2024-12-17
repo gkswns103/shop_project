@@ -16,16 +16,70 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
+</head>
+<body>
+
+	<jsp:include page="../header/header.jsp"></jsp:include>
+
+	<form>
+
+		<input type="hidden" id="user_idx" name="user_idx"
+			value="${user.user_idx}"> <input type="hidden" id="pwd"
+			name="pwd" value="${user.pwd}">
 
 
-<script src="/shop/resources/js/httpRequest.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c7aefd977d4d59940d84d9223e46d62&libraries=services,clusterer,drawing"></script>
+		<div>
+			<input name="id" value="${user.id}"> <input type="button"
+				id="toggleButton" value="아이디 변경" onclick="toggleChange_id();">
+			<input type="hidden" name="id_update_text"> <input
+				type="hidden" name="id_update_button" value="중복 체크"
+				onclick="check();"> <input type="hidden"
+				name="id_update_button" value="변경하기" onclick="send_id();">
+		</div>
+
+		<div>
+			<input name="email" value="${ user.email }"> <input
+				type="button" id="toggle_e" value="이메일 변경"
+				onclick="toggleChange_email();"> <input type="hidden"
+				name="email_update_text"> <input type="hidden"
+				name="email_update_button" value="중복 체크" onclick="mail_check();">
+			<input type="hidden" name="email_update_button" value="이메일 변경"
+				onclick="send_email();">
+		</div>
+
+		<div>
+			<input name="addr" value="${ user.addr }"> <input
+				type="button" id="toggle_a" value="주소 변경"
+				onclick="toggleChange_addr();"> <input type="hidden"
+				id="addr_update_text" name="addr_update_text"
+				onclick="addr_search()" readonly> <input type="hidden"
+				id="addr_update_detail_text" name="addr_update_detail_text"
+				placeholder="상세 주소 입력"> <input type="hidden"
+				name="addr_update_button" value="주소 변경" onclick="send_addr();">
+		</div>
+
+		<div>
+			<input type="button" id="toggle_p" value="비밀번호 변경"
+				onclick="toggleChange_pwd();"> <input type="hidden"
+				name="pwd_text" placeholder="기존 비밀번호 입력"> <input
+				type="hidden" name="new_pwd_text" placeholder="새 비밀번호 입력"> <input
+				type="hidden" name="pwd_update_button" value="비밀번호 변경"
+				onclick="send_pwd();">
+		</div>
+
+		<div>
+			<input type="button" value="뒤로가기" onclick="history.back();">
+		</div>
+	</form>
 
 
-<script>
+
+	<script src="/shop/resources/js/httpRequest.js"></script>
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c7aefd977d4d59940d84d9223e46d62&libraries=services,clusterer,drawing"></script>
+	<script>
 	
 	let change_id = false;
 	let change_email = false;
@@ -413,73 +467,7 @@
 		}
 		
 	}
-	
-	
-	
 </script>
-
-</head>
-<body>
-
-	<jsp:include page="header.jsp"></jsp:include>
-
-	<form>
-
-		<input type="hidden" id="user_idx" name="user_idx"
-			value="${user.user_idx}"> <input type="hidden" id="pwd"
-			name="pwd" value="${user.pwd}">
-
-
-		<div>
-			<input name="id" value="${user.id}"> <input type="button"
-				id="toggleButton" value="아이디 변경" onclick="toggleChange_id();">
-			<input type="hidden" name="id_update_text"> <input
-				type="hidden" name="id_update_button" value="중복 체크"
-				onclick="check();"> <input type="hidden"
-				name="id_update_button" value="변경하기" onclick="send_id();">
-		</div>
-
-		<div>
-			<input name="email" value="${ user.email }"> <input
-				type="button" id="toggle_e" value="이메일 변경"
-				onclick="toggleChange_email();"> <input type="hidden"
-				name="email_update_text"> <input type="hidden"
-				name="email_update_button" value="중복 체크" onclick="mail_check();">
-			<input type="hidden" name="email_update_button" value="이메일 변경"
-				onclick="send_email();">
-		</div>
-
-		<div>
-			<input name="addr" value="${ user.addr }"> <input
-				type="button" id="toggle_a" value="주소 변경"
-				onclick="toggleChange_addr();"> <input type="hidden"
-				id="addr_update_text" name="addr_update_text"
-				onclick="addr_search()" readonly> <input type="hidden"
-				id="addr_update_detail_text" name="addr_update_detail_text"
-				placeholder="상세 주소 입력"> <input type="hidden"
-				name="addr_update_button" value="주소 변경" onclick="send_addr();">
-		</div>
-
-		<%-- <tr>
-		<td><input name="" value="${ user.age }"></td>
-		</tr> --%>
-
-		<div>
-			<input type="button" id="toggle_p" value="비밀번호 변경"
-				onclick="toggleChange_pwd();"> <input type="hidden"
-				name="pwd_text" placeholder="기존 비밀번호 입력"> <input
-				type="hidden" name="new_pwd_text" placeholder="새 비밀번호 입력"> <input
-				type="hidden" name="pwd_update_button" value="비밀번호 변경"
-				onclick="send_pwd();">
-		</div>
-
-		<div>
-			<input type="button" value="뒤로가기" onclick="history.back();">
-		</div>
-
-
-
-	</form>
 
 </body>
 </html>

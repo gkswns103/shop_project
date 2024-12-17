@@ -26,8 +26,8 @@
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 </head>
 <body>
-	<jsp:include page="header.jsp"></jsp:include>
-	<jsp:include page="headerImg.jsp"></jsp:include>
+	<jsp:include page="../header/header.jsp"></jsp:include>
+	<jsp:include page="../header/headerImg.jsp"></jsp:include>
 	<!-- Section-->
 
 	<section class="py-5">
