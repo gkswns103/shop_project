@@ -26,13 +26,13 @@ function modify(f){
 	f.submit();
 }
 
-function delete(f){
-	let user_idx = f.user_idx.value;
+ function delete_account(f){
 	
-	f.action = 'delete';
+	
+	f.action = 'delete_user';
 	f.method = 'post';
 	f.submit();
-}
+} 
 
 </script>
 

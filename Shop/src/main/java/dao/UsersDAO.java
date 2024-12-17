@@ -76,8 +76,8 @@ public class UsersDAO {
 		
 		return res;
 	}
-	public int delete_cart(int user_idx) {
-		int res = sqlSession.delete("u.delete_cart",user_idx);
+	public int delete_user(int user_idx) {
+		int res = sqlSession.delete("u.delete_user",user_idx);
 		return res;
 	}
 }

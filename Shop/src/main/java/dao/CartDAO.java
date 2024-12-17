@@ -74,5 +74,10 @@ public class CartDAO {
 		
 		return list;
 	}
-
+	
+	public int delete_cart(int user_idx) {
+		int res = sqlSession.delete("c.delete_user", user_idx);
+		
+		return res;
+	}
 }

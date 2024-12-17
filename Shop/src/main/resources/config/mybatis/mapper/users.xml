@@ -39,4 +39,8 @@
 	pwd=#{pwd} where user_idx = #{user_idx}
 	</update>
 	
+	<delete id="delete_user" parameterType="int">
+	delete from users where user_idx=#{user_idx}
+	</delete>
+	
 </mapper>
