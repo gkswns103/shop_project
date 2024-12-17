@@ -82,7 +82,7 @@ public class KakaoController {
 
 			model.addAttribute("user", user);
 
-			return Common.Path.VIEW_PATH + "kakao_signup.jsp";
+			return Common.Path.VIEW_PATH + "login/kakao_signup.jsp";
 		}
 	}
 

@@ -25,7 +25,7 @@ public class ProductController {
 		
 		model.addAttribute("vo",vo);
 		 
-		return Common.Path.VIEW_PATH+"/productDetail.jsp";
+		return Common.Path.VIEW_PATH+"product/productDetail.jsp";
 	}
 	
 
@@ -44,7 +44,7 @@ public class ProductController {
 			
 			model.addAttribute("list", list);
 			
-			return Common.Path.VIEW_PATH + "productView.jsp";
+			return Common.Path.VIEW_PATH + "product/productView.jsp";
 	}
 	
 }

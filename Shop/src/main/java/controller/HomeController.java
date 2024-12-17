@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -103,7 +102,7 @@ public class HomeController {
 
 	@RequestMapping("/signin_form")
 	public String signin_form() {
-		return Common.Path.VIEW_PATH + "signin.jsp";
+		return Common.Path.VIEW_PATH + "login/signin.jsp";
 	}
 
 	@RequestMapping("/kakaologin")
@@ -118,7 +117,7 @@ public class HomeController {
 	//회원가입	
 	@RequestMapping(value = "/signup", produces = "text/plain; charset=UTF-8")
 	public String signup() {
-		return Common.Path.VIEW_PATH + "signup.jsp";
+		return Common.Path.VIEW_PATH + "login/signup.jsp";
 	}
 
 	// 회원가입
@@ -152,7 +151,7 @@ public class HomeController {
 		System.out.println("idx=" + user_idx);
 		UsersVO user = users_dao.selectIdx(user_idx);
 		model.addAttribute("user", user);
-		return Common.Path.VIEW_PATH + "my_imformation.jsp";
+		return Common.Path.VIEW_PATH + "userinfo/my_imformation.jsp";
 	}
 
 	//------------------------------------------------------------------------------------------------	
@@ -164,7 +163,7 @@ public class HomeController {
 		UsersVO user = users_dao.selectIdx(user_idx);
 		model.addAttribute("user", user);
 
-		return Common.Path.VIEW_PATH + "modify.jsp";
+		return Common.Path.VIEW_PATH + "userinfo/odify.jsp";
 
 	}
 
@@ -273,7 +272,7 @@ public class HomeController {
 
 	@RequestMapping("/addr_search")
 	public String addr_search() {
-		return Common.Path.VIEW_PATH + "addr.jsp";
+		return Common.Path.VIEW_PATH + "userinfo/addr.jsp";
 	}
 
 
