@@ -24,8 +24,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select>
 	
+	<select id="check_Active" resultType="int" parameterType="cart">
+		select count(*)
+		from cart
+		where user_idx=#{user_idx} and product_idx=${product_idx} and status='active'
+		
+	</select>
+	
 	<select id="cart_count" parameterType="int" resultType="int">
-		select count(*) from cart where user_idx=#{user_idx}
+		select count(*) from cart where user_idx=#{user_idx} and status='active'
 	</select>
 	
 	<delete id="cart_delete" parameterType="cart">
@@ -41,7 +48,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="cart_list" resultType="cart" parameterType="int">
-		select * from cart where user_idx=#{user_idx} and checked='1'
+		select * from cart where user_idx=#{user_idx} and checked='1' and status='active'
 	</select>
+	
+	<update id="updateState" parameterType="int">
+		update cart set status='saled' where user_idx=#{user_idx} and checked='1'
+	</update>
 	
 </mapper>

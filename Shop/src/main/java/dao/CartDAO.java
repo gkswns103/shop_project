@@ -38,7 +38,13 @@ public class CartDAO {
 	
 	public boolean check_duplicate(CartVO vo) {
 		int count=sqlSession.selectOne("c.check_duplicate",vo);
-		
+		System.out.println("duplicate = "+count);
+		return count>0;
+	}
+	public boolean check_Active(CartVO vo) {
+		int count=sqlSession.selectOne("c.check_Active",vo);
+		System.out.println("Active = "+count);
+
 		return count>0;
 	}
 	
@@ -73,6 +79,12 @@ public class CartDAO {
 		List<CartVO> list=sqlSession.selectList("c.cart_list",user_idx);
 		
 		return list;
+	}
+	
+	public int updateState(int user_idx) {
+		int res=sqlSession.update("c.updateState", user_idx);
+		
+		return res;
 	}
 
 }

@@ -179,6 +179,7 @@
 	</head>
 	<body>
 	<jsp:include page="header.jsp"></jsp:include>
+ 	
  
 	<c:if test="${!empty users }">
  
@@ -193,7 +194,8 @@
   <div class="container2">
     <div class="items-container">
       <c:forEach var="vo" items="${list}">
-        <c:if test=""></c:if>
+     
+        <c:if test="${vo.status eq 'active' }">
         <c:set var="totalprice"  value="${totalprice + vo.price*vo.quantity}" />
         <c:set var="totaldiscount"  value="${totaldiscount + vo.price*vo.quantity-vo.realprice *vo.quantity}" /> 
         <div class="item">
@@ -226,6 +228,7 @@
           	<input type="button" value=" X " onclick="location.href='/shop/delete?product_idx=${vo.product_idx}&user_idx=${users.user_idx}'">
        	  </div>  	
         </div>
+        </c:if>
       </c:forEach>
     </div>
     

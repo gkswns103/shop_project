@@ -57,12 +57,13 @@ public class CartController {
 	public String cartInsert(CartVO vo) {
 		
 		boolean isDuplicate = cart_dao.check_duplicate(vo);
-		  
+		boolean isActive = cart_dao.check_Active(vo);
+		System.out.println(isActive);
 		String result="";
 		
 		//카트에 이미 똑같은 물건이 담겨있을 때
-		//중복이면
-		if(isDuplicate) {
+		//중복+Active이면 못넣음
+		if(isDuplicate && isActive) {
 			result="duplicate";
 			return result;
 		}
@@ -137,4 +138,35 @@ public class CartController {
 		
 	}
 	
+	@RequestMapping("/purchase")
+	public String purchase(Model model,UsersVO vo,int totalprice,int totaldiscount,int finalAmount) {
+		int user_idx=vo.getUser_idx();
+		List<CartVO> list=cart_dao.select_cart_list(user_idx);
+		model.addAttribute("list",list);
+		model.addAttribute("user", vo);
+		model.addAttribute("totaldiscount",totaldiscount);
+		model.addAttribute("totalprice",totalprice);
+		model.addAttribute("finalAmount",finalAmount);
+		
+		int updateResult=cart_dao.updateState(user_idx);
+		
+		System.out.println("업데이트 결과:"+updateResult); 
+		return Common.Path.VIEW_PATH + "myPurchaseDetail.jsp";
+	}
+	
+	
+	@RequestMapping("/myPurchaseList")
+	public String myPurchaseList(int user_idx) {
+		
+		return "";
+	}
 }
+
+
+
+
+
+
+
+
+
