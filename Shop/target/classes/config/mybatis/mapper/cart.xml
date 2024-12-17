@@ -44,4 +44,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from cart where user_idx=#{user_idx} and checked='1'
 	</select>
 	
+	<delete id="delete_user" parameterType="int">
+	delete from cart where user_idx = #{user_idx}
+	</delete>
+	
 </mapper>

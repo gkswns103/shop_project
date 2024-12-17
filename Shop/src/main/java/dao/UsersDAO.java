@@ -37,11 +37,42 @@ public class UsersDAO {
 		return res;
 	}
 	
-	public int update(UsersVO user_up, String pwd) {
+	public int update_no_id_no_pass(UsersVO user_up_no_pass) {
+		int res = sqlSession.update("u.update_no_id_no_pass",user_up_no_pass);
+		return res;
+	}
+	
+	public int update_no_id(UsersVO user_up, String pwd) {
 		 
-		int res = sqlSession.update("u.update",user_up);
+		int res = sqlSession.update("u.update_no_id",user_up);
 		
 		return res;
 	}
 	
+	
+	public int update_id(UsersVO user) {
+		int res = sqlSession.update("u.update_id", user);
+		return res;
+	}
+	
+	public int update_email(UsersVO user) {
+		int res = sqlSession.update("u.update_email", user);
+		return res;
+	}
+	
+	public int update_addr(UsersVO user) {
+		int res = sqlSession.update("u.update_addr", user);
+		System.out.println("dao결과 : " + res);
+		return res;
+	}
+	public int update_pwd(UsersVO user) {
+		
+		int res = sqlSession.update("u.update_pwd",user);
+		
+		return res;
+	}
+	public int delete_user(int user_idx) {
+		int res = sqlSession.delete("u.delete_user",user_idx);
+		return res;
+	}
 }
