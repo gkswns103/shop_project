@@ -38,12 +38,12 @@ public class CartDAO {
 	
 	public boolean check_duplicate(CartVO vo) {
 		int count=sqlSession.selectOne("c.check_duplicate",vo);
-		System.out.println("duplicate = "+count);
+
 		return count>0;
 	}
 	public boolean check_Active(CartVO vo) {
 		int count=sqlSession.selectOne("c.check_Active",vo);
-		System.out.println("Active = "+count);
+
 
 		return count>0;
 	}
@@ -71,7 +71,7 @@ public class CartDAO {
 	public int updateCheck(CartVO vo) {
 		
 		int res=sqlSession.update("c.updateCheck" ,vo);
-		System.out.println("체크박스 변경"+res);
+	
 		return res;
 	}
 	
@@ -81,10 +81,27 @@ public class CartDAO {
 		return list;
 	}
 	
-	public int updateState(int user_idx) {
-		int res=sqlSession.update("c.updateState", user_idx);
+	public int updateState(CartVO vo) {
+		int res=sqlSession.update("c.updateState", vo);
 		
 		return res;
+	}
+
+	public int delete_cart(int user_idx) {
+		int res = sqlSession.delete("c.delete_user", user_idx);
+		
+		return res;
+	}
+	
+	public int updateInventory(int user_idx) {
+		int res=sqlSession.update("c.updateInventory", user_idx);
+		return res;
+	} 
+	
+	public List<CartVO> purchaseList(int user_idx){
+		List<CartVO> list=sqlSession.selectList("c.purchaseList",user_idx);
+		
+		return list;
 	}
 
 }

@@ -1,8 +1,7 @@
 
 	let code;
 	
-	let emailch = false;
-	
+	let emailch = false;	
 	
 	function signup(f) {
 		
@@ -23,6 +22,10 @@
 		
 		if(f.addr.value == ""){
 			alert("주소를 입력해주세요");
+			return;
+		}
+		if(f.addr2.value == ""){
+			alert("상세주소를 입력해주세요");
 			return;
 		}
 		

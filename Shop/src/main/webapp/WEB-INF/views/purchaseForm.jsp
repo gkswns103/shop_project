@@ -210,7 +210,7 @@
 					return;
 				}
 				
-				alert("계좌입금 완료");
+				alert("주문 완료");
 				 
 				f.action="purchase";
 				f.submit();

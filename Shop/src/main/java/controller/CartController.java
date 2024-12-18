@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ public class CartController {
 	
 	@Autowired
 	HttpSession session;
+	
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
@@ -58,7 +60,7 @@ public class CartController {
 		
 		boolean isDuplicate = cart_dao.check_duplicate(vo);
 		boolean isActive = cart_dao.check_Active(vo);
-		System.out.println(isActive);
+	
 		String result="";
 		
 		//카트에 이미 똑같은 물건이 담겨있을 때
@@ -74,7 +76,6 @@ public class CartController {
 		int cart_count=cart_dao.cart_count(vo.getUser_idx());
 		session.setAttribute("cart_count", cart_count);
 		
-		System.out.println("카트 insert 결과 : "+res);
 		if(res==0) {
 			result="fail"; 
 		}else {
@@ -126,8 +127,8 @@ public class CartController {
 	@RequestMapping("/cart_purchaseForm")
 	public String purchaseForm(int user_idx,int finalAmount,int totalprice,int totaldiscount,Model model) {
 		List<CartVO> list=cart_dao.select_cart_list(user_idx);
-		UsersVO user=users_dao.selectOne(user_idx);
-		 
+		UsersVO user=users_dao.selectIdx(user_idx);
+
 		model.addAttribute("totaldiscount",totaldiscount);
 		model.addAttribute("totalprice",totalprice);
 		model.addAttribute("finalAmount",finalAmount);
@@ -140,26 +141,48 @@ public class CartController {
 	
 	@RequestMapping("/purchase")
 	public String purchase(Model model,UsersVO vo,int totalprice,int totaldiscount,int finalAmount) {
+		
 		int user_idx=vo.getUser_idx();
+		
 		List<CartVO> list=cart_dao.select_cart_list(user_idx);
+		
 		model.addAttribute("list",list);
 		model.addAttribute("user", vo);
 		model.addAttribute("totaldiscount",totaldiscount);
 		model.addAttribute("totalprice",totalprice);
 		model.addAttribute("finalAmount",finalAmount);
+			
+		CartVO vo1=new CartVO();
+		vo1.setOrdernumber(System.currentTimeMillis());
+		vo1.setUser_idx(user_idx);
 		
-		int updateResult=cart_dao.updateState(user_idx);
+		//수량 깎고
+		int updateInventoryResult=cart_dao.updateInventory(user_idx);
+		//state 변경
+		int updateResult=cart_dao.updateState(vo1);
 		
-		System.out.println("업데이트 결과:"+updateResult); 
-		return Common.Path.VIEW_PATH + "myPurchaseDetail.jsp";
+		return "redirect:/purchaseList?user_idx="+user_idx;
 	}
 	
-	
-	@RequestMapping("/myPurchaseList")
-	public String myPurchaseList(int user_idx) {
+	@RequestMapping("/purchaseList")
+	public String purchaseList(Model model,int user_idx) {
+		List<CartVO> list=cart_dao.purchaseList(user_idx);
 		
-		return "";
+		String ordertime = list.get(0).getOrdertime();
+		List<String> ordertimeList = new ArrayList<String>();
+		ordertimeList.add(ordertime);
+		for(int i = 0; i < list.size(); i++) {
+			if(!ordertime.equals(list.get(i).getOrdertime())) {
+				ordertimeList.add(list.get(i).getOrdertime());
+			}
+		}
+		
+		model.addAttribute("list",list);
+		model.addAttribute("ordertimeList", ordertimeList);
+		
+		return Common.Path.VIEW_PATH+"myPurchaseList.jsp";
 	}
+	
 }
 
 

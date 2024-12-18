@@ -31,7 +31,7 @@
 <body>
    <!-- Header-->
    <jsp:include page="header.jsp"></jsp:include>
-  	<jsp:include page="headerImg.jsp"></jsp:include>
+     <jsp:include page="headerImg.jsp"></jsp:include>
    <!-- Section-->
 
    <section class="py-5">
@@ -64,8 +64,9 @@
    <!-- Footer-->
    <footer class="py-5 bg-dark">
       <div class="container">
+         <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6</p>
+         <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
          <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
-         
       </div>
    </footer>
    <!-- Bootstrap core JS-->

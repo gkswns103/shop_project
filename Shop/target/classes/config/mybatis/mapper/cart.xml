@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="insert_cart" parameterType="cart">
 		insert into cart values
-		(seq_cart_idx.nextval, #{user_idx},#{product_idx},#{quantity}, 'active',#{name},#{price},#{discount},#{filepath},#{inventory},1)
+		(seq_cart_idx.nextval, #{user_idx},#{product_idx},#{quantity}, 'active',#{name},#{price},#{discount},#{filepath},#{inventory},1,0,0)
 	</insert>
 	
 	<select id="select_idx" parameterType="cart" resultType="int">
@@ -50,9 +50,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="cart_list" resultType="cart" parameterType="int">
 		select * from cart where user_idx=#{user_idx} and checked='1' and status='active'
 	</select>
-	
-	<update id="updateState" parameterType="int">
-		update cart set status='saled' where user_idx=#{user_idx} and checked='1'
+		
+	<update id="updateState" parameterType="cart">
+		update cart 
+		set status='saled',ordernumber = #{ordernumber} ,ordertime = sysdate 
+		where user_idx=#{user_idx} and checked='1' and status='active'
 	</update>
+ 	
+ 	<update id="updateInventory" parameterType="int">
+		UPDATE cart SET inventory = inventory - quantity 
+		WHERE cart_idx IN (
+        SELECT cart_idx
+    	FROM cart
+    	WHERE user_idx = #{user_idx}
+    	AND status = 'active'
+    	and checked='1' )
+	</update>
+	
+	<delete id="delete_user" parameterType="int">
+		delete from cart where user_idx = #{user_idx}
+	</delete>
+	
+	<select id="purchaseList" parameterType="int" resultType="cart">
+		select * from cart where user_idx=#{user_idx} and status='saled' order by ordernumber desc
+	</select>
+	
+	
 	
 </mapper>
