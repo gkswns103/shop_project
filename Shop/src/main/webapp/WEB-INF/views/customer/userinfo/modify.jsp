@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>정보 수정</title>
+<title>Want It</title>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -23,6 +23,9 @@
 <body>
 
 	<jsp:include page="../header/header.jsp"></jsp:include>
+	
+	<div class="h2"> <h2>회원정보수정</h2></div>
+	
 <main class="main-container">
 	<form>
 
@@ -75,7 +78,7 @@
 				<input type="button" id="toggle_p" value="비밀번호 변경" onclick="toggleChange_pwd();">
 			<div>
 			
-			<div class="hidden" style="margin-top:10px">
+			<div class="hidden" style="margin-top:10px; gap:5px;" >
 				<input type="hidden" name="pwd_text" placeholder="기존 비밀번호 입력"> 
 				<input type="hidden" name="new_pwd_text" placeholder="새 비밀번호 입력"> 
 				<input type="hidden" name="pwd_update_button" value="비밀번호 변경" onclick="send_pwd();">
@@ -502,8 +505,8 @@ function adjustContainerHeight() {
 
 </body>
 
-<footer class="py-4 bg-dark">
-      <div class="py-4 bg-dark">
+<footer class="py-3 bg-dark">
+      <div class="container">
          <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6</p>
          <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
          <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>

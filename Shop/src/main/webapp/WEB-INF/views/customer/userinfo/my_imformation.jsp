@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Want It 회원정보 수정</title>
+<title>Want It</title>
 
 <link rel="stylesheet" href="/shop/resources/css/myinfo.css">
 
@@ -23,6 +23,8 @@
 <body>
 	
 	<jsp:include page="../header/header.jsp"></jsp:include>
+	
+	<div class="h2" style="margin-top: 15px;"><h2>회원정보확인</h2></div>
 	
 	<main class="content-container">
 
