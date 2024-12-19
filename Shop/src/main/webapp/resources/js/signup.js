@@ -20,10 +20,16 @@
 			return;
 		}
 		
+		if(f.age.value == ""){
+			alert("나이를 입력해주세요");
+			return;
+		}
+		
 		if(f.addr.value == ""){
 			alert("주소를 입력해주세요");
 			return;
 		}
+		
 		if(f.addr2.value == ""){
 			alert("상세주소를 입력해주세요");
 			return;
@@ -36,7 +42,7 @@
 		}
 		
 		let url = "signup_form";
-		let param = "id=" + encodeURIComponent(f.id.value) + "&pwd=" + encodeURIComponent(f.pwd.value) + "&name=" + f.name.value + "&email=" + f.email.value + "&addr=" +f.addr.value + "&addr2=" + f.addr2.value;
+		let param = "id=" + encodeURIComponent(f.id.value) + "&pwd=" + encodeURIComponent(f.pwd.value) + "&name=" + f.name.value + "&email=" + f.email.value + "&addr=" +f.addr.value + "&addr2=" + f.addr2.value + "&age=" + f.age.value;
 		
 		sendRequest(url,param,signupFn,"POST");
 	}

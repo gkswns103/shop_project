@@ -18,8 +18,10 @@
    function resultlog() {
       if (xhr.readyState == 4 && xhr.status == 200) {
          let date = xhr.responseText;
-
-         if (date === 'no_id') {
+		if(date == 'admin'){
+			location.href = "/shop/admin_login?id="+date;
+		}
+        else if (date === 'no_id') {
             alert("없는 id");
             return;
          } else if (date === 'no_pwd') {
