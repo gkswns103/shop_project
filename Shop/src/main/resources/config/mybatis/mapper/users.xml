@@ -7,7 +7,7 @@
 	</select>
 	
 	<insert id="insert" parameterType="users">
-		insert into users values(seq_users_idx.nextval,#{id},#{pwd},#{name},#{email},#{addr},0,0)
+		insert into users(id,pwd,name,email,addr,age,sellerauth) values(#{id},#{pwd},#{name},#{email},#{addr},0,0)
 	</insert>
 	
 	<select id="select_imfo" parameterType ="int" resultType="users">
