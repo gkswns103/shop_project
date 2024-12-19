@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import common.BCryptPwd;
 import common.Common;
 import dao.CartDAO;
@@ -48,7 +47,14 @@ public class HomeController {
 	//기본 url
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
 	public String home(Model model) {
-
+		
+		if(session.getAttribute("users")!=null) {
+			UsersVO user=(UsersVO)session.getAttribute("users");
+				
+			int cart_count=cart_dao.cart_count(user.getUser_idx());
+			session.setAttribute("cart_count", cart_count);
+		}
+		
 		List<ProductVO> list = product_dao.select_list();
 
 		model.addAttribute("list", list);

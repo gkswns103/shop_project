@@ -93,7 +93,7 @@
 		</style>
 	</head>
 	<body>
-		 <jsp:include page="../header/header.jsp"></jsp:include> 
+		 <jsp:include page="header/header.jsp"></jsp:include> 
 	    <form>
 		<br>
 		<div class="container" style="width:1000px;">
@@ -188,7 +188,8 @@
 			<input class="pay" type="button" value="주문하기" onclick="purchase(this.form)">
 	
 		</div>
-		
+
+		<input type="hidden" name="user_idx" value="${user.user_idx}"> 
 		<input type="hidden" name="name" value="${user.name}"> 
 		<input type="hidden" name="email" value="${user.email }">
 		<input type="hidden" name="addr" value="${user.addr }">
@@ -196,17 +197,21 @@
 		<input type="hidden" name="totaldiscount" value="${totaldiscount}">
 		<input type="hidden" name="finalAmount" value="${finalAmount}">
 		</form>
-		
 		<script>
-			function purchase(){
+			function purchase(f){
 				const checkbox = document.querySelector('#account_transfer');
-				
+				let message=f.message.value.trim();
+				if(message ==""){
+					alert("배송메시지를 입력하세요");
+					return;
+				}
 				if(!checkbox.checked){
 					alert("결제방법을 선택해주세요");
 					return;
 				}
-				alert("계좌입금 완료");
 				
+				alert("주문 완료");
+				 
 				f.action="purchase";
 				f.submit();
 			}
