@@ -5,7 +5,7 @@
 	position: relative;
     margin: 60px auto;
     max-width: 600px; /* 폼의 너비 */
-    height: 570px;
+    min-height: auto;
     padding: 30px;
     background-color: #fff; /* 흰색 배경 */
     border-radius: 10px; /* 모서리 둥글게 */
@@ -40,6 +40,28 @@
     display: flex;
     flex-direction: column;
     gap: 10px; /* 내부 요소 간 간격 */
+}
+
+.addr_see {
+    width: 100%; /* 부모 컨테이너 기준 너비 설정 */
+    padding: 10px 15px; /* 내부 여백 */
+    border: 1px solid #ccc; /* 테두리 */
+    border-radius: 5px; /* 둥근 모서리 */
+    font-size: 14px; /* 글자 크기 */
+    overflow: auto; /* 긴 텍스트 스크롤 가능 */
+    white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+    text-overflow: ellipsis; /* 텍스트가 넘칠 경우 말줄임 표시 */
+}
+
+.addr .base {
+    display: flex;
+    flex-direction: column; /* 버튼을 아래로 배치 */
+    gap: 5px;
+}
+
+.addr_update_btn {
+    align-self: flex-start; /* 버튼을 왼쪽 정렬 */
+    margin-top: 5px; /* 간격 추가 */
 }
 
 /* Password 섹션 스타일 */
@@ -112,13 +134,13 @@ button:hover, input[type="button"]:hover {
 
 /* 기본 버튼 색상 (커스터마이징 가능) */
 button, input[type="button"] {
-    background-color: #6c63ff; /* 기본 배경색 */
+    background-color: #5c5c5c; /* 기본 배경색 */
 }
 
 .back {
 	 position: absolute; /* 부모 컨테이너 기준으로 고정 */
-    bottom: 20px; /* 아래쪽에서 20px */
-    right: 20px; /* 오른쪽에서 20px */
+    bottom: auto; /* 아래쪽에서 20px */
+    right: 3px; /* 오른쪽에서 20px */
     padding: 10px 20px;
     font-size: 14px;
     font-weight: bold;
@@ -126,5 +148,6 @@ button, input[type="button"] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    
     
 }

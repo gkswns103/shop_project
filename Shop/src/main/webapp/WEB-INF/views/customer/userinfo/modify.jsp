@@ -59,8 +59,8 @@
 
 		<div class="addr">
 			<div class="base">
-				<input name="addr" value="${ user.addr }" readonly>
-				<input type="button" id="toggle_a" value="주소 변경" onclick="toggleChange_addr();">
+				<input class="addr_see" name="addr" value="${ user.addr }" readonly>
+				<div class="addr_update_btn" ><input type="button" id="toggle_a" value="주소 변경" onclick="toggleChange_addr();"></div>
 			</div>
 			
 			<div class="hidden">
@@ -111,6 +111,14 @@
 	let can_i_pass = "no";
 	
 //------------------------------------------------------------------------------------------
+function adjustContainerHeight() {
+    const container = document.querySelector('.main-container');
+    // 높이를 자동으로 조정
+    container.style.height = 'auto'; // 높이 초기화
+    const newHeight = container.scrollHeight; // 현재 콘텐츠의 높이를 계산
+    container.style.height = newHeight + 'px'; // 새 높이를 적용
+}
+//------------------------------------------------------------------------------------------
 //아이디
 
 	//아이디 변경 버튼
@@ -143,6 +151,8 @@
 		}
 		
 		change_id = !change_id;
+		
+		adjustContainerHeight();
 		
 	}//아이디 변경 체크박스
 	
@@ -257,6 +267,8 @@
 			toggleBut_e.value = "이메일 변경"
 		}
 		change_email = !change_email;
+		
+		adjustContainerHeight();
 	}//이메일 변경 
 	
 	//메일 중복 체크
@@ -355,6 +367,8 @@
 
     change_addr = !change_addr; // 상태 토글
     
+    adjustContainerHeight();
+    
 }//toggleChange_addr
 
 	
@@ -451,6 +465,8 @@
 
     change_pwd = !change_pwd; // 상태 토글
     
+    adjustContainerHeight();
+    
 }//toggleChange_pwd
 	
 	function send_pwd(){
@@ -485,4 +501,13 @@
 </script>
 
 </body>
+
+<footer class="py-4 bg-dark">
+      <div class="py-4 bg-dark">
+         <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6</p>
+         <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
+         <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
+      </div>
+   </footer>
+
 </html>
