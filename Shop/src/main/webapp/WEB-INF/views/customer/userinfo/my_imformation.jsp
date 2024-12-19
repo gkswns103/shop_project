@@ -57,12 +57,6 @@
 				<div class="value">${user.age}</div>
 			</div>
 
-			<div class="info-row">
-				<div class="lable">Seller Certification</div>
-				<div class="value">${user.sellerauth}</div>
-			</div>
-
-
 			<div class="button-container">
 				<input type="button" value="계정삭제" class="delete-btn" onclick="delete_account(this.form);">
 				
