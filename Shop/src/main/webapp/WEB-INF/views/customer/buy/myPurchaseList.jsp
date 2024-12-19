@@ -60,7 +60,7 @@
 							</c:if>
 							<c:if test="${previousOrdernumber eq vo2.ordernumber}">
 								<img src="/shop/resources/img/${vo2.filepath}" width="70px;">
-								${vo2.name} ${vo2.quantity}개 <br>
+								${vo2.name} ${vo2.quantity}개  ${vo2.price* vo2.quantity }원<br>
 							</c:if>
 						</c:if>
 					</c:forEach>

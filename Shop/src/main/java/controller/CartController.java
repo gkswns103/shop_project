@@ -183,6 +183,41 @@ public class CartController {
 		return Common.Path.CUSTOMER_PATH+"buy/myPurchaseList.jsp";
 	}
 	
+	//상품1개 바로구매 버튼 클릭시
+	@RequestMapping("/buyNow")
+	public String buyNow(CartVO vo,Model model) {
+		
+		UsersVO user=users_dao.selectIdx(vo.getUser_idx());
+		
+		int price =vo.getPrice();
+		int discount=vo.getDiscount();
+		int discountprice=price-(price*(100-discount)/100);
+		model.addAttribute("discountprice",discountprice);
+		model.addAttribute("user",user);
+		model.addAttribute("vo",vo);
+		
+		return Common.Path.CUSTOMER_PATH + "buy/buyNowForm.jsp";
+	}
+	
+	@RequestMapping("/purchaseOne")
+	public String buyNow(Model model,int user_idx,CartVO cart_vo, int totalprice,int totaldiscount,int finalAmount) {
+		
+		
+		cart_vo.setOrdernumber(System.currentTimeMillis());
+		
+		
+		//수량,상태 입력
+		int update_res=cart_dao.updateInventoryOne(cart_vo);
+		System.out.println("gdgd : "+update_res);
+		
+		cart_vo.setInventory(cart_vo.getInventory()-cart_vo.getQuantity());
+		
+		//수량 업데이트
+		int upd_res=cart_dao.purchaseOne(cart_vo);
+		 
+		
+		return "redirect:/purchaseList?user_idx="+user_idx;
+	}
 }
 
 

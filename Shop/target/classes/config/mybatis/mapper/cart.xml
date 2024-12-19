@@ -97,4 +97,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		* from cart where user_idx=#{user_idx} and status='saled' order by
 		ordernumber desc
 	</select>
+	
+	<insert id="updateInventoryOne" parameterType="cart">
+		insert into 
+		cart ( user_idx,product_idx,quantity,status,name,price,discount,filepath,inventory,CHECKED,ORDERNUMBER,ORDERTIME)
+		values
+		(#{user_idx},#{product_idx},#{quantity}, 'saled',#{name},#{price},#{discount},#{filepath},#{inventory},1,#{ordernumber},NOW() )
+	</insert>
+	
+	<update id="purchaseOne" parameterType="cart">
+		update cart
+		set inventory=#{inventory}
+		where user_idx=#{user_idx} and checked='1' and ordernumber=#{ordernumber}
+	</update>
+	
 </mapper>

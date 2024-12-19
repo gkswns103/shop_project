@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,6 +20,7 @@
 				<link href="/shop/resources/css/style4.css" rel="stylesheet" />
 				<link href="/shop/resources/css/style5.css" rel="stylesheet" />
 				<link href="/shop/resources/css/style6.css" rel="stylesheet" /> 
+
 		<style>
 		.purchaseInfo tr{
 		border-bottom: 1px solid #dbdbdb;
@@ -91,6 +92,27 @@
 	    }
 		
 		</style>
+		<script>
+		function purchase(f){
+			
+				let checkbox = document.getElementById('account_transfer');
+				
+				let message=f.message.value.trim();
+				if(message ==""){
+					alert("배송메시지를 입력하세요");
+					return;
+				}
+				if(!checkbox.checked){
+					alert("결제방법을 선택해주세요");
+					return;
+				}
+				
+				alert("주문 완료");
+				 
+				f.action="purchaseOne";
+				f.submit();
+			}
+		</script>
 	</head>
 	<body>
 		 <jsp:include page="../header/header.jsp"></jsp:include> 
@@ -148,12 +170,12 @@
 				    <col style="width: 80%">
 				    <col style="width: 20%">
 		 		</colgroup>
-					<c:forEach var="vo" items="${list }">
+					
 						<tr>
 							<th>${vo.name }</th>  
 							<td>수량 ${vo.quantity }개  </td>
 						</tr>
-					</c:forEach>
+					
 				</table>
 			</div>
 			<br><hr><br>
@@ -164,15 +186,15 @@
 				
 					<tr>
 						<th>총상품가격</th>
-						<td><fmt:formatNumber value="${totalprice}" type="number" groupingUsed="true"/>원</td>
+						<td><fmt:formatNumber value="${vo.price * vo.quantity}" type="number" groupingUsed="true"/>원</td>
 					</tr>
 					<tr>
 						<th>할인금액</th>
-						<td>-<fmt:formatNumber value="${totaldiscount}" type="number" groupingUsed="true"/>원</td>
+						<td>-<fmt:formatNumber value="${discountprice*vo.quantity}" type="number" groupingUsed="true"/>원</td>
 					</tr>
 					<tr>
 						<th>총결제금액</th>
-						<td><fmt:formatNumber value="${finalAmount}" type="number" groupingUsed="true"/>원</td>
+						<td><fmt:formatNumber value="${vo.price * vo.quantity-discountprice*vo.quantity}" type="number" groupingUsed="true"/>원</td>
 					</tr>
 					<tr>
 						<th>결제방법</th>
@@ -186,35 +208,20 @@
 			</div>
 			<br>
 			<input class="pay" type="button" value="주문하기" onclick="purchase(this.form)">
-	
 		</div>
-
+		 
+		<input type="hidden" name="filepath" value="${vo.filepath}"> 
+		<input type="hidden" name="discount" value="${vo.discount}"> 
+		<input type="hidden" name="price" value="${vo.price}"> 
+		<input type="hidden" name="product_idx" value="${vo.product_idx}"> 
+		<input type="hidden" name="inventory" value="${vo.inventory}"> 
+		<input type="hidden" name="quantity" value="${vo.quantity}"> 
+		<input type="hidden" name="name" value="${vo.name}">  
 		<input type="hidden" name="user_idx" value="${user.user_idx}"> 
-		<input type="hidden" name="name" value="${user.name}"> 
-		<input type="hidden" name="email" value="${user.email }">
-		<input type="hidden" name="addr" value="${user.addr }">
-		<input type="hidden" name="totalprice" value="${totalprice}">
-		<input type="hidden" name="totaldiscount" value="${totaldiscount}">
-		<input type="hidden" name="finalAmount" value="${finalAmount}">
+		<input type="hidden" name="totalprice" value="${vo.price * vo.quantity}">
+		<input type="hidden" name="totaldiscount" value="${discountprice*vo.quantity}">
+		<input type="hidden" name="finalAmount" value="${vo.price * vo.quantity-discountprice*vo.quantity}">
 		</form>
-		<script>
-			function purchase(f){
-				let checkbox = document.getElementById('account_transfer');
-				let message=f.message.value.trim();
-				if(message ==""){
-					alert("배송메시지를 입력하세요");
-					return;
-				}
-				if(!checkbox.checked){
-					alert("결제방법을 선택해주세요");
-					return;
-				}
-				
-				alert("주문 완료");
-				 
-				f.action="purchase";
-				f.submit();
-			}
-		</script>
+		
 	</body>
 </html>
