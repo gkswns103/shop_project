@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.http.HttpRequest;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,14 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestAttributes;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -30,7 +26,6 @@ import com.google.gson.JsonParser;
 
 import common.Common;
 import dao.UsersDAO;
-import lombok.RequiredArgsConstructor;
 import vo.UsersVO;
 
 @Controller
@@ -82,7 +77,7 @@ public class KakaoController {
 
 			model.addAttribute("user", user);
 
-			return Common.Path.VIEW_PATH + "login/kakao_signup.jsp";
+			return Common.Path.CUSTOMER_PATH + "login/kakao_signup.jsp";
 		}
 	}
 

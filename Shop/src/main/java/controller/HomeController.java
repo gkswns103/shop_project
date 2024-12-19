@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import common.BCryptPwd;
 import common.Common;
 import dao.CartDAO;
@@ -48,7 +47,14 @@ public class HomeController {
 	//기본 url
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
 	public String home(Model model) {
-
+		
+		if(session.getAttribute("users")!=null) {
+			UsersVO user=(UsersVO)session.getAttribute("users");
+				
+			int cart_count=cart_dao.cart_count(user.getUser_idx());
+			session.setAttribute("cart_count", cart_count);
+		}
+		
 		List<ProductVO> list = product_dao.select_list();
 
 		model.addAttribute("list", list);
@@ -102,7 +108,7 @@ public class HomeController {
 
 	@RequestMapping("/signin_form")
 	public String signin_form() {
-		return Common.Path.VIEW_PATH + "login/signin.jsp";
+		return Common.Path.CUSTOMER_PATH + "login/signin.jsp";
 	}
 
 	@RequestMapping("/kakaologin")
@@ -117,7 +123,7 @@ public class HomeController {
 	//회원가입	
 	@RequestMapping(value = "/signup", produces = "text/plain; charset=UTF-8")
 	public String signup() {
-		return Common.Path.VIEW_PATH + "login/signup.jsp";
+		return Common.Path.CUSTOMER_PATH + "login/signup.jsp";
 	}
 
 	// 회원가입
@@ -151,7 +157,7 @@ public class HomeController {
 		System.out.println("idx=" + user_idx);
 		UsersVO user = users_dao.selectIdx(user_idx);
 		model.addAttribute("user", user);
-		return Common.Path.VIEW_PATH + "userinfo/my_imformation.jsp";
+		return Common.Path.CUSTOMER_PATH + "userinfo/my_imformation.jsp";
 	}
 
 	//------------------------------------------------------------------------------------------------	
@@ -163,7 +169,7 @@ public class HomeController {
 		UsersVO user = users_dao.selectIdx(user_idx);
 		model.addAttribute("user", user);
 
-		return Common.Path.VIEW_PATH + "userinfo/odify.jsp";
+		return Common.Path.CUSTOMER_PATH + "userinfo/odify.jsp";
 
 	}
 
@@ -272,7 +278,7 @@ public class HomeController {
 
 	@RequestMapping("/addr_search")
 	public String addr_search() {
-		return Common.Path.VIEW_PATH + "userinfo/addr.jsp";
+		return Common.Path.CUSTOMER_PATH + "userinfo/addr.jsp";
 	}
 
 

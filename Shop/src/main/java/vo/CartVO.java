@@ -2,10 +2,22 @@ package vo;
 
 public class CartVO {
 	int cart_idx,user_idx,product_idx,quantity,price,discount,realprice,inventory,checked;
-	String status,name,filepath;
+	String status,name,filepath,ordertime;
+	long ordernumber;
 	
 	
-	
+	public long getOrdernumber() {
+		return ordernumber;
+	}
+	public void setOrdernumber(long ordernumber) {
+		this.ordernumber = ordernumber;
+	}
+	public String getOrdertime() {
+		return ordertime;
+	}
+	public void setOrdertime(String ordertime) {
+		this.ordertime = ordertime;
+	}
 	public int getChecked() {
 		return checked;
 	}

@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -49,7 +50,7 @@ public class CartController {
 		
 		session.setAttribute("cart_count", cart_count);
 		
-		return Common.Path.VIEW_PATH + "buy/cartView.jsp";
+		return Common.Path.CUSTOMER_PATH + "buy/cartView.jsp";
 	}
 
 	//장바구니에 담기
@@ -58,12 +59,13 @@ public class CartController {
 	public String cartInsert(CartVO vo) {
 		
 		boolean isDuplicate = cart_dao.check_duplicate(vo);
-		  
+		boolean isActive = cart_dao.check_Active(vo);
+	
 		String result="";
 		
 		//카트에 이미 똑같은 물건이 담겨있을 때
-		//중복이면
-		if(isDuplicate) {
+		//중복+Active이면 못넣음
+		if(isDuplicate && isActive) {
 			result="duplicate";
 			return result;
 		}
@@ -74,7 +76,6 @@ public class CartController {
 		int cart_count=cart_dao.cart_count(vo.getUser_idx());
 		session.setAttribute("cart_count", cart_count);
 		
-		System.out.println("카트 insert 결과 : "+res);
 		if(res==0) {
 			result="fail"; 
 		}else {
@@ -134,8 +135,61 @@ public class CartController {
 		model.addAttribute("list",list);
 		model.addAttribute("user",user);
 		
-		return Common.Path.VIEW_PATH + "buy/purchaseForm.jsp";
+		return Common.Path.CUSTOMER_PATH + "buy/purchaseForm.jsp";
 		
 	}
 	
+	@RequestMapping("/purchase")
+	public String purchase(Model model,UsersVO vo,int totalprice,int totaldiscount,int finalAmount) {
+		
+		int user_idx=vo.getUser_idx();
+		
+		List<CartVO> list=cart_dao.select_cart_list(user_idx);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("user", vo);
+		model.addAttribute("totaldiscount",totaldiscount);
+		model.addAttribute("totalprice",totalprice);
+		model.addAttribute("finalAmount",finalAmount);
+			
+		CartVO vo1=new CartVO();
+		vo1.setOrdernumber(System.currentTimeMillis());
+		vo1.setUser_idx(user_idx);
+		
+		//수량 깎고
+		int updateInventoryResult=cart_dao.updateInventory(user_idx);
+		//state 변경
+		int updateResult=cart_dao.updateState(vo1);
+		
+		return "redirect:/purchaseList?user_idx="+user_idx;
+	}
+	
+	@RequestMapping("/purchaseList")
+	public String purchaseList(Model model,int user_idx) {
+		List<CartVO> list=cart_dao.purchaseList(user_idx);
+		
+		String ordertime = list.get(0).getOrdertime();
+		List<String> ordertimeList = new ArrayList<String>();
+		ordertimeList.add(ordertime);
+		for(int i = 0; i < list.size(); i++) {
+			if(!ordertime.equals(list.get(i).getOrdertime())) {
+				ordertimeList.add(list.get(i).getOrdertime());
+			}
+		}
+		
+		model.addAttribute("list",list);
+		model.addAttribute("ordertimeList", ordertimeList);
+		
+		return Common.Path.CUSTOMER_PATH+"buy/myPurchaseList.jsp";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
