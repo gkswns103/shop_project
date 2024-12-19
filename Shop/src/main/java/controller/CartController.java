@@ -168,6 +168,11 @@ public class CartController {
 	public String purchaseList(Model model,int user_idx) {
 		List<CartVO> list=cart_dao.purchaseList(user_idx);
 		
+		if (list == null || list.isEmpty()) {
+			model.addAttribute("isempty",true);
+		    return Common.Path.CUSTOMER_PATH + "buy/myPurchaseList.jsp";
+		}
+		
 		String ordertime = list.get(0).getOrdertime();
 		List<String> ordertimeList = new ArrayList<String>();
 		ordertimeList.add(ordertime);
@@ -176,7 +181,7 @@ public class CartController {
 				ordertimeList.add(list.get(i).getOrdertime());
 			}
 		}
-		
+		model.addAttribute("isempty",false);
 		model.addAttribute("list",list);
 		model.addAttribute("ordertimeList", ordertimeList);
 		

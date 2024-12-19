@@ -40,6 +40,8 @@
 
 <body>
 	<jsp:include page="../header/header.jsp"></jsp:include>
+	
+	<c:if test="${not isempty}">
 	<div class="container">
 
 		<c:forEach var="ordertime" items="${ordertimeList}">
@@ -74,8 +76,11 @@
 		</c:forEach>
 
 	</div>
-
+	
 	<input type="button" value="home" onclick="location.href='/shop/'">
-
+	</c:if>
+	<c:if test="${isempty}">
+		주문목록 없음
+	</c:if>
 </body>
 </html>
