@@ -4,14 +4,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="product_daoBean" class="dao.ProductDAO">
-		<property name="sqlSession" ref="sqlSessionBean"/>
+		<property name="sqlSession" ref="sqlSessionBean" />
 	</bean>
-	
+
 	<bean id="users_daoBean" class="dao.UsersDAO">
-		<property name="sqlSession" ref="sqlSessionBean"/>
+		<property name="sqlSession" ref="sqlSessionBean" />
 	</bean>
 	<bean id="cart_daoBean" class="dao.CartDAO">
-		<property name="sqlSession" ref="sqlSessionBean"/>
+		<property name="sqlSession" ref="sqlSessionBean" />
 	</bean>
 
 </beans>

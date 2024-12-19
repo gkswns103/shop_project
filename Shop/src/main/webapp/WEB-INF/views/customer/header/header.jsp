@@ -146,8 +146,9 @@
                		  <a class="nav-link dropdown-toggle" id="navbarDropdown"
                   onclick="" role="button" aria-expanded="false">${users.name}님 환영합니다</a>
                		  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-               		  <li><a class="dropdown-item">주문목록</a></li>
+               		  <li><a class="dropdown-item" href="purchaseList?user_idx=${users.user_idx }">주문목록</a></li>
                		  <li><a class="dropdown-item">찜목록</a></li>
+               		  <li><a class="dropdown-item" href="registerForm">상품등록</a></li>
                		  <li><a class="dropdown-item" href="my_imformation?user_idx=${users.user_idx}">내정보</a></li>
                		  </ul>
                	  </li>

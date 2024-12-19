@@ -27,9 +27,7 @@ public class ProductController {
 		 
 		return Common.Path.CUSTOMER_PATH+"product/productDetail.jsp";
 	}
-	
 
-	
 	@RequestMapping("/product")
 	public String product_list(Model model, String division, String category) {
 			
@@ -47,4 +45,27 @@ public class ProductController {
 			return Common.Path.CUSTOMER_PATH + "product/productView.jsp";
 	}
 	
+    @RequestMapping("/registerForm")
+    public String showRegisterForm(Model model) {
+        // 메인 카테고리 목록 가져오기
+        List<String> divisions = product_dao.getDistinctDivisions();
+        model.addAttribute("divisions", divisions);
+
+        // 서브 카테고리 목록 가져오기
+        List<String> categories = product_dao.getAllDistinctCategories();
+        model.addAttribute("categories", categories);
+
+        return Common.Path.CUSTOMER_PATH + "product/productInsert.jsp";
+    }
+
+    @RequestMapping("/addproduct")
+    public String addProduct(ProductVO vo) {
+        int res = product_dao.insertProduct(vo);
+        int product_idx = product_dao.selectAdd(vo);
+
+        System.out.println("상품 insert 결과 :" + res);
+        System.out.println(product_idx);
+
+        return "redirect:detail?product_idx=" + product_idx;
+    }
 }
