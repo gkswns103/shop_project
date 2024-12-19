@@ -93,7 +93,7 @@
 		</style>
 	</head>
 	<body>
-		 <jsp:include page="header/header.jsp"></jsp:include> 
+		 <jsp:include page="../header/header.jsp"></jsp:include> 
 	    <form>
 		<br>
 		<div class="container" style="width:1000px;">

@@ -6,5 +6,9 @@ public class Common {
 		
 		public final static String VIEW_PATH = "/WEB-INF/views/";
 		
+		public final static String CUSTOMER_PATH = "/WEB-INF/views/customer/";
+		
+		public final static String ADMIN_PATH = "/WEB-INF/views/admin/";
+		
 	}
 }

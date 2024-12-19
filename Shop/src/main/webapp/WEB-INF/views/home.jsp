@@ -27,8 +27,8 @@
 </head>
 <body>
    <!-- Header-->
-   <jsp:include page="header/header.jsp"></jsp:include>
-     <jsp:include page="header/headerImg.jsp"></jsp:include>
+   <jsp:include page="./customer/header/header.jsp"></jsp:include>
+     <jsp:include page="./customer/header/headerImg.jsp"></jsp:include>
    <!-- Section-->
 
    <section class="py-5">

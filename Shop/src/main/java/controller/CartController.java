@@ -50,7 +50,7 @@ public class CartController {
 		
 		session.setAttribute("cart_count", cart_count);
 		
-		return Common.Path.VIEW_PATH + "buy/cartView.jsp";
+		return Common.Path.CUSTOMER_PATH + "buy/cartView.jsp";
 	}
 
 	//장바구니에 담기
@@ -135,7 +135,7 @@ public class CartController {
 		model.addAttribute("list",list);
 		model.addAttribute("user",user);
 		
-		return Common.Path.VIEW_PATH + "buy/purchaseForm.jsp";
+		return Common.Path.CUSTOMER_PATH + "buy/purchaseForm.jsp";
 		
 	}
 	
@@ -180,7 +180,7 @@ public class CartController {
 		model.addAttribute("list",list);
 		model.addAttribute("ordertimeList", ordertimeList);
 		
-		return Common.Path.VIEW_PATH+"myPurchaseList.jsp";
+		return Common.Path.CUSTOMER_PATH+"buy/myPurchaseList.jsp";
 	}
 	
 }

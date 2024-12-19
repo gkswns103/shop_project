@@ -178,7 +178,7 @@
       </script>
    </head>
    <body>
-   <jsp:include page="header/header.jsp"></jsp:include>
+   <jsp:include page="../header/header.jsp"></jsp:include>
     
  
    <c:if test="${!empty users }">
@@ -246,7 +246,7 @@
 
    <c:if test="${empty users }">
       <!-- 로그인정보 없이 장바구니에 접근했을시 -->
-      <jsp:include page="login/signin.jsp"></jsp:include>
+      <jsp:include page="../login/signin.jsp"></jsp:include>
    </c:if>
    
    

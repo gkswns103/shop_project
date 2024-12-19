@@ -39,7 +39,7 @@
 </style>
 
 <body>
-	<jsp:include page="header/header.jsp"></jsp:include>
+	<jsp:include page="../header/header.jsp"></jsp:include>
 	<div class="container">
 
 		<c:forEach var="ordertime" items="${ordertimeList}">
