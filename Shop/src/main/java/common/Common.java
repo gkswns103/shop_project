@@ -11,4 +11,11 @@ public class Common {
 		public final static String ADMIN_PATH = "/WEB-INF/views/admin/";
 		
 	}
+	
+	public static class Admin{
+		
+		public final static String ID = "admin";
+		
+		public final static String PWD = "admin";
+	}
 }
