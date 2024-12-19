@@ -59,7 +59,7 @@ public class HomeController {
 
 		model.addAttribute("list", list);
 
-		return Common.Path.VIEW_PATH + "home.jsp";
+		return Common.Path.HOME_PATH + "home.jsp";
 	}
 
 	//------------------------------------------------------------------------------------------------

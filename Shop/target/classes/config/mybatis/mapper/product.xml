@@ -7,25 +7,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="select_list" resultType="product">
 		select * from product
 	</select>
-	
+
 	<!-- 카테고리 검색 -->
-	<select id="select_category" resultType="product" parameterType="String">
+	<select id="select_category" resultType="product"
+		parameterType="String">
 		select * from product where category=#{category}
 	</select>
-	
+
 	<!-- division 검색 -->
-	<select id="select_division" resultType="product" parameterType="String">
+	<select id="select_division" resultType="product"
+		parameterType="String">
 		select * from product where division=#{division}
 	</select>
-	 
+
 	<!-- 메뉴바 검색 -->
 	<select id="select_Menu" resultType="product">
-		select distinct division, category from product
+		select distinct division,
+		category from product
 	</select>
-	
+
 	<!-- 제품 상세보기 -->
 	<select id="select_one" resultType="product" parameterType="int">
-		 select * from product where product_idx=#{product_idx}
+		select * from product where product_idx=#{product_idx}
+	</select>
+
+	<select id="getDistinctDivisions" resultType="string">
+		SELECT DISTINCT division
+		FROM PRODUCT
+		ORDER BY division
+	</select>
+
+	<select id="getAllDistinctCategories" resultType="string">
+		SELECT DISTINCT category
+		FROM PRODUCT
+		ORDER BY category
+	</select>
+
+	<insert id="insertProduct" parameterType="product">
+		insert into product
+		(name,price,discount,inventory,explain,selleridx,filepath,category,division)
+		values
+		(#{name}, #{price}, #{discount}, #{inventory},
+		#{explain}, #{selleridx}, #{filepath}, #{category}, #{division})
+	</insert>
+
+	<select id="selectAdd" parameterType="product" resultType="int">
+		select product_idx from product where name=#{name} and price=#{price}
+		and discount=#{discount} and inventory=#{inventory}
 	</select>
 </mapper>
 

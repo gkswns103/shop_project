@@ -41,4 +41,29 @@ public class ProductDAO {
 	
 		return vo;
 	}
+	// 메인 카테고리 (중복 제거된 division 목록) 가져오기
+		public List<String> getDistinctDivisions() {
+		    return sqlSession.selectList("p.getDistinctDivisions");
+		}
+
+		// 서브 카테고리 (중복 제거된 category 목록) 가져오기
+		public List<String> getAllDistinctCategories() {
+		    return sqlSession.selectList("p.getAllDistinctCategories");
+		}
+		
+		// 제품 신규등록
+		public int insertProduct(ProductVO vo) {
+		    int res=sqlSession.insert("p.insertProduct", vo); 
+		    
+		    System.out.println("Insert Result: " + res);
+		    
+		    return res;
+		}
+		
+		public int selectAdd(ProductVO vo) {
+			
+			int idx=sqlSession.selectOne("p.selectAdd", vo);
+			
+			return idx;
+		}
 }
