@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import vo.UsersVO;
@@ -10,6 +12,12 @@ public class UsersDAO {
 	
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession=sqlSession;
+	}
+	
+	public List<UsersVO> list(){
+		List<UsersVO> list = sqlSession.selectList("u.list");
+		
+		return list;
 	}
 	
 	public UsersVO selectId(String id) {

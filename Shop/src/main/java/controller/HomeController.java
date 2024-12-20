@@ -80,6 +80,11 @@ public class HomeController {
 	@RequestMapping("/signin")
 	@ResponseBody
 	public String signin(String id, String c_pwd) {
+		if(Common.Admin.ID.equals(id) && Common.Admin.PWD.equals(c_pwd)) {
+			//어드민 계정
+			return "admin";
+		}
+		
 		UsersVO user = users_dao.selectId(id);
 
 		if (user == null) {
@@ -135,7 +140,7 @@ public class HomeController {
 			users.setPwd(encodePwd);
 
 			users.setAddr(users.getAddr() + addr2);
-
+			
 			int res = users_dao.insert(users);
 
 			session.setAttribute("users", users);

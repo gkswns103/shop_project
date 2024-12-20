@@ -57,6 +57,14 @@
 						<input class="input100" type="text" name="name"
 							value="${user.name}"> <span class="focus-input100"></span>
 					</div>
+					
+					<div class="p-t-10 p-b-9">
+						<span class="txt1"> 나이 </span>
+					</div>
+					<div class="wrap-input100 validate-input"
+						data-validate="Name is required">
+						<input class="input100" type="number" name="age"  min="18" max="100" value="20"><span class="focus-input100"></span>
+					</div>
 
 					<div class="p-t-10 p-b-9">
 						<span class="txt1"> 주소 </span>
@@ -115,6 +123,10 @@
 
 	<script>
 		function kakao_signup(f) {
+			if (f.age.value == "") {
+				alert("나이를 입력해주세요");
+				return;
+			}
 			if (f.addr.value == "") {
 				alert("주소를 입력해주세요");
 				return;
