@@ -29,9 +29,8 @@
 <main class="main-container">
 	<form>
 
-		<input type="hidden" id="user_idx" name="user_idx"
-			value="${user.user_idx}"> <input type="hidden" id="pwd"
-			name="pwd" value="${user.pwd}">
+		<input type="hidden" id="user_idx" name="user_idx" value="${user.user_idx}">
+		<input type="hidden" id="pwd" name="pwd" value="${user.pwd}">
 
 
 		<div class="id">
@@ -273,44 +272,6 @@ function adjustContainerHeight() {
 		
 		adjustContainerHeight();
 	}//이메일 변경 
-	
-	//메일 중복 체크
-	function mail_check() {
-		const get_newEmail = document.querySelector('input[name="email_update_text"]').value.trim();//값 가져오기	
-
-		if (get_newEmail === '') {
-			alert("email를 입력하세요");
-			return;
-		}
-
-		let url = "emailCheck";
-		let param = "email=" + get_newEmail;
-		sendRequest(url, param, resultcheck_e, "post");
-
-	}//check
-	
-	function resultcheck_e() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			let date = xhr.responseText.trim();
-
-			if (date === "no") {
-				alert("이메일이 중복입니다.");
-				can_i_e = "no";
-				return;
-
-			} else if (date === "yes") {
-				alert("사용가능합니다.");
-				can_i_e = "yes";
-
-			} else {
-				alert("오류발생 관리자에게 문의 하세요");
-				return;
-
-			}
-
-		}
-	
-	}//resultcheck_e
 	
 	//메일 변경
 	function send_email(){
