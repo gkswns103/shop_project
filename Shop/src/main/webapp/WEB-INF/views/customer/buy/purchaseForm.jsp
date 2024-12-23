@@ -89,8 +89,13 @@
 	    margin-left:400px;
 	    
 	    }
-		
+		 #entryNum {
+            display: none;
+        }
 		</style>
+		
+		
+		
 	</head>
 	<body>
 		 <jsp:include page="../header/header.jsp"></jsp:include> 
@@ -115,27 +120,35 @@
 					<td>${user.email }</td>
 				</tr>
 				<tr>
-					<th>배송 주소</th> 
-					<td>${user.addr }<input type="button" value="변경" onclick=""></td>
-				</tr>
-				<tr>
 					<th>연락처</th> 
 					<td>010-1111-2222</td>
 				</tr>
+			</table>
+			<br><hr><br>
+			<h4>배송 정보 <input type="button" value="배송지 변경" onclick="addr_search()"></h4> 
+			<table class="purchaseInfo">
 				<tr>
-					<th>배송 요청사항</th> 
+					<th>배송 주소</th> 
+					<td>${user.addr }
+					</td>
+				</tr>
+				<tr>
+					<th>배송 요청사항 </th> 
 					<td>
-						<select name="request">
+						<select id="request">
 							<option value="문 앞">문 앞</option>
 							<option value="부재 시 문 앞">부재 시 문 앞</option>
 							<option value="경비실">경비실</option>
 							<option value="택배함">택배함</option>
 						</select>
+						<input placeholder="출입번호를 입력하세요" id="entryNum">
+						공동현관 출입번호 <input type="checkbox" id="entryNumCheck" onchange="entryCheck()">
+						<input type="hidden" id="deliveryrequest" name="deliveryrequest" value="">
 					</td> 
-				</tr>
-				<tr>
+				</tr> 
+				<tr> 
 					<th>배송메시지</th> 
-					<td><input name="message"></td>
+					<td><input name="deliverymessage"></td>
 				</tr>
 			</table>
 			
@@ -196,12 +209,18 @@
 		<input type="hidden" name="totalprice" value="${totalprice}">
 		<input type="hidden" name="totaldiscount" value="${totaldiscount}">
 		<input type="hidden" name="finalAmount" value="${finalAmount}">
+
 		</form>
+		<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c7aefd977d4d59940d84d9223e46d62&libraries=services,clusterer,drawing"></script>
+		
 		<script>
 			function purchase(f){
 				let checkbox = document.getElementById('account_transfer');
-				let message=f.message.value.trim();
-				if(message ==""){
+				let deliverymessage=f.deliverymessage.value.trim();
+				if(deliverymessage ==""){
 					alert("배송메시지를 입력하세요");
 					return;
 				}
@@ -210,11 +229,63 @@
 					return;
 				}
 				
+				let request = document.getElementById("request").value;
+			    let entryNum = document.getElementById("entryNum");
+				
+			    let deliveryrequest = request;
+		        if (entryNumCheck && entryNum.value.trim() !== "") {
+		            deliveryrequest += "("+entryNum.value+")";
+		        }
+		        
+		        let deliveryrequestField = document.getElementById("deliveryrequest");
+		            deliveryrequestField.value = deliveryrequest;
+		       
 				alert("주문 완료");
 				 
 				f.action="purchase";
 				f.submit();
 			}
+			   
+	        function entryCheck(){
+				let entryNumCheck = document.getElementById('entryNumCheck');
+		        let entryNum = document.getElementById('entryNum');
+		        
+		        if (entryNumCheck.checked) {
+	            	entryNum.style.display = 'inline-block';
+	            } else {
+	            	entryNum.style.display = 'none';
+	            }
+	        	
+	        }
+	        
+	    /*     let addr = ''; // 주소 변수
+			function addr_search() {
+	        	
+				new daum.Postcode({
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+
+						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							addr = data.roadAddress;
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							addr = data.jibunAddress;
+						}
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById("addr").value = addr;
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById("addr2").focus();
+					}
+				}).open();
+
+				document.getElementById('addr2').removeAttribute("readonly");
+			} */
+
+		       
+		
 		</script>
 	</body>
 </html>

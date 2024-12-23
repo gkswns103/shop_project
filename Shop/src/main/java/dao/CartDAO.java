@@ -115,5 +115,10 @@ public class CartDAO {
 		
 		return res;
 	}
+	public List<CartVO> select_orderList(CartVO vo){
+		List< CartVO> list=sqlSession.selectList("c.select_orderList",vo);
+		return list;
+	
+	}
 
 }

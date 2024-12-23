@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.Common;
@@ -140,10 +141,11 @@ public class CartController {
 	}
 	
 	@RequestMapping("/purchase")
-	public String purchase(Model model,UsersVO vo,int totalprice,int totaldiscount,int finalAmount) {
+	public String purchase(Model model,String deliveryrequest,UsersVO vo,int totalprice,int totaldiscount,int finalAmount,String deliverymessage) {
+		System.out.println("deliveryrequest:" +deliveryrequest);
 		
 		int user_idx=vo.getUser_idx();
-		
+		String addr=vo.getAddr();
 		List<CartVO> list=cart_dao.select_cart_list(user_idx);
 		
 		model.addAttribute("list",list);
@@ -154,13 +156,18 @@ public class CartController {
 			
 		CartVO vo1=new CartVO();
 		vo1.setOrdernumber(System.currentTimeMillis());
+		vo1.setDeliverymessage(deliverymessage);
+		vo1.setDeliveryrequest(deliveryrequest);
+		vo1.setAddr(addr);
 		vo1.setUser_idx(user_idx);
 		
 		//수량 깎고
 		int updateInventoryResult=cart_dao.updateInventory(user_idx);
+		
+		System.out.println("res1 : " +updateInventoryResult);
 		//state 변경
 		int updateResult=cart_dao.updateState(vo1);
-		
+		System.out.println("res2 : " +updateResult);
 		return "redirect:/purchaseList?user_idx="+user_idx;
 	}
 	
@@ -184,7 +191,7 @@ public class CartController {
 		model.addAttribute("isempty",false);
 		model.addAttribute("list",list);
 		model.addAttribute("ordertimeList", ordertimeList);
-		
+		model.addAttribute("user_idx",user_idx);
 		return Common.Path.CUSTOMER_PATH+"buy/myPurchaseList.jsp";
 	}
 	
@@ -223,6 +230,18 @@ public class CartController {
 		
 		return "redirect:/purchaseList?user_idx="+user_idx;
 	}
+	
+	@RequestMapping("/orderDetail")
+	public String orderDetail(CartVO vo, Model model) {
+		
+		List<CartVO> list=cart_dao.select_orderList(vo);
+		UsersVO user= users_dao.selectIdx(vo.getUser_idx());
+		model.addAttribute("list",list);
+		model.addAttribute("user",user);
+		
+		return common.Common.Path.CUSTOMER_PATH +"buy/orderDetail.jsp";
+	}
+	
 }
 
 
