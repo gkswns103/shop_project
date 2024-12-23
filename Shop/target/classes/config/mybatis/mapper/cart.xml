@@ -100,9 +100,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="updateInventoryOne" parameterType="cart">
 		insert into 
-		cart ( user_idx,product_idx,quantity,status,name,price,discount,filepath,inventory,CHECKED,ORDERNUMBER,ORDERTIME,deliveryrequest,deliverymessage)
+		cart ( user_idx,product_idx,quantity,status,name,price,discount,filepath,inventory,CHECKED,ORDERNUMBER,ORDERTIME,deliveryrequest,deliverymessage,addr)
 		values
-		(#{user_idx},#{product_idx},#{quantity}, 'saled',#{name},#{price},#{discount},#{filepath},#{inventory},1,#{ordernumber},NOW(),0,0 )
+		(#{user_idx},#{product_idx},#{quantity}, 'saled',#{name},#{price},#{discount},#{filepath},#{inventory},1,#{ordernumber},NOW(),#{deliveryrequest},#{deliverymessage},#{addr} )
 	</insert>
 	
 	<update id="purchaseOne" parameterType="cart">

@@ -90,7 +90,9 @@
 	    margin-left:400px;
 	    
 	    }
-		
+		 #entryNum {
+            display: none;
+        }
 		</style>
 		<script>
 		function purchase(f){
@@ -137,32 +139,38 @@
 					<td>${user.email }</td>
 				</tr>
 				<tr>
-					<th>배송 주소</th> 
-					<td>${user.addr }<input type="button" value="변경" onclick=""></td>
-				</tr>
-				<tr>
 					<th>연락처</th> 
 					<td>010-1111-2222</td>
 				</tr>
+			</table>
+			<br><hr><br>
+			<h4>배송 정보 <input type="button" value="배송지 변경" onclick="addr_search()"></h4> 
+			<table class="purchaseInfo">
 				<tr>
-					<th>배송 요청사항</th> 
+					<th>배송 주소</th> 
+					<td>${user.addr }
+					</td>
+				</tr>
+				<tr>
+					<th>배송 요청사항 </th> 
 					<td>
-						<select name="request">
+						<select id="request">
 							<option value="문 앞">문 앞</option>
 							<option value="부재 시 문 앞">부재 시 문 앞</option>
 							<option value="경비실">경비실</option>
 							<option value="택배함">택배함</option>
 						</select>
+						<input placeholder="출입번호를 입력하세요" id="entryNum">
+						공동현관 출입번호 <input type="checkbox" id="entryNumCheck" onchange="entryCheck()">
+						<input type="hidden" id="deliveryrequest" name="deliveryrequest" value="">
 					</td> 
-				</tr>
-				<tr>
+				</tr> 
+				<tr> 
 					<th>배송메시지</th> 
-					<td><input name="message"></td>
+					<td><input name="deliverymessage"></td>
 				</tr>
 			</table>
-			
 			<br><hr><br>
-			
 			<h4>배송 목록</h4>
 			<div>
 				<table class="buyList">
@@ -170,18 +178,16 @@
 				    <col style="width: 80%">
 				    <col style="width: 20%">
 		 		</colgroup>
-					
 						<tr>
 							<th>${vo.name }</th>  
 							<td>수량 ${vo.quantity }개  </td>
 						</tr>
-					
 				</table>
 			</div>
 			<br><hr><br>
 			
 			<h4>결제 정보</h4>
-			<div>
+			
 				<table class="purchaseInfo" id="info">
 				
 					<tr>
@@ -205,11 +211,11 @@
 						</td>
 					</tr>
 				</table>
-			</div>
 			<br>
 			<input class="pay" type="button" value="주문하기" onclick="purchase(this.form)">
-		</div>
-		 
+			</div>
+	
+		<input type="hidden" name="addr" value="${user.addr }">
 		<input type="hidden" name="filepath" value="${vo.filepath}"> 
 		<input type="hidden" name="discount" value="${vo.discount}"> 
 		<input type="hidden" name="price" value="${vo.price}"> 
@@ -223,5 +229,47 @@
 		<input type="hidden" name="finalAmount" value="${vo.price * vo.quantity-discountprice*vo.quantity}">
 		</form>
 		
+		<script>
+			function purchase(f){
+				let checkbox = document.getElementById('account_transfer');
+				let deliverymessage=f.deliverymessage.value.trim();
+				if(deliverymessage ==""){
+					alert("배송메시지를 입력하세요");
+					return;
+				}
+				if(!checkbox.checked){
+					alert("결제방법을 선택해주세요");
+					return;
+				}
+				
+				let request = document.getElementById("request").value;
+			    let entryNum = document.getElementById("entryNum");
+				
+			    let deliveryrequest = request;
+		        if (entryNumCheck && entryNum.value.trim() !== "") {
+		            deliveryrequest += "("+entryNum.value+")";
+		        }
+		        
+		        let deliveryrequestField = document.getElementById("deliveryrequest");
+		            deliveryrequestField.value = deliveryrequest;
+		       
+				alert("주문 완료");
+				 
+				f.action="purchaseOne";
+				f.submit();
+			}
+			   
+	        function entryCheck(){
+				let entryNumCheck = document.getElementById('entryNumCheck');
+		        let entryNum = document.getElementById('entryNum');
+		        
+		        if (entryNumCheck.checked) {
+	            	entryNum.style.display = 'inline-block';
+	            } else {
+	            	entryNum.style.display = 'none';
+	            }
+	        	
+	        }
+	     </script>
 	</body>
 </html>

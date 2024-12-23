@@ -142,7 +142,6 @@ public class CartController {
 	
 	@RequestMapping("/purchase")
 	public String purchase(Model model,String deliveryrequest,UsersVO vo,int totalprice,int totaldiscount,int finalAmount,String deliverymessage) {
-		System.out.println("deliveryrequest:" +deliveryrequest);
 		
 		int user_idx=vo.getUser_idx();
 		String addr=vo.getAddr();
@@ -164,10 +163,8 @@ public class CartController {
 		//수량 깎고
 		int updateInventoryResult=cart_dao.updateInventory(user_idx);
 		
-		System.out.println("res1 : " +updateInventoryResult);
 		//state 변경
 		int updateResult=cart_dao.updateState(vo1);
-		System.out.println("res2 : " +updateResult);
 		return "redirect:/purchaseList?user_idx="+user_idx;
 	}
 	
@@ -204,6 +201,7 @@ public class CartController {
 		int price =vo.getPrice();
 		int discount=vo.getDiscount();
 		int discountprice=price-(price*(100-discount)/100);
+		
 		model.addAttribute("discountprice",discountprice);
 		model.addAttribute("user",user);
 		model.addAttribute("vo",vo);
@@ -215,12 +213,11 @@ public class CartController {
 	public String buyNow(Model model,int user_idx,CartVO cart_vo, int totalprice,int totaldiscount,int finalAmount) {
 		
 		
+		String addr=cart_vo.getAddr();
 		cart_vo.setOrdernumber(System.currentTimeMillis());
-		
 		
 		//수량,상태 입력
 		int update_res=cart_dao.updateInventoryOne(cart_vo);
-		System.out.println("gdgd : "+update_res);
 		
 		cart_vo.setInventory(cart_vo.getInventory()-cart_vo.getQuantity());
 		

@@ -144,7 +144,7 @@
                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                	  <li class="nav-item dropdown">
                		  <a class="nav-link dropdown-toggle" id="navbarDropdown"
-                  onclick="" role="button" aria-expanded="false">${users.name}님 환영합니다</a>
+                  onclick="" role="button" aria-expanded="false">${users.name}님 </a>
                		  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                		  <li><a class="dropdown-item" href="purchaseList?user_idx=${users.user_idx }">주문목록</a></li>
                		  <li><a class="dropdown-item">찜목록</a></li>

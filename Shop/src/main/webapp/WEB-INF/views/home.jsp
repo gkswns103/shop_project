@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 
 <!DOCTYPE html>
 <html>
@@ -48,7 +49,7 @@
                            <!-- Product name-->
                            <h5 class="fw-bolder">${vo.name}</h5>
                            <!-- Product price-->
-                           ${vo.price}원
+                           <fmt:formatNumber value="${vo.price}" type="number" groupingUsed="true"/>원
                         </div>
                      </div>
                   </div>
@@ -61,7 +62,6 @@
    <!-- Footer-->
    <footer class="py-5 bg-dark">
       <div class="container">
-         <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6</p>
          <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
          <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
       </div>

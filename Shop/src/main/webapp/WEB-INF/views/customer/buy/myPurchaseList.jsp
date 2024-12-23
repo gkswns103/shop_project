@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,8 @@ h4 {
 							</c:if>
 							<c:if test="${previousOrdernumber eq vo2.ordernumber}">
 								<img src="/shop/resources/img/${vo2.filepath}" width="70px;">
-								${vo2.name} ${vo2.quantity}개  ${vo2.price* vo2.quantity }원<br>
+								${vo2.name} ${vo2.quantity}개 
+								<fmt:formatNumber value="${vo2.price* vo2.quantity }" type="number" groupingUsed="true"/> 원<br>
 							</c:if>
 						</c:if>
 					</c:forEach>
