@@ -115,7 +115,7 @@
           const timer = setInterval(() => {
                 if (popupWindow.closed) {
                     clearInterval(timer); // 타이머 중지
-                    alert("팝업 창이 닫혔습니다!");
+                    
                     
                     location.reload();
                 }

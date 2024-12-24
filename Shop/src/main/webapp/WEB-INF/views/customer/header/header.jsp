@@ -5,13 +5,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="/shop/resources/css/header.css" rel="stylesheet" />
+
+<!-- 구글폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap" rel="stylesheet">
+
 </head> 
 
 <body>
    <!-- Navigation-->
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-         <a class="navbar-brand" href="/shop/"><img src="/shop/resources/images/icons/로고.png" style="width:50px; height:50px;">Want It</a>
+         <a class="navbar-brand" href="/shop/" style=" color: #25265F " ><img src="/shop/resources/images/icons/로고수정.png" style="width:50px; height:50px;">Want It</a>
          <button class="navbar-toggler" type="button"
             data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false"

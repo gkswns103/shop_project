@@ -13,7 +13,7 @@
 <title>Shop Home</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon"
-   href="/shop/resources/img/favicon.png" />
+   href="/shop/resources/img/파비콘_로고(완).png" />
 <!-- Bootstrap icons-->
 <link
    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -24,6 +24,11 @@
 <link href="/shop/resources/css/style3.css" rel="stylesheet" />
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
+<link href="/shop/resources/css/style6.css" rel="stylesheet" />
+<!-- 구글폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
    <!-- Header-->
