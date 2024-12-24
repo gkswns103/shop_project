@@ -29,10 +29,25 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap" rel="stylesheet">
+
+<style>
+   /* 헤더 고정 */
+   header {
+       position: fixed;
+       top: 0;
+       width: 100%;
+       z-index: 1030;
+   }
+   body {
+       padding-top: 70px; /* 헤더 높이만큼 여백 추가 */
+   }
+</style>
+
 </head>
 <body>
-   <!-- Header-->
+  <header>
    <jsp:include page="./customer/header/header.jsp"></jsp:include>
+   </header>
      <jsp:include page="./customer/header/headerImg.jsp"></jsp:include>
    <!-- Section-->
 
