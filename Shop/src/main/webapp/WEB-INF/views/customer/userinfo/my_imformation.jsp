@@ -72,15 +72,6 @@
 	<script src="/shop/resources/js/httpRequest.js"></script>
 	
 	<script>
-
-	function save_close() {
-    	alert("버튼 눌림");
-  	  if (window.opener) {
-  		 alert("안에는 들어옴");
-            window.opener.location.reload(); // 부모 창 새로고침
-        }
-        window.close(); // 팝업 창 닫기
-  }
 	
 		function delete_account(f) {
 		 	
@@ -119,8 +110,17 @@
 		 // 팝업 열기
 	    function openPopup() {
 	        const popupOptions = "width=500,height=700,scrollbars=no,left=500,top=50,resizable=no";
-            window.open("/shop/popup?user_idx=${user.user_idx}", "popupWindow", popupOptions);
+           const popupWindow =  window.open("/shop/popup?user_idx=${user.user_idx}", "popupWindow", popupOptions);
         
+          const timer = setInterval(() => {
+                if (popupWindow.closed) {
+                    clearInterval(timer); // 타이머 중지
+                    alert("팝업 창이 닫혔습니다!");
+                    
+                    location.reload();
+                }
+            }, 500);
+            
 	    }
 	</script>
 

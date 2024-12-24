@@ -199,7 +199,8 @@ public class HomeController {
 			return "fail";
 		}
 	}
-
+	
+	//비밀번호 변경
 	@RequestMapping(value = "/update_pwd")
 	@ResponseBody
 	public String update_pwd(UsersVO user, String new_pwd, String pwd) {
@@ -299,6 +300,9 @@ public class HomeController {
 			return "no";
 		}
 	}	
+	
+	// ------------------------------------------------------------------------------------------------
+	//수정 팝업
 	
 	@RequestMapping(value="/popup")
     public String openPopup(int user_idx, Model model) {
