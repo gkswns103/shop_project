@@ -1,0 +1,88 @@
+package controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import common.Common;
+import dao.CartDAO;
+import dao.ProductDAO;
+import dao.UsersDAO;
+import vo.ProductVO;
+import vo.UsersVO;
+
+@Controller
+public class AdminController {
+	
+	@Autowired
+	HttpSession session;
+	
+	UsersDAO users_dao;
+	ProductDAO product_dao;
+	CartDAO cart_dao;
+
+	public void setUsers_dao(UsersDAO users_dao) {
+		this.users_dao = users_dao;
+	}
+
+	public void setProduct_dao(ProductDAO product_dao) {
+		this.product_dao = product_dao;
+	}
+
+	public void setCart_dao(CartDAO cart_dao) {
+		this.cart_dao = cart_dao;
+	}
+	
+	@RequestMapping("/admin_login")
+	public String admin_page(String id) {
+
+		session.setAttribute("admin",id);
+		
+		return Common.Path.ADMIN_PATH + "admin.jsp";
+	}
+	
+	@RequestMapping("/admin_logout")
+	public String admin_logout() {
+		
+		session.removeAttribute("admin");
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/admin/userManagement")
+	public String userManagement(Model model) {
+		List<UsersVO> list = users_dao.list();
+		
+		model.addAttribute("list", list);
+		
+		return Common.Path.ADMIN_PATH + "userManagement.jsp";
+	}
+	
+	@RequestMapping("/admin/productManagement")
+	public String productManagement(Model model) {
+		List<ProductVO> list = product_dao.select_list();
+		
+		model.addAttribute("list", list);
+		
+		return Common.Path.ADMIN_PATH + "productManagement.jsp";
+	}
+	
+	@RequestMapping("/admin/delete_user")
+	public String user_delete(int user_idx) {
+		int res = users_dao.delete_user(user_idx);
+		System.out.println("결과=" + res);
+		return "redirect:/admin/userManagement";
+	}
+	
+	@RequestMapping("/admin/delete_product")
+	public String product_delete(int product_idx) {
+		int res = product_dao.delete_product(product_idx);
+		System.out.println("결과=" + res);
+		return "redirect:/admin/productManagement";
+	}
+}
