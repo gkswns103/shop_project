@@ -111,4 +111,21 @@ public class CartDAO {
 		return list;
 	}
 
+	
+	public int updateInventoryOne(CartVO vo) {
+		int res=sqlSession.insert("c.updateInventoryOne", vo);
+		
+		return res;
+	}
+	public int purchaseOne(CartVO vo) {
+		int res=sqlSession.update("c.purchaseOne", vo);
+		
+		return res;
+	}
+	public List<CartVO> select_orderList(CartVO vo){
+		List< CartVO> list=sqlSession.selectList("c.select_orderList",vo);
+		return list;
+	
+	}
+
 }

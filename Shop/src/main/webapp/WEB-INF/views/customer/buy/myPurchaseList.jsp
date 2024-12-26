@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +24,14 @@
 <style>
 .container {
 	width: 1000px;
+	border-radius: 5mm;
 }
 
 .bigbix {
 	border: 1px solid black;
+	
 }
-
+ 
 .smallbox {
 	border: 1px solid black;
 	margin-top: 10px;
@@ -36,15 +39,24 @@
 	padding: 10px;
 	border-radius: 5mm;
 }
+.detail{
+	float: right;
+}
+h4 {
+    display: inline; 
+}
 </style>
 
 <body>
 	<jsp:include page="../header/header.jsp"></jsp:include>
+	
+	<c:if test="${not isempty}">
+	<br>
 	<div class="container">
 
 		<c:forEach var="ordertime" items="${ordertimeList}">
 			<!-- 주문번호가 이전 주문번호와 다르면, 새로운 div로 묶기 -->
-			<div class="bigbox" style="border: 1px solid black; padding: 10px;">
+			<div class="bigbox" style="border: 1px solid black; padding: 10px; border-radius: 5mm;">
 				<br>
 				<h4>${ordertime}주문</h4>
 				<br>
@@ -52,7 +64,7 @@
 				<c:set var="previousOrdernumber" value="1" />
 
 				<div class="smallbox">
-					<h4>주문 완료</h4>
+					<h4>주문 완료</h4><a class="detail" onclick="location.href='orderDetail?ordertime=${ordertime}&user_idx=${user_idx }'">상세보기</a> <br>
 					<c:forEach var="vo2" items="${list}">
 						<c:if test="${vo2.ordertime eq ordertime }">
 							<c:if test="${previousOrdernumber != vo2.ordernumber }">
@@ -60,10 +72,12 @@
 							</c:if>
 							<c:if test="${previousOrdernumber eq vo2.ordernumber}">
 								<img src="/shop/resources/img/${vo2.filepath}" width="70px;">
-								${vo2.name} ${vo2.quantity}개 <br>
+								${vo2.name} ${vo2.quantity}개 
+								<fmt:formatNumber value="${vo2.price* vo2.quantity }" type="number" groupingUsed="true"/> 원<br>
 							</c:if>
 						</c:if>
 					</c:forEach>
+					
 				</div>
 
 				<!-- 이전 ordernumber를 갱신 -->
@@ -71,11 +85,15 @@
 				<!-- 주문번호가 변경되었으면 bigbox 닫기 -->
 				<!-- bigbox div 종료 -->
 			</div>
+				<br>
 		</c:forEach>
 
 	</div>
-
+	
 	<input type="button" value="home" onclick="location.href='/shop/'">
-
+	</c:if>
+	<c:if test="${isempty}">
+		주문목록 없음
+	</c:if>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 <!DOCTYPE html>
 <html>
 
@@ -43,7 +44,7 @@
 		<div>
 			<br>${vo.name } <br>
 			<hr>
-			${vo.price }원 ( 할인율 : ${vo.discount }% )<br> 남은수량 :
+			 <fmt:formatNumber value="${vo.price}" type="number" groupingUsed="true"/>원 ( 할인율 : ${vo.discount }% )<br> 남은수량 :
 			${vo.inventory }개
 			<hr>
 			배송비 : <br>
@@ -57,7 +58,7 @@
 				<button id="decrease" onclick="decrease()">▼</button>
 				<button id="increase" onclick="increase()">▲</button>
 				<input type="button" value="장바구니 담기" onclick="cartAdd()"> <input
-					type="button" value="바로 구매" onclick="">
+					type="button" value="바로 구매" onclick="buyNow()">
 			</div>
 
 		</div>
@@ -68,22 +69,33 @@
 	<script src="/shop/resources/js/amount_counter.js"></script>
 	<script src="/shop/resources/js/httpRequest.js"></script>
 	<script>
-	function cartAdd(){
-		if(${!empty users}){
-			 let usersExist = true;
+	function buyNow(){
+		if(${empty users}){
+			 alert("로그인이 필요한 서비스입니다");
+			 //현재 url 가져오기
+			 let currentUrl = window.location.href;
+			 location.href = "signin_form?redirect="+currentUrl;
+		     return;
 		}
-				else{
-					 alert("로그인이 필요한 서비스입니다");
-				     location.href="signin_form";
-				     return;
-				}
-			    
-			    let quantity=document.getElementById("amount").value;
-			   
-			    let url="cart_insert";
-			    let param="inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
-			
-			    sendRequest(url,param,addFn,"post");
+		 let quantity=document.getElementById("amount").value;
+		 location.href="/shop/buyNow?inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+		
+	}
+	function cartAdd(){
+		if(${empty users}){
+				 alert("로그인이 필요한 서비스입니다");
+				//현재 url 가져오기
+				 let currentUrl = encodeURIComponent(window.location.href);
+				 location.href = "signin_form?redirect="+currentUrl;
+			     return;
+			}
+		    
+		    let quantity=document.getElementById("amount").value;
+		   
+		    let url="cart_insert";
+		    let param="inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+		
+		    sendRequest(url,param,addFn,"post");
 	}
 			
 			function addFn(){

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Want It 회원정보 수정</title>
+<title>Want It</title>
 
 <link rel="stylesheet" href="/shop/resources/css/myinfo.css">
 
@@ -21,8 +21,9 @@
 
 </head>
 <body>
+	<jsp:include page="../header/header.jsp"></jsp:include>	
 	
-	<jsp:include page="../header/header.jsp"></jsp:include>
+	<div class="h2" style="margin-top: 15px;"><h2>회원정보확인</h2></div>
 	
 	<main class="content-container">
 
@@ -31,41 +32,35 @@
 			
 
 			<div class="info-row">
-				<div class="lable">Id</div>
+				<div class="lable">아이디</div>
 				<div class="value">${user.id}</div>
 			</div>
 
 			<div class="info-row">
-				<div class="lable">Name</div>
+				<div class="lable">이름</div>
 				<div class="value">${user.name}</div>
 			</div>
 
 			<div class="info-row">
-				<div class="lable">Email</div>
+				<div class="lable">이메일</div>
 				<div class="value">${user.email}</div>
 			</div>
 
 			<div class="info-row">
-				<div class="lable">Address</div>
+				<div class="lable">주소</div>
 				<div class="value">${user.addr}</div>
 			</div>
 
 			<div class="info-row">
-				<div class="lable">Age</div>
+				<div class="lable">나이</div>
 				<div class="value">${user.age}</div>
 			</div>
-
-			<div class="info-row">
-				<div class="lable">Seller Certification</div>
-				<div class="value">${user.sellerauth}</div>
-			</div>
-
 
 			<div class="button-container">
 				<input type="button" value="계정삭제" class="delete-btn" onclick="delete_account(this.form);">
 				
-				<div class=button-right>	
-				<input type="button" value="수정하기" class="modify-btn" onclick="modify(this.form);">
+				<div class=button-right>
+				<input type="button" value="정보 수정" class="modify-btn" onclick="openPopup();">
 				<input type="button" value="뒤로가기" class="back-btn" onclick="history.back();">
 				</div>
 			</div>
@@ -73,19 +68,11 @@
 
 
 	</main>
-	
+	   <div class="gong">※정보 수정이 완료 했지만 화면에 정보가 바뀌지 않았다면 새로고침을 부탁드리겠습니다※</div>
 	<script src="/shop/resources/js/httpRequest.js"></script>
 	
 	<script>
 	
-		function modify(f) {
-			let user_idx = f.user_idx.value;
-
-			f.action = 'modify';
-			f.method = 'post';
-			f.submit();
-		}
-
 		function delete_account(f) {
 		 	
 			let pwd = prompt("비밀번호를 입력하세요");
@@ -119,6 +106,22 @@
 			}//resultpass
 			
 		}
+		
+		 // 팝업 열기
+	    function openPopup() {
+	        const popupOptions = "width=500,height=700,scrollbars=no,left=500,top=50,resizable=no";
+           const popupWindow =  window.open("/shop/popup?user_idx=${user.user_idx}", "popupWindow", popupOptions);
+        
+          const timer = setInterval(() => {
+                if (popupWindow.closed) {
+                    clearInterval(timer); // 타이머 중지
+                    
+                    
+                    location.reload();
+                }
+            }, 500);
+            
+	    }
 	</script>
 
 </body>

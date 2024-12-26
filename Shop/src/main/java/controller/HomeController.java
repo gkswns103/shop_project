@@ -81,7 +81,7 @@ public class HomeController {
 	// 로그인
 	@RequestMapping("/signin")
 	@ResponseBody
-	public String signin(String id, String c_pwd) {
+	public String signin(String id, String c_pwd,String redirect) {
 		if(Common.Admin.ID.equals(id) && Common.Admin.PWD.equals(c_pwd)) {
 			//어드민 계정
 			return "admin";
@@ -99,7 +99,7 @@ public class HomeController {
 				session.setAttribute("users", user);
 				int cart_count = cart_dao.cart_count(user.getUser_idx());
 				session.setAttribute("cart_count", cart_count);
-				return "ok";
+				return redirect;
 			} else {
 				return "no_pwd";
 			}
@@ -108,7 +108,8 @@ public class HomeController {
 	}
 
 	@RequestMapping("/signin_form")
-	public String signin_form() {
+	public String signin_form(String redirect,Model model) {
+		model.addAttribute("redirect", redirect);
 		return Common.Path.CUSTOMER_PATH + "login/signin.jsp";
 	}
 
@@ -159,22 +160,12 @@ public class HomeController {
 	// ------------------------------------------------------------------------------------------------
 	// 수정
 
-	// 수정을 위한 1명 조회
-	@RequestMapping(value = "/modify")
-	public String select_modify(int user_idx, Model model) {
-		UsersVO user = users_dao.selectIdx(user_idx);
-		model.addAttribute("user", user);
-
-		return Common.Path.CUSTOMER_PATH + "userinfo/modify.jsp";
-
-	}
 
 	// 아이디 변경
 	@RequestMapping(value = "/update_id")
 	@ResponseBody
 	public String update_id(UsersVO user) {
 		int res = users_dao.update_id(user);
-		System.out.println("수정결과 : " + res);
 		if (res > 0) {
 			return "suc";
 		} else {
@@ -208,7 +199,8 @@ public class HomeController {
 			return "fail";
 		}
 	}
-
+	
+	//비밀번호 변경
 	@RequestMapping(value = "/update_pwd")
 	@ResponseBody
 	public String update_pwd(UsersVO user, String new_pwd, String pwd) {
@@ -307,5 +299,16 @@ public class HomeController {
 
 			return "no";
 		}
-	}
+	}	
+	
+	// ------------------------------------------------------------------------------------------------
+	//수정 팝업
+	
+	@RequestMapping(value="/popup")
+    public String openPopup(int user_idx, Model model) {
+		UsersVO user = users_dao.selectIdx(user_idx);
+		model.addAttribute("user", user);
+        return common.Common.Path.CUSTOMER_PATH + "/userinfo/popup.jsp"; // popup.jsp 경로
+    }
+
 }
