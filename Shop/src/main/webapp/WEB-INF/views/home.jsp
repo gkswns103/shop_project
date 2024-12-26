@@ -25,6 +25,7 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
+
 <!-- 구글폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +41,11 @@
    }
    body {
        padding-top: 70px; /* 헤더 높이만큼 여백 추가 */
+       background-image: url("/shop/resources/img/배경예시.jpg");  
+       background-size: cover; /* 배경 이미지를 화면에 맞게 조정 */
+  	   background-repeat: no-repeat; /* 배경 이미지를 반복하지 않음 */
+   	   background-attachment: fixed; /* 배경을 고정하여 스크롤에도 따라오지 않음 */
+       background-position: center; /* 배경 이미지의 위치를 가운데로 설정 */
    }
 </style>
 
