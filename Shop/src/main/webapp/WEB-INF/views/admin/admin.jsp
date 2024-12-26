@@ -38,7 +38,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="#" onclick="window.location.reload(); return false;">
+				href="/shop/admin/admin_login">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -59,7 +59,8 @@
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="userManagement">유저관리</a>
+						<a class="collapse-item" href="/shop/admin/userManagement">유저관리</a>
+						<a class="collapse-item" href="/shop/admin/orderlist">주문관리</a>
 					</div>
 				</div></li>
 
@@ -72,7 +73,7 @@
 				<div id="collapseUtilities" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="productManagement">상품리스트</a> 
+						<a class="collapse-item" href="/shop/admin/productManagement">상품리스트</a> 
 						<a class="collapse-item" href="#">상품추가</a>
 						<a class="collapse-item" href="#">재고관리</a>
 					</div>
@@ -82,7 +83,7 @@
 			<hr class="sidebar-divider">
 
 			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="/shop/admin_logout"> <i
+			<li class="nav-item"><a class="nav-link collapsed" href="/shop/admin/admin_logout"> <i
 					class="fas fa-sign-out-alt"></i> <span>로그아웃</span>
 			</a></li>
 
@@ -129,22 +130,6 @@
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">Earnings
 										Overview</h6>
-									<div class="dropdown no-arrow">
-										<a class="dropdown-toggle" href="#" role="button"
-											id="dropdownMenuLink" data-toggle="dropdown"
-											aria-haspopup="true" aria-expanded="false"> <i
-											class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-										</a>
-										<div
-											class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-											aria-labelledby="dropdownMenuLink">
-											<div class="dropdown-header">Dropdown Header:</div>
-											<a class="dropdown-item" href="#">Action</a> <a
-												class="dropdown-item" href="#">Another action</a>
-											<div class="dropdown-divider"></div>
-											<a class="dropdown-item" href="#">Something else here</a>
-										</div>
-									</div>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">

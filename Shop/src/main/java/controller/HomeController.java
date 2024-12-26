@@ -46,7 +46,7 @@ public class HomeController {
 
 	// 기본 url
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
-	public String home(Model model) {
+	public String home(Model model, String res) {
 
 		if (session.getAttribute("users") != null) {
 			UsersVO user = (UsersVO) session.getAttribute("users");
@@ -56,10 +56,12 @@ public class HomeController {
 		}
 
 		List<ProductVO> list = product_dao.select_list();
-
 		model.addAttribute("list", list);
-
-		return Common.Path.HOME_PATH + "home.jsp";
+		
+		if(res == null || res == "") {
+			return Common.Path.HOME_PATH + "home.jsp";
+		}
+		return Common.Path.HOME_PATH + "home.jsp?res=" + res;
 	}
 
 	// ------------------------------------------------------------------------------------------------
@@ -95,10 +97,7 @@ public class HomeController {
 			boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 			if (isValid) {
 				session.setAttribute("users", user);
-
-				int user_idx = user.getUser_idx();
-
-				int cart_count = cart_dao.cart_count(user_idx);
+				int cart_count = cart_dao.cart_count(user.getUser_idx());
 				session.setAttribute("cart_count", cart_count);
 				return "ok";
 			} else {
@@ -139,7 +138,7 @@ public class HomeController {
 			// 암호화 하고 다시 set
 			users.setPwd(encodePwd);
 
-			users.setAddr(users.getAddr() + addr2);
+			users.setAddr(users.getAddr() + " "+ addr2);
 			
 			int res = users_dao.insert(users);
 

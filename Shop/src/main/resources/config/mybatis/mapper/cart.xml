@@ -8,6 +8,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 		* from cart where user_idx=#{user_idx}
 	</select>
+	
+	<select id="list" resultType="cart">
+		select * from cart where status='saled'
+	</select>
 
 	<insert id="insert_cart" parameterType="cart">
 		insert into

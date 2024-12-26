@@ -2,10 +2,29 @@ package vo;
 
 public class CartVO {
 	int cart_idx,user_idx,product_idx,quantity,price,discount,realprice,inventory,checked;
-	String status,name,filepath,ordertime;
+	String status,name,filepath,ordertime,deliveryrequest,deliverymessage,addr;
 	long ordernumber;
 	
 	
+	
+	public String getDeliveryrequest() {
+		return deliveryrequest;
+	}
+	public void setDeliveryrequest(String deliveryrequest) {
+		this.deliveryrequest = deliveryrequest;
+	}
+	public String getDeliverymessage() {
+		return deliverymessage;
+	}
+	public void setDeliverymessage(String deliverymessage) {
+		this.deliverymessage = deliverymessage;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
 	public long getOrdernumber() {
 		return ordernumber;
 	}
