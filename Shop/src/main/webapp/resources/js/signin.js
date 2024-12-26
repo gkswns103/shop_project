@@ -18,7 +18,6 @@
    function resultlog() {
       if (xhr.readyState == 4 && xhr.status == 200) {
          let data = xhr.responseText;
-         alert(data);
 		if(data == 'admin'){
 			location.href = "/shop/admin_login?id="+data;
 		}

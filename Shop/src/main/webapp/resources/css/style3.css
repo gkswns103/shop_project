@@ -179,6 +179,7 @@
   background-clip: border-box;
   border: var(--bs-card-border-width) solid var(--bs-card-border-color);
   border-radius: var(--bs-card-border-radius);
+  transition: all 0.3s ease-in-out;
 }
 .card > hr {
   margin-right: 0;
@@ -298,6 +299,13 @@
 .card-group > .card {
   margin-bottom: var(--bs-card-group-margin);
 }
+
+.card:hover {
+    border: 1px solid #454685;
+    transform: translateY(-3px);
+    color: #454685;
+}
+
 @media (min-width: 576px) {
   .card-group {
     display: flex;

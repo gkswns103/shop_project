@@ -161,22 +161,12 @@ public class HomeController {
 	// ------------------------------------------------------------------------------------------------
 	// 수정
 
-	// 수정을 위한 1명 조회
-	@RequestMapping(value = "/modify")
-	public String select_modify(int user_idx, Model model) {
-		UsersVO user = users_dao.selectIdx(user_idx);
-		model.addAttribute("user", user);
-
-		return Common.Path.CUSTOMER_PATH + "userinfo/modify.jsp";
-
-	}
 
 	// 아이디 변경
 	@RequestMapping(value = "/update_id")
 	@ResponseBody
 	public String update_id(UsersVO user) {
 		int res = users_dao.update_id(user);
-		System.out.println("수정결과 : " + res);
 		if (res > 0) {
 			return "suc";
 		} else {
@@ -210,7 +200,8 @@ public class HomeController {
 			return "fail";
 		}
 	}
-
+	
+	//비밀번호 변경
 	@RequestMapping(value = "/update_pwd")
 	@ResponseBody
 	public String update_pwd(UsersVO user, String new_pwd, String pwd) {
@@ -309,5 +300,16 @@ public class HomeController {
 
 			return "no";
 		}
-	}
+	}	
+	
+	// ------------------------------------------------------------------------------------------------
+	//수정 팝업
+	
+	@RequestMapping(value="/popup")
+    public String openPopup(int user_idx, Model model) {
+		UsersVO user = users_dao.selectIdx(user_idx);
+		model.addAttribute("user", user);
+        return common.Common.Path.CUSTOMER_PATH + "/userinfo/popup.jsp"; // popup.jsp 경로
+    }
+
 }
