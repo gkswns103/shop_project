@@ -217,6 +217,13 @@
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c7aefd977d4d59940d84d9223e46d62&libraries=services,clusterer,drawing"></script>
 		
 		<script>
+			window.onload = function(){
+				if(${empty users}){
+					alert("로그인 필요");	
+					location.href="signin_form";
+				}
+			}
+		
 			function purchase(f){
 				let checkbox = document.getElementById('account_transfer');
 				let deliverymessage=f.deliverymessage.value.trim();

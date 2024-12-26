@@ -79,7 +79,7 @@ public class HomeController {
 	// 로그인
 	@RequestMapping("/signin")
 	@ResponseBody
-	public String signin(String id, String c_pwd) {
+	public String signin(String id, String c_pwd,String redirect) {
 		if(Common.Admin.ID.equals(id) && Common.Admin.PWD.equals(c_pwd)) {
 			//어드민 계정
 			return "admin";
@@ -100,7 +100,7 @@ public class HomeController {
 
 				int cart_count = cart_dao.cart_count(user_idx);
 				session.setAttribute("cart_count", cart_count);
-				return "ok";
+				return redirect;
 			} else {
 				return "no_pwd";
 			}
@@ -109,7 +109,8 @@ public class HomeController {
 	}
 
 	@RequestMapping("/signin_form")
-	public String signin_form() {
+	public String signin_form(String redirect,Model model) {
+		model.addAttribute("redirect", redirect);
 		return Common.Path.CUSTOMER_PATH + "login/signin.jsp";
 	}
 

@@ -25,8 +25,10 @@
 <link href="/shop/resources/css/style3.css" rel="stylesheet" />
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
+ 
 </head>
 <body>
+
    <!-- Header-->
    <jsp:include page="./customer/header/header.jsp"></jsp:include>
      <jsp:include page="./customer/header/headerImg.jsp"></jsp:include>

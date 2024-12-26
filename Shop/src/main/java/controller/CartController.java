@@ -37,7 +37,7 @@ public class CartController {
 	public void setCart_dao(CartDAO cart_dao) {
 		this.cart_dao = cart_dao;
 	}
-
+	
 	//장바구니 조회
 	@RequestMapping("/cart")
 	public String cart_view(int user_idx,Model model) {
@@ -127,6 +127,12 @@ public class CartController {
 	
 	@RequestMapping("/cart_purchaseForm")
 	public String purchaseForm(int user_idx,int finalAmount,int totalprice,int totaldiscount,Model model) {
+		 Object users = session.getAttribute("users");
+		    if (users == null) {
+		        // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+		         return "redirect:/signin_form";
+		    }
+		
 		List<CartVO> list=cart_dao.select_cart_list(user_idx);
 		UsersVO user=users_dao.selectIdx(user_idx);
 
@@ -142,7 +148,12 @@ public class CartController {
 	
 	@RequestMapping("/purchase")
 	public String purchase(Model model,String deliveryrequest,UsersVO vo,int totalprice,int totaldiscount,int finalAmount,String deliverymessage) {
-		
+		Object users = session.getAttribute("users");
+	    if (users == null) {
+	        // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+	         return "redirect:/signin_form";
+	    }
+	    
 		int user_idx=vo.getUser_idx();
 		String addr=vo.getAddr();
 		List<CartVO> list=cart_dao.select_cart_list(user_idx);
@@ -170,6 +181,12 @@ public class CartController {
 	
 	@RequestMapping("/purchaseList")
 	public String purchaseList(Model model,int user_idx) {
+		Object users = session.getAttribute("users");
+	    if (users == null) {
+	        // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+	         return "redirect:/signin_form";
+	    }
+	    
 		List<CartVO> list=cart_dao.purchaseList(user_idx);
 		
 		if (list == null || list.isEmpty()) {

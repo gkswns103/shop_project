@@ -34,19 +34,26 @@ public class KakaoController {
 	@Autowired
 	HttpSession session;
 
-	
 	UsersDAO users_dao;
 
 	public void setUsers_dao(UsersDAO users_dao) {
 		this.users_dao = users_dao;
 	}
 
+	@ResponseBody
+	@RequestMapping(value="/setRedirect")
+    public String setRedirect(@RequestParam String redirect, HttpSession session) {
+        // redirect 값을 세션에 저장
+        session.setAttribute("redirect", redirect);
+        return "success";
+    }
+
 	@RequestMapping(value = "/getKakaoAuthUrl")
 	public @ResponseBody String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
 		String reqUrl = "https://kauth.kakao.com/oauth/authorize" + "?client_id=45484c448a366908d833bb7f9a36a50b" // REST
 																													// API
 																													// 키
-				+ "&redirect_uri=http://localhost:9090/shop/oauth_kakao" // 리다이렉트 URI
+				+ "&redirect_uri=http://localhost:9090/shop/oauth_kakao"// 리다이렉트 URI
 				+ "&response_type=code"; // 응답 타입
 
 		return reqUrl;
@@ -68,7 +75,18 @@ public class KakaoController {
 		if (users_dao.selectId(email) != null) { // 카카오로 회원가입 한경우
 			user = users_dao.selectId(email);
 			session.setAttribute("users", user);
-			return "redirect:/"; // 본인 원하는 경로 설정
+			String redirect=(String)session.getAttribute("redirect");
+
+			if (redirect == "" ) {
+	            // redirect 값이 존재하면 해당 URL로 리디렉션
+				session.removeAttribute("redirect");
+				return "redirect:/";
+	        } else {
+	            // 없으면 기본 페이지로 리디렉션
+	        	session.removeAttribute("redirect");
+	            return "redirect:" + redirect;
+	        }
+			
 		} else {
 			user.setEmail(email);
 			user.setName(name);

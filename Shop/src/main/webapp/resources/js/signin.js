@@ -11,24 +11,28 @@
          return;
       }
       let url = "signin";
-      let param = "id=" + id + "&c_pwd=" + encodeURIComponent(c_pwd);
+      let param = "id=" + id + "&c_pwd=" + encodeURIComponent(c_pwd) + "&redirect=" + f.redirect.value;
       sendRequest(url, param, resultlog, "post");
    }
 
    function resultlog() {
       if (xhr.readyState == 4 && xhr.status == 200) {
-         let date = xhr.responseText;
-		if(date == 'admin'){
-			location.href = "/shop/admin_login?id="+date;
+         let data = xhr.responseText;
+         alert(data);
+		if(data == 'admin'){
+			location.href = "/shop/admin_login?id="+data;
 		}
-        else if (date === 'no_id') {
+        else if (data === 'no_id') {
             alert("없는 id");
             return;
-         } else if (date === 'no_pwd') {
+         } else if (data === 'no_pwd') {
             alert("비밀번호가 틀립니다.");
             return;
-         } else {
-            location.href = "/shop/";
+         } else if( data ===''){
+           location.href="/shop/";
+           }
+          else {
+            location.href = data;
          }
 
       }

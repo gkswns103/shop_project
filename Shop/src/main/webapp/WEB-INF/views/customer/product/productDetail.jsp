@@ -72,17 +72,21 @@
 	function buyNow(){
 		if(${empty users}){
 			 alert("로그인이 필요한 서비스입니다");
-		     location.href="signin_form";
+			 //현재 url 가져오기
+			 let currentUrl = window.location.href;
+			 location.href = "signin_form?redirect="+currentUrl;
 		     return;
 		}
 		 let quantity=document.getElementById("amount").value;
-		location.href="/shop/buyNow?inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+		 location.href="/shop/buyNow?inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
 		
 	}
 	function cartAdd(){
 		if(${empty users}){
 				 alert("로그인이 필요한 서비스입니다");
-			     location.href="signin_form";
+				//현재 url 가져오기
+				 let currentUrl = encodeURIComponent(window.location.href);
+				 location.href = "signin_form?redirect="+currentUrl;
 			     return;
 			}
 		    
