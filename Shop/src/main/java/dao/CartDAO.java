@@ -22,6 +22,13 @@ public class CartDAO {
 		return list;
 	}
 	
+	public List<CartVO> select_list(){
+		List<CartVO> list = sqlSession.selectList("c.list");
+		
+		
+		return list;
+	}
+	
 	public int insert_cart(CartVO vo) {
 		
 		int res=sqlSession.insert("c.insert_cart", vo);

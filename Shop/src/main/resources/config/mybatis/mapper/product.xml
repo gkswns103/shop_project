@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertProduct" parameterType="product">
 		insert into product
-		(name,price,discount,inventory,explain,selleridx,filepath,category,division)
+		(name,price,discount,inventory,`explain`,selleridx,filepath,category,division)
 		values
 		(#{name}, #{price}, #{discount}, #{inventory},
 		#{explain}, #{selleridx}, #{filepath}, #{category}, #{division})

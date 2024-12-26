@@ -82,10 +82,14 @@ public class KakaoController {
 	}
 
 	@RequestMapping("/kakao_signup")
-	public String kakao_signup(UsersVO user, Model model) {
+	public String kakao_signup(UsersVO user,String addr2, Model model) {
+		user.setAddr(user.getAddr() + " " + addr2);
 		users_dao.insert(user);
 		System.out.println("가입성공");
-		session.setAttribute("users", user);
+		
+		UsersVO new_user = users_dao.selectId(user.getId());
+		
+		session.setAttribute("users", new_user);
 		return "redirect:/"; // 본인 원하는 경로 설정
 	}
 
