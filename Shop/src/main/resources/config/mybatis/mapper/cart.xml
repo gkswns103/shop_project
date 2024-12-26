@@ -15,9 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insert_cart" parameterType="cart">
 		insert into
-		cart(user_idx,product_idx,quantity,status,name,price,discount,filepath,inventory,CHECKED,ORDERNUMBER,ORDERTIME)
+		cart(user_idx,product_idx,quantity,status,name,price,discount,filepath,inventory,CHECKED,ORDERNUMBER,ORDERTIME,deliveryrequest,deliverymessage,addr)
 		values
-		(#{user_idx},#{product_idx},#{quantity}, 'active',#{name},#{price},#{discount},#{filepath},#{inventory},1,0,0)
+		(#{user_idx},#{product_idx},#{quantity}, 'active',#{name},#{price},#{discount},#{filepath},#{inventory},1,0,0,0,0,0)
 	</insert>
 
 	<select id="select_idx" parameterType="cart" resultType="int">
@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updateState" parameterType="cart">
 		update cart
-		set status='saled',ordernumber = #{ordernumber} ,ordertime = NOW()
+		set status='saled',ordernumber = #{ordernumber} ,ordertime = NOW(),deliveryrequest=#{deliveryrequest} , deliverymessage=#{deliverymessage},addr=#{addr}
 		where user_idx=#{user_idx} and checked='1' and status='active'
 	</update>
 
@@ -100,5 +100,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select
 		* from cart where user_idx=#{user_idx} and status='saled' order by
 		ordernumber desc
+	</select>
+	
+	<insert id="updateInventoryOne" parameterType="cart">
+		insert into 
+		cart ( user_idx,product_idx,quantity,status,name,price,discount,filepath,inventory,CHECKED,ORDERNUMBER,ORDERTIME,deliveryrequest,deliverymessage,addr)
+		values
+		(#{user_idx},#{product_idx},#{quantity}, 'saled',#{name},#{price},#{discount},#{filepath},#{inventory},1,#{ordernumber},NOW(),#{deliveryrequest},#{deliverymessage},#{addr} )
+	</insert>
+	
+	<update id="purchaseOne" parameterType="cart">
+		update cart
+		set inventory=#{inventory}
+		where user_idx=#{user_idx} and checked='1' and ordernumber=#{ordernumber}
+	</update>
+	
+	<select id="select_orderList" parameterType="cart" resultType="cart">
+		select * from cart where user_idx=#{user_idx} and ordertime=#{ordertime} 
 	</select>
 </mapper>

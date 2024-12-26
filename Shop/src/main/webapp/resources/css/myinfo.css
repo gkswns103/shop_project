@@ -2,7 +2,7 @@
 
 /* 메인 컨테이너 */
 .content-container {
-    margin: 71px auto; /* 위쪽 여백 조정 */
+    margin: 50px auto; /* 위쪽 여백 조정 */
     margin-bottom:9px auto;
     max-width: 550px; /* 컨테이너 너비 */
     padding: 15px; /* 패딩 조정 */
@@ -15,11 +15,16 @@
     box-sizing: border-box;
 }
 
+.h2 {
+	margin-left: 44%;
+	font-family: "맑은 고딕";
+}
+
 /* 각 행 스타일 */
 .info-row {
     display: flex;
     flex-direction: column; /* 라벨과 값을 수직 배치 */
-    gap: 5px; /* 라벨과 값 간격 */
+    gap: 8px; /* 라벨과 값 간격 */
 }
 
 /* 라벨 스타일 (폰트 크기 및 두께 조정) */
@@ -31,18 +36,37 @@
     margin-top: 5px;
 }
 
-/* 값 스타일 (연한 색상 및 그림자 추가) */
+/* 값 스타일 (밑줄) */
 .info-row .value {
     color: #555; /* 글자 색상: 연한 회색 */
-    border: 1px solid #dcdcdc; /* 테두리 색상: 연한 회색 */
-    background-color: #f9f9f9; /* 배경색: 아주 연한 회색 */
-    padding: 10px; /* 안쪽 여백 */
-    border-radius: 5px; /* 모서리 둥글게 */
     font-size: 14px; /* 폰트 크기 */
     text-align: left;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* 아주 작은 그림자 */
+    border-bottom: 1px solid #dcdcdc; /* 밑줄 추가 */
+    padding-bottom: 5px; /* 텍스트와 밑줄 간격 */
     box-sizing: border-box; /* 테두리와 패딩 포함 */
-    
+    margin-bottom: 10px; /* 버튼과의 간격 조정 */
+}
+
+/* 버튼 스타일 */
+.info-row .button-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.info-row .button-container input[type="button"] {
+    padding: 8px 16px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #5c5c5c;
+    transition: background-color 0.3s ease;
+}
+
+.info-row .button-container input[type="button"]:hover {
+    background-color: #333333;
 }
 
 /* 버튼 컨테이너 */
@@ -89,4 +113,21 @@
 
 .button-container .back-btn:hover {
     background-color: #333333;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 10; /* 다른 요소 위에 표시되도록 설정 */
+}
+
+.gong {
+	color: #f54646;
+	text-align: center;
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,6 +20,7 @@
 				<link href="/shop/resources/css/style4.css" rel="stylesheet" />
 				<link href="/shop/resources/css/style5.css" rel="stylesheet" />
 				<link href="/shop/resources/css/style6.css" rel="stylesheet" /> 
+
 		<style>
 		.purchaseInfo tr{
 		border-bottom: 1px solid #dbdbdb;
@@ -93,9 +94,27 @@
             display: none;
         }
 		</style>
-		
-		
-		
+		<script>
+		function purchase(f){
+			
+				let checkbox = document.getElementById('account_transfer');
+				
+				let message=f.message.value.trim();
+				if(message ==""){
+					alert("배송메시지를 입력하세요");
+					return;
+				}
+				if(!checkbox.checked){
+					alert("결제방법을 선택해주세요");
+					return;
+				}
+				
+				alert("주문 완료");
+				 
+				f.action="purchaseOne";
+				f.submit();
+			}
+		</script>
 	</head>
 	<body>
 		 <jsp:include page="../header/header.jsp"></jsp:include> 
@@ -151,9 +170,7 @@
 					<td><input name="deliverymessage"></td>
 				</tr>
 			</table>
-			
 			<br><hr><br>
-			
 			<h4>배송 목록</h4>
 			<div>
 				<table class="buyList">
@@ -161,31 +178,29 @@
 				    <col style="width: 80%">
 				    <col style="width: 20%">
 		 		</colgroup>
-					<c:forEach var="vo" items="${list }">
 						<tr>
 							<th>${vo.name }</th>  
 							<td>수량 ${vo.quantity }개  </td>
 						</tr>
-					</c:forEach>
 				</table>
 			</div>
 			<br><hr><br>
 			
 			<h4>결제 정보</h4>
-			<div>
+			
 				<table class="purchaseInfo" id="info">
 				
 					<tr>
 						<th>총상품가격</th>
-						<td><fmt:formatNumber value="${totalprice}" type="number" groupingUsed="true"/>원</td>
+						<td><fmt:formatNumber value="${vo.price * vo.quantity}" type="number" groupingUsed="true"/>원</td>
 					</tr>
 					<tr>
 						<th>할인금액</th>
-						<td>-<fmt:formatNumber value="${totaldiscount}" type="number" groupingUsed="true"/>원</td>
+						<td>-<fmt:formatNumber value="${discountprice*vo.quantity}" type="number" groupingUsed="true"/>원</td>
 					</tr>
 					<tr>
 						<th>총결제금액</th>
-						<td><fmt:formatNumber value="${finalAmount}" type="number" groupingUsed="true"/>원</td>
+						<td><fmt:formatNumber value="${vo.price * vo.quantity-discountprice*vo.quantity}" type="number" groupingUsed="true"/>원</td>
 					</tr>
 					<tr>
 						<th>결제방법</th>
@@ -196,34 +211,25 @@
 						</td>
 					</tr>
 				</table>
-			</div>
 			<br>
 			<input class="pay" type="button" value="주문하기" onclick="purchase(this.form)">
+			</div>
 	
-		</div>
-
-		<input type="hidden" name="user_idx" value="${user.user_idx}"> 
-		<input type="hidden" name="name" value="${user.name}"> 
-		<input type="hidden" name="email" value="${user.email }">
 		<input type="hidden" name="addr" value="${user.addr }">
-		<input type="hidden" name="totalprice" value="${totalprice}">
-		<input type="hidden" name="totaldiscount" value="${totaldiscount}">
-		<input type="hidden" name="finalAmount" value="${finalAmount}">
-
+		<input type="hidden" name="filepath" value="${vo.filepath}"> 
+		<input type="hidden" name="discount" value="${vo.discount}"> 
+		<input type="hidden" name="price" value="${vo.price}"> 
+		<input type="hidden" name="product_idx" value="${vo.product_idx}"> 
+		<input type="hidden" name="inventory" value="${vo.inventory}"> 
+		<input type="hidden" name="quantity" value="${vo.quantity}"> 
+		<input type="hidden" name="name" value="${vo.name}">  
+		<input type="hidden" name="user_idx" value="${user.user_idx}"> 
+		<input type="hidden" name="totalprice" value="${vo.price * vo.quantity}">
+		<input type="hidden" name="totaldiscount" value="${discountprice*vo.quantity}">
+		<input type="hidden" name="finalAmount" value="${vo.price * vo.quantity-discountprice*vo.quantity}">
 		</form>
-		<script
-		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c7aefd977d4d59940d84d9223e46d62&libraries=services,clusterer,drawing"></script>
 		
 		<script>
-			window.onload = function(){
-				if(${empty users}){
-					alert("로그인 필요");	
-					location.href="signin_form";
-				}
-			}
-		
 			function purchase(f){
 				let checkbox = document.getElementById('account_transfer');
 				let deliverymessage=f.deliverymessage.value.trim();
@@ -249,7 +255,7 @@
 		       
 				alert("주문 완료");
 				 
-				f.action="purchase";
+				f.action="purchaseOne";
 				f.submit();
 			}
 			   
@@ -264,35 +270,6 @@
 	            }
 	        	
 	        }
-	        
-	    /*     let addr = ''; // 주소 변수
-			function addr_search() {
-	        	
-				new daum.Postcode({
-					oncomplete : function(data) {
-						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-
-						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-							addr = data.roadAddress;
-						} else { // 사용자가 지번 주소를 선택했을 경우(J)
-							addr = data.jibunAddress;
-						}
-						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-						document.getElementById("addr").value = addr;
-						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById("addr2").focus();
-					}
-				}).open();
-
-				document.getElementById('addr2').removeAttribute("readonly");
-			} */
-
-		       
-		
-		</script>
+	     </script>
 	</body>
 </html>
