@@ -143,7 +143,7 @@
             </ul>
             
              <c:if test="${empty users}"> 
-            <a href="signin_form" class="nav-link active me-3">SignIn</a> <a
+            <a onclick="signin_form()" class="nav-link active me-3">SignIn</a> <a
                href="signup" class="nav-link active me-3">SignUp</a>
             </c:if>
             
@@ -160,13 +160,14 @@
                		  </ul>
                	  </li>
                </ul>
-               <a href="logout" class="nav-link active me-3">로그아웃</a>
+               <a onclick="logout()" class="nav-link active me-3">로그아웃</a>
             </c:if>
 
             <c:if test="${!empty users}">
 	            <form class="d-flex">
 	               <a href="/shop/cart?user_idx=${sessionScope.users.user_idx}" class="btn btn-outline-dark">
 	   				  <i class="bi-cart-fill me-1"></i> Cart 
+	   				  
 	   				  <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.cart_count }</span>
 				   </a>
 	            </form>
@@ -176,5 +177,19 @@
          </div>
       </div>
    </nav>
+   <script>
+   		function signin_form(){
+   			let currentUrl = encodeURIComponent(window.location.href);
+			 location.href = "signin_form?redirect="+currentUrl;
+		     return;
+   		}
+   		
+   		function logout(){
+   			let currentUrl = encodeURIComponent(window.location.href);
+			 location.href = "logout?redirect="+currentUrl;
+		     return;
+   			
+   		}
+   </script>
 </body>
 </html>
