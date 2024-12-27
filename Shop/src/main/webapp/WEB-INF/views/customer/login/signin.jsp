@@ -35,6 +35,8 @@
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-110 p-r-110 p-t-62 p-b-33">
 				<form class="login100-form validate-form flex-sb flex-w">
+					<input type="hidden" value="${redirect }" name="redirect">
+
 					<span class="login100-form-title p-b-53"> Want It </span>
 
 					<div class="p-t-31 p-b-9">
@@ -69,10 +71,7 @@
 						<input type="button" class="login100-form-btn" value="Sign Up"
 							onclick="send(this.form)" />
 					</div>
-
-
-
-
+  
 					<div class="w-full text-center p-t-55">
 						<span class="txt2"> Not a member? </span> <a href="/shop/signup"
 							class="txt2 bo1"> Sign up now </a>
@@ -81,7 +80,7 @@
 			</div>
 		</div>
 	</div>
-
+	<% %>
 	<div id="dropDownSelect1"></div>
 
 	<script src="/shop/resources/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -101,18 +100,24 @@
 	<script>
 		//카카오로그인
 		function kakaoLogin() {
-
-			$.ajax({
-				url : '/shop/getKakaoAuthUrl',
-				type : 'get',
-				async : false,
-				dataType : 'text',
-				success : function(res) {
-					location.href = res;
-				}
-			});
-
-		}
+    $.ajax({
+        url: '/shop/setRedirect',  // redirect 값을 세션에 저장하는 엔드포인트
+        type: 'post',
+        data: { redirect: '${redirect}' },
+        success: function(response) {
+            // 세션에 redirect 값이 저장된 후 카카오 인증 URL로 리다이렉트
+            $.ajax({
+                url: '/shop/getKakaoAuthUrl',
+                type: 'get',
+                async: false,
+                dataType: 'text',
+                success: function(res) {
+                    location.href = res;
+                }
+            });
+        }
+    });
+}
 
 		$(document).ready(
 				function() {

@@ -59,10 +59,11 @@ input[name="amount"] {
 }
 
 .items-container {
+	width:800px;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
-	flex-grow: 1;
+	flex-grow: 0;
 }
 
 .item {
@@ -102,7 +103,7 @@ input[name="amount"] {
 	padding: 20px;
 	border: 1px solid #ddd;
 	background-color: #f9f9f9;
-	width: 900px;
+	width: 300px;
 	height: fit-content;
 }
 
@@ -133,4 +134,10 @@ hr {
 
 .col mb-5:hover {
 	
+}
+
+.headerimg {
+	margin: 0 auto;
+	margin-top: 40px;
+	width: 90%;
 }

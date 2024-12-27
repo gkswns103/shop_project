@@ -182,7 +182,8 @@
     
  
    <c:if test="${!empty users }">
- 
+   <c:if test="${sessionScope.cart_count ne 0}">
+   
   <c:set var="totalprice" value="0" />
   <c:set var="totaldiscount" value="0"/>
   
@@ -243,7 +244,12 @@
   </div>
 </div>
 </c:if>
-
+	</c:if>
+	
+	<c:if test="${sessionScope.cart_count eq 0}">
+		장바구니에 암것도 없당께
+	</c:if>
+	
    <c:if test="${empty users }">
       <!-- 로그인정보 없이 장바구니에 접근했을시 -->
       <jsp:include page="../login/signin.jsp"></jsp:include>
