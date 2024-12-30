@@ -76,7 +76,10 @@ public class HomeController {
 		session.removeAttribute("users");
 		session.removeAttribute("cart_count");
 		
-		String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
+		 String decodedRedirect = "/";
+		    if (redirect != null) {
+		        decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
+		    }
 				
 		return "redirect:"+decodedRedirect;
 	}

@@ -18,7 +18,7 @@
 <body>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container px-4 px-lg-10" style="">
+		<div class="container px-15" style="width: 1500px;">
 			<a class="navbar-brand ms-0" href="/shop/"><img
 				src="/shop/resources/images/icons/로고수정.png"
 				style="width: 50px; height: 50px;">Want It</a>
@@ -65,7 +65,7 @@
 				</c:if>
 
 				<c:if test="${!empty users}">
-					<form class="d-flex">
+					<form class="d-flex ms-auto">
 						<a href="/shop/cart?user_idx=${sessionScope.users.user_idx}"
 							class="btn btn-outline-dark"> <i class="bi-cart-fill me-1"></i>
 							Cart <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.cart_count }</span>

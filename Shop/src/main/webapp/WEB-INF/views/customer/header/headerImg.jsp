@@ -88,6 +88,12 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
+            
+            autoplay: {
+                delay: 10000, // 10초마다 이동 (밀리초 단위)
+                disableOnInteraction: false, // 사용자가 상호작용해도 autoplay 유지
+            },
+            
         });
     </script>
 </body>
