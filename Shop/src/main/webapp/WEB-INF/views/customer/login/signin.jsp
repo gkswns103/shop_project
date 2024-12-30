@@ -147,6 +147,7 @@
 			      }
 			      let url = "signin";
 			      let param = "id=" + id + "&c_pwd=" + encodeURIComponent(c_pwd) + "&redirect=" + encodeURIComponent(f.redirect.value);
+			      
 			      sendRequest(url, param, resultlog, "post");
 			   }
 

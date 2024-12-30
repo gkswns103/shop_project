@@ -32,6 +32,31 @@ header {
        width: 100%;
        z-index: 1030;
    }
+
+
+footer {
+    /* position: fixed; */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 175px; /* 명확한 높이 설정 */
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+section {
+    min-height: calc(100vh - 160px); /* 뷰포트 높이에서 푸터 높이만큼 제외 */
+    padding-bottom: 100px; /* 푸터 높이보다 여유 공간 추가 */
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+}
 </style>
 </head>
 <body>

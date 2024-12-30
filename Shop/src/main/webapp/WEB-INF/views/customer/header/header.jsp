@@ -13,6 +13,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap"
 	rel="stylesheet">
+	
 </head>
 
 <body>
@@ -37,13 +38,14 @@
 			
 				</div>
 			
+			<!-- 검색창 -->
 			<form  class="d-flex me-auto ms-auto" style="width: 300px;">
 				<input class="form-control me-2" type="searcsh" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-dark" type="submit">Search</button>
 			</form>
 			
 				<c:if test="${empty users}">
-					<a href="signin_form" class="nav-link active me-3">SignIn</a>
+					<a onclick="signin_form()" class="nav-link active me-3">SignIn</a>
 					<a href="signup" class="nav-link active me-3">SignUp</a>
 				</c:if>
 
@@ -61,7 +63,7 @@
 									href="my_imformation?user_idx=${users.user_idx}">내정보</a></li>
 							</ul></li>
 					</ul>
-					<a href="logout" class="nav-link active me-3">로그아웃</a>
+					<a onclick="logout()" class="nav-link active me-3">로그아웃</a>
 				</c:if>
 
 				<c:if test="${!empty users}">
@@ -79,22 +81,34 @@
 
 
 
-
+   <script src="/shop/resources/js/httpRequest.js"></script>
    <script>
    		function signin_form(){
-   			let currentUrl = encodeURIComponent(window.location.href);
+   			 let currentUrl = encodeURIComponent(window.location.href);
 			 location.href = "signin_form?redirect="+currentUrl;
 		     return;
    		}
    		
    		function logout(){
-   			let currentUrl = encodeURIComponent(window.location.href);
-			 location.href = "logout?redirect="+currentUrl;
-		     return;
+   			 let currentUrl = encodeURIComponent(window.location.href);
+   			 
+		     let url="logout";
+		     let param="redirect="+currentUrl;
+		     
+		     sendRequest(url,param,logoutLog,"post");
    			
    		}
+   		function logoutLog(){
+   			 if (xhr.readyState == 4 && xhr.status == 200) {
+   	         let data = xhr.responseText;
+   	         
+   	         location.href= data;
+   			
+   			}
+   		}
    </script>
-			
+   
+	
 	<script src="/shop/resources/js/header.js"></script>
 
 </body>
