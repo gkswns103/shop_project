@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.Common;
+import dao.CartDAO;
+import dao.InterestDAO;
 import dao.ProductDAO;
+import vo.InterestVO;
 import vo.ProductVO;
+import vo.UsersVO;
 
 @Controller
 public class ProductController {
@@ -28,19 +30,40 @@ public class ProductController {
 	HttpSession session;
 	
 	ProductDAO product_dao;
+	CartDAO cart_dao;
 
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
 	
-	@RequestMapping("/detail")
-	public String detailView(Model model,int product_idx) {
-		ProductVO vo=product_dao.selectOne(product_idx);
-		
-		model.addAttribute("vo",vo);
-		 
-		return Common.Path.CUSTOMER_PATH+"product/productDetail.jsp";
+	public void setCart_dao(CartDAO cart_dao) {
+		this.cart_dao = cart_dao;
 	}
+	
+	@Autowired
+	InterestDAO interest_dao; // InterestDAO 주입
+
+	@RequestMapping("/detail")
+	public String detailView(Model model, int product_idx) {
+	    // 상품 정보 가져오기
+	    ProductVO vo = product_dao.selectOne(product_idx);
+	    model.addAttribute("vo", vo);
+
+	    // 관심 상품 여부 확인
+	    UsersVO user = (UsersVO) session.getAttribute("users"); // 현재 로그인된 사용자 가져오기
+	    boolean isInterest = false; // 기본값: 관심 상품이 아님
+	    if (user != null) {
+	        InterestVO interest = new InterestVO();
+	        interest.setUser_idx(user.getUser_idx());
+	        interest.setProduct_idx(product_idx);
+	        isInterest = interest_dao.check_duplicate(interest); // DAO를 통해 중복 여부 확인
+	    }
+	    model.addAttribute("isInterest", isInterest); // 관심 여부를 뷰에 전달
+
+	    return Common.Path.CUSTOMER_PATH + "product/productDetail.jsp"; // 기존 경로 유지
+	}
+
+
 
 	@RequestMapping("/product")
 	public String product_list(Model model, String division, String category) {

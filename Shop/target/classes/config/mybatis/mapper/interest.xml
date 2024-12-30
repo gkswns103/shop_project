@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="i">
+    <!-- 관심 목록 전체 조회 -->
+    <select id="select_list" resultType="interest" parameterType="int">
+        select
+        * from interest where user_idx = #{user_idx}
+        order by interest_idx desc
+    </select>
+
+    <!-- 관심 목록 항목 추가 -->
+    <insert id="insert_interest" parameterType="interest">
+        insert into
+        interest(user_idx, product_idx, name, price, filepath, discount, inventory)
+        values
+        (#{user_idx}, #{product_idx}, #{name}, #{price}, #{filepath}, #{discount}, #{inventory})
+    </insert>
+
+    <!-- 관심 항목의 인덱스 조회 -->
+    <select id="select_interest_idx" resultType="int" parameterType="interest">
+        select
+        interest_idx from interest
+        where user_idx = #{user_idx} and product_idx = #{product_idx}
+        limit 1
+    </select>
+
+    <!-- 관심 목록에 중복된 항목 확인 -->
+    <select id="check_duplicate" resultType="int" parameterType="interest">
+        SELECT COUNT(*)
+        FROM interest
+        WHERE user_idx = #{user_idx} AND product_idx = #{product_idx}
+    </select>
+
+    <!-- 사용자 관심 목록 개수 조회 -->
+    <select id="interest_count" resultType="int" parameterType="int">
+        select
+        count(*) from interest where user_idx = #{user_idx}
+    </select>
+
+    <!-- 관심 목록 항목 삭제 -->
+    <delete id="interest_delete" parameterType="int">
+	    DELETE FROM interest
+	    WHERE interest_idx = #{interest_idx}
+	</delete>
+
+    <!-- 관심 항목의 상세 정보 조회 -->
+    <select id="select_detail" resultType="interest" parameterType="int">
+        select
+        * from interest where interest_idx = #{interest_idx}
+    </select>
+</mapper>
