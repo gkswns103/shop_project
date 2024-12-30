@@ -26,6 +26,7 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
+
 <!-- 구글폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,6 +42,11 @@
    }
    body {
        padding-top: 70px; /* 헤더 높이만큼 여백 추가 */
+       background-image: url("/shop/resources/img/배경예시.jpg");  
+       background-size: cover; /* 배경 이미지를 화면에 맞게 조정 */
+  	   background-repeat: no-repeat; /* 배경 이미지를 반복하지 않음 */
+   	   background-attachment: fixed; /* 배경을 고정하여 스크롤에도 따라오지 않음 */
+       background-position: center; /* 배경 이미지의 위치를 가운데로 설정 */
    }
 </style>
 
@@ -52,7 +58,9 @@
   <header>
    <jsp:include page="./customer/header/header.jsp"></jsp:include>
    </header>
+   <div class="headerimg">
      <jsp:include page="./customer/header/headerImg.jsp"></jsp:include>
+     </div>
    <!-- Section-->
 
    <section class="py-5">
@@ -85,8 +93,8 @@
    <!-- Footer-->
    <footer class="py-5 bg-dark">
       <div class="container">
-         <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
          <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
+         <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
       </div>
    </footer>
    <!-- Bootstrap core JS-->
@@ -94,5 +102,14 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
    <!-- Core theme JS-->
    <script src="/shop/resources/js/scripts.js"></script>
+   
+   <script>
+   		window.onload = function(){
+   			var res = '${param.res}';
+   			if (res != null && res != '') {
+   			    alert("상품 등록 완료");
+   			}
+   		}
+   </script>
 </body>
 </html>

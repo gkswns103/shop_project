@@ -59,7 +59,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="#" onclick="window.location.reload(); return false;">
+				href="/shop/admin/admin_login">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -78,7 +78,8 @@
 				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 					data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="userManagement">유저관리</a>
+						<a class="collapse-item" href="/shop/admin/userManagement">유저관리</a>
+						<a class="collapse-item" href="/shop/admin/orderlist">주문관리</a>
 					</div>
 				</div></li>
 
@@ -91,7 +92,7 @@
 				<div id="collapseUtilities" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="productManagement">상품리스트</a> <a
+						<a class="collapse-item" href="/shop/admin/productManagement">상품리스트</a> <a
 							class="collapse-item" href="#">상품추가</a> <a class="collapse-item"
 							href="#">재고관리</a>
 					</div>
@@ -102,7 +103,7 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed"
-				href="/shop/admin_logout"> <i class="fas fa-sign-out-alt"></i> <span>로그아웃</span>
+				href="/shop/admin/admin_logout"> <i class="fas fa-sign-out-alt"></i> <span>로그아웃</span>
 			</a></li>
 
 			<!-- Sidebar Toggler (Sidebar) -->

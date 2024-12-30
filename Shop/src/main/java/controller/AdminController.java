@@ -13,6 +13,7 @@ import common.Common;
 import dao.CartDAO;
 import dao.ProductDAO;
 import dao.UsersDAO;
+import vo.CartVO;
 import vo.ProductVO;
 import vo.UsersVO;
 
@@ -38,15 +39,16 @@ public class AdminController {
 		this.cart_dao = cart_dao;
 	}
 	
-	@RequestMapping("/admin_login")
+	@RequestMapping("/admin/admin_login")
 	public String admin_page(String id) {
-
-		session.setAttribute("admin",id);
+		if(session.getAttribute("admin") == null) {
+			session.setAttribute("admin",id);
+		}
 		
 		return Common.Path.ADMIN_PATH + "admin.jsp";
 	}
 	
-	@RequestMapping("/admin_logout")
+	@RequestMapping("/admin/admin_logout")
 	public String admin_logout() {
 		
 		session.removeAttribute("admin");
@@ -84,5 +86,15 @@ public class AdminController {
 		int res = product_dao.delete_product(product_idx);
 		System.out.println("결과=" + res);
 		return "redirect:/admin/productManagement";
+	}
+	
+	@RequestMapping("/admin/orderlist")
+	public String orderlist(Model model) {
+		
+		List<CartVO> list = cart_dao.select_list();
+		
+		model.addAttribute("list", list);
+		
+		return Common.Path.ADMIN_PATH + "orderlist.jsp";
 	}
 }
