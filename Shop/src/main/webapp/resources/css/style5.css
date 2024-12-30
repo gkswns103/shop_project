@@ -1,13 +1,5 @@
 @charset "UTF-8";
 
-#headerImg{
-	background-image: url('/shop/resources/img/타임세일.png');
-    background-size: cover; /* 요소를 완전히 덮도록 */
-    background-position: center; /* 가운데 정렬 */
-    width: 100%; /* 요소 너비 */
-    height: 300px; /* 요소 높이 */
-}
-
 .bg-primary {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;

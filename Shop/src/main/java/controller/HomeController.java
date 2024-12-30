@@ -1,10 +1,13 @@
 package controller;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,18 +71,18 @@ public class HomeController {
 	// 로그인 기능
 
 	// 로그아웃
-	@RequestMapping("/logout")
-	public String logout() {
-
+	@RequestMapping(value = "/logout", produces = "text/plain;charset=UTF-8")
+	public String logout(Model model, String redirect) {
 		session.removeAttribute("users");
-
 		session.removeAttribute("cart_count");
-
-		return "redirect:/";
+		
+		String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
+				
+		return "redirect:"+decodedRedirect;
 	}
 
 	// 로그인
-	@RequestMapping("/signin")
+	@RequestMapping(value = "/signin", produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String signin(String id, String c_pwd,String redirect) {
 		if(Common.Admin.ID.equals(id) && Common.Admin.PWD.equals(c_pwd)) {
@@ -96,10 +99,12 @@ public class HomeController {
 			BCryptPwd bcp = new BCryptPwd();
 			boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
 			if (isValid) {
+				
+				String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
 				session.setAttribute("users", user);
 				int cart_count = cart_dao.cart_count(user.getUser_idx());
 				session.setAttribute("cart_count", cart_count);
-				return redirect;
+				return decodedRedirect;
 			} else {
 				return "no_pwd";
 			}
@@ -107,9 +112,12 @@ public class HomeController {
 
 	}
 
-	@RequestMapping("/signin_form")
+	@RequestMapping(value = "/signin_form", produces = "text/plain;charset=UTF-8")
 	public String signin_form(String redirect,Model model) {
-		model.addAttribute("redirect", redirect);
+		if(redirect !=null) {
+		String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
+		model.addAttribute("redirect", decodedRedirect);
+		}
 		return Common.Path.CUSTOMER_PATH + "login/signin.jsp";
 	}
 

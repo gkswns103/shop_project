@@ -26,6 +26,9 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
+<!-- 상품 애니메이션 -->
+<link href="/shop/resources/dist/aos.css" rel="stylesheet" />
+
 
 <!-- 구글폰트 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,13 +45,14 @@
    }
    body {
        padding-top: 70px; /* 헤더 높이만큼 여백 추가 */
-       background-image: url("/shop/resources/img/배경예시.jpg");  
+       background-image: url("/shop/resources/img/배경예시.jpg");
        background-size: cover; /* 배경 이미지를 화면에 맞게 조정 */
   	   background-repeat: no-repeat; /* 배경 이미지를 반복하지 않음 */
    	   background-attachment: fixed; /* 배경을 고정하여 스크롤에도 따라오지 않음 */
        background-position: center; /* 배경 이미지의 위치를 가운데로 설정 */
    }
 </style>
+
 
 
 </head>
@@ -62,14 +66,14 @@
      <jsp:include page="./customer/header/headerImg.jsp"></jsp:include>
      </div>
    <!-- Section-->
-
    <section class="py-5">
       <div class="container px-4 px-lg-5 mt-5">
          <div
             class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <!-- 상품 1개 시작 -->
+           
             <c:forEach var="vo" items="${list}">
-               <div class="col mb-5">
+               <div class="col mb-5" data-aos="fade-up">
                   <div class="card h-100">
                      <!-- Product image-->
                      <img class="card-img-top" src="/shop/resources/img/${vo.filepath}"
@@ -86,9 +90,10 @@
                   </div>
                </div>
             </c:forEach>
+            </div>
             <!--상품 1개 끝  -->
          </div>
-      </div>
+      
    </section>
    <!-- Footer-->
    <footer class="py-5 bg-dark">
@@ -102,6 +107,7 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
    <!-- Core theme JS-->
    <script src="/shop/resources/js/scripts.js"></script>
+   <script src="/shop/resources/dist/aos.js"></script>
    
    <script>
    		window.onload = function(){
@@ -111,5 +117,15 @@
    			}
    		}
    </script>
+   
+   <!-- 상품 애니메이션 -->
+   <script>
+    AOS.init({
+        duration: 800, // 애니메이션 지속 시간 (밀리초)
+        easing: 'ease-in-out', // 애니메이션 효과
+        once: false, // 애니메이션을 한 번만 실행
+    });
+</script>
+   
 </body>
 </html>
