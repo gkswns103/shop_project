@@ -1,4 +1,3 @@
-
    function send(f) {
       let id = f.id.value;
       let c_pwd = f.c_pwd.value;
