@@ -51,6 +51,40 @@
    	   background-attachment: fixed; /* 배경을 고정하여 스크롤에도 따라오지 않음 */
        background-position: center; /* 배경 이미지의 위치를 가운데로 설정 */
    }
+   
+ .section-container {
+      display: flex; /* 가로 정렬 */
+      justify-content: center; /* 컨테이너 중앙 정렬 */
+      align-items: flex-start; /* 상단 정렬 */
+   }
+
+   /* recentView 고정 위치 */
+   .recentView {
+      position: fixed; /* 화면에 고정 */
+      top: 50%; /* 화면 중앙 */
+      transform: translateY(-50%); /* 정확히 중앙 배치 */
+      right: 20px; /* 오른쪽 여백 */
+      background-color: #f8f9fa; /* 배경색 */
+      padding: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1000; /* 다른 요소 위로 올리기 */
+   }
+
+   /* 섹션 스타일 */
+   .py-5 {
+      flex: 1; /* 남은 공간을 차지 */
+      margin-right: 220px; /* recentView와 간격 */
+   }
+     .py-5 {
+      transform: scale(0.75); /* 75% 크기로 축소 */
+      transform-origin: top center; /* 축소 기준점 */
+   }
+
+   /* 추가적인 마진 조정 */
+   .py-5 .container {
+      margin-top: 20px; /* 여백 조정 */
+   }
 </style>
 
 
@@ -90,11 +124,23 @@
                   </div>
                </div>
             </c:forEach>
-            </div>
             <!--상품 1개 끝  -->
+            </div>
          </div>
       
    </section>
+      <div class="recentView" style="text-align: center">
+	    <h5>최근 본 상품</h5>
+	    <ul>
+	        <c:forEach var="product" items="${sessionScope.viewedProducts}">`
+	            <li>
+	                <a href="/shop/detail?product_idx=${product.product_idx}">
+	                    <img src="/shop/resources/img/${product.filepath}" style="width:50px;"> ${product.name} 
+	                </a>
+	            </li>
+	        </c:forEach>
+	    </ul>
+      </div>
    <!-- Footer-->
    <footer class="py-5 bg-dark">
       <div class="container">

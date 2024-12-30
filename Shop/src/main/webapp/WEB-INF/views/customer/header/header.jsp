@@ -35,9 +35,9 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4" id="navbar">
 					<!-- JavaScript로 메뉴 생성 -->
 				</ul>
-				</div>
-			
 			</div>
+			
+		</div>
 
 			<form class="d-flex me-auto ms-auto" style="width: 300px;"
 				action="product_search">
@@ -70,6 +70,16 @@
 					<a onclick="logout()" class="nav-link active me-3">로그아웃</a>
 				</c:if>
 
+	<c:if test="${!empty users}">
+	               <form class="d-flex ms-auto">
+	                  <a href="/shop/cart?user_idx=${sessionScope.users.user_idx}"
+	                     class="btn btn-outline-dark"> <i class="bi-cart-fill me-1"></i>
+	                     Cart <span class="badge bg-dark text-white ms-1 rounded-pill">${sessionScope.cart_count }</span>
+	                  </a>
+	               </form>
+	            </c:if>
+	</nav> 
+	            
    <script src="/shop/resources/js/httpRequest.js"></script>
    <script>
    		function signin_form(){
@@ -107,7 +117,6 @@
    </script>
    
 	
-	</nav>
 
 	<script src="/shop/resources/js/httpRequest.js"></script>
 	<script src="/shop/resources/js/header.js"></script>

@@ -48,7 +48,7 @@ footer {
 }
 
 section {
-    min-height: calc(100vh - 160px); /* 뷰포트 높이에서 푸터 높이만큼 제외 */
+    min-height: calc(100vh - 175px); /* 뷰포트 높이에서 푸터 높이만큼 제외 */
     padding-bottom: 100px; /* 푸터 높이보다 여유 공간 추가 */
     box-sizing: border-box;
 }
