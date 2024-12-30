@@ -321,5 +321,5 @@ public class HomeController {
 		model.addAttribute("user", user);
         return common.Common.Path.CUSTOMER_PATH + "/userinfo/popup.jsp"; // popup.jsp 경로
     }
-
+	
 }

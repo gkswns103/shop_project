@@ -37,8 +37,8 @@
 				
 				</div>
 			
-			<form  class="d-flex me-auto ms-auto" style="width: 300px;">
-				<input class="form-control me-2" type="searcsh" placeholder="Search" aria-label="Search">
+			<form  class="d-flex me-auto ms-auto" action="/shop/search" method="get"  style="width: 300px;">
+				<input class="form-control me-2" type="text" name="query" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-dark" type="submit">Search</button>
 			</form>
 			

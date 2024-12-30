@@ -45,7 +45,7 @@
    }
    body {
        padding-top: 70px; /* 헤더 높이만큼 여백 추가 */
-       background-image: url("/shop/resources/img/배경예시.jpg");
+       background-color: white;
        background-size: cover; /* 배경 이미지를 화면에 맞게 조정 */
   	   background-repeat: no-repeat; /* 배경 이미지를 반복하지 않음 */
    	   background-attachment: fixed; /* 배경을 고정하여 스크롤에도 따라오지 않음 */
