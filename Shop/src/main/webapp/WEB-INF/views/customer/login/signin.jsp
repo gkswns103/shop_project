@@ -151,29 +151,7 @@
 			      sendRequest(url, param, resultlog, "post");
 			   }
 
-			   function resultlog() {
-			      if (xhr.readyState == 4 && xhr.status == 200) {
-			         let data = xhr.responseText;
-			         
-					if(data == 'admin'){
-						location.href = "/shop/admin_login?id="+data;
-					}
-			        else if (data === 'no_id') {
-			            alert("없는 id");
-			            return;
-			         } else if (data === 'no_pwd') {
-			            alert("비밀번호가 틀립니다.");
-			            return;
-			         } else if( data ===''){
-			           location.href="/shop/";
-			           }
-			          else {
-			            location.href = data;
-			         }
-			                
-			      }
 
-			   }
 	</script>
 </body>
 </html>
