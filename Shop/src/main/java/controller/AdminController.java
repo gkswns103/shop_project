@@ -97,4 +97,29 @@ public class AdminController {
 		
 		return Common.Path.ADMIN_PATH + "orderlist.jsp";
 	}
+	
+	@RequestMapping("/admin/apply_product")
+	public String apply_product(Model model) {
+		List<ProductVO> list = product_dao.new_Product_select();
+		
+		model.addAttribute("list", list);
+		
+		return Common.Path.ADMIN_PATH + "applyProduct.jsp";
+	}
+	
+	@RequestMapping("/admin/apply")
+	public String apply(int product_idx) {
+		ProductVO vo = product_dao.new_Product_select_one(product_idx);
+		int del = product_dao.delete_apply_product(product_idx);
+		int res = product_dao.insertProduct(vo);
+		
+		return "redirect:/admin/apply_product";
+	}
+	
+	@RequestMapping("/admin/apply_del")
+	public String apply_product_delete(int product_idx) {
+		int res = product_dao.delete_apply_product(product_idx);
+		
+		return "redirect:/admin/apply_product";
+	}
 }

@@ -109,7 +109,7 @@ public class ProductController {
 		
 		product.setFilepath(filename);
 		
-		int res = product_dao.insertProduct(product);
+		int res = product_dao.new_Product(product);
 		
 		if(res == 1)
 			return "redirect:/?res=" + res;

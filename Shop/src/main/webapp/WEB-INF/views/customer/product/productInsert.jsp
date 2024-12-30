@@ -123,7 +123,7 @@
 			<!-- 버튼 -->
 			<div class="form-group text-center mb-3 mt-3">
 				<input type="button" class="btn btn-primary"
-					onclick="send(this.form)" value="등록"> <input type="button"
+					onclick="send(this.form)" value="신청하기"> <input type="button"
 					class="btn btn-secondary" onclick="history.back()" value="취소">
 			</div>
 		</form>
@@ -171,7 +171,7 @@
 		window.onload = function() {
 			var res = '${param.res}';
 			if (res != null && res != '') {
-				alert("상품 등록 완료");
+				alert("상품 신청 완료");
 			}
 		}
 
