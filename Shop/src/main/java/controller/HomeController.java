@@ -72,13 +72,15 @@ public class HomeController {
 
 	// 로그아웃
 	@RequestMapping(value = "/logout", produces = "text/plain;charset=UTF-8")
+	@ResponseBody
 	public String logout(Model model, String redirect) {
 		session.removeAttribute("users");
 		session.removeAttribute("cart_count");
 		
 		String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
 				
-		return "redirect:/"+decodedRedirect;
+		return decodedRedirect;
+
 	}
 
 	// 로그인
