@@ -18,21 +18,30 @@
 <body>
 	<!-- Navigation-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<div class="container px-4 px-lg-5">
-			<a class="navbar-brand" href="/shop/"><img
+		<div class="container px-4 px-lg-10" style="">
+			<a class="navbar-brand ms-0" href="/shop/"><img
 				src="/shop/resources/images/icons/로고수정.png"
 				style="width: 50px; height: 50px;">Want It</a>
+				
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
+			
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4" id="navbar">
 					<!-- JavaScript로 메뉴 생성 -->
 				</ul>
-
+			
+				</div>
+			
+			<form  class="d-flex me-auto ms-auto" style="width: 300px;">
+				<input class="form-control me-2" type="searcsh" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-dark" type="submit">Search</button>
+			</form>
+			
 				<c:if test="${empty users}">
 					<a href="signin_form" class="nav-link active me-3">SignIn</a>
 					<a href="signup" class="nav-link active me-3">SignUp</a>
@@ -63,11 +72,30 @@
 						</a>
 					</form>
 				</c:if>
+           
+         </div>
+ 
+   </nav>
 
 
-			</div>
-		</div>
-	</nav>
+
+
+   <script>
+   		function signin_form(){
+   			let currentUrl = encodeURIComponent(window.location.href);
+			 location.href = "signin_form?redirect="+currentUrl;
+		     return;
+   		}
+   		
+   		function logout(){
+   			let currentUrl = encodeURIComponent(window.location.href);
+			 location.href = "logout?redirect="+currentUrl;
+		     return;
+   			
+   		}
+   </script>
+			
 	<script src="/shop/resources/js/header.js"></script>
+
 </body>
 </html>

@@ -24,12 +24,21 @@
 <link href="/shop/resources/css/style3.css" rel="stylesheet" />
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
+<link href="/shop/resources/css/style6.css" rel="stylesheet" />
+<style>
+header {
+       position: fixed;
+       top: 0;
+       width: 100%;
+       z-index: 1030;
+   }
+</style>
 </head>
 <body>
+<header>
 	<jsp:include page="../header/header.jsp"></jsp:include>
-	<jsp:include page="../header/headerImg.jsp"></jsp:include>
+	</header>
 	<!-- Section-->
-
 	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
 			<div
