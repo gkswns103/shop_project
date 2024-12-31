@@ -17,9 +17,9 @@
 
    function resultlog() {
       if (xhr.readyState == 4 && xhr.status == 200) {
-         let date = xhr.responseText;
-		if(date == 'admin'){
-			location.href = "/shop/admin/admin_login?id="+date;
+         let data = xhr.responseText;
+		if(data == 'admin'){
+			location.href = "/shop/admin/admin_login?id="+data;
 		}
         else if (data === 'no_id') {
             alert("없는 id");

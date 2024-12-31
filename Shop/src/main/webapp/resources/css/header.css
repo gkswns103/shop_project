@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+.container {
+    padding-left: 20px;
+    padding-right: 20px;
+     justify-content: center; /* 모든 요소 중앙 정렬 */
+}
+
+
 .nav-link.dropdown-toggle::after {
     content: none !important; /* 기본 화살표 제거 */
 }
@@ -13,9 +20,8 @@
 
 .nav-link {
 	font-family: "Hahmlet", serif;
-/*  font-weight: bold; */
- white-space: nowrap; /* 줄 바꿈 방지 */
-	 
+	white-space: nowrap; /* 줄 바꿈 방지 */
+	
 }
 
 .dropdown-item{
@@ -39,16 +45,17 @@
 
 .form-control {
     margin-left: 15px; /* 검색창 좌측 간격 */
-    margin-right: 30px; /* 검색창 우측 간격 */
-    width: 300px;
-}
-
-.d-flex {
-	 white-space: nowrap;
+    margin-right: 30px; /* 검색창 우측 간격 */   
 }
 
 .navbar-collapse {
-    flex-grow: 0; /* collapse가 불필요하게 확장되지 않도록 제한 */
+     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* 간격 조정 */
 }
 
+.btn-outline-dark {
+	 white-space: nowrap; /* 줄 바꿈 방지 */
+}
 

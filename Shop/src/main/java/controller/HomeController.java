@@ -81,7 +81,7 @@ public class HomeController {
 		        decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
 		    }
 				
-		return "redirect:"+decodedRedirect;
+		return "redirect:/"+decodedRedirect;
 	}
 
 	// 로그인
