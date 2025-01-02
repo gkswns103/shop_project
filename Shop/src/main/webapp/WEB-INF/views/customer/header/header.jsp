@@ -13,7 +13,15 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap"
 	rel="stylesheet">
-	
+	<style>
+		.container px-4 px-lg-10{
+		max-width: 600px;
+		}
+		.collapse navbar-collapse{
+		margin-left:100px;}
+		
+		
+	</style>
 </head>
 
 <body>
@@ -27,11 +35,11 @@
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
+				aria-label="Toggle navigation" style="margin-right:200px;">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left:100px;">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4" id="navbar">
 					<!-- JavaScript로 메뉴 생성 -->
 				</ul>
@@ -39,7 +47,7 @@
 			
 		</div>
 
-			<form class="d-flex me-auto ms-auto" style="width: 300px;"
+			<form class="d-flex me-auto ms-auto" style="width: 400px;"
 				action="product_search">
 				<input class="form-control me-2" type="search" name="search"
 					placeholder="Search" aria-label="Search"> <input
@@ -68,9 +76,7 @@
 							</ul></li>
 					</ul>
 					<a onclick="logout()" class="nav-link active me-3">로그아웃</a>
-				</c:if>
-
-	<c:if test="${!empty users}">
+			
 	               <form class="d-flex ms-auto">
 	                  <a href="/shop/cart?user_idx=${sessionScope.users.user_idx}"
 	                     class="btn btn-outline-dark"> <i class="bi-cart-fill me-1"></i>

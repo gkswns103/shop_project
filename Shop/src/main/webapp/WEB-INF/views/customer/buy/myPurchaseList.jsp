@@ -45,6 +45,10 @@
 h4 {
     display: inline; 
 }
+
+.review{
+	float:right;
+}
 </style>
 
 <body>
@@ -64,7 +68,7 @@ h4 {
 				<c:set var="previousOrdernumber" value="1" />
 
 				<div class="smallbox">
-					<h4>주문 완료</h4><a class="detail" onclick="location.href='orderDetail?ordertime=${ordertime}&user_idx=${user_idx }'">상세보기</a> <br>
+					<h4>주문 완료</h4><br><a class="detail" onclick="location.href='orderDetail?ordertime=${ordertime}&user_idx=${user_idx }'">상세보기</a> <br>
 					<c:forEach var="vo2" items="${list}">
 						<c:if test="${vo2.ordertime eq ordertime }">
 							<c:if test="${previousOrdernumber != vo2.ordernumber }">
@@ -73,7 +77,10 @@ h4 {
 							<c:if test="${previousOrdernumber eq vo2.ordernumber}">
 								<img src="/shop/resources/img/${vo2.filepath}" width="70px;">
 								${vo2.name} ${vo2.quantity}개 
-								<fmt:formatNumber value="${vo2.price* vo2.quantity }" type="number" groupingUsed="true"/> 원<br>
+								<fmt:formatNumber value="${vo2.price* vo2.quantity }" type="number" groupingUsed="true"/> 원
+								<br><a class="review" onclick=
+								"location.href='productReview?product_idx=${vo2.product_idx}&user_idx=${vo2.user_idx }&filepath=${vo2.filepath }&name=${vo2.name }'">리뷰 작성</a><br>
+								
 							</c:if>
 						</c:if>
 					</c:forEach>

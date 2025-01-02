@@ -74,16 +74,19 @@
    /* 섹션 스타일 */
    .py-5 {
       flex: 1; /* 남은 공간을 차지 */
-      margin-right: 220px; /* recentView와 간격 */
-   }
-     .py-5 {
-      transform: scale(0.75); /* 75% 크기로 축소 */
+      margin: 0 auto;
       transform-origin: top center; /* 축소 기준점 */
+      
    }
 
    /* 추가적인 마진 조정 */
    .py-5 .container {
+      margin: 0 auto;
+      max-width:1100px;
       margin-top: 20px; /* 여백 조정 */
+   }
+   .card h-100{
+   	 width:80%;
    }
 </style>
 
@@ -132,7 +135,7 @@
       <div class="recentView" style="text-align: center">
 	    <h5>최근 본 상품</h5>
 	    <ul>
-	        <c:forEach var="product" items="${sessionScope.viewedProducts}">`
+	        <c:forEach var="product" items="${sessionScope.viewedProducts}">
 	            <li>
 	                <a href="/shop/detail?product_idx=${product.product_idx}">
 	                    <img src="/shop/resources/img/${product.filepath}" style="width:50px;"> ${product.name} 

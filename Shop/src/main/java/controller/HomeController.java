@@ -76,7 +76,7 @@ public class HomeController {
 	public String logout(Model model, String redirect) {
 		session.removeAttribute("users");
 		session.removeAttribute("cart_count");
-		
+		session.removeAttribute("viewedProducts");
 		String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
 				
 		return decodedRedirect;

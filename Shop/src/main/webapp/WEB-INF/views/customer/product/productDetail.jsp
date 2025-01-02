@@ -21,6 +21,7 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
+<link href="/shop/resources/css/productDetail.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -31,7 +32,7 @@
 	<input type="hidden" value=${vo.inventory } id="inventory">
 
 	<div class="container1">
-		<div>
+		<div class="small1">
 			<a href="/shop/">홈</a> > <a
 				href="/shop/product?division=${vo.division}&category=">${vo.division}</a>
 			> <a
@@ -41,8 +42,8 @@
 
 		</div>
 
-		<div>
-			<br>${vo.name } <br>
+		<div class="small2">
+			<h4>${vo.name }</h4> 
 			<hr>
 			 <fmt:formatNumber value="${vo.price}" type="number" groupingUsed="true"/>원 ( 할인율 : ${vo.discount }% )<br> 남은수량 :
 			${vo.inventory }개
@@ -60,15 +61,66 @@
 				<input type="button" value="장바구니 담기" onclick="cartAdd()"> <input
 					type="button" value="바로 구매" onclick="buyNow()">
 			</div>
-
+			
 		</div>
-
-
-
+	
 	</div>
+	
+	<div class="details-container">
+	    <ul class="tab-menu">
+	        <li onclick="showTab(0)" class="active">상품상세</li>
+	        <li onclick="showTab(1)">상품평</li>
+	        <li onclick="showTab(2)">상품문의</li>
+	        <li onclick="showTab(3)">교환/반품</li>
+	    </ul>
+	    
+	    <div class="tab-content">
+	        <div class="tab-view" id="tab-0">
+	        	상품 상세 내용
+	        </div>
+	        <div class="tab-view" id="tab-1" style="display: none;">
+	        	상품평 <br>
+	        	<input type="button" value="상품평 쓰기 " onclick="location.href='/shop/purchaseList?user_idx=${users.user_idx}'" >
+	        </div>
+	        <div class="tab-view" id="tab-2" style="display: none;">
+	       		상품문의 내용
+	        </div>
+	        <div class="tab-view" id="tab-3" style="display: none;">
+	        	교환/반품 내용
+	        </div>
+	    </div>
+	</div>
+	
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			 <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
+         <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
+		</div>
+	</footer>
+	
 	<script src="/shop/resources/js/amount_counter.js"></script>
 	<script src="/shop/resources/js/httpRequest.js"></script>
 	<script>
+	
+	window.onload=function(){
+		showTab(0);
+	}
+	
+	function showTab(index) {
+	    let tabs = document.querySelectorAll(".tab-view");
+	    let menuItems = document.querySelectorAll(".tab-menu li");
+
+	    // 모든 탭 내용을 숨김
+	    tabs.forEach((tab) => (tab.style.display = "none"));
+
+	    // 모든 메뉴에서 'active' 클래스 제거
+	    menuItems.forEach((item) => item.classList.remove("active"));
+
+	    // 선택된 탭 표시 및 메뉴 활성화
+	    tabs[index].style.display = "block";
+	    menuItems[index].classList.add("active");
+	}
+	
 	function buyNow(){
 		if(${empty users}){
 			 alert("로그인이 필요한 서비스입니다");
