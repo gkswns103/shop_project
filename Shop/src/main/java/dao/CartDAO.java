@@ -30,11 +30,10 @@ public class CartDAO {
 	}
 	
 	public int insert_cart(CartVO vo) {
-		
-		int res=sqlSession.insert("c.insert_cart", vo);
-		
-		return res;
-		
+	    System.out.println("Inserting CartVO Data: " + vo.toString());
+	    int res = sqlSession.insert("c.insert_cart", vo);
+	    System.out.println("Insert Response: " + res);
+	    return res;
 	}
 	public int select_idx(CartVO vo) {
 		
@@ -44,15 +43,16 @@ public class CartDAO {
 	}
 	
 	public boolean check_duplicate(CartVO vo) {
-		int count=sqlSession.selectOne("c.check_duplicate",vo);
-
-		return count>0;
+	    System.out.println("Checking Duplicate for CartVO: " + vo.toString());
+	    int count = sqlSession.selectOne("c.check_duplicate", vo);
+	    System.out.println("Duplicate Count: " + count);
+	    return count > 0;
 	}
 	public boolean check_Active(CartVO vo) {
-		int count=sqlSession.selectOne("c.check_Active",vo);
-
-
-		return count>0;
+	    System.out.println("Checking Active Status for CartVO: " + vo.toString());
+	    int count = sqlSession.selectOne("c.check_Active", vo);
+	    System.out.println("Active Count: " + count);
+	    return count > 0;
 	}
 	
 	public int cart_count(int user_idx) {
@@ -127,5 +127,26 @@ public class CartDAO {
 		return list;
 	
 	}
+	public int updateQuantity(CartVO vo) {
+	    return sqlSession.update("c.updateQuantity", vo);
+	}
+	
+	public boolean check_duplicate(int user_idx, int product_idx) {
+	    // `CartVO` 객체를 생성해 필요한 값 설정
+	    CartVO vo = new CartVO();
+	    vo.setUser_idx(user_idx);
+	    vo.setProduct_idx(product_idx);
+
+	    // 중복 확인 쿼리 실행
+	    System.out.println("Checking Duplicate for user_idx: " + user_idx + ", product_idx: " + product_idx);
+	    int count = sqlSession.selectOne("c.check_duplicate", vo);
+	    System.out.println("Duplicate Count: " + count);
+
+	    // 중복된 항목이 있으면 true 반환
+	    return count > 0;
+	}
+
+
+
 
 }

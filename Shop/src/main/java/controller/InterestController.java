@@ -4,17 +4,17 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import common.Common;
 import dao.CartDAO;
-import dao.ProductDAO;
 import dao.InterestDAO;
+import dao.ProductDAO;
 import dao.UsersDAO;
 import vo.InterestVO;
 import vo.UsersVO;
@@ -97,10 +97,9 @@ public class InterestController {
     }
 
 
-    // 관심 목록 항목 삭제
     @RequestMapping("/interest_delete")
+    @ResponseBody
     public String interestDelete(InterestVO vo) {
-    	
         int res = interest_dao.delete(vo.getInterest_idx()); // 관심 항목 삭제
         int user_idx = vo.getUser_idx(); // 사용자 인덱스 가져오기
 
@@ -108,19 +107,42 @@ public class InterestController {
         int interest_count = interest_dao.interest_count(user_idx); // 최신 관심 목록 개수 조회
         session.setAttribute("interest_count", interest_count); // 세션에 추가
 
-        return "redirect:/interest?user_idx=" + user_idx; // 관심 목록 페이지로 리다이렉트
+        if (res > 0) {
+            return "success"; // 삭제 성공 시
+        } else {
+            return "fail"; // 삭제 실패 시
+        }
     }
 
-    // 관심 목록에서 장바구니로 이동
+    
+    
     @RequestMapping("/interes_cart")
     @ResponseBody
-    public String interesCart(InterestVO vo) {
-        int res = interest_dao.interest_cart(vo); // 관심 항목을 장바구니로 이동
-        
-        String result = (res >= 1) ? "성공" : "실패"; // 성공 여부에 따라 결과 반환
-        return result;
+    public String interesCart(int interest_idx) {
+        // 관심 상품 상세 정보 가져오기
+        InterestVO interest = interest_dao.select_detail(interest_idx);
+
+        if (interest == null) {
+            return "notfound"; // 관심 상품을 찾지 못한 경우
+        }
+
+        // 장바구니 중복 확인
+        boolean isDuplicate = cart_dao.check_duplicate(interest.getUser_idx(), interest.getProduct_idx());
+        if (isDuplicate) {
+            return "duplicate"; // 이미 장바구니에 있는 경우
+        }
+
+        // 관심 상품을 장바구니로 이동
+        int res = interest_dao.interest_cart(interest);
+
+        if (res > 0) {
+            // 장바구니로 이동 성공 후 관심 상품 삭제
+            interest_dao.delete(interest_idx);
+            return "success"; // 성공 응답
+        } else {
+            return "fail"; // 이동 실패 응답
+        }
     }
-    
 
 
     @RequestMapping("/interest_detail")
@@ -139,8 +161,6 @@ public class InterestController {
 
         return Common.Path.HOME_PATH + "interest/interestDetail.jsp"; // 관심 항목 상세 JSP 반환
     }
-    
-       
     
 }
 

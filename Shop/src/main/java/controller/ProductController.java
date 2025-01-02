@@ -139,4 +139,14 @@ public class ProductController {
 		else
 			return "redirect:/registerForm?res=" + res;
 	}
+    
+    @RequestMapping("/product_search")
+    public String product_search(String search, Model model) {
+    	List<ProductVO> list = product_dao.product_search(search);
+
+    	model.addAttribute("list", list);
+    	
+    	return Common.Path.CUSTOMER_PATH + "product/productSearch.jsp";
+    	
+    }
 }

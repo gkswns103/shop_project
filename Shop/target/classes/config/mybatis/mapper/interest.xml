@@ -45,9 +45,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    WHERE interest_idx = #{interest_idx}
 	</delete>
 
-    <!-- 관심 항목의 상세 정보 조회 -->
-    <select id="select_detail" resultType="interest" parameterType="int">
-        select
-        * from interest where interest_idx = #{interest_idx}
-    </select>
+    <insert id="interest_cart" parameterType="interest">
+	    INSERT INTO cart
+	    (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, CHECKED, ORDERNUMBER, ORDERTIME, deliveryrequest, deliverymessage, addr)
+	    VALUES
+	    (#{user_idx}, #{product_idx}, 1, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, 0, 0, NOW(), '', '', '')
+	</insert>
+	
+	<!-- 관심 항목의 상세 정보 조회 -->
+	<select id="select_detail" resultType="interest" parameterType="int">
+	    SELECT * FROM interest WHERE interest_idx = #{interest_idx}
+	</select>
+
+    
+    
 </mapper>

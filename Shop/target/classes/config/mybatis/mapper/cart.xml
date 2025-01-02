@@ -15,10 +15,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insert_cart" parameterType="cart">
 	    INSERT INTO cart
-	    (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, CHECKED, ORDERNUMBER, ORDERTIME, deliveryrequest, deliverymessage, addr)
+	    (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, checked, ordernumber, ordertime, deliveryrequest, deliverymessage, addr)
 	    VALUES
-	    (#{user_idx}, #{product_idx}, #{quantity}, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, 1, 0, 0, 0, 0, 0)
+	    (#{user_idx}, #{product_idx}, #{quantity}, #{status}, #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, #{checked}, #{ordernumber}, NOW(), #{deliveryrequest}, #{deliverymessage}, #{addr})
 	</insert>
+
 
 	<select id="select_idx" parameterType="cart" resultType="int">
 		select
@@ -26,13 +27,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		product_idx=#{product_idx}
 	</select>
 
-	<select id="check_duplicate" resultType="int"
-		parameterType="cart">
-		select count(*)
-		from cart
-		where user_idx=#{user_idx} and
-		product_idx=${product_idx}
-
+	<select id="check_duplicate" resultType="int" parameterType="cart">
+	    SELECT COUNT(*)
+	    FROM cart
+	    WHERE user_idx = #{user_idx} AND product_idx = #{product_idx}
 	</select>
 
 	<select id="check_Active" resultType="int" parameterType="cart">
@@ -118,4 +116,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="select_orderList" parameterType="cart" resultType="cart">
 		select * from cart where user_idx=#{user_idx} and ordertime=#{ordertime} 
 	</select>
+	
+	<update id="updateQuantity" parameterType="cart">
+	    UPDATE cart
+	    SET quantity = quantity + #{quantity}
+	    WHERE user_idx = #{user_idx} AND product_idx = #{product_idx} AND status = 'active';
+	</update>
+	
+	<insert id="interest_cart" parameterType="interest">
+	    INSERT INTO cart
+	    (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, CHECKED, ORDERNUMBER, ORDERTIME, deliveryrequest, deliverymessage, addr)
+	    VALUES
+	    (#{user_idx}, #{product_idx}, 1, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, 0, 0, NOW(), '', '', '')
+	</insert>
+	
 </mapper>

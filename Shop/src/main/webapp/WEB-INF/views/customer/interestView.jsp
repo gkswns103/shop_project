@@ -18,53 +18,82 @@
 		<link href="/shop/resources/css/style5.css" rel="stylesheet" />
 		<link href="/shop/resources/css/style6.css" rel="stylesheet" />
 			
-		<script>
-	    function cartAdd(interestIdx, userIdx, productIdx, inventory) {
-	    	
-	        if (${empty sessionScope.users}) {
-	            alert("로그인이 필요한 서비스입니다");
-	            location.href = "/shop/signin_form";
-	            return;
-	        }
-	        
-	        // JSP에서 JavaScript 변수로 데이터 삽입
-	        let itemName = encodeURIComponent('${item.name}');
-	        let itemPrice = encodeURIComponent('${item.price}');
-	        let itemDiscount = encodeURIComponent('${item.discount}');
-	        let itemFilepath = encodeURIComponent('${item.filepath}');
-	        
-	        
-	        let url = "/shop/cart_insert";
-	        let param = `inventory=${inventory}&user_idx=${userIdx}&product_idx=${productIdx}&name=${itemName}&price=${itemPrice}&discount=${itemDiscount}&filepath=${itemFilepath}`;
-		    sendRequest(url, param, addFn, "POST");
-	    }
-
-		// Ajax 요청 함수
-		function sendRequest(url, param, callback, method) {
-			let xhr = new XMLHttpRequest();
-		    xhr.open(method, url, true);
-		    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		    xhr.onreadystatechange = function () {
-		        if (xhr.readyState === 4 && xhr.status === 200) {
-		            callback(xhr.responseText);
+			<script>
+	
+		    function cartAdd(formId) {
+		    	if (${empty users}) {
+			        alert("로그인이 필요한 서비스입니다");
+			        location.href = "signin_form";
+			        return;
+			    }
+		    	
+		        let form = document.getElementById(formId);
+		        if (!form) {
+		            alert("폼을 찾을 수 없습니다.");
+		            return;
 		        }
-		    };
-		    xhr.send(param);
-		}
-
-		// Ajax 응답 처리 함수
-		function addFn(response) {
-		    if (response === 'fail') {
-		        alert("장바구니에 넣지 못했습니다.");
-		    } else if (response === 'duplicate') {
-		        alert("이미 장바구니에 있는 상품입니다.");
-		    } else if (response === 'success') {
-		        if (confirm("장바구니에 넣었습니다. 장바구니로 이동하시겠습니까?")) {
-		            location.href = `/shop/cart?user_idx=${sessionScope.users.user_idx}`;
-		        }
+	
+		        let formData = new FormData(form);
+		        let xhr = new XMLHttpRequest();
+		        let params = new URLSearchParams(formData).toString();
+	
+		        xhr.open("POST", "/shop/interes_cart", true);
+		        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState === 4) {
+		                if (xhr.status === 200) {
+		                    let result = xhr.responseText;
+	
+		                    if (result === "success") {
+		                        alert("장바구니에 상품이 추가되었습니다.");
+		                        location.reload(); // 장바구니 추가 후 새로고침
+		                    } else if (result === "duplicate") {
+		                        alert("이미 장바구니에 추가된 상품입니다.");
+		                    } else if (result === "notfound") {
+		                        alert("해당 관심 상품을 찾을 수 없습니다.");
+		                    } else if (result === "fail") {
+		                        alert("상품을 장바구니로 이동하지 못했습니다.");
+		                    }
+		                }
+		            }
+		        };
+	
+		        xhr.send(params);
 		    }
-		}
-		</script>	
+	
+		    function del(interestIdx, userIdx) {
+		        let xhr = new XMLHttpRequest();
+		        xhr.open("POST", "/shop/interest_delete", true);
+		        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	
+		        xhr.onload = function () {
+		            if (xhr.status === 200) {
+		                let response = xhr.responseText;
+	
+		                if (response === "success") {
+		                    alert("관심목록에서 삭제되었습니다.");
+		                    location.reload(); // 삭제 후 페이지 새로 고침
+		                } else if (response === "fail") {
+		                    alert("삭제에 실패했습니다.");
+		                } else {
+		                    alert("알 수 없는 오류가 발생했습니다.");
+		                }
+		            } else {
+		                alert("서버 통신에 실패했습니다. 상태 코드: " + xhr.status);
+		            }
+		        };
+	
+		        // 데이터 전송
+		        xhr.send("interest_idx=" + interestIdx + "&user_idx=" + userIdx);
+		    }
+	
+	
+		</script> 
+
+
+
+	
 	</head>
 	<body>
 		<!-- Header-->
@@ -96,31 +125,26 @@
 						${item.price}원<br>
 						<span style="color: red;">${item.discount}%</span><br> 
 						
-						<form method="post">
+						<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
 						    <!-- 관심 상품 삭제 -->
-						    <input type="hidden" name="interest_idx" value="${item.interest_idx}">
-						    <img src="/shop/resources/images/02.jpg"
-						         alt="관심 삭제"
-						         style="width: 50px; height: 50px; cursor: pointer;"
-						         onclick="location.href='/shop/interest_delete?interest_idx=${item.interest_idx}&user_idx=${item.user_idx}'">
+						    <form method="post" action="javascript:void(0);" style="margin: 0;">
+							    <input type="hidden" name="interest_idx" value="${item.interest_idx}">
+							    <input type="hidden" name="user_idx" value="${item.user_idx}">
+							    <button type="button" onclick="del(${item.interest_idx}, ${item.user_idx});" style="background: none; border: none; cursor: pointer;">
+							        <img src="/shop/resources/images/02.jpg" alt="관심 삭제" style="width: 50px; height: 50px;">
+							    </button>
+							</form>
 						
-						    <!-- 장바구니로 이동 -->
-						    <img src="/shop/resources/images/03.jpg"
-					     alt="장바구니 추가"
-					     style="width: 50px; height: 50px; cursor: pointer;"
-					     onclick="cartAdd('${item.interest_idx}', '${item.user_idx}', '${item.product_idx}', '${item.inventory}', '${item.name}', '${item.price}', '${item.discount}', '${item.filepath}')">
-
-						    <!-- 필요한 데이터 히든 입력 -->
-						    <input type="hidden" name="user_idx" value="${item.user_idx}">
-							<input type="hidden" name="product_idx" value="${item.product_idx}">
-							<input type="hidden" name="name" value="${item.name}">
-							<input type="hidden" name="price" value="${item.price}">
-							<input type="hidden" name="discount" value="${item.discount}">
-							<input type="hidden" name="filepath" value="${item.filepath}">
-							<input type="hidden" name="inventory" value="${item.inventory}">
-
-						</form>
-
+						    <!-- 장바구니 추가 -->
+						   <form id="cartForm_${item.interest_idx}" style="display: inline;">
+							    <input type="hidden" name="interest_idx" value="${item.interest_idx}">
+							    <button type="button" onclick="cartAdd('cartForm_${item.interest_idx}');" style="background: none; border: none; cursor: pointer;">
+							        <img src="/shop/resources/images/03.jpg" alt="장바구니 추가" style="width: 50px; height: 50px;">
+							    </button>
+							</form>
+ 
+						</div>
+ 
 					</td>
 					<!-- 행 끝 -->
 					<c:if test="${status.index % 4 == 3}">
@@ -130,7 +154,6 @@
 			</table>
 			<hr>
 			</c:if>
-			<input type="button" value="home" onclick="location.href='/shop/'">
 		</div>
 	
 		<br><br><br><br><br><br><br><br><br><br><br><br><br><br>

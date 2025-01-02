@@ -77,4 +77,10 @@ public class ProductDAO {
 		return res;
 		
 	}
+	
+	public List<ProductVO> product_search(String search){
+		List<ProductVO> list = sqlSession.selectList("p.product_search",search);
+		
+		return list;
+	}
 }

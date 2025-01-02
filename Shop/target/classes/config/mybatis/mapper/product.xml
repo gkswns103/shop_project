@@ -31,14 +31,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from product where product_idx=#{product_idx}
 	</select>
 
+	<select id="product_search" parameterType="String"
+		resultType="product">
+		SELECT *
+		FROM product
+		WHERE name LIKE CONCAT('%', #{search}, '%')
+	</select>
+
 	<select id="getDistinctDivisions" resultType="string">
-		SELECT DISTINCT division
+		SELECT DISTINCT
+		division
 		FROM PRODUCT
 		ORDER BY division
 	</select>
 
 	<select id="getAllDistinctCategories" resultType="string">
-		SELECT DISTINCT category
+		SELECT DISTINCT
+		category
 		FROM PRODUCT
 		ORDER BY category
 	</select>
@@ -48,16 +57,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(name,price,discount,inventory,`explain`,selleridx,filepath,category,division)
 		values
 		(#{name}, #{price}, #{discount}, #{inventory},
-		#{explain}, #{selleridx}, #{filepath}, #{category}, #{division})
+		#{explain},
+		#{selleridx}, #{filepath}, #{category}, #{division})
 	</insert>
 
 	<select id="selectAdd" parameterType="product" resultType="int">
 		select product_idx from product where name=#{name} and price=#{price}
 		and discount=#{discount} and inventory=#{inventory}
 	</select>
-	
+
 	<delete id="delete_product" parameterType="int">
-		delete from product where product_idx = #{product_idx}
+		delete from product
+		where product_idx = #{product_idx}
 	</delete>
 </mapper>
 
