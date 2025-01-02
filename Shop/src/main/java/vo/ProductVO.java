@@ -1,5 +1,7 @@
 package vo;
 
+import java.util.Objects;
+
 public class ProductVO {
 	private int product_idx,price,discount,inventory,selleridx,realprice;
 	private String name,explain,filepath,category,division;
@@ -72,5 +74,18 @@ public class ProductVO {
 	public void setFilepath(String filepath) {
 		this.filepath = filepath;
 	}
+	
+	 @Override
+	    public boolean equals(Object o) {
+	        if (this == o) return true;
+	        if (o == null || getClass() != o.getClass()) return false;
+	        ProductVO productVO = (ProductVO) o;
+	        return product_idx == productVO.product_idx;
+	    }
+
+	    @Override
+	    public int hashCode() {
+	        return Objects.hash(product_idx);
+	    }
 	
 }

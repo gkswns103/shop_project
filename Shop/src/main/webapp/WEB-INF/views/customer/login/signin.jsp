@@ -132,6 +132,25 @@
 								+ "\n nickname : " + data['nickname']);
 					}
 				});
+		
+		   function send(f) {
+			      let id = f.id.value;
+			      let c_pwd = f.c_pwd.value;
+			      
+			      if (id === '') {
+			         alert("아이디를 입력하세요");
+			         return;
+			      }
+			      if (c_pwd === '') {
+			         alert("비밀번호를 입력하세요");
+			         return;
+			      }
+			      let url = "signin";
+			      let param = "id=" + id + "&c_pwd=" + encodeURIComponent(c_pwd) + "&redirect=" + encodeURIComponent(f.redirect.value);
+			      
+			      sendRequest(url, param, resultlog, "post");
+			   }
+
 
 	</script>
 </body>

@@ -9,18 +9,16 @@
 <link rel="stylesheet" href="/shop/resources/css/header.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-   href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap"
-   rel="stylesheet">
-   
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
    <!-- Navigation-->
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container px-4 px-lg-10">
-         <a class="navbar-brand" style="margin-left: 50px;" href="/shop/"><img
+      <div class="container px-4 px-lg-10" style="margin-left: 150px;">
+         <a class="navbar-brand" style="margin-left: 100px;" href="/shop/"><img
             src="/shop/resources/images/icons/로고수정.png"
             style="width: 50px; height: 50px;">Want It</a>
 
@@ -31,7 +29,8 @@
             <span class="navbar-toggler-icon"></span>
          </button>
 
-         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+         <div class="collapse navbar-collapse" id="navbarSupportedContent" ">
             <ul class="navbar-nav" id="navbar">
                <!-- JavaScript로 메뉴 생성 -->
             </ul>
@@ -39,7 +38,9 @@
          
          </div>
 
-         <form class="d-flex" style="width: 300px;"
+
+		<div class="flex-container">
+         <form class="d-flex"
             action="product_search">
             <input class="form-control me-2" type="search" name="search"
                placeholder="Search" aria-label="Search"> <input
@@ -47,11 +48,21 @@
                onclick="product_search(this.form)">
          </form>
 
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4" id="navbar">
+					<!-- JavaScript로 메뉴 생성 -->
+				</ul>
+			</div>
+			
+		
+
+
          
-            <c:if test="${empty users}">
-               <a onclick="signin_form()" class="nav-link active">SignIn</a>
-               <a href="signup" class="nav-link active me-3">SignUp</a>
-            </c:if>
+           <c:if test="${empty users}" >
+					<a onclick="signin_form()" class="nav-link active me-3">SignIn</a>
+					<a href="signup" class="nav-link active me-3">SignUp</a>
+				</c:if>
+
 
             <c:if test="${!empty users}">
                <ul class="navbar-nav me-3 mb-2 mb-lg-0 ms-lg-4">
@@ -70,55 +81,57 @@
                <a onclick="logout()" class="nav-link active me-3">로그아웃</a>
             </c:if>
 
-   <c:if test="${!empty users}">
+   			<c:if test="${!empty users}">
                   <form class="d-flex ms-auto">
                      <a href="/shop/cart?user_idx=${sessionScope.users.user_idx}"
                         class="btn btn-outline-dark"> <i class="bi-cart-fill"></i>
                         Cart <span class="badge bg-dark text-white rounded-pill">${sessionScope.cart_count }</span>
                      </a>
                   </form>
-               </c:if>
-   <script src="/shop/resources/js/httpRequest.js"></script>
-   <script>
-         function signin_form(){
-             let currentUrl = encodeURIComponent(window.location.href);
-          location.href = "signin_form?redirect="+currentUrl;
-           return;
-         }
-         
-         function logout(){
-             let currentUrl = encodeURIComponent(window.location.href);
-             
-           let url="logout";
-           let param="redirect="+currentUrl;
-           
-           sendRequest(url,param,logoutLog,"post");
-            
-         }
-         function logoutLog(){
-             if (xhr.readyState == 4 && xhr.status == 200) {
-               let data = xhr.responseText;
-               
-               location.href= data;
-            
-            }
-         }
-         function product_search(f) {
-         if (f.search.value == "") {
-            alert("검색어를 입력해주세요");
-            return;
-         }
-         
-         f.submit();
-         
-      }
-   </script>
-   
-   
+             </c:if>
+          </div>
    </nav>
 
-   <script src="/shop/resources/js/httpRequest.js"></script>
-   <script src="/shop/resources/js/header.js"></script>
+	            
+   <script>
+   		function signin_form(){
+   			 let currentUrl = encodeURIComponent(window.location.href);
+			 location.href = "signin_form?redirect="+currentUrl;
+		     return;
+   		}
+   		
+   		function logout(){
+   			 let currentUrl = encodeURIComponent(window.location.href);
+   			 
+		     let url="logout";
+		     let param="redirect="+currentUrl;
+		     
+		     sendRequest(url,param,logoutLog,"post");
+   			
+   		}
+   		function logoutLog(){
+   			 if (xhr.readyState == 4 && xhr.status == 200) {
+   	         let data = xhr.responseText;
+   	         
+   	         location.href= data;
+   			
+   			}
+   		}
+   		function product_search(f) {
+			if (f.search.value == "") {
+				alert("검색어를 입력해주세요");
+				return;
+			}
+			
+			f.submit();
+			
+		}
+   </script>
+   
+	
+
+	<script src="/shop/resources/js/httpRequest.js"></script>
+	<script src="/shop/resources/js/header.js"></script>
 
 
 </body>
