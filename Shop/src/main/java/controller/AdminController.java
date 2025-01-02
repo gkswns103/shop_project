@@ -77,14 +77,12 @@ public class AdminController {
 	@RequestMapping("/admin/delete_user")
 	public String user_delete(int user_idx) {
 		int res = users_dao.delete_user(user_idx);
-		System.out.println("결과=" + res);
 		return "redirect:/admin/userManagement";
 	}
 	
 	@RequestMapping("/admin/delete_product")
 	public String product_delete(int product_idx) {
 		int res = product_dao.delete_product(product_idx);
-		System.out.println("결과=" + res);
 		return "redirect:/admin/productManagement";
 	}
 	

@@ -116,11 +116,8 @@ ul {
 }
 </style>
 
-
-
 </head>
 <body>
-
 	<!-- Header-->
 	<header>
 		<jsp:include page="./customer/header/header.jsp"></jsp:include>
@@ -232,6 +229,5 @@ ul {
 			once : false, // 애니메이션을 한 번만 실행
 		});
 	</script>
-
 </body>
 </html>

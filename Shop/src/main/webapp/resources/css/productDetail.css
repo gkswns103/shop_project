@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+a {
+	text-decoration: none; /* 밑줄 제거 */
+	color: inherit; /* 부모 색상 사용 */
+}
+
+.small1 img {
+	width:500px;
+    max-width: 100%; /* 부모 요소 너비에 맞춤 */
+    height: auto; /* 비율 유지 */
+    display: block; /* 여분의 여백 제거 */
+    object-fit: contain; /* 이미지 비율 유지하며 축소 */
+}
+
+.small2 {
+	margin-top:50px;
+    flex: 0 0 600px; /* 고정된 너비 */
+    min-width: 600px; /* 최소 너비 */
+    max-width: 600px; /* 최대 너비 */
+    word-wrap: break-word; /* 긴 단어가 줄바꿈되도록 보장 */
+}
+
+.container1 {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start; /* 수직 정렬 */
+	justify-content: center; /* 수평 가운데 정렬 */
+	gap: 20px; /* 요소 간 간격 */
+	border: 1px solid #ccc;
+	padding: 20px;
+	max-width: 1200px; /* 최대 너비 */
+	width: 100%; 
+	box-sizing: border-box; /* 패딩 포함 크기 계산 */
+	margin: 0 auto; /* 수평 중앙 정렬 */
+	min-width: 900px; /* 최소 너비 */
+	overflow-x: auto; /* 가로 스크롤 활성화 */
+	margin-top:50px;
+	margin-bottom:70px;
+}
+
+.container1 div {
+	word-wrap: break-word; /* 긴 단어를 줄바꿈 */
+	word-break: break-word; /* 단어가 너무 길면 줄바꿈 */
+	overflow-wrap: break-word; /* 브라우저 호환성 */
+	flex: 1; /* 동일한 비율로 크기 조정 */
+	text-align: justify; /* 텍스트 양쪽 정렬 */
+}
+
+.counter-value {
+	flex-direction: column;
+}
+
+input[name="amount"] {
+	text-align: center; /* 텍스트 가운데 정렬 */
+	width: 50px; /* 입력 필드 너비 */
+	padding: 5px; /* 안쪽 여백 */
+	font-size: 16px; /* 글자 크기 */
+	border: 1px solid #ccc; /* 테두리 */
+	border-radius: 4px; /* 둥근 모서리 */
+}
+/* 상품 하위 탭 css */
+
+.details-container {
+	max-width:1200px;
+	min-width:900px;
+	margin:0 auto;	
+	margin-bottom:60px;
+}
+
+.tab-menu {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    width:100%;
+}
+
+.tab-menu li {
+	display: flex;
+	height: 60px;
+	width:25%;
+    cursor: pointer;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background: #f9f9f9;
+}
+
+.tab-menu li.active {
+    font-weight: bold;
+    background: #fff;
+    color: #000;
+}
+
+.tab-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+.tab-view{
+	height:600px;
+}
+
+/* .container1 {
+    position: relative; 부모 요소에 상대적인 위치 지정
+}
+
+#productImage {
+    position: absolute; 절대 위치 지정
+    top: 10px;          상단에서 10px 떨어지게
+    right: 700px;        오른쪽에서 10px 떨어지게
+    z-index: 10;        다른 요소보다 위에 표시되도록
+    width:40px;
+}
+ */
+
+
+
+
+
+
+

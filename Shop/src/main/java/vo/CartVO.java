@@ -4,7 +4,14 @@ public class CartVO {
    int cart_idx,user_idx,product_idx,quantity,price,discount,realprice,inventory,checked;
    String status,name,filepath,ordertime,deliveryrequest,deliverymessage,addr;
    long ordernumber;
+   private Integer interest_idx;
    
+   public Integer getInterest_idx() {
+       return null; // 항상 null 반환
+   }
+   public void setInterest_idx(Integer interest_idx) {
+       this.interest_idx = null; // 강제로 null 설정
+   }
    
    public String getAddr() {
       return addr;

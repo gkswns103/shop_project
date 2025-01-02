@@ -1,7 +1,8 @@
 package controller;
 
 import java.io.File;
-import java.lang.ProcessBuilder.Redirect;
+
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -11,12 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.Common;
+import dao.CartDAO;
+import dao.InterestDAO;
 import dao.ProductDAO;
+import vo.InterestVO;
 import vo.ProductVO;
+import vo.UsersVO;
 
 @Controller
 public class ProductController {
@@ -28,19 +32,46 @@ public class ProductController {
 	HttpSession session;
 	
 	ProductDAO product_dao;
+	CartDAO cart_dao;
 
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
 	
-	@RequestMapping("/detail")
-	public String detailView(Model model,int product_idx) {
-		ProductVO vo=product_dao.selectOne(product_idx);
-		
-		model.addAttribute("vo",vo);
-		 
-		return Common.Path.CUSTOMER_PATH+"product/productDetail.jsp";
+	public void setCart_dao(CartDAO cart_dao) {
+		this.cart_dao = cart_dao;
 	}
+	
+	@RequestMapping("/detail")
+	public String detailView(Model model, int product_idx, HttpSession session) {
+	    // 현재 상품 정보 가져오기
+	    ProductVO vo = product_dao.selectOne(product_idx);
+	    model.addAttribute("vo", vo);
+
+	    // 세션에서 방문한 상품 목록 가져오기
+	    @SuppressWarnings("unchecked") //경고 무시
+	    LinkedList<ProductVO> viewedProducts = (LinkedList<ProductVO>) session.getAttribute("viewedProducts");
+
+	    if (viewedProducts == null) {
+	        // 세션에 데이터가 없으면 새 LinkedList 생성
+	        viewedProducts = new LinkedList<ProductVO>();
+	    }
+	    // 리스트에 현재 상품 추가
+	    if (viewedProducts.contains(vo)) {
+	        // 이미 존재하는 상품은 삭제 후 다시 추가하여 최신 순으로 정렬
+	        viewedProducts.remove(vo);
+	    } else if (viewedProducts.size() == 5) {
+	        // 최대 크기 초과 시 가장 오래된 상품 제거
+	        viewedProducts.removeFirst();
+	    }
+	    viewedProducts.add(vo);
+	    // 세션에 업데이트된 리스트 저장
+	    session.setAttribute("viewedProducts", viewedProducts);
+	    // 상세 페이지로 이동
+	    return Common.Path.CUSTOMER_PATH + "product/productDetail.jsp";
+
+	}
+
 
 	@RequestMapping("/product")
 	public String product_list(Model model, String division, String category) {
@@ -122,6 +153,7 @@ public class ProductController {
     	List<ProductVO> list = product_dao.product_search(search);
 
     	model.addAttribute("list", list);
+    	model.addAttribute("search",search);
     	
     	return Common.Path.CUSTOMER_PATH + "product/productSearch.jsp";
     	
