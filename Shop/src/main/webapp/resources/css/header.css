@@ -64,3 +64,30 @@
     flex-wrap: nowrap; /* 줄바꿈 허용 (화면 크기가 작아질 때) */
     margin-right: 100px;
 }
+
+/* 기본 상태: 평상시 레이아웃 유지 */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* 요소 간 간격 분배 */
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-brand img {
+    width: 50px; /* 기본 로고 크기 */
+    height: 50px;
+}
+
+.form-control {
+    width: 300px; /* 검색창 기본 너비 */
+    margin-right: 10px;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 15px; /* 메뉴 간 간격 */
+}
+
+.btn-outline-dark {
+    white-space: nowrap; /* 줄바꿈 방지 */
+}

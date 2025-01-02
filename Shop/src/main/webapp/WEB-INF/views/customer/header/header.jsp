@@ -16,7 +16,7 @@
 
 <body>
    <!-- Navigation-->
-   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <nav class="navbar navbar-expand-lg navbar-light bg-light" style="min-width: 100px;">
       <div class="container px-4 px-lg-10" style="margin-left: 150px;">
          <a class="navbar-brand" style="margin-left: 100px;" href="/shop/"><img
             src="/shop/resources/images/icons/로고수정.png"
@@ -43,7 +43,7 @@
          <form class="d-flex"
             action="product_search">
             <input class="form-control me-2" type="search" name="search"
-               placeholder="Search" aria-label="Search" style="width: 300px;">
+               placeholder="Search" aria-label="Search" style="max-width: 300px; min-width: 50px;">
                 <input class="btn btn-outline-dark" type="button" value="Search"
                onclick="product_search(this.form)">
          </form>
