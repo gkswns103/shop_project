@@ -49,7 +49,7 @@
         <div class="swiper-wrapper">
             <!-- 동적 이미지 로드 -->
             <div class="swiper-slide">
-                <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일" onclick="#">
+                <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일" onclick="location.href=''">
             </div>
             <div class="swiper-slide">
                 <img src="/shop/resources/img/빅세일.png" alt="빅 세일" onclick="#">

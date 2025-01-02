@@ -25,6 +25,8 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
+<!-- 상품 애니메이션 -->
+<link href="/shop/resources/dist/aos.css" rel="stylesheet" />
 <style>
 header {
        position: fixed;
@@ -127,5 +129,13 @@ body {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/shop/resources/js/scripts.js"></script>
+	
+	<script>
+    AOS.init({
+        duration: 800, // 애니메이션 지속 시간 (밀리초)
+        easing: 'ease-in-out', // 애니메이션 효과
+        once: false, // 애니메이션을 한 번만 실행
+    });
+</script>
 </body>
 </html>
