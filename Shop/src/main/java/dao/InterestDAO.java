@@ -23,7 +23,6 @@ public class InterestDAO {
     // 관심 목록에 항목 추가
     public int insert_interest(InterestVO vo) {
         int res = sqlSession.insert("i.insert_interest", vo); // 관심 목록에 항목 추가
-        System.out.println(res);
         return res;
     }
 
