@@ -13,6 +13,11 @@
 	<bean id="cart_daoBean" class="dao.CartDAO">
 		<property name="sqlSession" ref="sqlSessionBean" />
 	</bean>
+		
+	<bean id="interest_daoBean" class="dao.InterestDAO">
+		<property name="sqlSession" ref="sqlSessionBean"/>
+	</bean>
+	
 	<bean id="review_daoBean" class="dao.ReviewDAO">
 		<property name="sqlSession" ref="sqlSessionBean" />
 	</bean>

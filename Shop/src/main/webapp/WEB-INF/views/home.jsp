@@ -134,11 +134,11 @@
    </section>
       <div class="recentView" style="text-align: center">
 	    <h5>최근 본 상품</h5>
-	    <ul>
+	    <ul style="list-style-type: none;padding-left: 0;">
 	        <c:forEach var="product" items="${sessionScope.viewedProducts}">
 	            <li>
 	                <a href="/shop/detail?product_idx=${product.product_idx}">
-	                    <img src="/shop/resources/img/${product.filepath}" style="width:50px;"> ${product.name} 
+	                    <img src="/shop/resources/img/${product.filepath}" style="width:50px;">
 	                </a>
 	            </li>
 	        </c:forEach>

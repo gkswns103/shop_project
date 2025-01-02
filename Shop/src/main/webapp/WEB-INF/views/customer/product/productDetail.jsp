@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 <!DOCTYPE html>
 <html>
 
@@ -41,11 +40,18 @@
 				src="/shop/resources/img/${vo.filepath }">
 
 		</div>
-
+		    
 		<div class="small2">
-			<h4>${vo.name }</h4> 
+			<span style="font-weight: bold; font-size: 20px; margin-right: 10px;">${vo.name }</span>
+ 			<!-- 관심 상품 여부에 따라 이미지 변경 -->
+		    <c:if test="${isInterest}">
+		        <img id="productImage" src="/shop/resources/images/02.jpg" onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
+		    </c:if>
+		    <c:if test="${!isInterest}">
+		        <img id="productImage" src="/shop/resources/images/01.jpg" onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
+		    </c:if>
 			<hr>
-			 <fmt:formatNumber value="${vo.price}" type="number" groupingUsed="true"/>원 ( 할인율 : ${vo.discount }% )<br> 남은수량 :
+			${vo.price }원 ( 할인율 : ${vo.discount }% )<br> 남은수량 :
 			${vo.inventory }개
 			<hr>
 			배송비 : <br>
@@ -58,12 +64,13 @@
 
 				<button id="decrease" onclick="decrease()">▼</button>
 				<button id="increase" onclick="increase()">▲</button>
-				<input type="button" value="장바구니 담기" onclick="cartAdd()"> <input
-					type="button" value="바로 구매" onclick="buyNow()">
+				<input type="button" value="장바구니 담기" onclick="cartAdd()"> 
+				<input type="button" value="바로 구매" onclick="buyNow()">
+				
 			</div>
 			
 		</div>
-	
+		
 	</div>
 	
 	<div class="details-container">
@@ -80,7 +87,7 @@
 	        </div>
 	        <div class="tab-view" id="tab-1" style="display: none;">
 	        	상품평 <br>
-	        	<input type="button" value="상품평 쓰기 " onclick="location.href='/shop/purchaseList?user_idx=${users.user_idx}'" >
+	        	<input type="button" value="상품평 쓰기 " onclick="purchaseList();" >
 	        </div>
 	        <div class="tab-view" id="tab-2" style="display: none;">
 	       		상품문의 내용
@@ -105,7 +112,15 @@
 	window.onload=function(){
 		showTab(0);
 	}
-	
+	function purchaseList(){
+		if (${empty users}) {
+	    	alert("로그인이 필요한 서비스입니다");
+	    	location.href="signin_form?redirect="+encodeURIComponent(window.location.href);
+		return;
+		}
+		
+		location.href='/shop/purchaseList?user_idx=${users.user_idx}';
+	}
 	function showTab(index) {
 	    let tabs = document.querySelectorAll(".tab-view");
 	    let menuItems = document.querySelectorAll(".tab-menu li");
@@ -121,24 +136,59 @@
 	    menuItems[index].classList.add("active");
 	}
 	
+    
+	function toggleHeart() {
+	    if (${empty users}) {
+	        alert("로그인이 필요한 서비스입니다");
+	        location.href="signin_form?redirect="+encodeURIComponent(window.location.href);
+	        return;
+	    }
+
+	    let url = "interest_insert";
+	    let param = `user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}&inventory=${vo.inventory}`;
+	    sendRequest(url, param, insertFn, "post");
+	}
+
+	function insertFn() {
+	    let productImage = document.getElementById("productImage");
+
+	    if (xhr.readyState == 4 && xhr.status == 200) {
+	        let data = xhr.responseText;
+
+	        if (data === "fail") {
+	            alert("등록에 실패했습니다.");
+	        } else if (data === "success") {
+	            productImage.src = "/shop/resources/images/02.jpg";
+	            alert("관심 상품에 등록되었습니다.");
+	        } else if (data === "duplicate") {
+	            alert("이미 등록된 상품입니다.");
+	        } else if (data === "deletefail") {
+	            alert("삭제에 실패했습니다.");
+	        } else if (data === "deleted") {
+	            productImage.src = "/shop/resources/images/01.jpg";
+	            alert("관심 상품에서 삭제되었습니다.");
+	        }
+	    }
+	}
+
+
+
+	// 수정된 부분: 바로 구매 로직 수정
 	function buyNow(){
 		if(${empty users}){
 			 alert("로그인이 필요한 서비스입니다");
-			 //현재 url 가져오기
-			 let currentUrl = window.location.href;
-			 location.href = "signin_form?redirect="+currentUrl;
+		     location.href="signin_form?redirect="+encodeURIComponent(window.location.href);
 		     return;
 		}
 		 let quantity=document.getElementById("amount").value;
-		 location.href="/shop/buyNow?inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
+		location.href="/shop/buyNow?inventory=${vo.inventory}&user_idx=${sessionScope.users.user_idx}&product_idx=${vo.product_idx}&quantity="+quantity+"&name=${vo.name}&price=${vo.price}&discount=${vo.discount}&filepath=${vo.filepath}";
 		
 	}
+	// 수정된 부분: 장바구니 추가 로직 수정
 	function cartAdd(){
 		if(${empty users}){
 				 alert("로그인이 필요한 서비스입니다");
-				//현재 url 가져오기
-				 let currentUrl = encodeURIComponent(window.location.href);
-				 location.href = "signin_form?redirect="+currentUrl;
+				 location.href="signin_form?redirect="+encodeURIComponent(window.location.href);
 			     return;
 			}
 		    
@@ -164,7 +214,6 @@
 						    }
 					}
 			
-				
 				}
 			}
 	</script>

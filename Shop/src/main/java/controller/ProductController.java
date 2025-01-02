@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.Common;
+import dao.CartDAO;
+import dao.InterestDAO;
 import dao.ProductDAO;
+import vo.InterestVO;
 import vo.ProductVO;
+import vo.UsersVO;
 
 @Controller
 public class ProductController {
@@ -27,9 +32,14 @@ public class ProductController {
 	HttpSession session;
 	
 	ProductDAO product_dao;
+	CartDAO cart_dao;
 
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
+	}
+	
+	public void setCart_dao(CartDAO cart_dao) {
+		this.cart_dao = cart_dao;
 	}
 	
 	@RequestMapping("/detail")
@@ -59,7 +69,9 @@ public class ProductController {
 	    session.setAttribute("viewedProducts", viewedProducts);
 	    // 상세 페이지로 이동
 	    return Common.Path.CUSTOMER_PATH + "product/productDetail.jsp";
+
 	}
+
 
 	@RequestMapping("/product")
 	public String product_list(Model model, String division, String category) {

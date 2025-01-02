@@ -43,6 +43,7 @@
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4" id="navbar">
 					<!-- JavaScript로 메뉴 생성 -->
 				</ul>
+
 			</div>
 			
 		</div>
@@ -69,7 +70,7 @@
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li><a class="dropdown-item"
 									href="purchaseList?user_idx=${users.user_idx }">주문목록</a></li>
-								<li><a class="dropdown-item">찜목록</a></li>
+								<li><a class="dropdown-item" href="interest?user_idx=${users.user_idx }">관심목록</a></li>
 								<li><a class="dropdown-item" href="registerForm">상품등록</a></li>
 								<li><a class="dropdown-item"
 									href="my_imformation?user_idx=${users.user_idx}">내정보</a></li>
@@ -86,8 +87,10 @@
 	            </c:if>
 	</nav> 
 	            
-   <script src="/shop/resources/js/httpRequest.js"></script>
-   <script>
+	<script src="/shop/resources/js/httpRequest.js"></script>
+	<script src="/shop/resources/js/header.js"></script>
+    <script src="/shop/resources/js/httpRequest.js"></script>
+    <script>
    		function signin_form(){
    			 let currentUrl = encodeURIComponent(window.location.href);
 			 location.href = "signin_form?redirect="+currentUrl;
@@ -111,21 +114,18 @@
    			
    			}
    		}
+   		
    		function product_search(f) {
-			if (f.search.value == "") {
-				alert("검색어를 입력해주세요");
+			if(f.search.value==""){
+				alert("검색어를 입력하세요");
 				return;
 			}
-			
 			f.submit();
-			
-		}
+   		}
+   		
    </script>
-   
-	
 
-	<script src="/shop/resources/js/httpRequest.js"></script>
-	<script src="/shop/resources/js/header.js"></script>
+
 
 
 </body>

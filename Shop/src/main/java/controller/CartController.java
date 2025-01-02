@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.Common;
 import dao.CartDAO;
+import dao.InterestDAO;
 import dao.ProductDAO;
 import dao.UsersDAO;
 import vo.CartVO;
@@ -24,6 +24,7 @@ public class CartController {
 	CartDAO cart_dao;
 	ProductDAO product_dao;
 	UsersDAO users_dao;
+	InterestDAO interest_dao;
 	
 	@Autowired
 	HttpSession session;
@@ -37,6 +38,9 @@ public class CartController {
 	public void setCart_dao(CartDAO cart_dao) {
 		this.cart_dao = cart_dao;
 	}
+    public void setInterest_dao(InterestDAO interest_dao) {
+        this.interest_dao = interest_dao;
+    }
 	
 	//장바구니 조회
 	@RequestMapping("/cart")
