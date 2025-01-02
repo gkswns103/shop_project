@@ -58,3 +58,9 @@
 .btn-outline-dark {
 	 white-space: nowrap; /* 줄 바꿈 방지 */
 }
+.flex-container {
+    display: flex; /* 요소를 한 줄로 배치 */
+    align-items: center; /* 세로 방향 정렬 */
+    flex-wrap: nowrap; /* 줄바꿈 허용 (화면 크기가 작아질 때) */
+    margin-right: 100px;
+}

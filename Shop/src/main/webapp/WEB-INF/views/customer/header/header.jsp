@@ -39,12 +39,12 @@
          </div>
 
 
-		<div class="flex-container">
+		<div class="flex-container" style="margin-right: 200px;">
          <form class="d-flex"
             action="product_search">
             <input class="form-control me-2" type="search" name="search"
-               placeholder="Search" aria-label="Search"> <input
-               class="btn btn-outline-dark" type="button" value="Search"
+               placeholder="Search" aria-label="Search" style="width: 300px;">
+                <input class="btn btn-outline-dark" type="button" value="Search"
                onclick="product_search(this.form)">
          </form>
 
