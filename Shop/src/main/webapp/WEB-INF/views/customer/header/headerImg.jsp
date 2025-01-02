@@ -49,19 +49,19 @@
         <div class="swiper-wrapper">
             <!-- 동적 이미지 로드 -->
             <div class="swiper-slide">
-                <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일">
+                <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일" onclick="#">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/빅세일.png" alt="빅 세일">
+                <img src="/shop/resources/img/빅세일.png" alt="빅 세일" onclick="#">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/크리스마스특가.png" alt="크리스마스 특가">
+                <img src="/shop/resources/img/크리스마스특가.png" alt="크리스마스 특가" onclick="#">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/발굴단.png" alt="발굴단">
+                <img src="/shop/resources/img/발굴단.png" alt="발굴단" onclick="#">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/타임세일.png" alt="타임 세일">
+                <img src="/shop/resources/img/타임세일.png" alt="타임 세일" onclick="#">
             </div>
         </div>
         <!-- Pagination -->
