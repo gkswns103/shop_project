@@ -146,4 +146,12 @@ public class ProductController {
     	return Common.Path.CUSTOMER_PATH + "product/productSearch.jsp";
     	
     }
+    @RequestMapping("/sale_product")
+    public String sale_product(Model model) {
+    	List<ProductVO> list = product_dao.sale_product();
+    	
+    	model.addAttribute("list",list);
+    	
+    	return Common.Path.CUSTOMER_PATH + "product/sale_product.jsp";
+    }
 }

@@ -49,7 +49,7 @@
         <div class="swiper-wrapper">
             <!-- 동적 이미지 로드 -->
             <div class="swiper-slide">
-                <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일" onclick="location.href=''">
+                <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일" onclick="location.href='/shop/sale_product'">
             </div>
             <div class="swiper-slide">
                 <img src="/shop/resources/img/빅세일.png" alt="빅 세일" onclick="#">
@@ -90,7 +90,7 @@
             },
             
             autoplay: {
-                delay: 10000, // 10초마다 이동 (밀리초 단위)
+                delay: 5000, // 5초마다 이동 (밀리초 단위)
                 disableOnInteraction: false, // 사용자가 상호작용해도 autoplay 유지
             },
             

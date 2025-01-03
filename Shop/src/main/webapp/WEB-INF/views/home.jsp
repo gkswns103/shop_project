@@ -78,7 +78,7 @@
       margin-right: 220px; /* recentView와 간격 */
    }
      .py-5 {
-      transform: scale(1); /* 75% 크기로 축소 */
+      transform: scale(1); /* 100% 크기 */
       transform-origin: top center; /* 축소 기준점 */
    }
 
@@ -170,7 +170,7 @@
     AOS.init({
         duration: 800, // 애니메이션 지속 시간 (밀리초)
         easing: 'ease-in-out', // 애니메이션 효과
-        once: false, // 애니메이션을 한 번만 실행
+        once: false, // 애니메이션을 여러번 실행
     });
 </script>
    

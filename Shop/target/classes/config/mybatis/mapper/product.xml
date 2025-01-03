@@ -70,6 +70,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from product
 		where product_idx = #{product_idx}
 	</delete>
+	
+	<select id="sale_product" resultType="product">
+	select * from product where discount > 50
+	</select>
+	
 </mapper>
 
 

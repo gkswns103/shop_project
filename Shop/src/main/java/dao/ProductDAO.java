@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.ui.Model;
 
 import vo.ProductVO;
 
@@ -81,6 +82,10 @@ public class ProductDAO {
 	public List<ProductVO> product_search(String search){
 		List<ProductVO> list = sqlSession.selectList("p.product_search",search);
 		
+		return list;
+	}
+	public List<ProductVO> sale_product(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_product");
 		return list;
 	}
 }
