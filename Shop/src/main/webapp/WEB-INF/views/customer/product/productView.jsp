@@ -29,39 +29,13 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
+<<<<<<< HEAD
 
+=======
+<link href="/shop/resources/css/header.css" rel="stylesheet" />
+>>>>>>> refs/remotes/origin/main
 <style>
-header {
-       position: fixed;
-       top: 0;
-       width: 100%;
-       z-index: 1030;
-   }
 
-
-footer {
-    /* position: fixed; */
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 175px; /* 명확한 높이 설정 */
-    background-color: #343a40;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-}
-
-section {
-    min-height: calc(100vh - 175px); /* 뷰포트 높이에서 푸터 높이만큼 제외 */
-    padding-bottom: 100px; /* 푸터 높이보다 여유 공간 추가 */
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    overflow-x: hidden; /* 가로 스크롤 방지 */
-}
 </style>
 </head>
 <body>
@@ -121,10 +95,15 @@ body {
 		</div>
 	</section>
 	<!-- Footer-->
+	<!-- Footer-->
 	<footer class="py-5 bg-dark">
 		<div class="container">
-			 <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
-         <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
+			<p class="m-0 text-center text-white">
+				Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌
+				: 국민 852502-04-255054
+			</p>
+			<p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터
+				: 010-3239-5204</p>
 		</div>
 	</footer>
 	<!-- Bootstrap core JS-->

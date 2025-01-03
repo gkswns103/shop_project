@@ -5,6 +5,22 @@ a {
 	color: inherit; /* 부모 색상 사용 */
 }
 
+.small1 img {
+	width:500px;
+    max-width: 100%; /* 부모 요소 너비에 맞춤 */
+    height: auto; /* 비율 유지 */
+    display: block; /* 여분의 여백 제거 */
+    object-fit: contain; /* 이미지 비율 유지하며 축소 */
+}
+
+.small2 {
+	margin-top:50px;
+    flex: 0 0 600px; /* 고정된 너비 */
+    min-width: 600px; /* 최소 너비 */
+    max-width: 600px; /* 최대 너비 */
+    word-wrap: break-word; /* 긴 단어가 줄바꿈되도록 보장 */
+}
+
 .container1 {
 	display: flex;
 	flex-direction: row;
@@ -13,12 +29,14 @@ a {
 	gap: 20px; /* 요소 간 간격 */
 	border: 1px solid #ccc;
 	padding: 20px;
-	max-width: 1300px; /* 최대 너비 */
-	width: 100%;
+	max-width: 1200px; /* 최대 너비 */
+	width: 100%; 
 	box-sizing: border-box; /* 패딩 포함 크기 계산 */
 	margin: 0 auto; /* 수평 중앙 정렬 */
-	min-width: 1300px; /* 최소 너비 */
+	min-width: 900px; /* 최소 너비 */
 	overflow-x: auto; /* 가로 스크롤 활성화 */
+	margin-top:50px;
+	margin-bottom:70px;
 }
 
 .container1 div {
@@ -137,3 +155,7 @@ hr {
 	margin-top: 40px;
 	width: 90%;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/main

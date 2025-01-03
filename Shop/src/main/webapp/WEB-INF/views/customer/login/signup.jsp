@@ -118,7 +118,7 @@
 
 					<div class="container-login100-form-btn m-t-50">
 						<input type="button" class="login100-form-btn"
-							onclick="signup(this.form)" value="Sign Up">
+							onclick="signup(this.form)" value="회원가입">
 					</div>
 				</form>
 			</div>

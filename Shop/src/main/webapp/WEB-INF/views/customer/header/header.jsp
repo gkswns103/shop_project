@@ -9,13 +9,29 @@
 <link rel="stylesheet" href="/shop/resources/css/header.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap" rel="stylesheet">
+<link
+   href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap"
+   rel="stylesheet">
+   <style>
+      .container px-4 px-lg-10{
+      max-width: 600px;
+      }
+      .collapse navbar-collapse{
+      margin-left:100px;}
+      
+      
+   </style>
 
 </head>
 
 <body>
    <!-- Navigation-->
+
+
+
    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="min-width: 100px;">
       <div class="container px-4 px-lg-10" style="margin-left: 150px;">
          <a class="navbar-brand" style="margin-left: 100px;" href="/shop/"><img
@@ -30,7 +46,7 @@
          </button>
 
 
-         <div class="collapse navbar-collapse" id="navbarSupportedContent" ">
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav" id="navbar">
                <!-- JavaScript로 메뉴 생성 -->
             </ul>
@@ -48,21 +64,13 @@
                onclick="product_search(this.form)">
          </form>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4" id="navbar">
-					<!-- JavaScript로 메뉴 생성 -->
-				</ul>
-			</div>
-			
-		
-
-
+        
          
-           <c:if test="${empty users}" >
-					<a onclick="signin_form()" class="nav-link active me-3">SignIn</a>
-					<a href="signup" class="nav-link active me-3">SignUp</a>
-				</c:if>
-
+        
+            <c:if test="${empty users}">
+               <a onclick="signin_form()" class="nav-link active me-3" style="margin-left: 18px;">SignIn</a>
+               <a href="signup" class="nav-link active me-3">SignUp</a>
+            </c:if>
 
             <c:if test="${!empty users}">
                <ul class="navbar-nav me-3 mb-2 mb-lg-0 ms-lg-4">
@@ -72,6 +80,7 @@
                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item"
                            href="purchaseList?user_idx=${users.user_idx }">주문목록</a></li>
+
                         <li><a class="dropdown-item">찜목록</a></li>
                         <li><a class="dropdown-item" href="registerForm">상품등록</a></li>
                         <li><a class="dropdown-item"
@@ -92,46 +101,47 @@
           </div>
    </nav>
 
-	            
-   <script>
-   		function signin_form(){
-   			 let currentUrl = encodeURIComponent(window.location.href);
-			 location.href = "signin_form?redirect="+currentUrl;
-		     return;
-   		}
-   		
-   		function logout(){
-   			 let currentUrl = encodeURIComponent(window.location.href);
-   			 
-		     let url="logout";
-		     let param="redirect="+currentUrl;
-		     
-		     sendRequest(url,param,logoutLog,"post");
-   			
-   		}
-   		function logoutLog(){
-   			 if (xhr.readyState == 4 && xhr.status == 200) {
-   	         let data = xhr.responseText;
-   	         
-   	         location.href= data;
-   			
-   			}
-   		}
-   		function product_search(f) {
-			if (f.search.value == "") {
-				alert("검색어를 입력해주세요");
-				return;
-			}
-			
-			f.submit();
-			
-		}
-   </script>
-   
-	
+	       
+               
+   <script src="/shop/resources/js/header.js"></script>
+    <script src="/shop/resources/js/httpRequest.js"></script>
+    <script>
+         function signin_form(){
+             let currentUrl = encodeURIComponent(window.location.href);
+          location.href = "signin_form?redirect="+currentUrl;
+           return;
+         }
+         
+         function logout(){
+             let currentUrl = encodeURIComponent(window.location.href);
+             
+           let url="logout";
+           let param="redirect="+currentUrl;
+           
+           sendRequest(url,param,logoutLog,"post");
+            
+         }
+         function logoutLog(){
+             if (xhr.readyState == 4 && xhr.status == 200) {
+               let data = xhr.responseText;
+               
+               location.href= data;
+            
+            }
+         }
+         
+         function product_search(f) {
+         if(f.search.value==""){
+            alert("검색어를 입력하세요");
+            return;
+         }
+         f.submit();
+         }
+         
 
-	<script src="/shop/resources/js/httpRequest.js"></script>
-	<script src="/shop/resources/js/header.js"></script>
+   </script>
+
+
 
 
 </body>

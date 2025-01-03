@@ -77,14 +77,12 @@ public class AdminController {
 	@RequestMapping("/admin/delete_user")
 	public String user_delete(int user_idx) {
 		int res = users_dao.delete_user(user_idx);
-		System.out.println("결과=" + res);
 		return "redirect:/admin/userManagement";
 	}
 	
 	@RequestMapping("/admin/delete_product")
 	public String product_delete(int product_idx) {
 		int res = product_dao.delete_product(product_idx);
-		System.out.println("결과=" + res);
 		return "redirect:/admin/productManagement";
 	}
 	
@@ -96,5 +94,30 @@ public class AdminController {
 		model.addAttribute("list", list);
 		
 		return Common.Path.ADMIN_PATH + "orderlist.jsp";
+	}
+	
+	@RequestMapping("/admin/apply_product")
+	public String apply_product(Model model) {
+		List<ProductVO> list = product_dao.new_Product_select();
+		
+		model.addAttribute("list", list);
+		
+		return Common.Path.ADMIN_PATH + "applyProduct.jsp";
+	}
+	
+	@RequestMapping("/admin/apply")
+	public String apply(int product_idx) {
+		ProductVO vo = product_dao.new_Product_select_one(product_idx);
+		int del = product_dao.delete_apply_product(product_idx);
+		int res = product_dao.insertProduct(vo);
+		
+		return "redirect:/admin/apply_product";
+	}
+	
+	@RequestMapping("/admin/apply_del")
+	public String apply_product_delete(int product_idx) {
+		int res = product_dao.delete_apply_product(product_idx);
+		
+		return "redirect:/admin/apply_product";
 	}
 }

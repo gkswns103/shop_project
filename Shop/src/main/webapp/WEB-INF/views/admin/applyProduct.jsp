@@ -92,9 +92,9 @@
 				<div id="collapseUtilities" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/shop/admin/productManagement">상품리스트</a> <a
-							class="collapse-item" href="/shop/admin/apply_product">상춤 신청 관리</a> <a class="collapse-item"
-							href="#">재고관리</a>
+						<a class="collapse-item" href="/shop/admin/productManagement">상품리스트</a>
+						<a class="collapse-item" href="/shop/admin/apply_product">상춤
+							신청 관리</a> <a class="collapse-item" href="#">재고관리</a>
 					</div>
 				</div></li>
 
@@ -103,7 +103,8 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item"><a class="nav-link collapsed"
-				href="/shop/admin/admin_logout"> <i class="fas fa-sign-out-alt"></i> <span>로그아웃</span>
+				href="/shop/admin/admin_logout"> <i class="fas fa-sign-out-alt"></i>
+					<span>로그아웃</span>
 			</a></li>
 
 			<!-- Sidebar Toggler (Sidebar) -->
@@ -147,43 +148,45 @@
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">상품 리스트</h6>
+									<h6 class="m-0 font-weight-bold text-primary">신청 상품 리스트</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
-										<table class="table">
+									<table class="table">
+										<tr align="center">
+											<th>상품번호</th>
+											<th>상품이름</th>
+											<th>상품 원가</th>
+											<th>할인률</th>
+											<th>상품재고</th>
+											<th>상품설명</th>
+											<th>판매자IDX</th>
+											<th>사진이름</th>
+											<th>소분류</th>
+											<th>대분류</th>
+											<th>비고</th>
+										</tr>
+										<c:forEach var="product" items="${list}">
 											<tr align="center">
-												<th>상품번호</th>
-												<th>상품이름</th>
-												<th>상품가격</th>
-												<th>할인률</th>
-												<th>상품재고</th>
-												<th>상품설명</th>
-												<th>판매자IDX</th>
-												<th>사진이름</th>
-												<th>소분류</th>
-												<th>대분류</th>
-												<th>비고</th>
+												<td style="color: red;">${product.product_idx}</td>
+												<td>${product.name}</td>
+												<td>${product.price}원</td>
+												<td>${product.discount}%</td>
+												<td>${product.inventory}</td>
+												<td>${product.explain}</td>
+												<td>${product.selleridx}</td>
+												<td>${product.filepath}</td>
+												<td>${product.category}</td>
+												<td>${product.division}</td>
+												<td><input type="button" style="top: auto;"
+													class="btn btn-primary rounded" value="상품 등록하기"
+													onclick="apply(${product.product_idx})">
+												<input type="button" style="top: auto;"
+													class="btn btn-danger rounded" value="삭제하기"
+													onclick="del(${product.product_idx})"></td>
 											</tr>
-											<c:forEach var="product" items="${list}">
-												<tr align="center">
-													<td style="color: red;">${product.product_idx}</td>
-													<td>${product.name}</td>
-													<td>${product.price}</td>
-													<td>${product.discount}</td>
-													<td>${product.inventory}</td>
-													<td>${product.explain}</td>
-													<td>${product.selleridx}</td>
-													<td>${product.filepath}</td>
-													<td>${product.category}</td>
-													<td>${product.division}</td>
-													<td>
-													<input type="button" style="top:auto;"
-														class="btn btn-danger rounded" value="상품 삭제"
-														onclick="delete_product(${product.product_idx});"></td>
-												</tr>
-											</c:forEach>
-										</table>
+										</c:forEach>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -242,13 +245,22 @@
 			}
 		}
 
-		function delete_product(product_idx) {
+		function apply(product_idx) {
+
+			if (!confirm("등록할거?")) {
+				return;
+			}
+
+			location.href = "apply?product_idx=" + product_idx;
+		}
+		
+		function del(product_idx) {
 
 			if (!confirm("삭제할거?")) {
 				return;
 			}
 
-			location.href = "delete_product?product_idx=" + product_idx;
+			location.href = "apply_del?product_idx=" + product_idx;
 		}
 	</script>
 

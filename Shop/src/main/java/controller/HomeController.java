@@ -71,51 +71,49 @@ public class HomeController {
 	// 로그인 기능
 
 	// 로그아웃
-	@RequestMapping(value = "/logout", produces = "text/plain;charset=UTF-8")
-	@ResponseBody
-	public String logout(Model model, String redirect) {
-		session.removeAttribute("users");
-		session.removeAttribute("cart_count");
-		
-		 String decodedRedirect = "/";
-		    if (redirect != null) {
-		        decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
-		    }
-				
-		return decodedRedirect;
+	   @RequestMapping(value = "/logout", produces = "text/plain;charset=UTF-8")
+	   @ResponseBody
+	   public String logout(Model model, String redirect) {
+	      session.removeAttribute("users");
+	      session.removeAttribute("cart_count");
+	      
+	      String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
+	            
+	      return decodedRedirect;
 
-	}
+	   }
+
 
 	// 로그인
-	@RequestMapping(value = "/signin", produces = "text/plain;charset=UTF-8")
-	@ResponseBody
-	public String signin(String id, String c_pwd,String redirect) {
-		if(Common.Admin.ID.equals(id) && Common.Admin.PWD.equals(c_pwd)) {
-			//어드민 계정
-			return "admin";
-		}
-		
-		UsersVO user = users_dao.selectId(id);
+	   @RequestMapping(value = "/signin", produces = "text/plain;charset=UTF-8")
+	   @ResponseBody
+	   public String signin(String id, String c_pwd,String redirect) {
+	      if(Common.Admin.ID.equals(id) && Common.Admin.PWD.equals(c_pwd)) {
+	         //어드민 계정
+	         return "admin";
+	      }
+	      
+	      UsersVO user = users_dao.selectId(id);
 
-		if (user == null) {
-			return "no_id";
-		} else {
-			// 복호화 할 자리
-			BCryptPwd bcp = new BCryptPwd();
-			boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
-			if (isValid) {
-				
-				String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
-				session.setAttribute("users", user);
-				int cart_count = cart_dao.cart_count(user.getUser_idx());
-				session.setAttribute("cart_count", cart_count);
-				return decodedRedirect;
-			} else {
-				return "no_pwd";
-			}
-		}
+	      if (user == null) {
+	         return "no_id";
+	      } else {
+	         // 복호화 할 자리
+	         BCryptPwd bcp = new BCryptPwd();
+	         boolean isValid = bcp.decryption(user.getPwd(), c_pwd);
+	         if (isValid) {
+	            
+	            String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
+	            session.setAttribute("users", user);
+	            int cart_count = cart_dao.cart_count(user.getUser_idx());
+	            session.setAttribute("cart_count", cart_count);
+	            return decodedRedirect;
+	         } else {
+	            return "no_pwd";
+	         }
+	      }
 
-	}
+	   }
 
 	@RequestMapping(value = "/signin_form", produces = "text/plain;charset=UTF-8")
 	public String signin_form(String redirect,Model model) {
@@ -191,7 +189,6 @@ public class HomeController {
 	@ResponseBody
 	public String update_email(UsersVO user) {
 		int res = users_dao.update_email(user);
-		System.out.println("수정결과 : " + res);
 		if (res > 0) {
 			return "suc";
 		} else {
@@ -203,9 +200,7 @@ public class HomeController {
 	@RequestMapping(value = "/update_addr")
 	@ResponseBody
 	public String update_addr(UsersVO user) {
-		System.out.println(user.getAddr());
 		int res = users_dao.update_addr(user);
-		System.out.println("수정결과 : " + res);
 		if (res > 0) {
 			return "suc";
 		} else {
@@ -231,7 +226,6 @@ public class HomeController {
 
 				user.setPwd(encryptedPwd);
 
-				System.out.println(vo.getPwd());
 			} else {
 				user.setPwd(pwd);
 			}
@@ -276,9 +270,6 @@ public class HomeController {
 		int aaa = cart_dao.delete_cart(user_idx);
 		int res = users_dao.delete_user(user_idx);
 
-		System.out.println(aaa);
-		System.out.println(res);
-
 		session.removeAttribute("users");
 		session.removeAttribute("cart_count");
 		return "redirect:/";
@@ -303,8 +294,6 @@ public class HomeController {
 			int a = cart_dao.delete_cart(user_idx);
 			int b = users_dao.delete_user(user_idx);
 
-			System.out.println(a);
-			System.out.println(b);
 			session.removeAttribute("users");
 			session.removeAttribute("cart_count");
 			return "yes";
