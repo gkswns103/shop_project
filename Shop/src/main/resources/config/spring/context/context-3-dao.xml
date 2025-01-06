@@ -21,5 +21,8 @@
 	<bean id="review_daoBean" class="dao.ReviewDAO">
 		<property name="sqlSession" ref="sqlSessionBean" />
 	</bean>
-
+	
+	<bean id="banner_daoBean" class="dao.BannerDAO">
+	<property name="sqlSession" ref="sqlSessionBean" />
+	</bean>
 </beans>

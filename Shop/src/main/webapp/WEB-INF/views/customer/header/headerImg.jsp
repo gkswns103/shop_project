@@ -55,7 +55,7 @@
                 <img src="/shop/resources/img/빅세일.png" alt="빅 세일" onclick="location.href='/shop/sale_pet'">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/크리스마스특가(테스트).png" alt="크리스마스 특가" onclick="location.href='/shop/sale_christmas'">
+                <img src="/shop/resources/img/크리스마스특가.png" alt="크리스마스 특가" onclick="location.href='/shop/sale_christmas'">
             </div>
             <div class="swiper-slide">
                 <img src="/shop/resources/img/발굴단.png" alt="발굴단" onclick="location.href='/shop/sale_it'">
