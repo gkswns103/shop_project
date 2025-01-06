@@ -185,19 +185,19 @@ ul {
 				<li>
 					<dl>
 						<dt class="notice_dt">공 지</dt>
-						<dd><a href="#">2025-01-02 업데이트</a></dd>
+						<dd><a href="">2025-01-02 업데이트</a></dd>
 					</dl>
 				</li>
 				<li>
 					<dl>
 						<dt class="notice_dt">공 지</dt>
-						<dd><a href="#">2025-01-01 업데이트</a></dd>
+						<dd><a href="">2025-01-01 업데이트</a></dd>
 					</dl>
 				</li>
 				<li>
 					<dl>
 						<dt class="notice_dt">공 지</dt>
-						<dd><a href="#">2025-12-25 업데이트</a></dd>
+						<dd><a href="">2025-12-25 업데이트</a></dd>
 					</dl>
 				</li>
 			</ul>
@@ -207,7 +207,7 @@ ul {
 				<li>
 					<dl>
 						<dt class="event_dt">이벤트</dt>
-						<dd><a href="#">1월 신년 이벤트 진행중~</a></dd>
+						<dd><a href="">1월 신년 이벤트 진행중~</a></dd>
 					</dl>
 				</li>
 			</ul>

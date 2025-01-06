@@ -115,4 +115,20 @@ public class ProductDAO {
 		List<ProductVO> list = sqlSession.selectList("p.sale_product");
 		return list;
 	}
+	public List<ProductVO> sale_pet(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_pet");
+		return list;
+	}
+	public List<ProductVO> sale_christmas(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_christmas");
+		return list;
+	}
+	public List<ProductVO> sale_it(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_it");
+		return list;
+	}
+	public List<ProductVO> sale_newyear(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_newyear");
+		return list;
+	}
 }

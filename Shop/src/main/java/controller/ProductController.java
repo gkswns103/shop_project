@@ -166,4 +166,30 @@ public class ProductController {
     	
     	return Common.Path.CUSTOMER_PATH + "product/sale_product.jsp";
     }
+    
+    @RequestMapping("/sale_pet")
+    public String sale_pet(Model model) {
+    	List<ProductVO> list = product_dao.sale_pet();
+    	model.addAttribute("list",list);
+    	return Common.Path.CUSTOMER_PATH + "product/sale_product.jsp";
+    }
+    
+    @RequestMapping("/sale_christmas")
+    public String sale_christmas(Model model) {
+    	List<ProductVO> list = product_dao.sale_christmas();
+    	model.addAttribute("list",list);
+    	return Common.Path.CUSTOMER_PATH + "product/sale_christmas.jsp";
+    }
+    @RequestMapping("/sale_it")
+    public String sale_it(Model model) {
+    	List<ProductVO> list = product_dao.sale_it();
+    	model.addAttribute("list",list);
+    	return Common.Path.CUSTOMER_PATH + "product/sale_it.jsp";
+    }
+    @RequestMapping("/sale_newyear")
+    public String sale_newyear(Model model) {
+    	List<ProductVO> list = product_dao.sale_newyear();
+    	model.addAttribute("list",list);
+    	return Common.Path.CUSTOMER_PATH + "product/sale_newyear.jsp";
+    }
 }

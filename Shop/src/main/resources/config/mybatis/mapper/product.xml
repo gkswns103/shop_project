@@ -94,12 +94,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from product where discount > 50
 	</select>
 	
+	<select id="sale_pet" resultType="product">
+	select * from product where division = "반려동물" and discount > 1
+	</select>
+	
+	<select id="sale_christmas" resultType="product">
+    SELECT * FROM product WHERE name LIKE '%산타%' or name like '%시나몬롤%'
+	</select>
+
+	<select id="sale_it" resultType="product">
+	select * from product where category = 'PC' or category = '휴대폰'
+	</select>
+	
+	<select id="sale_newyear" resultType="product">
+	select * from product where discount > 60
+	</select>
 
 	<delete id="delete_apply_product" parameterType="int">
 		delete from apply_product
 		where product_idx = #{product_idx}
 	</delete>
-
+	
 </mapper>
 
 

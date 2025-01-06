@@ -52,16 +52,16 @@
                 <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일" onclick="location.href='/shop/sale_product'">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/빅세일.png" alt="빅 세일" onclick="#">
+                <img src="/shop/resources/img/빅세일.png" alt="빅 세일" onclick="location.href='/shop/sale_pet'">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/크리스마스특가.png" alt="크리스마스 특가" onclick="#">
+                <img src="/shop/resources/img/크리스마스특가(테스트).png" alt="크리스마스 특가" onclick="location.href='/shop/sale_christmas'">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/발굴단.png" alt="발굴단" onclick="#">
+                <img src="/shop/resources/img/발굴단.png" alt="발굴단" onclick="location.href='/shop/sale_it'">
             </div>
             <div class="swiper-slide">
-                <img src="/shop/resources/img/타임세일.png" alt="타임 세일" onclick="#">
+                <img src="/shop/resources/img/새해세일을사년.jpg" alt="새해 세일" onclick="location.href='/shop/sale_newyear'">
             </div>
         </div>
         <!-- Pagination -->
