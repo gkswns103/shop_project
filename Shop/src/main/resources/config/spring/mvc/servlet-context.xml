@@ -28,6 +28,7 @@
 		<beans:property name="users_dao" ref="users_daoBean" />
 		<beans:property name="product_dao" ref="product_daoBean" />
 		<beans:property name="cart_dao" ref="cart_daoBean" />
+		<beans:property name="banner_dao" ref="banner_daoBean"></beans:property>
 	</beans:bean>
 
 	<beans:bean class="controller.ProductController">

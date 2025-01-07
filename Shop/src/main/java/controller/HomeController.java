@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import common.BCryptPwd;
 import common.Common;
+import dao.BannerDAO;
 import dao.CartDAO;
 import dao.ProductDAO;
 import dao.UsersDAO;
+import vo.BannerVO;
 import vo.ProductVO;
 import vo.UsersVO;
 
@@ -28,6 +30,7 @@ public class HomeController {
 	UsersDAO users_dao;
 	ProductDAO product_dao;
 	CartDAO cart_dao;
+	BannerDAO banner_dao;
 
 	@Autowired
 	HttpSession session;
@@ -46,6 +49,10 @@ public class HomeController {
 	public void setCart_dao(CartDAO cart_dao) {
 		this.cart_dao = cart_dao;
 	}
+	
+	public void setBanner_dao(BannerDAO banner_dao) {
+		this.banner_dao = banner_dao;
+	}
 
 	// 기본 url
 	@RequestMapping(value = "/", produces = "text/plain; charset=UTF-8")
@@ -57,9 +64,12 @@ public class HomeController {
 			int cart_count = cart_dao.cart_count(user.getUser_idx());
 			session.setAttribute("cart_count", cart_count);
 		}
-
+		
 		List<ProductVO> list = product_dao.select_list();
 		model.addAttribute("list", list);
+		
+		List<BannerVO> banner_list = banner_dao.select_active_banners();
+	    model.addAttribute("banner_list", banner_list);
 		
 		if(res == null || res == "") {
 			return Common.Path.HOME_PATH + "home.jsp";

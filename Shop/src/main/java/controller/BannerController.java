@@ -30,13 +30,35 @@ public void setBanner_dao(BannerDAO banner_dao) {
 @RequestMapping("/admin/banner")
 public String banner(Model model) {
 	List<BannerVO> list = banner_dao.select_banner();
-	
-	if(list == null) {
-		System.out.println("값을 받아오지 못함");
-	}
-	
 	model.addAttribute("list",list);
 	return Common.Path.ADMIN_PATH + "banner.jsp";
+}
+
+@RequestMapping("/banner_off")
+public String banner_off(int banner_idx) {
+	int res = banner_dao.banner_off(banner_idx);
+	
+	if(res>0) {
+	System.out.println("off성공");
+	}
+	 return "redirect:/admin/banner";
+}
+@RequestMapping("/banner_on")
+public String banner_on(int banner_idx) {
+	int res = banner_dao.banner_on(banner_idx);
+	
+	if(res>0) {
+		System.out.println("on성공");
+	}
+	return "redirect:/admin/banner";
+}
+
+@RequestMapping("/headerimg")
+public String getHeaderImages(Model model) {
+    // DB에서 활성화된 배너만 가져옴
+    List<BannerVO> list = banner_dao.select_active_banners();
+    model.addAttribute("list", list);
+    return Common.Path.CUSTOMER_PATH + "/home.jsp";
 }
 
 }

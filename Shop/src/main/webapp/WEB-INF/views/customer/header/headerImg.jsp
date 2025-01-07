@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,21 +49,11 @@
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             <!-- 동적 이미지 로드 -->
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일" onclick="location.href='/shop/sale_product'">
-            </div>
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/빅세일.png" alt="빅 세일" onclick="location.href='/shop/sale_pet'">
-            </div>
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/크리스마스특가.png" alt="크리스마스 특가" onclick="location.href='/shop/sale_christmas'">
-            </div>
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/발굴단.png" alt="발굴단" onclick="location.href='/shop/sale_it'">
-            </div>
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/새해세일을사년.jpg" alt="새해 세일" onclick="location.href='/shop/sale_newyear'">
-            </div>
+            <c:forEach var="banner_list" items="${banner_list}">
+                <div class="swiper-slide">
+                    <img src="/shop/resources/img/${banner_list.image}" alt="${banner_list.name}" onclick="location.href='${banner_list.filepath}'">
+                </div>
+            </c:forEach>
         </div>
         <!-- Pagination -->
         <div class="swiper-pagination"></div>

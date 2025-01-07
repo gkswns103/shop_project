@@ -42,6 +42,63 @@
 .class td {
 	padding: 0 20px;
 }
+
+/* 기본 스위치 디자인 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+/* ON 상태 */
+.slider-on {
+    background-color: #2196F3;
+}
+
+.slider-on:before {
+    transform: translateX(26px);
+}
+
+/* OFF 상태 */
+.slider-off {
+    background-color: #f44336;
+}
+
+.slider-off:before {
+    transform: translateX(0);
+}
+
 </style>
 
 </head>
@@ -98,20 +155,17 @@
 					</div>
 				</div></li>
 
-			<li class="nav-item">
-				    <a class="nav-link collapsed" href="#"
-				       data-toggle="collapse" data-target="#collapseBanner"
-				       aria-expanded="false" aria-controls="collapseBanner">
-				       <i class="fas fa-tags"></i>
-				       <span>광고관리</span>
-				    </a>
-				 <div id="collapseBanner" class="collapse"
-				         aria-labelledby="headingBanner" data-parent="#accordionSidebar">
-				     <div class="bg-white py-2 collapse-inner rounded">
-				         <a class="collapse-item" href="/shop/admin/banner">배너설정</a>
-				     </div>
-				</div>
-			</li>
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#collapseBanner"
+				aria-expanded="false" aria-controls="collapseBanner"> <i
+					class="fas fa-tags"></i> <span>광고관리</span>
+			</a>
+				<div id="collapseBanner" class="collapse"
+					aria-labelledby="headingBanner" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="/shop/admin/banner">배너설정</a>
+					</div>
+				</div></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -177,20 +231,25 @@
 											<th>온오프</th>
 										</tr>
 										<c:forEach var="banner" items="${list}">
-											<tr align="center">
-												<td style="color: red;">${banner.banner_idx}</td>
-												<td>${banner.name}</td>
-												<td>${banner.explanation}</td>
-												<td>${banner.image}</td>
-												<td>${banner.filepath}</td>
-												<td>${banner.status}</td>
-												<td><input type="button" style="top: auto;"
-													class="btn btn-primary rounded" value="ON"
-													onclick="apply(${banner.banner_idx})">
-												<input type="button" style="top: auto;"
-													class="btn btn-danger rounded" value="OFF"
-													onclick="del(${banner.banner_idx})"></td>
-											</tr>
+											<form id="form-${banner.banner_idx}" method="post">
+												<input type="hidden" name="banner_idx"
+													value="${banner.banner_idx}">
+												<tr align="center">
+													<td style="color: red;">${banner.banner_idx}</td>
+													<td>${banner.name}</td>
+													<td>${banner.explanation}</td>
+													<td>${banner.image}</td>
+													<td>${banner.filepath}</td>
+													<td>${banner.status}</td>
+													<td><label class="switch"> <input
+															type="checkbox" ${banner.status == 'on' ? 'checked' : 'off'}
+															onchange="toggleBanner(this, ${banner.banner_idx})">
+															<span
+															class="slider round ${banner.status == 'on' ? 'slider-on' : 'slider-off'}"></span>
+													</label></td>
+												</tr>
+											</form>
+
 										</c:forEach>
 									</table>
 								</div>
@@ -251,23 +310,21 @@
 			}
 		}
 
-		/* function apply(banner_idx) {
+		function toggleBanner(checkbox, banner_idx) {
+		    const action = checkbox.checked ? 'on' : 'off';
 
-			if (!confirm("배너를 ON으로 설정합니다")) {
-				return;
-			}
-
-			location.href = "apply?banner_idx=" + banner_idx;
+		    if (confirm('배너를 '+action+'으로 설정합니다.')) {
+		        const form = checkbox.form; // 현재 체크박스가 속한 폼 가져오기
+		        form.action = '/shop/banner_' + action; // 폼의 action 속성 설정
+		        form.method = 'post';
+		        form.submit(); // 폼 제출
+		    } else {
+		        // 상태 복구
+		        checkbox.checked = !checkbox.checked;
+		    }
 		}
-		
-		function del(banner_idx) {
 
-			if (!confirm("배너를 OFF로 설정합니다")) {
-				return;
-			}
 
-			location.href = "apply_del?banner_idx=" + banner_idx;
-		} */
 	</script>
 
 </body>

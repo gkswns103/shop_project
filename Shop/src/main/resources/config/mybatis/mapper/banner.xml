@@ -7,4 +7,16 @@
 	select * from banner
 	</select>
 	
+	<update id="off" parameterType="int">
+    update banner set status = 'off' where banner_idx = #{banner_idx}
+</update>
+<update id="on" parameterType="int">
+    update banner set status = 'on' where banner_idx = #{banner_idx}
+</update>
+
+<select id="select_active" resultType="vo.BannerVO">
+	select * from banner where status = 'on'
+</select>
+
+	
 </mapper>
