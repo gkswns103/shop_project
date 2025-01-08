@@ -14,6 +14,8 @@
 		<typeAlias type="vo.CartVO" alias="cart"/> 
 		<typeAlias type="vo.ReviewVO" alias="review"/> 
 		<typeAlias type="vo.InterestVO" alias="Interest"/> 
+		<typeAlias type="vo.ReviewLikeVO" alias="reviewLike"/> 
+		<typeAlias type="vo.BannerVO" alias="banner"/> 
 	</typeAliases>
 	
 	<mappers>
@@ -22,5 +24,8 @@
 		<mapper resource="config/mybatis/mapper/cart.xml" />
 		<mapper resource="config/mybatis/mapper/review.xml" />
 		<mapper resource="config/mybatis/mapper/interest.xml"/>
+		<mapper resource="config/mybatis/mapper/reviewLike.xml"/>
+		<mapper resource="config/mybatis/mapper/banner.xml"/>
 	</mappers>
+	
 </configuration>

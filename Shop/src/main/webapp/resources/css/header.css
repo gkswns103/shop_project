@@ -1,3 +1,101 @@
+<<<<<<< HEAD
+@charset "UTF-8";
+
+.container {
+    padding-left: 20px;
+    padding-right: 20px;
+     justify-content: center; /* 모든 요소 중앙 정렬 */
+}
+
+
+.nav-link.dropdown-toggle::after {
+    content: none !important; /* 기본 화살표 제거 */
+}
+
+.nav-link:hover {
+    color: #25265F !important; /* 텍스트 색상 변경 */
+    transform: translateY(-2px); /* 약간 위로 이동 */
+    transition: all 0.3s ease-in-out; /* 부드러운 이동 효과 */
+   
+}
+
+.nav-link {
+   font-family: "Hahmlet", serif;
+   white-space: nowrap; /* 줄 바꿈 방지 */
+   
+	font-family: "Hahmlet", serif;
+	white-space: nowrap; /* 줄 바꿈 방지 */
+	
+}
+
+.dropdown-item{
+   font-family: "Hahmlet", serif;
+}
+
+.dropdown-item:hover {
+   background-color: #454685;
+   color: #fff;
+}
+
+.btn-outline-dark:hover {
+    background-color: #454685; /* 호버 시 배경색을 테마 색상으로 변경 */
+    color: #fff; /* 텍스트 색상 */
+    border-color: #454685; /* 테두리 색상 */
+}
+
+.navbar .navbar-nav {
+    margin-right: 15px; /* 메뉴 간 간격 추가 */
+}
+
+.form-control {
+    margin-left: 15px; /* 검색창 좌측 간격 */
+    margin-right: 30px; /* 검색창 우측 간격 */   
+}
+
+.navbar-collapse {
+     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* 간격 조정 */
+}
+
+.btn-outline-dark {
+	 white-space: nowrap; /* 줄 바꿈 방지 */
+}
+.flex-container {
+    display: flex; /* 요소를 한 줄로 배치 */
+    align-items: center; /* 세로 방향 정렬 */
+    flex-wrap: nowrap; /* 줄바꿈 허용 (화면 크기가 작아질 때) */
+    margin-right: 100px;
+}
+
+/* 기본 상태: 평상시 레이아웃 유지 */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* 요소 간 간격 분배 */
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-brand img {
+    width: 50px; /* 기본 로고 크기 */
+    height: 50px;
+}
+
+.form-control {
+    width: 300px; /* 검색창 기본 너비 */
+    margin-right: 10px;
+}
+
+.navbar-nav {
+    display: flex;
+    gap: 15px; /* 메뉴 간 간격 */
+}
+
+.btn-outline-dark {
+    white-space: nowrap; /* 줄바꿈 방지 */
+}
+
 @charset "UTF-8";
 
 .container {
@@ -56,6 +154,7 @@
 }
 
 .btn-outline-dark {
+>>>>>>> refs/remotes/origin/나성진3
     white-space: nowrap; /* 줄 바꿈 방지 */
 }
 .flex-container {
@@ -123,3 +222,4 @@ body {
 }
 
 
+>>>>>>> refs/remotes/origin/main

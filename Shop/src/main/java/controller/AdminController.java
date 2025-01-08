@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.Common;
+import dao.BannerDAO;
 import dao.CartDAO;
 import dao.ProductDAO;
 import dao.UsersDAO;
+import vo.BannerVO;
 import vo.CartVO;
 import vo.ProductVO;
 import vo.UsersVO;
@@ -26,6 +28,7 @@ public class AdminController {
 	UsersDAO users_dao;
 	ProductDAO product_dao;
 	CartDAO cart_dao;
+	BannerDAO banner_dao;
 
 	public void setUsers_dao(UsersDAO users_dao) {
 		this.users_dao = users_dao;
@@ -37,6 +40,10 @@ public class AdminController {
 
 	public void setCart_dao(CartDAO cart_dao) {
 		this.cart_dao = cart_dao;
+	}
+	
+	public void setBanner_dao(BannerDAO banner_dao) {
+		this.banner_dao = banner_dao;
 	}
 	
 	@RequestMapping("/admin/admin_login")
@@ -120,4 +127,5 @@ public class AdminController {
 		
 		return "redirect:/admin/apply_product";
 	}
+	
 }

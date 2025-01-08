@@ -88,9 +88,13 @@
 
 			<div class="form-group row align-items-center mb-2">
 				<label class="col-sm-2 col-form-label">이미지</label>
-				<div class="col-sm-8">
+				<div class="col-sm-8" >
 
-					<div class="d-flex mb-3 mt-3">
+<<<<<<< HEAD
+					<div class="d-flex mb-3 mt-3 ms-3" > 
+=======
+					<div class="d-flex mb-3 mt-3 ms-3">
+>>>>>>> refs/remotes/origin/나성진3
 						<input type="file" name="photo" class="custom-file-input"
 							style="background-color: #f0f0f0; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
 					</div>
@@ -122,9 +126,9 @@
 
 			<!-- 버튼 -->
 			<div class="form-group text-center mb-3 mt-3">
-				<input type="button" class="btn btn-primary"
+				<input type="button" class="btn btn-primary mt-5 mb-5"
 					onclick="send(this.form)" value="신청하기"> <input type="button"
-					class="btn btn-secondary" onclick="history.back()" value="취소">
+					class="btn btn-secondary mt-5 mb-5" onclick="history.back()" value="취소">
 			</div>
 		</form>
 

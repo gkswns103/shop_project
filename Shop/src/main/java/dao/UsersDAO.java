@@ -64,4 +64,8 @@ public class UsersDAO {
 		int res = sqlSession.delete("u.delete_user",user_idx);
 		return res;
 	}
+	public String selectname(int user_idx) {
+		String name=sqlSession.selectOne("u.selectname",user_idx);
+		return name;
+	}
 }

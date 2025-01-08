@@ -9,6 +9,7 @@ public class CartVO {
    public Integer getInterest_idx() {
        return null; // 항상 null 반환
    }
+   
    public void setInterest_idx(Integer interest_idx) {
        this.interest_idx = null; // 강제로 null 설정
    }

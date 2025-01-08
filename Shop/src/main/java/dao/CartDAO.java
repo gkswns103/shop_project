@@ -116,9 +116,7 @@ public class CartDAO {
 	    vo.setProduct_idx(product_idx);
 
 	    // 중복 확인 쿼리 실행
-	    System.out.println("Checking Duplicate for user_idx: " + user_idx + ", product_idx: " + product_idx);
 	    int count = sqlSession.selectOne("c.check_duplicate", vo);
-	    System.out.println("Duplicate Count: " + count);
 
 	    // 중복된 항목이 있으면 true 반환
 	    return count > 0;

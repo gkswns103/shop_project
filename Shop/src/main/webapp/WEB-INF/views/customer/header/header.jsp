@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="/shop/resources/css/header.css">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap" rel="stylesheet">
 <link
    href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap"
    rel="stylesheet">
@@ -22,10 +24,11 @@
       
       
    </style>
+
 </head>
 
 <body>
-   <!-- Navigation-->
+    <!-- Navigation-->
    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-10">
          <a class="navbar-brand ms-0" href="/shop/"><img
@@ -87,7 +90,6 @@
                </c:if>
    </nav> 
                
-   <script src="/shop/resources/js/httpRequest.js"></script>
    <script src="/shop/resources/js/header.js"></script>
     <script src="/shop/resources/js/httpRequest.js"></script>
     <script>
@@ -123,6 +125,7 @@
          f.submit();
          }
          
+
    </script>
 
 
