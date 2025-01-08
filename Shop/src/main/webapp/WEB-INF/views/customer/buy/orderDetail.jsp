@@ -44,7 +44,7 @@
 		  <c:set var="totalprice"  value="${totalprice + vo.price*vo.quantity}" />
         <c:set var="totaldiscount"  value="${totaldiscount + vo.price*vo.quantity-vo.realprice *vo.quantity}" />
 			<div class="smallbox">
-			<img src="/shop/resources/img/${vo.filepath}" width="70px;">
+			<img src="/shop/resources/img/${vo.filepath}" width="70px;" onclick="location.href='detail?product_idx=${vo.product_idx}'">
 								${vo.name} ${vo.quantity}개  
 								<fmt:formatNumber value="${vo.price* vo.quantity }" type="number" groupingUsed="true"/>원<br>
 			</div>

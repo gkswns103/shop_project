@@ -75,7 +75,7 @@ h4 {
 								<c:set var="previousOrdernumber" value="${vo2.ordernumber}" />
 							</c:if>
 							<c:if test="${previousOrdernumber eq vo2.ordernumber}">
-								<img src="/shop/resources/img/${vo2.filepath}" width="70px;">
+								<img src="/shop/resources/img/${vo2.filepath}" width="70px;" onclick="location.href='detail?product_idx=${vo2.product_idx}'">
 								${vo2.name} ${vo2.quantity}개 
 								<fmt:formatNumber value="${vo2.price* vo2.quantity }" type="number" groupingUsed="true"/> 원
 								<br><a class="review" onclick=

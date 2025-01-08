@@ -88,9 +88,9 @@
 
 			<div class="form-group row align-items-center mb-2">
 				<label class="col-sm-2 col-form-label">이미지</label>
-				<div class="col-sm-8">
+				<div class="col-sm-8" >
 
-					<div class="d-flex mb-3 mt-3">
+					<div class="d-flex mb-3 mt-3 ms-3" > 
 						<input type="file" name="photo" class="custom-file-input"
 							style="background-color: #f0f0f0; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
 					</div>

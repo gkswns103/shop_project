@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    INSERT INTO cart
 	    (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, checked, ordernumber, ordertime, deliveryrequest, deliverymessage, addr)
 	    VALUES
-	    (#{user_idx}, #{product_idx}, #{quantity}, #{status}, #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, #{checked}, #{ordernumber}, NOW(), #{deliveryrequest}, #{deliverymessage}, #{addr})
+	    (#{user_idx}, #{product_idx}, #{quantity}, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, 1, #{ordernumber}, NOW(), #{deliveryrequest}, #{deliverymessage}, #{addr})
 	</insert>
 
 

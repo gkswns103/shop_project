@@ -50,7 +50,7 @@
 
 			<form class="d-flex me-auto ms-auto" style="width: 400px;"
 				action="product_search">
-				<input class="form-control me-2" type="search" name="search"
+				<input style="width:300px;" class="form-control me-2" type="search" name="search"
 					placeholder="Search" aria-label="Search"> <input
 					class="btn btn-outline-dark" type="button" value="Search"
 					onclick="product_search(this.form)">
@@ -76,7 +76,7 @@
 									href="my_imformation?user_idx=${users.user_idx}">내정보</a></li>
 							</ul></li>
 					</ul>
-					<a onclick="logout()" class="nav-link active me-3">로그아웃</a>
+					<a style=" max-width: 70px; min-width: 70px;" onclick="logout();" class="nav-link active me-3">로그아웃</a>
 			
 	               <form class="d-flex ms-auto">
 	                  <a href="/shop/cart?user_idx=${sessionScope.users.user_idx}"

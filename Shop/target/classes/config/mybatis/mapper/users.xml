@@ -47,4 +47,7 @@
 	delete from users where user_idx=#{user_idx}
 	</delete>
 	
+	<select id="selectname" parameterType="int" resultType="String">
+	select name from users where user_idx=#{user_idx}
+	</select>
 </mapper>

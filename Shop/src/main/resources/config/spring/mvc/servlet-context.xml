@@ -32,7 +32,11 @@
 
 	<beans:bean class="controller.ProductController">
 		<beans:property name="product_dao" ref="product_daoBean" />
+	    <beans:property name="interest_dao" ref="interest_daoBean" />
+	    <beans:property name="review_dao" ref="review_daoBean"/>
+	    <beans:property name="reviewLike_dao" ref="reviewLike_daoBean" />	
 	</beans:bean>
+	
 	<beans:bean class="controller.CartController">
 	    <beans:property name="users_dao" ref="users_daoBean" />
 	    <beans:property name="interest_dao" ref="interest_daoBean" />
@@ -51,6 +55,8 @@
 	<beans:bean class="controller.ReviewController">
 		<beans:property name="review_dao" ref="review_daoBean"/>
 		<beans:property name="cart_dao" ref="cart_daoBean" />
+		<beans:property name="users_dao" ref="users_daoBean" />
+		 
 	</beans:bean>
 
 	<beans:bean class="controller.AdminController">
@@ -65,6 +71,12 @@
 	    <beans:property name="product_dao" ref="product_daoBean"/>
 	    <beans:property name="cart_dao" ref="cart_daoBean"/>
 	</beans:bean>
+	
+	<beans:bean class="controller.ReviewLikeController">
+		<beans:property name="reviewLike_dao" ref="reviewLike_daoBean" />
+		<beans:property name="review_dao" ref="review_daoBean"/>
+	</beans:bean>
+
 
 
 

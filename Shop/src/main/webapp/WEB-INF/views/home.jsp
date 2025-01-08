@@ -51,7 +51,16 @@
    	   background-attachment: fixed; /* 배경을 고정하여 스크롤에도 따라오지 않음 */
        background-position: center; /* 배경 이미지의 위치를 가운데로 설정 */
    }
-   
+   header {
+       position: fixed;
+       top: 0;
+       width: 100%;
+       z-index: 1030;
+   }
+
+
+
+
  .section-container {
       display: flex; /* 가로 정렬 */
       justify-content: center; /* 컨테이너 중앙 정렬 */
@@ -145,12 +154,13 @@
 	    </ul>
       </div>
    <!-- Footer-->
-   <footer class="py-5 bg-dark">
+   <footer class="pt-4 bg-dark">
       <div class="container">
          <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
          <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
       </div>
    </footer>
+   
    <!-- Bootstrap core JS-->
    <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

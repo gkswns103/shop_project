@@ -103,9 +103,13 @@ public class HomeController {
 	         if (isValid) {
 	            
 	            String decodedRedirect = URLDecoder.decode(redirect, StandardCharsets.UTF_8);
+	            
 	            session.setAttribute("users", user);
+	            
 	            int cart_count = cart_dao.cart_count(user.getUser_idx());
+	            
 	            session.setAttribute("cart_count", cart_count);
+	            
 	            return decodedRedirect;
 	         } else {
 	            return "no_pwd";

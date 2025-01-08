@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.File;
-
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,8 +18,11 @@ import common.Common;
 import dao.CartDAO;
 import dao.InterestDAO;
 import dao.ProductDAO;
+import dao.ReviewDAO;
+import dao.ReviewLikeDAO;
 import vo.InterestVO;
 import vo.ProductVO;
+import vo.ReviewVO;
 import vo.UsersVO;
 
 @Controller
@@ -33,13 +36,27 @@ public class ProductController {
 	
 	ProductDAO product_dao;
 	CartDAO cart_dao;
-
+	ReviewDAO review_dao;
+	ReviewLikeDAO reviewLike_dao;
+	 
+	
+	
+	public void setReviewLike_dao(ReviewLikeDAO reviewLike_dao) {
+		this.reviewLike_dao = reviewLike_dao;
+	}
+	public void setReview_dao(ReviewDAO review_dao) {
+		this.review_dao = review_dao;
+	}
 	public void setProduct_dao(ProductDAO product_dao) {
 		this.product_dao = product_dao;
 	}
-	
 	public void setCart_dao(CartDAO cart_dao) {
 		this.cart_dao = cart_dao;
+	}
+	
+	InterestDAO interest_dao;
+	public void setInterest_dao(InterestDAO interest_dao) {
+		this.interest_dao = interest_dao;
 	}
 	
 	@RequestMapping("/detail")
@@ -67,9 +84,37 @@ public class ProductController {
 	    viewedProducts.add(vo);
 	    // 세션에 업데이트된 리스트 저장
 	    session.setAttribute("viewedProducts", viewedProducts);
+	    UsersVO user = (UsersVO) session.getAttribute("users"); // 현재 로그인된 사용자 가져오기
+	       boolean isInterest = false; // 기본값: 관심 상품이 아님
+	       if (user != null) {
+	           InterestVO interest = new InterestVO();
+	           interest.setUser_idx(user.getUser_idx());
+	           interest.setProduct_idx(product_idx);
+	           isInterest = interest_dao.check_duplicate(interest); // DAO를 통해 중복 여부 확인
+	       }
+	       if(interest_dao !=null) {
+	       model.addAttribute("isInterest", isInterest); // 관심 여부를 뷰에 전달
+	       }
+	       
+	       //리뷰 좋아요 갯수 갱신
+	       review_dao.updateLikeCount();
+	       
+	       List<ReviewVO> list=review_dao.selectList(product_idx);
+	       model.addAttribute("reviewList",list);
+	       
+	       float ratingAvg=0f;
+	       for(int i=0;i<list.size();i++) {
+	    	   ratingAvg+=list.get(i).getRating();
+	       }
+	       ratingAvg=ratingAvg/list.size();
+	       DecimalFormat df = new DecimalFormat("#.0");
+	        String formattedNumber = df.format(ratingAvg);
+	       model.addAttribute("ratingAvg",formattedNumber);
+	       model.addAttribute("count",list.size());
+	       
+	       
 	    // 상세 페이지로 이동
 	    return Common.Path.CUSTOMER_PATH + "product/productDetail.jsp";
-
 	}
 
 
@@ -110,7 +155,7 @@ public class ProductController {
 	public String upload(Model model,ProductVO product,MultipartFile photo) {
 		String webPath = "/resources/img/"; //상대경로
 		String savePath = application.getRealPath(webPath); //절대경로
-		System.out.println(savePath);
+		System.out.println("절대경로 : "+savePath);
 		//업로드를 위한 파일정보
 		String filename = "no_file";
 		
