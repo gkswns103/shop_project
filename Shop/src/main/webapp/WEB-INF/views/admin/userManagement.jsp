@@ -243,7 +243,7 @@
 				return;
 			}
 
-			location.href = "delete?user_idx=" + user_idx;
+			location.href = "delete_user?user_idx=" + user_idx;
 		}
 	</script>
 

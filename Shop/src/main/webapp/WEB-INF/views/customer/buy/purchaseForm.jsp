@@ -131,7 +131,7 @@ input[type="checkbox"] {
 			<hr>
 			<br>
 			<h4>
-				배송 정보 <input type="button" value="배송지 변경" onclick="addr_search()">
+				배송 정보 <!-- <input type="button" value="배송지 변경" onclick="addr_search()"> -->
 			</h4>
 			<table class="purchaseInfo">
 				<tr>

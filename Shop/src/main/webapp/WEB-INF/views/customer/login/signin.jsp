@@ -37,7 +37,10 @@
 				<form class="login100-form validate-form flex-sb flex-w">
 					<input type="hidden" value="${redirect }" name="redirect">
 
-					<span class="login100-form-title p-b-53"> Want It </span>
+					<span class="login100-form-title p-b-53 mt-5"
+						onclick="location.href='/shop/'" style="cursor: pointer;"
+						onmouseover="this.style.color='#fc00ff';"
+						onmouseout="this.style.color='black';">Want It</span>
 
 					<div class="p-t-31 p-b-9">
 						<span class="txt1"> 이름 </span>
@@ -59,6 +62,10 @@
 							class="focus-input100"></span>
 					</div>
 
+					<div class="container-login100-form-btn m-t-17">
+						<input type="button" class="login100-form-btn" value="로그인"
+							onclick="send(this.form)" />
+					</div>
 
 					<div class="container-login100-form-btn m-t-17">
 						<img alt=".." src="/shop/resources/images/icons/카카오로그인.png"
@@ -66,11 +73,6 @@
 							onclick="kakaoLogin();">
 					</div>
 
-					<div class="container-login100-form-btn m-t-17">
-						<input type="button" class="login100-form-btn" value="로그인"
-							onclick="send(this.form)" />
-					</div>
-  
 					<div class="w-full text-center p-t-55">
 						<span class="txt2"> 회원이 아니신가요? </span> <a href="/shop/signup"
 							class="txt2 bo1"> 회원가입 </a>
@@ -98,24 +100,26 @@
 	<script>
 		//카카오로그인
 		function kakaoLogin() {
-    $.ajax({
-        url: '/shop/setRedirect',  // redirect 값을 세션에 저장하는 엔드포인트
-        type: 'post',
-        data: { redirect: '${redirect}' },
-        success: function(response) {
-            // 세션에 redirect 값이 저장된 후 카카오 인증 URL로 리다이렉트
-            $.ajax({
-                url: '/shop/getKakaoAuthUrl',
-                type: 'get',
-                async: false,
-                dataType: 'text',
-                success: function(res) {
-                    location.href = res;
-                }
-            });
-        }
-    });
-}
+			$.ajax({
+				url : '/shop/setRedirect', // redirect 값을 세션에 저장하는 엔드포인트
+				type : 'post',
+				data : {
+					redirect : '${redirect}'
+				},
+				success : function(response) {
+					// 세션에 redirect 값이 저장된 후 카카오 인증 URL로 리다이렉트
+					$.ajax({
+						url : '/shop/getKakaoAuthUrl',
+						type : 'get',
+						async : false,
+						dataType : 'text',
+						success : function(res) {
+							location.href = res;
+						}
+					});
+				}
+			});
+		}
 
 		$(document).ready(
 				function() {
@@ -131,26 +135,25 @@
 								+ "\n nickname : " + data['nickname']);
 					}
 				});
-		
-		   function send(f) {
-			      let id = f.id.value;
-			      let c_pwd = f.c_pwd.value;
-			      
-			      if (id === '') {
-			         alert("아이디를 입력하세요");
-			         return;
-			      }
-			      if (c_pwd === '') {
-			         alert("비밀번호를 입력하세요");
-			         return;
-			      }
-			      let url = "signin";
-			      let param = "id=" + id + "&c_pwd=" + encodeURIComponent(c_pwd) + "&redirect=" + encodeURIComponent(f.redirect.value);
-			      
-			      sendRequest(url, param, resultlog, "post");
-			   }
 
+		function send(f) {
+			let id = f.id.value;
+			let c_pwd = f.c_pwd.value;
 
+			if (id === '') {
+				alert("아이디를 입력하세요");
+				return;
+			}
+			if (c_pwd === '') {
+				alert("비밀번호를 입력하세요");
+				return;
+			}
+			let url = "signin";
+			let param = "id=" + id + "&c_pwd=" + encodeURIComponent(c_pwd)
+					+ "&redirect=" + encodeURIComponent(f.redirect.value);
+
+			sendRequest(url, param, resultlog, "post");
+		}
 	</script>
 </body>
 </html>

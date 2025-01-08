@@ -50,10 +50,8 @@ public class KakaoController {
 
 	@RequestMapping(value = "/getKakaoAuthUrl")
 	public @ResponseBody String getKakaoAuthUrl(HttpServletRequest request) throws Exception {
-		String reqUrl = "https://kauth.kakao.com/oauth/authorize" + "?client_id=45484c448a366908d833bb7f9a36a50b" // REST
-																													// API
-																													// 키
-				+ "&redirect_uri=http://localhost:9090/shop/oauth_kakao"// 리다이렉트 URI
+		String reqUrl = "https://kauth.kakao.com/oauth/authorize" + "?client_id=45484c448a366908d833bb7f9a36a50b"
+				+ "&redirect_uri=http://192.168.0.15:9090/shop/oauth_kakao"// 리다이렉트 URI
 				+ "&response_type=code"; // 응답 타입
 
 		return reqUrl;
@@ -131,7 +129,7 @@ public class KakaoController {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=45484c448a366908d833bb7f9a36a50b"); // 본인이 발급받은 key
-			sb.append("&redirect_uri=http://localhost:9090/shop/oauth_kakao"); // 본인이 설정해 놓은 경로
+			sb.append("&redirect_uri=http://192.168.0.15:9090/shop/oauth_kakao"); // 본인이 설정해 놓은 경로
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());
 			bw.flush();
