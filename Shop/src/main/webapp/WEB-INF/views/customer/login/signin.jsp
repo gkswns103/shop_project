@@ -40,7 +40,7 @@
 					<span class="login100-form-title p-b-53"> Want It </span>
 
 					<div class="p-t-31 p-b-9">
-						<span class="txt1"> Username </span>
+						<span class="txt1"> 이름 </span>
 					</div>
 					<div class="wrap-input100 validate-input"
 						data-validate="Username is required">
@@ -50,8 +50,7 @@
 
 
 					<div class="p-t-13 p-b-9">
-						<span class="txt1"> Password </span> <a href="#"
-							class="txt2 bo1 m-l-5"> Forgot? </a>
+						<span class="txt1"> 비밀번호 </span>
 					</div>
 
 					<div class="wrap-input100 validate-input"
@@ -68,13 +67,13 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
-						<input type="button" class="login100-form-btn" value="Sign Up"
+						<input type="button" class="login100-form-btn" value="로그인"
 							onclick="send(this.form)" />
 					</div>
   
 					<div class="w-full text-center p-t-55">
-						<span class="txt2"> Not a member? </span> <a href="/shop/signup"
-							class="txt2 bo1"> Sign up now </a>
+						<span class="txt2"> 회원이 아니신가요? </span> <a href="/shop/signup"
+							class="txt2 bo1"> 회원가입 </a>
 					</div>
 				</form>
 			</div>

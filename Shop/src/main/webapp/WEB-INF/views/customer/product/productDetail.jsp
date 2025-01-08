@@ -174,7 +174,6 @@
 	function likeupFn() {
 	    if (xhr.readyState == 4 && xhr.status == 200) {
 	        let data = xhr.responseText.trim();
-	 		alert('likeCount_'+${reviewIdx});
 	        alert("추천되었습니다.");
 
 	         window.location.reload()

@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.ui.Model;
 
 import vo.ProductVO;
 
@@ -58,9 +59,28 @@ public class ProductDAO {
 	public int insertProduct(ProductVO vo) {
 		int res = sqlSession.insert("p.insertProduct", vo);
 
-		System.out.println("Insert Result: " + res);
+		return res;
+	}
+	
+	// 제품 신규신청
+	public int new_Product(ProductVO vo) {
+		int res = sqlSession.insert("p.new_Product", vo);
 
 		return res;
+	}
+	
+	// 신규신처된 제품 조회
+	public List<ProductVO> new_Product_select() {
+		List<ProductVO> list = sqlSession.selectList("p.new_Product_select");
+
+		return list;
+	}
+	
+	// 신규신처된 제품 한개 조회
+	public ProductVO new_Product_select_one(int product_idx) {
+		ProductVO vo = sqlSession.selectOne("p.new_Product_select_one",product_idx);
+		
+		return vo;
 	}
 
 	public int selectAdd(ProductVO vo) {
@@ -78,9 +98,37 @@ public class ProductDAO {
 		
 	}
 	
+	public int delete_apply_product(int product_idx) {
+		
+		int res = sqlSession.delete("p.delete_apply_product",product_idx);
+		
+		return res;
+		
+	}
+	
 	public List<ProductVO> product_search(String search){
 		List<ProductVO> list = sqlSession.selectList("p.product_search",search);
 		
+		return list;
+	}
+	public List<ProductVO> sale_product(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_product");
+		return list;
+	}
+	public List<ProductVO> sale_pet(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_pet");
+		return list;
+	}
+	public List<ProductVO> sale_christmas(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_christmas");
+		return list;
+	}
+	public List<ProductVO> sale_it(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_it");
+		return list;
+	}
+	public List<ProductVO> sale_newyear(){
+		List<ProductVO> list = sqlSession.selectList("p.sale_newyear");
 		return list;
 	}
 }
