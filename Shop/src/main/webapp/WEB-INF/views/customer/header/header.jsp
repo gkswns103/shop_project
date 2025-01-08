@@ -58,8 +58,8 @@
 
          
             <c:if test="${empty users}">
-               <a onclick="signin_form()" class="nav-link active me-3">SignIn</a>
-               <a href="signup" class="nav-link active me-3">SignUp</a>
+               <a onclick="signin_form()" class="nav-link active me-3 ms-3">SignIn</a>
+               <a href="signup" class="nav-link active me-3 ms-3">SignUp</a>
             </c:if>
 
             <c:if test="${!empty users}">
@@ -69,8 +69,8 @@
                      role="button" aria-expanded="false">${users.name}님</a>
                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item"
-                           href="purchaseList?user_idx=${users.user_idx }">주문목록</a></li>
-                        <li><a class="dropdown-item" href="interest?user_idx=${users.user_idx }">관심목록</a></li>
+                           href="purchaseList?user_idx=${users.user_idx}">주문목록</a></li>
+                        <li><a class="dropdown-item" href="interest?user_idx=${users.user_idx}">관심목록</a></li>
                         <li><a class="dropdown-item" href="registerForm">상품등록</a></li>
                         <li><a class="dropdown-item"
                            href="my_imformation?user_idx=${users.user_idx}">내정보</a></li>

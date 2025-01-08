@@ -35,7 +35,10 @@
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-110 p-r-110 p-b-33">
 				<form class="login100-form validate-form flex-sb flex-w">
-					<span class="login100-form-title p-b-53"> Want It </span>
+					<span class="login100-form-title p-b-53 mt-5"
+						onclick="location.href='/shop/'" style="cursor: pointer;"
+						onmouseover="this.style.color='#fc00ff';"
+						onmouseout="this.style.color='black';">Want It</span>
 
 					<div class="p-t-10 p-b-9">
 						<span class="txt1"> 아이디 </span>
@@ -63,14 +66,14 @@
 						<input class="input100" type="text" name="name"> <span
 							class="focus-input100"></span>
 					</div>
-					
+
 					<div class="p-t-10 p-b-9">
 						<span class="txt1"> 나이 </span>
 					</div>
 					<div class="wrap-input100 validate-input"
 						data-validate="Name is required">
-						<input class="input100" type="number" name="age"  min="18" max="100" value="20"> <span
-							class="focus-input100"></span>
+						<input class="input100" type="number" name="age" min="18"
+							max="100" value="20"> <span class="focus-input100"></span>
 					</div>
 
 					<div class="p-t-10 p-b-9">

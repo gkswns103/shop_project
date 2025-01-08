@@ -84,7 +84,7 @@
 				</div>
 			</div>
 
-			<input type="hidden" name="selleridx" value="0">
+			<input type="hidden" name="selleridx" value="${users.user_idx}">
 
 			<div class="form-group row align-items-center mb-2">
 				<label class="col-sm-2 col-form-label">이미지</label>

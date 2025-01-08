@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -172,7 +173,7 @@
 													<td>${cart.product_idx}</td>
 													<td>${cart.name}</td>
 													<td>${cart.quantity}개</td>
-													<td>${cart.price * ((100-cart.discount)/100)}</td>
+													<td><fmt:formatNumber value="${cart.price * ((100-cart.discount)/100)}" type="number" groupingUsed="true"/>KRW</td>
 													<td>${cart.ordertime}</td>
 													<td>${cart.deliveryrequest}</td>
 													<td>${cart.deliverymessage}</td>

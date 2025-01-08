@@ -58,17 +58,13 @@ public class ProductDAO {
 	public int insertProduct(ProductVO vo) {
 		int res = sqlSession.insert("p.insertProduct", vo);
 
-		System.out.println("Insert Result: " + res);
-
 		return res;
 	}
 	
 	// 제품 신규신청
 	public int new_Product(ProductVO vo) {
 		int res = sqlSession.insert("p.new_Product", vo);
-		
-		System.out.println("Insert Result: " + res);
-		
+
 		return res;
 	}
 	
