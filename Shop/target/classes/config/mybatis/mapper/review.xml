@@ -3,5 +3,30 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="r">
+	<insert id="reviewinsert" parameterType="review">
+		insert into review 
+		(product_idx,user_idx,name,rating,comment,date,title,filepath,product_name)
+		values
+		(#{product_idx},#{user_idx},#{name},#{rating},#{comment},now(),#{title},#{filepath},#{product_name})
+	</insert>
 	
+	<select id="selectList" parameterType="int" resultType="review">
+		select * from review where product_idx=#{product_idx} order by date desc;
+	</select>
+	
+	<update id="updateLikeCount">
+	    UPDATE review r
+	    JOIN (
+	        SELECT r.review_idx, COUNT(rl.like_idx) AS likeCount
+	        FROM review r
+	        LEFT JOIN reviewlike rl ON r.review_idx = rl.review_idx
+	        GROUP BY r.review_idx
+	    ) AS like_counts ON r.review_idx = like_counts.review_idx
+	    SET r.likeCount = like_counts.likeCount;
+	</update>
+
+	<select id="getLikeCount" parameterType="int" resultType="int">
+		select likecount from review where review_idx=#{review_idx}
+	</select>
 </mapper>
+ 

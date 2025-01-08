@@ -3,131 +3,131 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="c">
-	<!-- 장바구니 전체 조회 -->
-	<select id="select_list" resultType="cart" parameterType="int">
-		select
-		* from cart where user_idx=#{user_idx}
-	</select>
-	
-	<select id="list" resultType="cart">
-		select * from cart where status='saled'
-	</select>
+   <!-- 장바구니 전체 조회 -->
+   <select id="select_list" resultType="cart" parameterType="int">
+      select
+      * from cart where user_idx=#{user_idx}
+   </select>
+   
+   <select id="list" resultType="cart">
+      select * from cart where status='saled'
+   </select>
 
-	<insert id="insert_cart" parameterType="cart">
-	    INSERT INTO cart
-	    (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, checked, ordernumber, ordertime, deliveryrequest, deliverymessage, addr)
-	    VALUES
-	    (#{user_idx}, #{product_idx}, #{quantity}, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory},1, #{ordernumber}, NOW(), #{deliveryrequest}, #{deliverymessage}, #{addr})
-	</insert>
+   <insert id="insert_cart" parameterType="cart">
+       INSERT INTO cart
+       (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, checked, ordernumber, ordertime, deliveryrequest, deliverymessage, addr)
+       VALUES
+       (#{user_idx}, #{product_idx}, #{quantity}, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, 1, #{ordernumber}, NOW(), #{deliveryrequest}, #{deliverymessage}, #{addr})
+   </insert>
 
 
-	<select id="select_idx" parameterType="cart" resultType="int">
-		select
-		product_idx from cart where user_idx=#{user_idx} and
-		product_idx=#{product_idx}
-	</select>
+   <select id="select_idx" parameterType="cart" resultType="int">
+      select
+      product_idx from cart where user_idx=#{user_idx} and
+      product_idx=#{product_idx}
+   </select>
 
-	<select id="check_duplicate" resultType="int" parameterType="cart">
-	    SELECT COUNT(*)
-	    FROM cart
-	    WHERE user_idx = #{user_idx} AND product_idx = #{product_idx}
-	</select>
+   <select id="check_duplicate" resultType="int" parameterType="cart">
+       SELECT COUNT(*)
+       FROM cart
+       WHERE user_idx = #{user_idx} AND product_idx = #{product_idx}
+   </select>
 
-	<select id="check_Active" resultType="int" parameterType="cart">
-		select
-		count(*)
-		from cart
-		where user_idx=#{user_idx} and
-		product_idx=${product_idx} and status='active'
+   <select id="check_Active" resultType="int" parameterType="cart">
+      select
+      count(*)
+      from cart
+      where user_idx=#{user_idx} and
+      product_idx=${product_idx} and status='active'
 
-	</select>
+   </select>
 
-	<select id="cart_count" parameterType="int" resultType="int">
-		select
-		count(*) from cart where user_idx=#{user_idx} and status='active'
-	</select>
+   <select id="cart_count" parameterType="int" resultType="int">
+      select
+      count(*) from cart where user_idx=#{user_idx} and status='active'
+   </select>
 
-	<delete id="cart_delete" parameterType="cart">
-		delete from cart where
-		user_idx=#{user_idx} and product_idx=#{product_idx}
-	</delete>
+   <delete id="cart_delete" parameterType="cart">
+      delete from cart where
+      user_idx=#{user_idx} and product_idx=#{product_idx}
+   </delete>
 
-	<update id="cart_update" parameterType="cart">
-		update cart SET quantity
-		= #{quantity} WHERE user_idx=#{user_idx} and
-		product_idx=#{product_idx}
-	</update>
+   <update id="cart_update" parameterType="cart">
+      update cart SET quantity
+      = #{quantity} WHERE user_idx=#{user_idx} and
+      product_idx=#{product_idx}
+   </update>
 
-	<update id="updateCheck" parameterType="cart">
-		update cart set
-		checked=#{checked} where user_idx=#{user_idx} and
-		product_idx=#{product_idx}
-	</update>
+   <update id="updateCheck" parameterType="cart">
+      update cart set
+      checked=#{checked} where user_idx=#{user_idx} and
+      product_idx=#{product_idx}
+   </update>
 
-	<select id="cart_list" resultType="cart" parameterType="int">
-		select *
-		from cart where user_idx=#{user_idx} and checked='1' and
-		status='active'
-	</select>
+   <select id="cart_list" resultType="cart" parameterType="int">
+      select *
+      from cart where user_idx=#{user_idx} and checked='1' and
+      status='active'
+   </select>
 
-	<update id="updateState" parameterType="cart">
-		update cart
-		set status='saled',ordernumber = #{ordernumber} ,ordertime = NOW(),deliveryrequest=#{deliveryrequest} , deliverymessage=#{deliverymessage},addr=#{addr}
-		where user_idx=#{user_idx} and checked='1' and status='active'
-	</update>
+   <update id="updateState" parameterType="cart">
+      update cart
+      set status='saled',ordernumber = #{ordernumber} ,ordertime = NOW(),deliveryrequest=#{deliveryrequest} , deliverymessage=#{deliverymessage},addr=#{addr}
+      where user_idx=#{user_idx} and checked='1' and status='active'
+   </update>
 
-	<update id="updateInventory" parameterType="int">
-		UPDATE cart AS c1
-		JOIN (
-		SELECT cart_idx
-		FROM cart
-		WHERE user_idx = #{user_idx}
-		AND status = 'active'
-		AND checked = '1'
-		) AS c2
-		ON c1.cart_idx = c2.cart_idx
-		SET c1.inventory = c1.inventory - c1.quantity;
-	</update>
+   <update id="updateInventory" parameterType="int">
+      UPDATE cart AS c1
+      JOIN (
+      SELECT cart_idx
+      FROM cart
+      WHERE user_idx = #{user_idx}
+      AND status = 'active'
+      AND checked = '1'
+      ) AS c2
+      ON c1.cart_idx = c2.cart_idx
+      SET c1.inventory = c1.inventory - c1.quantity;
+   </update>
 
-	<delete id="delete_user" parameterType="int">
-		delete from cart where
-		user_idx = #{user_idx}
-	</delete>
+   <delete id="delete_user" parameterType="int">
+      delete from cart where
+      user_idx = #{user_idx}
+   </delete>
 
-	<select id="purchaseList" parameterType="int" resultType="cart">
-		select
-		* from cart where user_idx=#{user_idx} and status='saled' order by
-		ordernumber desc
-	</select>
-	
-	<insert id="updateInventoryOne" parameterType="cart">
-		insert into 
-		cart ( user_idx,product_idx,quantity,status,name,price,discount,filepath,inventory,CHECKED,ORDERNUMBER,ORDERTIME,deliveryrequest,deliverymessage,addr)
-		values
-		(#{user_idx},#{product_idx},#{quantity}, 'saled',#{name},#{price},#{discount},#{filepath},#{inventory},1,#{ordernumber},NOW(),#{deliveryrequest},#{deliverymessage},#{addr} )
-	</insert>
-	
-	<update id="purchaseOne" parameterType="cart">
-		update cart
-		set inventory=#{inventory}
-		where user_idx=#{user_idx} and checked='1' and ordernumber=#{ordernumber}
-	</update>
-	
-	<select id="select_orderList" parameterType="cart" resultType="cart">
-		select * from cart where user_idx=#{user_idx} and ordertime=#{ordertime} 
-	</select>
-	
-	<update id="updateQuantity" parameterType="cart">
-	    UPDATE cart
-	    SET quantity = quantity + #{quantity}
-	    WHERE user_idx = #{user_idx} AND product_idx = #{product_idx} AND status = 'active';
-	</update>
-	
-	<insert id="interest_cart" parameterType="interest">
-	    INSERT INTO cart
-	    (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, CHECKED, ORDERNUMBER, ORDERTIME, deliveryrequest, deliverymessage, addr)
-	    VALUES
-	    (#{user_idx}, #{product_idx}, 1, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, 0, 0, NOW(), '', '', '')
-	</insert>
-	
+   <select id="purchaseList" parameterType="int" resultType="cart">
+      select
+      * from cart where user_idx=#{user_idx} and status='saled' order by
+      ordernumber desc
+   </select>
+   
+   <insert id="updateInventoryOne" parameterType="cart">
+      insert into 
+      cart ( user_idx,product_idx,quantity,status,name,price,discount,filepath,inventory,CHECKED,ORDERNUMBER,ORDERTIME,deliveryrequest,deliverymessage,addr)
+      values
+      (#{user_idx},#{product_idx},#{quantity}, 'saled',#{name},#{price},#{discount},#{filepath},#{inventory},1,#{ordernumber},NOW(),#{deliveryrequest},#{deliverymessage},#{addr} )
+   </insert>
+   
+   <update id="purchaseOne" parameterType="cart">
+      update cart
+      set inventory=#{inventory}
+      where user_idx=#{user_idx} and checked='1' and ordernumber=#{ordernumber}
+   </update>
+   
+   <select id="select_orderList" parameterType="cart" resultType="cart">
+      select * from cart where user_idx=#{user_idx} and ordertime=#{ordertime} 
+   </select>
+   
+   <update id="updateQuantity" parameterType="cart">
+       UPDATE cart
+       SET quantity = quantity + #{quantity}
+       WHERE user_idx = #{user_idx} AND product_idx = #{product_idx} AND status = 'active';
+   </update>
+   
+   <insert id="interest_cart" parameterType="interest">
+       INSERT INTO cart
+       (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, CHECKED, ORDERNUMBER, ORDERTIME, deliveryrequest, deliverymessage, addr)
+       VALUES
+       (#{user_idx}, #{product_idx}, 1, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, 0, 0, NOW(), '', '', '')
+   </insert>
+   
 </mapper>

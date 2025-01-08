@@ -18,6 +18,10 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 	rel="stylesheet" />
+<!-- 상품 애니메이션 -->
+<script src="/shop/resources/dist/aos.js"></script>
+<link href="/shop/resources/dist/aos.css" rel="stylesheet" />
+
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/shop/resources/css/style1.css" rel="stylesheet" />
 <link href="/shop/resources/css/style2.css" rel="stylesheet" />
@@ -27,9 +31,6 @@
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
 <link href="/shop/resources/css/header.css" rel="stylesheet" />
 
-<link href="/shop/resources/dist/aos.css" rel="stylesheet" />
-<style>
-</style>
 </head>
 <body>
 	<header>
@@ -94,15 +95,14 @@
 		</div>
 	</section>
 	<!-- Footer-->
-	<!-- Footer-->
 	<footer class="py-5 bg-dark">
 		<div class="container">
-			<p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터
-				: 010-3239-5204</p>
 			<p class="m-0 text-center text-white">
 				Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌
 				: 국민 852502-04-255054
 			</p>
+			<p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터
+				: 010-3239-5204</p>
 		</div>
 	</footer>
 	<!-- Bootstrap core JS-->
@@ -110,13 +110,12 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/shop/resources/js/scripts.js"></script>
-	<script src="/shop/resources/dist/aos.js"></script>
 
 	<script>
 		AOS.init({
 			duration : 800, // 애니메이션 지속 시간 (밀리초)
 			easing : 'ease-in-out', // 애니메이션 효과
-			once : false, // 애니메이션을 한 번만 실행
+			once : false, // 애니메이션을 여러번 실행
 		});
 	</script>
 </body>

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,21 +49,11 @@
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             <!-- 동적 이미지 로드 -->
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/연말빅세일.png" alt="연말 빅 세일">
-            </div>
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/빅세일.png" alt="빅 세일">
-            </div>
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/크리스마스특가.png" alt="크리스마스 특가">
-            </div>
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/발굴단.png" alt="발굴단">
-            </div>
-            <div class="swiper-slide">
-                <img src="/shop/resources/img/타임세일.png" alt="타임 세일">
-            </div>
+            <c:forEach var="banner_list" items="${banner_list}">
+                <div class="swiper-slide">
+                    <img src="/shop/resources/img/${banner_list.image}" alt="${banner_list.name}" onclick="location.href='${banner_list.filepath}'">
+                </div>
+            </c:forEach>
         </div>
         <!-- Pagination -->
         <div class="swiper-pagination"></div>
@@ -88,6 +79,12 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
+            
+            autoplay: {
+                delay: 5000, // 5초마다 이동 (밀리초 단위)
+                disableOnInteraction: false, // 사용자가 상호작용해도 autoplay 유지
+            },
+            
         });
     </script>
 </body>

@@ -1,9 +1,39 @@
 package vo;
 
 public class ReviewVO {
-	int review_idx,product_idx,user_idx,rating;
-	String comment,date;
-	
+	int review_idx,product_idx,user_idx,rating,likecount;
+	String comment,date,title,filepath,name,product_name;
+	 
+	public int getLikecount() {
+		return likecount;
+	}
+	public void setLikecount(int likecount) {
+		this.likecount = likecount;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getFilepath() {
+		return filepath;
+	}
+	public void setFilepath(String filepath) {
+		this.filepath = filepath;
+	}
 	public int getReview_idx() {
 		return review_idx;
 	}
