@@ -63,20 +63,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertProduct" parameterType="product">
 		insert into product
-		(name,price,discount,inventory,`explain`,selleridx,filepath,category,division)
+		(name,price,discount,inventory,`explain`,selleridx,filepath,category,division, details)
 		values
 		(#{name}, #{price}, #{discount}, #{inventory},
 		#{explain},
-		#{selleridx}, #{filepath}, #{category}, #{division})
+		#{selleridx}, #{filepath}, #{category}, #{division}, #{details})
 	</insert>
 
 	<insert id="new_Product" parameterType="product">
 		insert into apply_product
-		(name,price,discount,inventory,`explain`,selleridx,filepath,category,division)
+		(name,price,discount,inventory,`explain`,selleridx,filepath,category,division, details)
 		values
 		(#{name}, #{price}, #{discount}, #{inventory},
 		#{explain},
-		#{selleridx}, #{filepath}, #{category}, #{division})
+		#{selleridx}, #{filepath}, #{category}, #{division}, #{details})
 	</insert>
 
 	<select id="selectAdd" parameterType="product" resultType="int">

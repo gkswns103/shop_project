@@ -22,6 +22,43 @@
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
 
 <style>
+.pay {
+    background-color: #4CAF50; /* 초록색 */
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pay:hover {
+    background-color: #45a049;
+}
+
+.pay:active {
+    background-color: #3e8e41;
+}
+.button-green {
+    background-color: #4CAF50; /* 초록색 */
+    border: none;
+    color: white;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-green:hover {
+    background-color: #45a049;
+}
+
+.button-green:active {
+    background-color: #3e8e41;
+}
+
 .purchaseInfo tr {
 	border-bottom: 1px solid #dbdbdb;
 }
@@ -150,7 +187,7 @@ input[type="checkbox"] {
 			<hr>
 			<br>
 			<h4>배송 정보</h4>
-			<input type="button" value="배송지 변경" onclick="addr_search()">
+			<input type="button" value="배송지 변경" class="button-green" onclick="addr_search()">
 			<table class="purchaseInfo">
 				<tr>
 					<th>배송 주소</th>
@@ -228,8 +265,7 @@ input[type="checkbox"] {
 						
 				</tr>
 			</table>
-			<br> <input class="pay" type="button" value="주문하기"
-				onclick="purchase(this.form)">
+			<br> <input class="pay" type="button" value="주문하기" onclick="purchase(this.form)">
 		</div>
 
 		<input type="hidden" name="addr" value="${user.addr }"> <input

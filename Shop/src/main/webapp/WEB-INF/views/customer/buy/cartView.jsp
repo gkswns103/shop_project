@@ -24,6 +24,30 @@
       
       <script src="/shop/resources/js/httpRequest.js"></script>
       
+      <style>
+     .button-green {
+		    background-color: #4CAF50; /* 초록색 */
+		    border: none;
+		    color: white;
+		    padding: 10px 16px;
+		    font-size: 14px;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    transition: background-color 0.3s ease;
+		    display: block; /* 블록 요소로 변경 */
+		    margin: 0 auto; /* 가운데 정렬 */
+		}
+		
+		.button-green:hover {
+		    background-color: #45a049;
+		}
+		
+		.button-green:active {
+		    background-color: #3e8e41;
+		}
+
+      </style>
+      
       <script>  
       window.onload = function() {
           // 모든 체크박스를 찾기
@@ -239,7 +263,7 @@
     총 할인: <span id="totaldiscount"><fmt:formatNumber value="${totaldiscount}" type="number" groupingUsed="true"/>원</span><br>
     <hr>
     최종 금액: <span id="finalsum"><fmt:formatNumber  value="${totalprice - totaldiscount}" type="number" groupingUsed="true"/>원</span>
-    <input type="button" value="구매하기" onclick="purchase();">
+    <input type="button" class="button-green" align="center" value="구매하기" onclick="purchase();">
 </div>
   </div>
 </div>

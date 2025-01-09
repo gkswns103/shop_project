@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	
 
 <!DOCTYPE html>
 <html>
@@ -118,7 +120,7 @@
 							 alt="${item.name}" 
 							 onclick="location.href='/shop/detail?product_idx=${item.product_idx}'"><br>
 						${item.name}<br>
-						${item.price}원<br>
+						  <fmt:formatNumber value="${item.price}" type="number" groupingUsed="true" />원<br>
 						<span style="color: red;">${item.discount}%</span><br> 
 						
 						<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">

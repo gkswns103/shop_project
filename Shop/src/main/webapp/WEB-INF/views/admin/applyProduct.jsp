@@ -161,9 +161,10 @@
 											<th>상품재고</th>
 											<th>상품설명</th>
 											<th>판매자IDX</th>
-											<th>사진이름</th>
+											<th>사진</th>
 											<th>소분류</th>
 											<th>대분류</th>
+											<th>상품 세부설명</th>
 											<th>비고</th>
 										</tr>
 										<c:forEach var="product" items="${list}">
@@ -178,6 +179,12 @@
 												<td>${product.filepath}</td>
 												<td>${product.category}</td>
 												<td>${product.division}</td>
+													<c:set var="safeDetails">
+													    <c:out value="${product.details}" escapeXml="true" />
+													</c:set>
+													<td>
+													    <a href="#" onclick="openDetails('${product.name}'); return false;" data-details="${safeDetails}">내용 확인</a>
+													</td>
 												<td><input type="button" style="top: auto;"
 													class="btn btn-primary rounded" value="상품 등록하기"
 													onclick="apply(${product.product_idx})">
@@ -231,7 +238,7 @@
 	<script src="/shop/resources/admin/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level plugins -->
-	<script src="/shop/resources/admin/vendor/chart.js/Chart.min.js"></script>
+	<script src="/shop/resources/admin/vendor/chart.js/Chart.min.js" defer></script>
 
 	<!-- Page level custom scripts -->
 	<script src="/shop/resources/admin/js/demo/chart-area-demo.js"></script>
@@ -262,6 +269,26 @@
 
 			location.href = "apply_del?product_idx=" + product_idx;
 		}
+		
+		function openDetails(name) {
+		    // a 태그에서 data-details 속성을 가져옴
+		    const details = event.target.getAttribute("data-details");
+
+		    // 특수문자 및 개행 처리
+		    const formattedDetails = details.replace(/\n/g, '<br>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+
+		    const detailWindow = window.open("", "_blank", "width=600,height=400,scrollbars=yes");
+		    detailWindow.document.write("<html><head><title>상품 세부 설명</title></head><body>");
+		    detailWindow.document.write("<h2>상품 세부 설명</h2>");
+		    detailWindow.document.write("<p><strong>상품 이름:</strong> " + name + "</p>");
+		    detailWindow.document.write("<p><strong>설명:</strong><br>" + formattedDetails + "</p>");
+		    detailWindow.document.write("</body></html>");
+		    detailWindow.document.close();
+		}
+
+
+
+		
 	</script>
 
 </body>
