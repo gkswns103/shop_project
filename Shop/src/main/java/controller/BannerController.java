@@ -171,7 +171,59 @@ public String update_banner(int banner_idx, String new_name, MultipartFile new_i
 	        return "redirect:/admin/banner_update";
 	        }
 
-}
-    
-    
 
+@RequestMapping("/admin/insert_banner")
+public String insert_banner(BannerVO vo, MultipartFile new_image,String on_off) {
+	System.out.println("test:"+on_off);
+	
+	if(new_image==null) {
+		System.out.println("사진을 못받는거임ㅋ");
+	}
+	
+	String webPath = "/resources/img/"; //상대경로
+	String savePath = application.getRealPath(webPath); //절대경로
+	
+	//업로드를 위한 파일정보
+	String filename = "no_file";
+	
+	if( !new_image.isEmpty() ) {
+		filename = new_image.getOriginalFilename();
+		
+		//저장할 파일의 경로
+		File saveFile = new File(savePath,filename);
+		
+		if(!saveFile.exists()) {
+			saveFile.mkdirs();
+		}
+		else {
+			//동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
+			long time = System.currentTimeMillis();
+			filename = String.format("%d_%s",time,filename);
+			saveFile = new File(savePath,filename);
+		}
+		//파일을 절대 경로에 생성
+		try {
+			new_image.transferTo(saveFile);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	System.out.println(vo.getName());
+	System.out.println(vo.getNew_name());
+	
+	vo.setImage(filename);
+	
+	int res = banner_dao.banner_insert(vo);
+		if(res > 0) {
+			System.out.println("배너 추가 성공");
+		}else {
+			System.out.println("배너 추가 실패");
+		}
+	
+	
+	return "/admin/banner";
+}
+
+
+}

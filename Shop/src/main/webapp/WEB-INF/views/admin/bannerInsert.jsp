@@ -41,9 +41,7 @@
 
 .class td {
 	padding: 0 20px;
-
 }
-
 </style>
 
 </head>
@@ -108,9 +106,9 @@
 				<div id="collapseBanner" class="collapse"
 					aria-labelledby="headingBanner" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/shop/admin/banner">배너설정</a>
-						 <a class="collapse-item" href="/shop/admin/banner_update">배너수정</a>
-						  <a class="collapse-item" href="/shop/admin/banner_insert">배너추가</a>
+						<a class="collapse-item" href="/shop/admin/banner">배너설정</a> <a
+							class="collapse-item" href="/shop/admin/banner_update">배너수정</a> <a
+							class="collapse-item" href="/shop/admin/banner_insert">배너추가</a>
 					</div>
 				</div></li>
 
@@ -164,41 +162,33 @@
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">배너
-									<input type="button" value="추가" onclick="#">
-									</h6>
+									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
 									<table class="table">
 										<tr align="center">
-											<th>배너번호</th>
 											<th>이름</th>
-											<th>배너 설명</th>
 											<th>이미지</th>
-											<th>수정</th>
-											<th>삭제</th>
+											<th>활성화/비활성화</th>
+											<th>추가</th>
 										</tr>
-										<c:forEach var="banner" items="${list}">
-										
-												<input type="hidden" name="banner_idx"
-													value="${banner.banner_idx}">
-												<tr align="center">
-													<td style="color: red;">${banner.banner_idx}</td>
-													<td data-name="name" data-value="${banner.name}">${banner.name}</td>
-													<td data-name="explanation" data-value="${banner.explanation}">${banner.explanation}</td>
-													<td data-name="image" data-value="${banner.image}">${banner.image}</td>
-													<td><input type="checkbox" onchange="toggleDisplay(this)"></td>
-													<td><input type="button" value="삭제" onclick="delete();"></td>
-												</tr>
-												<tr class="hidden" align="right" style="display: none; position: relative; right: -200px; padding: 0 1px;">
-												<td><input type="text" name="new_name" placeholder="이름"></td>
-												<td><input type="text" name="new_explanation" placeholder="설명"></td>
-												<td><input type="text" name="new_image" placeholder="이미지는 나중에 수정"></td>
-												<td><input type="button" value="수정하기" onclick="update();"></td>
-												</tr>
-											
-										</c:forEach>
+										<tr>
+											<td colspan="4">
+												<form action="insert_banner" method="post"
+													enctype="multipart/form-data">
+													<input type="text" name="name" placeholder="이름">
+													<input type="file" name="new_image">
+													<select name="status">
+														<option value="">상태</option>
+														<option value="on">on</option>
+														<option value="off">off</option>
+													</select>
+													<button type="button" onclick="insert(this.form);">추가</button>
+												</form>											
+											</td>
+										</tr>
+
 									</table>
 								</div>
 							</div>
@@ -257,23 +247,37 @@
 				location.href = "/shop/"
 			}
 		}
-		
-		function toggleDisplay(checkbox) {
-		    const row = checkbox.closest('tr'); // 현재 행을 찾습니다.
-		    if (!row) {
-		        console.error("Cannot find the row for the checkbox");
-		        return;
-		    }
-		    const hiddenRow = row.nextElementSibling; // 다음 행을 찾습니다.
-		    if (!hiddenRow || !hiddenRow.classList.contains('hidden')) {
-		        console.error("Cannot find the hidden row for the checkbox");
-		        return;
-		    }
-		    // 체크박스 상태에 따라 display 속성을 토글합니다.
-		    hiddenRow.style.display = checkbox.checked ? '' : 'none';
+
+		function insert(f) {
+			// 폼 데이터 추출
+			let name = f.name.value;
+			let new_image = f.new_image.value;
+			let status = f.querySelector('select').value;
+
+			// 유효성 검사
+			if (name === "") {
+				alert("이름을 입력하세요.");
+				return;
+			}
+
+			if (new_image === "") {
+				alert("이미지를 선택하세요.");
+				return;
+			}
+
+			// 이미지 파일 확장자 검사
+			const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp)$/i;
+			if (!imageExtensions.test(new_image)) {
+				alert("유효한 이미지 파일을 선택하세요 (jpg, jpeg, png, gif, bmp, webp).");
+				return;
+			}
+
+			if (status === "") {
+				alert("상태를 선택하세요.");
+				return;
+			}
+			f.submit();
 		}
-		
-		
 	</script>
 
 </body>

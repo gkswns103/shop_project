@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.web.multipart.MultipartFile;
 
 import vo.BannerVO;
 
@@ -37,5 +38,8 @@ SqlSession sqlSession;
 	    return sqlSession.update("b.update", vo);
 	}
 
-	
+	public int banner_insert(BannerVO vo) {
+		int res = sqlSession.insert("b.insert", vo);
+		return res;
+	}
 }

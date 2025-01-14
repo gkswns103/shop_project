@@ -22,4 +22,9 @@
     update banner set name = #{new_name}, image=#{image} where banner_idx = #{banner_idx} 
 </update>
 	
+	<insert id="insert" parameterType="vo.BannerVO">
+	insert into banner
+	(name, image, status) values (#{name},#{image},#{status})
+	</insert>
+	
 </mapper>
