@@ -111,7 +111,6 @@
 	gap: 15px;
 	margin-top: 20px;
 }
-
 </style>
 
 </head>
@@ -171,9 +170,7 @@
 				<br> 남은수량 : ${vo.inventory }개
 			</div>
 			<hr>
-			<div class="explain mt-3 mb-3">
-				${vo.explain }
-			</div>
+			<div class="explain mt-3 mb-3">${vo.explain }</div>
 			<div class="counter-container mt-4" style="display: flex;">
 				<div class="styled-container mt-5">
 					<table class="styled-table">
@@ -211,61 +208,112 @@
 
 			<div class="tab-view" id="tab-1" style="display: none;">
 
-				<div class="btn-content mb-3">
-					<input type="button" class="btn btn-outline-success" value="추천순"> <input type="button"
-						class="btn btn-outline-success" value="최신순">
-				</div>
-
-				<div style="padding-left: 20px;">
-					<span style="font-weight: bold; font-size: 25px;">상품평</span> <input
-						type="button" class="btn btn-outline-dark" value="상품평 쓰기 " onclick="purchaseList();"
-						style="float: right;"> <br> <img src=""
-						id="ratingAvg" style="width: 200px;"> <span
-						style="font-weight: bold; font-size: 20px;">(${ratingAvg} /
-						5.0)</span><br> <br>
-				</div>
-				<hr>
-
-				<c:forEach var="review" items="${reviewList}">
-					<div style="padding-left: 20px;">
-						${review.name} <br>
-						<c:if test="${review.rating == 1}">
-							<img src="/shop/resources/reviewImg/1.png" id="rating"
-								style="width: 100px;">
-						</c:if>
-						<c:if test="${review.rating == 2}">
-							<img src="/shop/resources/reviewImg/2.png" id="rating"
-								style="width: 100px;">
-						</c:if>
-						<c:if test="${review.rating == 3}">
-							<img src="/shop/resources/reviewImg/3.png" id="rating"
-								style="width: 100px;">
-						</c:if>
-						<c:if test="${review.rating == 4}">
-							<img src="/shop/resources/reviewImg/4.png" id="rating"
-								style="width: 100px;">
-						</c:if>
-						<c:if test="${review.rating == 5}">
-							<img src="/shop/resources/reviewImg/5.png" id="rating"
-								style="width: 100px;">
-						</c:if>
-
-						${review.date.substring(0, 10)}<br> ${review.product_name }<br>
-
-						<c:if test="${review.filepath != 'no_file' }">
-							<img src="/shop/resources/reviewImg/${review.filepath }"
-								style="width: 80px;">
-						</c:if>
-
-						<br> <span style="font-weight: bold;">${review.title }</span><br>
-						<span>${review.comment }</span><br> <img
-							src="/shop/resources/reviewImg/likebutton.png"
-							style="width: 30px;" onclick="likeup(${review.review_idx});">
-						<span id="likeCount_${review_idx }">${review.likecount }</span>
-
+				<c:if test="${ratingAvg !='no_data'}">
+					<div class="details-container">
+						<div class="btn-content mb-3">
+							<input type="button" class="btn btn-outline-success"
+								onclick="listOrderbyLike()" value="추천순"> <input
+								type="button" class="btn btn-outline-success"
+								onclick="listOrderbyRecent()" value="최신순">
+						</div>
 					</div>
-					<hr>
-				</c:forEach>
+
+					<div style="padding-left: 20px;">
+						<span style="font-weight: bold; font-size: 25px;">상품평</span> <input
+							type="button" class="btn btn-outline-dark" value="상품평 쓰기 "
+							onclick="purchaseList();" style="float: right;"> <br>
+						<img src="" id="ratingAvg" style="width: 200px;"> <span
+							style="font-weight: bold; font-size: 20px;">(${ratingAvg}
+							/ 5.0)</span><br> <br>
+					</div>
+
+					<div id="orderbyRecent">
+						<c:forEach var="review" items="${listOrderbyRecent}">
+							<div style="padding-left: 20px;">
+								${review.name} <br>
+								<c:if test="${review.rating == 1}">
+									<img src="/shop/resources/reviewImg/1.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								<c:if test="${review.rating == 2}">
+									<img src="/shop/resources/reviewImg/2.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								<c:if test="${review.rating == 3}">
+									<img src="/shop/resources/reviewImg/3.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								<c:if test="${review.rating == 4}">
+									<img src="/shop/resources/reviewImg/4.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								<c:if test="${review.rating == 5}">
+									<img src="/shop/resources/reviewImg/5.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								${review.date.substring(0, 10)}<br> ${review.product_name }<br>
+
+								<c:if test="${review.filepath != 'no_file' }">
+									<img src="/shop/resources/reviewImg/${review.filepath }"
+										style="width: 80px;">
+								</c:if>
+								<br> <span style="font-weight: bold;">${review.title }</span><br>
+								<span>${review.comment }</span><br> <img
+									src="/shop/resources/reviewImg/likebutton.png"
+									style="width: 30px;" onclick="likeup(${review.review_idx});">
+								<span id="likeCount_${review_idx }">${review.likecount }</span>
+
+							</div>
+							<hr>
+						</c:forEach>
+					</div>
+
+					<div id="orderbyLike">
+						<c:forEach var="review" items="${listOrderbyLike}">
+							<div style="padding-left: 20px;">
+								${review.name} <br>
+								<c:if test="${review.rating == 1}">
+									<img src="/shop/resources/reviewImg/1.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								<c:if test="${review.rating == 2}">
+									<img src="/shop/resources/reviewImg/2.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								<c:if test="${review.rating == 3}">
+									<img src="/shop/resources/reviewImg/3.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								<c:if test="${review.rating == 4}">
+									<img src="/shop/resources/reviewImg/4.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								<c:if test="${review.rating == 5}">
+									<img src="/shop/resources/reviewImg/5.png" id="rating"
+										style="width: 100px;">
+								</c:if>
+								${review.date.substring(0, 10)}<br> ${review.product_name }<br>
+
+								<c:if test="${review.filepath != 'no_file' }">
+									<img src="/shop/resources/reviewImg/${review.filepath }"
+										style="width: 80px;">
+								</c:if>
+								<br> <span style="font-weight: bold;">${review.title }</span><br>
+								<span>${review.comment }</span><br> <img
+									src="/shop/resources/reviewImg/likebutton.png"
+									style="width: 30px;" onclick="likeup(${review.review_idx});">
+								<span id="likeCount_${review_idx }">${review.likecount }</span>
+
+							</div>
+							<hr>
+						</c:forEach>
+					</div>
+				</c:if>
+
+				<c:if test="${ratingAvg == 'no_data'}">
+					<span style="text-align: center; margin: 0 auto;">등록된 리뷰가
+						없습니다.</span>
+				</c:if>
 			</div>
 
 			<div class="tab-view" id="tab-2" style="display: none;">상품문의 내용
@@ -274,6 +322,11 @@
 				내용</div>
 		</div>
 	</div>
+
+	<div id="loadingScreen"
+		style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.13); z-index: 1000;"></div>
+
+
 
 	<footer class="py-5 bg-dark">
 		<div class="container">
@@ -481,7 +534,37 @@
       }
    }
    
+   function listOrderbyLike(){
+       let loadingScreen = document.getElementById("loadingScreen");
+       loadingScreen.style.display = "block";
+
+         setTimeout(() => {
+             let orderbyLike = document.getElementById("orderbyLike");
+             let orderbyRecent = document.getElementById("orderbyRecent");
+
+             orderbyRecent.style.display = "none";
+             orderbyLike.style.display = "block";
+
+             loadingScreen.style.display = "none"; 
+         }, 200); 
+     }
+  
+  function listOrderbyRecent(){
+     let loadingScreen = document.getElementById("loadingScreen");
+     loadingScreen.style.display = "block";
+     
+     setTimeout(() => {
+        let orderbyLike=document.getElementById("orderbyLike");
+        let orderbyRecent=document.getElementById("orderbyRecent");
+        
+        orderbyRecent.style.display ="block";
+        orderbyLike.style.display ="none";
+        
+        loadingScreen.style.display = "none"; 
+     }, 200); 
+  }
+  
+   
    </script>
 </body>
 </html>
-

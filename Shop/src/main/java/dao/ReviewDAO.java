@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.ui.Model;
 
 import vo.ReviewVO;
 
@@ -34,5 +35,10 @@ public class ReviewDAO {
 		int count=sqlSession.selectOne("r.getLikeCount",review_idx);
 		return count;
 		
+	}
+	public List<ReviewVO> listbyLike(int product_idx){
+		List<ReviewVO> list=sqlSession.selectList("r.listbyLike",product_idx);
+		
+		return list;
 	}
 }
