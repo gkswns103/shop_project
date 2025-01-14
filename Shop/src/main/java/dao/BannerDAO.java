@@ -33,4 +33,9 @@ SqlSession sqlSession;
         return sqlSession.selectList("b.select_active");
     }
 	
+	public int update_banner(BannerVO vo) {
+	    return sqlSession.update("b.update", vo);
+	}
+
+	
 }

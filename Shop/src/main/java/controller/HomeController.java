@@ -68,6 +68,7 @@ public class HomeController {
 		List<ProductVO> list = product_dao.select_list();
 		model.addAttribute("list", list);
 		
+		//어드민에서 관리하는 헤더이미지 호출
 		List<BannerVO> banner_list = banner_dao.select_active_banners();
 	    model.addAttribute("banner_list", banner_list);
 		

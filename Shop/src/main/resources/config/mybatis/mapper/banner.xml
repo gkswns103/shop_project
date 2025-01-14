@@ -18,5 +18,13 @@
 	select * from banner where status = 'on'
 </select>
 
+<update id="update" parameterType="vo.BannerVO">
+    UPDATE banner
+    SET 
+        name = #{new_name},
+        explanation = #{new_explanation}
+        image = #{new_image}
+    WHERE banner_idx = #{banner_idx}
+</update>
 	
 </mapper>

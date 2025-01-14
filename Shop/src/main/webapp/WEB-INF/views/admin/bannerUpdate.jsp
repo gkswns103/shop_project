@@ -42,63 +42,6 @@
 .class td {
 	padding: 0 20px;
 }
-
-/* 기본 스위치 디자인 */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-}
-
-/* ON 상태 */
-.slider-on {
-    background-color: #2196F3;
-}
-
-.slider-on:before {
-    transform: translateX(26px);
-}
-
-/* OFF 상태 */
-.slider-off {
-    background-color: #f44336;
-}
-
-.slider-off:before {
-    transform: translateX(0);
-}
-
 </style>
 
 </head>
@@ -163,9 +106,9 @@
 				<div id="collapseBanner" class="collapse"
 					aria-labelledby="headingBanner" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/shop/admin/banner">배너설정</a>
-						<a class="collapse-item" href="/shop/admin/banner_update">배너수정</a>
-						 <a class="collapse-item" href="/shop/admin/banner_insert">배너추가</a>
+						<a class="collapse-item" href="/shop/admin/banner">배너설정</a> <a
+							class="collapse-item" href="/shop/admin/banner_update">배너수정</a> <a
+							class="collapse-item" href="/shop/admin/banner_insert">배너추가</a>
 					</div>
 				</div></li>
 
@@ -219,7 +162,9 @@
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
+									<h6 class="m-0 font-weight-bold text-primary">
+										배너
+									</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -229,28 +174,37 @@
 											<th>이름</th>
 											<th>배너 설명</th>
 											<th>이미지</th>
-											<th>경로</th>
-											<th>온오프</th>
+											<th>수정</th>
+											<th>삭제</th>
 										</tr>
 										<c:forEach var="banner" items="${list}">
-											<form id="form-${banner.banner_idx}" method="post">
-												<input type="hidden" name="banner_idx"
-													value="${banner.banner_idx}">
-												<tr align="center">
-													<td style="color: red;">${banner.banner_idx}</td>
-													<td>${banner.name}</td>
-													<td>${banner.explanation}</td>
-													<td>${banner.image}</td>
-													<td>${banner.filepath}</td>
-													<td>${banner.status}</td>
-													<td><label class="switch"> <input
-															type="checkbox" ${banner.status == 'on' ? 'checked' : 'off'}
-															onchange="toggleBanner(this, ${banner.banner_idx})">
-															<span
-															class="slider round ${banner.status == 'on' ? 'slider-on' : 'slider-off'}"></span>
-													</label></td>
-												</tr>
-											</form>
+
+											<input type="hidden" name="banner_idx"
+												value="${banner.banner_idx}">
+											<tr align="center">
+												<td style="color: red;">${banner.banner_idx}</td>
+												<td data-name="name" data-value="${banner.name}">${banner.name}</td>
+												<td data-name="explanation"
+													data-value="${banner.explanation}">${banner.explanation}</td>
+												<td data-name="image" data-value="${banner.image}">${banner.image}</td>
+												<td><input type="checkbox"
+													onchange="toggleDisplay(this)"></td>
+												<td><input type="button" value="삭제" onclick="delete();"></td>
+											</tr>
+											<tr class="hidden" align="right" style="display: none;">
+												<td colspan="4">
+													<form enctype="multipart/form-data">
+														<input type="hidden" name="banner_idx"
+															value="${banner.banner_idx}"> 
+														<input type="text" name="new_name" placeholder="이름" value="${banner.name }">
+														<input type="text" name="new_explanation" placeholder="설명" value="${banner.explanation}" >
+														<input type="file" name="new_image">
+														<input type="button" class="btn btn-primary" value="수정하기" onclick="update(this.form)">
+													</form>
+
+												</td>
+											</tr>
+
 
 										</c:forEach>
 									</table>
@@ -311,22 +265,55 @@
 				location.href = "/shop/"
 			}
 		}
-
-		function toggleBanner(checkbox, banner_idx) {
-		    const action = checkbox.checked ? 'on' : 'off';
-
-		    if (confirm('배너를 '+action+'으로 설정합니다.')) {
-		        const form = checkbox.form; // 현재 체크박스가 속한 폼 가져오기
-		        form.action = '/shop/banner_' + action; // 폼의 action 속성 설정
-		        form.method = 'post';
-		        form.submit(); // 폼 제출
-		    } else {
-		        // 상태 복구
-		        checkbox.checked = !checkbox.checked;
+		
+		function toggleDisplay(checkbox) {
+		    const row = checkbox.closest('tr'); // 현재 행을 찾습니다.
+		    if (!row) {
+		        console.error("Cannot find the row for the checkbox");
+		        return;
 		    }
+		    const hiddenRow = row.nextElementSibling; // 다음 행을 찾습니다.
+		    if (!hiddenRow || !hiddenRow.classList.contains('hidden')) {
+		        console.error("Cannot find the hidden row for the checkbox");
+		        return;
+		    }
+		    // 체크박스 상태에 따라 display 속성을 토글합니다.
+		    hiddenRow.style.display = checkbox.checked ? '' : 'none';
+		}
+		
+		function update(f) {
+		   let banner_idx = f.banner_idx.value;
+		   let new_name = f.new_name.value;
+		   let new_explanation = f.new_explanation.value;
+		   let new_image = f.new_image.value;
+		   
+		   if(new_name === ''){
+			   alert("이름을 입력하세요");
+			   return;
+		   }
+		   
+		   if(new_explanation === ''){
+			   alert("설명을 입력하세요");
+			   return;
+		   }
+		   
+		   if(new_image_name === ''){
+			   alert("사진이름을 입력하세요");
+			   return;
+		   }
+		   
+		   let image_test = /^.*\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg|jfif)$/i;
+
+			if (!image_test.test(f.image.value)) {
+				alert("이미지 파일만 업로드 가능합니다.");
+				return;
+			}
+		   
+		   f.action = "update_banner";
+		   f.submit();
 		}
 
-
+		
 	</script>
 
 </body>
