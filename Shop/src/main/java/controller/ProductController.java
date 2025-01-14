@@ -162,42 +162,48 @@ public class ProductController {
 		}
         return Common.Path.CUSTOMER_PATH + "product/productInsert.jsp?res=" + res;
     }
-    
-    @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
-    public String upload(Model model, ProductVO product, MultipartFile photo) {
-        String webPath = "/resources/img/"; // 상대경로
-        String savePath = application.getRealPath(webPath); // 절대경로
-        System.out.println(savePath);
 
-        String filename = "no_file";
-
-        if (!photo.isEmpty()) {
-            filename = photo.getOriginalFilename();
-            File saveFile = new File(savePath, filename);
-
-            if (!saveFile.exists()) {
-                saveFile.mkdirs();
-            } else {
-                // 동일한 이름의 파일이 존재하면 현재 업로드 시간을 붙여 중복 방지
-                long time = System.currentTimeMillis();
-                filename = String.format("%d_%s", time, filename);
-                saveFile = new File(savePath, filename);
-            }
-
-            // 파일을 절대 경로에 저장
-            try {
-                photo.transferTo(saveFile);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        product.setFilepath(filename);
-
-        int res = product_dao.new_Product(product);
-
-        return (res == 1) ? "redirect:/?res=" + res : "redirect:/registerForm?res=" + res;
-    }
+    @RequestMapping("/addproduct")
+	public String upload(Model model,ProductVO product, MultipartFile photo) {
+		String webPath = "/resources/img/"; //상대경로
+		String savePath = application.getRealPath(webPath); //절대경로
+		System.out.println(savePath);
+		//업로드를 위한 파일정보
+		String filename = "no_file";
+		
+		if( !photo.isEmpty() ) {
+			filename = photo.getOriginalFilename();
+			
+			//저장할 파일의 경로
+			File saveFile = new File(savePath,filename);
+			
+			if(!saveFile.exists()) {
+				saveFile.mkdirs();
+			}
+			else {
+				//동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
+				long time = System.currentTimeMillis();
+				filename = String.format("%d_%s",time,filename);
+				saveFile = new File(savePath,filename);
+			}
+			//파일을 절대 경로에 생성
+			try {
+				photo.transferTo(saveFile);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		product.setFilepath(filename);
+		
+		int res = product_dao.new_Product(product);
+		
+		if(res == 1)
+			return "redirect:/?res=" + res;
+		else
+			return "redirect:/registerForm?res=" + res;
+	}
     
     @RequestMapping("/product_search")
     public String product_search(String search, Model model) {
