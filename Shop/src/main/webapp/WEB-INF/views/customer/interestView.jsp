@@ -128,6 +128,7 @@
 						    <form method="post" action="javascript:void(0);" style="margin: 0;">
 							    <input type="hidden" name="interest_idx" value="${item.interest_idx}">
 							    <input type="hidden" name="user_idx" value="${item.user_idx}">
+							    <input type="hidden" name="user_idx" value="${item.user_idx}">
 							    <button type="button" onclick="del(${item.interest_idx}, ${item.user_idx});" style="background: none; border: none; cursor: pointer;">
 							        <img src="/shop/resources/images/02.jpg" alt="관심 삭제" style="width: 50px; height: 50px;">
 							    </button>

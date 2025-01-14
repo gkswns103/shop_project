@@ -27,6 +27,25 @@
 	rel="stylesheet">
 
 <style>
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+/* 자동 줄바꿈 및 정렬 개선 */
+td.product-description {
+    max-width: 400px;
+    min-width: 250px;
+    line-height: 1.5;
+    padding: 8px;
+    text-align: left;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+
 .class {
 	border-top: 1px solid #E6E6E6;
 	border-bottom: 1px solid #E6E6E6;

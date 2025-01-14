@@ -163,36 +163,35 @@ public class ProductController {
 
         String webPath = "/resources/img/";
         String savePath = application.getRealPath(webPath);
-
-        // 업로드 폴더가 없으면 생성
         File dir = new File(savePath);
+
         if (!dir.exists()) {
             dir.mkdirs();
-            System.out.println("📁 [INFO] 상세 설명 이미지 폴더 생성: " + savePath);
+            System.out.println("이미지 저장 폴더 생성: " + savePath);
         }
 
-        String filename = file.getOriginalFilename();
-        File saveFile = new File(savePath, filename);
+        //  파일명에서 특수 문자 제거 (공백 -> _, 한글 제거)
+        String originalFilename = file.getOriginalFilename();
+        String safeFilename = originalFilename.replaceAll("[^a-zA-Z0-9.-]", "_");
+        
+        // 중복 방지를 위해 타임스탬프 추가
+        long time = System.currentTimeMillis();
+        safeFilename = time + "_" + safeFilename;
 
-        // 동일한 파일명이 존재하면 중복 방지를 위해 타임스탬프 추가
-        if (saveFile.exists()) {
-            long time = System.currentTimeMillis();
-            filename = time + "_" + filename;
-            saveFile = new File(savePath, filename);
-        }
+        File saveFile = new File(savePath, safeFilename);
 
-        // 파일 저장
         try {
             file.transferTo(saveFile);
-            System.out.println(" [SUCCESS] 상세 설명 이미지 저장 완료: " + filename);
+            System.out.println("이미지 저장 완료: " + saveFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
             return "error: 업로드 실패";
         }
 
-        // 클라이언트(스마트 에디터)에 저장된 파일명 반환
-        return filename;
+        return "/resources/img/" + safeFilename;
     }
+
+
     
 }
 

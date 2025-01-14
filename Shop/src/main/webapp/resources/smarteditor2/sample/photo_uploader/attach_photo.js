@@ -332,12 +332,12 @@
      */
    function html5Upload() {	
     var tempFile, sUploadURL;
-   sUploadURL = "/shop/uploading"; // ✅ 이 경로가 서버와 일치하는지 확인
+   sUploadURL = "/shop/uploading"; // 이 경로가 서버와 일치하는지 확인
 
     for (var j = 0; j < nImageInfoCnt; j++) {
         tempFile = htImageInfo["img" + j];
         if (!!tempFile) {
-            console.log("📤 [DEBUG] 업로드 시작: " + tempFile.name);
+            console.log("업로드 시작: " + tempFile.name);
             callAjaxForHTML5(tempFile, sUploadURL);
         }
     }
@@ -346,28 +346,26 @@
     
 function callAjaxForHTML5(tempFile, sUploadURL) {
     var formData = new FormData();
-    formData.append("file", tempFile);  // ✅ 파일 추가
-
-    console.log("[DEBUG] 업로드 데이터 확인:", formData.get("file"));
+    formData.append("file", tempFile);
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", sUploadURL, true);
 
-    // 🚨 `Content-Type`을 설정하면 안 됨! (자동 설정됨)
-    // xhr.setRequestHeader("Content-Type", "multipart/form-data");  
-
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                console.log("[✅ DEBUG] 서버 응답:", xhr.responseText);
+                console.log("서버 응답:", xhr.responseText);
+                setPhotoToEditor([{ sFileName: xhr.responseText, sFileURL: "http://localhost:9090/shop" + xhr.responseText }]);
+
             } else {
-                console.log("[❌ ERROR] AJAX 요청 실패! 상태 코드:", xhr.status);
+                console.log("AJAX 요청 실패! 상태 코드:", xhr.status);
             }
         }
     };
 
     xhr.send(formData);
 }
+
 
 
     
@@ -476,7 +474,7 @@ function callAjaxForHTML5(tempFile, sUploadURL) {
  */
 function callFileUploader() {
     oFileUploader = new jindo.FileUploader(jindo.$("uploadInputBox"), {
-        sUrl : 'uploading',  // ✅ 변경: 컨텍스트 경로 포함
+        sUrl : 'uploading',  // 변경: 컨텍스트 경로 포함
         sCallback : location.href.replace(/[\/\[\]!*,$]/g, '') + '/callback.html',
         sFiletype : "*.jpg;*.png;*.bmp;*.gif",
         sMsgNotAllowedExt : "JPG, GIF, PNG, BMP 형식만 가능합니다.",
@@ -492,10 +490,10 @@ function callFileUploader() {
             }
         },
         success : function(oCustomEvent) {
-            console.log("✅ [SUCCESS] 파일 업로드 성공");
+            console.log("파일 업로드 성공");
         },
         error : function(oCustomEvent) {
-            console.log("❌ [ERROR] 파일 업로드 실패", oCustomEvent);
+            console.log("파일 업로드 실패", oCustomEvent);
         }
     });
 }
@@ -548,12 +546,22 @@ function callFileUploader() {
 		}
 	 * ]
 	 */
- 	function setPhotoToEditor(oFileInfo){
+function setPhotoToEditor(oFileInfo) {
     if (!!opener && !!opener.nhn && !!opener.nhn.husky && !!opener.nhn.husky.PopUpManager) {
-        var imgTag = "<img src='/resources/img/" + oFileInfo[0].sFileName + "' />";
+        var imgTag = "<img src='" + oFileInfo[0].sFileURL + "' />";
         opener.nhn.husky.PopUpManager.setCallback(window, 'PASTE_HTML', [imgTag]);
+        console.log("에디터에 이미지 삽입:", imgTag);
+
+        // 파일 업로드 후 일정 시간 후에 창 닫기 (비동기 문제 해결)
+        setTimeout(function () {
+            window.close();
+        }, 500);
+    } else {
+        alert("이미지가 정상적으로 삽입되었지만, 창을 수동으로 닫아주세요.");
     }
 }
+
+
 
  	
  	// 2012.05 현재] jindo.$Ajax.prototype.request에서 file과 form을 지원하지 안함. 

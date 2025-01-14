@@ -39,8 +39,9 @@
 	<jsp:include page="../header/header.jsp"></jsp:include>
 	<!-- 상품 등록 폼 -->
 	<div class="container mt-3">
+		<br>
 		<h1 class="display-5 text-center mb-5">상품 등록</h1>
-		
+		<hr><br><br>
 		<form action="addproduct" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="details" id="details"><!-- 스마트에디터2 -->
 		
@@ -87,7 +88,7 @@
 				</div>
 			</div>
 
-			<input type="hidden" name="selleridx" value="0">
+			<input type="hidden" name="selleridx" value="user_idx">
 
 			<div class="form-group row align-items-center mb-2">
 				<label class="col-sm-2 col-form-label">이미지</label>
@@ -129,9 +130,13 @@
 					<textarea name="details" id="smarteditor" style="width: 100%; height: 500px;"></textarea>
 				</div>
 			</div>
-				
+			<div>
+				<a style="color: red">※ 가로 글자는 (공백포함) 50자 내외로 작성하시길 바랍니다. </a>
+			</div>	
 			<!-- 버튼 -->
 			<div class="form-group text-center mb-3 mt-3">
+				<input type="button" class="btn btn-primary mt-5 mb-5" style="background: green; cursor: pointer;"
+					 onclick="previewDetails()" value="미리보기">	
 				<input type="button" class="btn btn-primary mt-5 mb-5"
 					onclick="send(this.form)" value="신청하기"> 
 				<input type="button" class="btn btn-secondary mt-5 mb-5" 
@@ -206,7 +211,7 @@
                 formData.append("file", files[0]);
 
                 $.ajax({
-                    url: '/uploading',  // ✅ Spring 컨트롤러로 요청
+                    url: '/uploading',  // Spring 컨트롤러로 요청
                     type: 'POST',
                     data: new FormData($('#uploadForm')[0]),
                     processData: false,
@@ -244,10 +249,7 @@
             alert("상품 재고 수량을 적어주세요");
             return;
         }
-        if (form.details.value == '') {
-            alert("상품 상세 설명을 입력해주세요");
-            return;
-        }
+
         if (form.photo.value == '') {
             alert("상품 이미지를 선택해주세요");
             return;
@@ -267,10 +269,69 @@
             alert("이미지 파일만 업로드 가능합니다.");
             return;
         }
+        
 
         // 최종적으로 form 제출
         form.submit();
     }
+    
+    function previewDetails() {
+        if (typeof oEditors === "undefined" || oEditors.length === 0) {
+            alert("📌 스마트 에디터가 로드되지 않았습니다. 페이지를 새로고침하세요.");
+            return;
+        }
+
+        try {
+            oEditors[0].exec("UPDATE_CONTENTS_FIELD", []);
+            var editorContent = oEditors[0].getIR().trim();
+        } catch (error) {
+            console.error("📌 [ERROR] 스마트 에디터 반영 실패: ", error);
+            alert("📌 스마트 에디터 데이터 반영 중 오류 발생!");
+            return;
+        }
+
+        if (editorContent === "") {
+            alert("📌 미리보기할 내용이 없습니다.");
+            return;
+        }
+
+        var previewWindow = window.open("", "미리보기", "width=1000,height=600,scrollbars=yes");
+        if (!previewWindow || previewWindow.closed || typeof previewWindow.closed === "undefined") {
+            alert("📌 팝업이 차단되었습니다. 브라우저 팝업 설정을 확인하세요.");
+            return;
+        }
+
+        previewWindow.document.write(`
+            <html>
+            <head>
+                <title>미리보기</title>
+                <style>
+                    body { font-family: Arial, sans-serif; padding: 20px; } 
+                    .content { max-width: 750px; margin: auto; white-space: pre-wrap; word-wrap: break-word; }
+                    img { max-width: 100%; height: auto; display: block; margin: 10px 0; }
+                    .content {
+                        max-width: none !important;  /* 너비 제한 해제 */
+                        display: inline-block !important;
+                        white-space: nowrap !important;
+                    }
+
+                </style>
+            </head>
+            <body>
+                <div class="content">
+                    <h2>미리보기</h2>
+                    <hr>
+                    <div id="previewContent"></div> <!-- editorContent를 innerHTML로 삽입할 공간 --> 
+                </div>
+            </body>
+            </html>
+        `);
+        previewWindow.document.close();
+
+        // ✅ HTML이 렌더링된 후 editorContent를 innerHTML로 추가 (HTML 태그 유지)
+        previewWindow.document.getElementById("previewContent").innerHTML = editorContent;
+    }
+
 </script>
 
 
