@@ -57,8 +57,7 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
+			<a class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="/shop/admin/admin_login">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
@@ -194,8 +193,8 @@
 														<input type="hidden" name="banner_idx"
 															value="${banner.banner_idx}" required> 
 														<input type="text" name="new_name" placeholder="이름" value="${banner.name}" required>
-														<input type="file" name="new_photo" required>
-														<input type="button" class="btn btn-primary" value="수정하기" onclick="update(this.form)">
+														<input type="file" name="new_image" accept="image/*" required>
+														<button type="submit" class="btn btn-primary">수정하기</button>
 													</form>
 
 												</td>
@@ -280,7 +279,7 @@
 		function update(f) {
 		   let banner_idx = f.banner_idx.value;
 		   let new_name = f.new_name.value;
-		   let new_photo = f.new_photo.value;
+		   let new_image = f.new_image.value;
 		   
 		   if(new_name === ''){
 			   alert("이름을 입력하세요");

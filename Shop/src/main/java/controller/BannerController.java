@@ -121,16 +121,20 @@ public String sale_banner(Model model, int banner_idx) {
 //배너 수정
 
 @RequestMapping("/admin/update_banner")
-public String update_banner(BannerVO vo, MultipartFile image ) {
-
+public String update_banner(int banner_idx, String new_name, MultipartFile new_image ) {
+	
+	if(new_image==null) {
+		System.out.println("사진을 못받는거임ㅋ");
+	}
+	
 	String webPath = "/resources/img/"; //상대경로
 	String savePath = application.getRealPath(webPath); //절대경로
 	System.out.println(savePath);
 	//업로드를 위한 파일정보
 	String filename = "no_file";
 	
-	if( !image.isEmpty() ) {
-		filename = image.getOriginalFilename();
+	if( !new_image.isEmpty() ) {
+		filename = new_image.getOriginalFilename();
 		
 		//저장할 파일의 경로
 		File saveFile = new File(savePath,filename);
@@ -146,13 +150,16 @@ public String update_banner(BannerVO vo, MultipartFile image ) {
 		}
 		//파일을 절대 경로에 생성
 		try {
-			image.transferTo(saveFile);
+			new_image.transferTo(saveFile);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+			BannerVO vo = new BannerVO();
 			vo.setImage(filename);
+			vo.setNew_name(new_name);
+			vo.setBanner_idx(banner_idx);
 	
 	        // DAO를 통해 배너 업데이트
 	        int res = banner_dao.update_banner(vo);
