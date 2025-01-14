@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -13,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.Common;
@@ -98,22 +94,23 @@ public String banner_on(int banner_idx) {
 //----------------------------------------------------------------------------
 //배너
 @RequestMapping("/banner")
-public String sale_banner(Model model, String filepath) {
-	List<ProductVO> list = null;
-	if(filepath.equals("sale_product")) {
-		list = product_dao.sale_product();
-		
-	}else if(filepath.equals("sale_pet")) {
-		list = product_dao.sale_pet();
-	}else if(filepath.equals("sale_christmas")) {
-		list = product_dao.sale_christmas();
-	}else if(filepath.equals("sale_it")) {
-		list = product_dao.sale_it();
-	}else if(filepath.equals("sale_newyear")) {
-		list = product_dao.sale_newyear();
-	}
-	model.addAttribute("list",list);
-	return Common.Path.CUSTOMER_PATH + "product/bannerSale.jsp";
+public String sale_banner(Model model, int banner_idx) {
+   List<ProductVO> list = null;
+   System.out.println(banner_idx);
+   if(banner_idx == 1) {
+      list = product_dao.sale_product();
+      
+   }else if(banner_idx == 2) {
+      list = product_dao.sale_pet();
+   }else if(banner_idx == 3) {
+      list = product_dao.sale_christmas();
+   }else if(banner_idx == 4) {
+      list = product_dao.sale_it();
+   }else if(banner_idx == 5) {
+      list = product_dao.sale_newyear();
+   }
+   model.addAttribute("list",list);
+   return Common.Path.CUSTOMER_PATH + "product/bannerSale.jsp";
 }
 //----------------------------------------------------------------------------
 //배너 이미지
@@ -123,47 +120,46 @@ public String sale_banner(Model model, String filepath) {
 //----------------------------------------------------------------------------
 //배너 수정
 
-@RequestMapping(value="/admin/update_banner")
-public String update_banner(BannerVO vo, MultipartFile newImage) {
-	
-	 
-	        // 이미지 업로드 경로 설정
-	        String uploadDir = "src/main/webapp/resources/img/";
-	        String savePath = application.getRealPath(uploadDir); //절대경로
-	        String imagename = "nofile";
-	        // 새 이미지 파일 처리
-	        if (!newImage.isEmpty()) {
-	            // 확장자 추출
-	        	imagename = newImage.getOriginalFilename();
-	           
-	        	//저장파일 경로
-	        	File saveImage = new File(savePath,imagename);
-	        	
-	        	if(!saveImage.exists()) {
-	        		saveImage.mkdirs();
-	        	}else {
-					//동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
-					long time = System.currentTimeMillis();
-				 imagename = String.format("%d_%s",time,imagename);
-					saveImage = new File(savePath,imagename);
-				}
-	        	try {
-					newImage.transferTo(saveImage);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	        	
-	        	vo.setFilepath(imagename);
+@RequestMapping("/admin/update_banner")
+public String update_banner(BannerVO vo, MultipartFile image ) {
 
+	String webPath = "/resources/img/"; //상대경로
+	String savePath = application.getRealPath(webPath); //절대경로
+	System.out.println(savePath);
+	//업로드를 위한 파일정보
+	String filename = "no_file";
+	
+	if( !image.isEmpty() ) {
+		filename = image.getOriginalFilename();
+		
+		//저장할 파일의 경로
+		File saveFile = new File(savePath,filename);
+		
+		if(!saveFile.exists()) {
+			saveFile.mkdirs();
+		}
+		else {
+			//동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
+			long time = System.currentTimeMillis();
+			filename = String.format("%d_%s",time,filename);
+			saveFile = new File(savePath,filename);
+		}
+		//파일을 절대 경로에 생성
+		try {
+			image.transferTo(saveFile);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+			vo.setImage(filename);
+	
 	        // DAO를 통해 배너 업데이트
 	        int res = banner_dao.update_banner(vo);
 	        if (res > 0) {
 	            System.out.println("배너 수정 성공");
 	        } else {
 	            System.out.println("배너 수정 실패");
-	        }
-	       
 	        }
 	        return "redirect:/admin/banner_update";
 	        }
