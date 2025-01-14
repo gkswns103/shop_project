@@ -18,4 +18,10 @@ public class ReviewLikeDAO {
 		
 		return res;
 	}
+	
+	public int check(ReviewLikeVO vo) {
+		int res=sqlSession.selectOne("rl.check",vo);
+		
+		return res;
+	}
 }

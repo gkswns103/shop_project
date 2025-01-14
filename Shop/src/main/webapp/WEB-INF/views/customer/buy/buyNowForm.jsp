@@ -148,27 +148,7 @@ input[type="checkbox"] {
     100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
 }
 </style>
-<script>
-	function purchase(f) {
 
-		let checkbox = document.getElementById('account_transfer');
-
-		let message = f.message.value.trim();
-		if (message == "") {
-			alert("배송메시지를 입력하세요");
-			return;
-		}
-		if (!checkbox.checked) {
-			alert("결제방법을 선택해주세요");
-			return;
-		}
-
-		alert("주문 완료");
-
-		f.action = "purchaseOne";
-		f.submit();
-	}
-</script>
 </head>
 <body>
 	<jsp:include page="../header/header.jsp"></jsp:include>
@@ -270,12 +250,12 @@ input[type="checkbox"] {
 					<th>결제방법</th>
 					<td>
 						<label>
-							<input name="checkbox" type="radio" value="계좌이체">계좌이체
+							<input id="account_transfer" name="checkbox" type="radio" value="계좌이체">계좌이체
 						</label>
-						<!-- 
+		
 						<label> 
 							<input name="checkbox" type="radio" value="토스">토스
-						</label>	 -->
+						</label>	
 					</td>
 						
 				</tr>
@@ -306,7 +286,6 @@ input[type="checkbox"] {
 	<script>
 		function purchase(f) {
 			let checkbox = document.getElementById('account_transfer');
-			alert(checkbox);
 			let deliverymessage = f.deliverymessage.value.trim();
 			if (deliverymessage == "") {
 				alert("배송메시지를 입력하세요");

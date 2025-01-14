@@ -13,6 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectList" parameterType="int" resultType="review">
 		select * from review where product_idx=#{product_idx} order by date desc;
 	</select>
+	<select id="listbyLike" parameterType="int" resultType="review">
+		select * from review where product_idx=#{product_idx} order by likeCount desc;
+	</select>
 	
 	<update id="updateLikeCount">
 	    UPDATE review r
