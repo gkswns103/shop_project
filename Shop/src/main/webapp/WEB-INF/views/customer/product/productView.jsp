@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Shop Home</title>
+<title>Want It</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon"
 	href="/shop/resources/img/favicon.ico" />
@@ -57,9 +57,27 @@
 										<!-- Product name-->
 										<h5 class="fw-bolder">${vo.name }</h5>
 										<!-- Product price-->
-										<fmt:formatNumber value="${vo.price}" type="number"
-											groupingUsed="true" />
-										원
+										<c:if test="${vo.discount ne 0}">
+											<!-- 할인이 있는경우 -->
+										${vo.discount}%
+										<del>
+												<fmt:formatNumber value="${vo.price}" type="number"
+													groupingUsed="true" />
+												원
+											</del>
+											<br>
+											<span style="color: red; font-weight: bold; font-size: 18px;">
+												<fmt:formatNumber
+													value="${vo.price - (vo.price * vo.discount / 100)}"
+													type="number" groupingUsed="true" maxFractionDigits="0"
+													minFractionDigits="0" />원
+											</span>
+										</c:if>
+										<c:if test="${vo.discount eq 0}">
+											<!-- 할인이 없는경우 -->
+											<span style="font-weight: bold; font-size: 18px;"><fmt:formatNumber
+													value="${vo.price}" type="number" groupingUsed="true" />원</span>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -80,9 +98,27 @@
 										<!-- Product name-->
 										<h5 class="fw-bolder">${vo.name }</h5>
 										<!-- Product price-->
-										<fmt:formatNumber value="${vo.price}" type="number"
-											groupingUsed="true" />
-										원
+										<c:if test="${vo.discount ne 0}">
+											<!-- 할인이 있는경우 -->
+										${vo.discount}%
+										<del>
+												<fmt:formatNumber value="${vo.price}" type="number"
+													groupingUsed="true" />
+												원
+											</del>
+											<br>
+											<span style="color: red; font-weight: bold; font-size: 18px;">
+												<fmt:formatNumber
+													value="${vo.price - (vo.price * vo.discount / 100)}"
+													type="number" groupingUsed="true" maxFractionDigits="0"
+													minFractionDigits="0" />원
+											</span>
+										</c:if>
+										<c:if test="${vo.discount eq 0}">
+											<!-- 할인이 없는경우 -->
+											<span style="font-weight: bold; font-size: 18px;"><fmt:formatNumber
+													value="${vo.price}" type="number" groupingUsed="true" />원</span>
+										</c:if>
 									</div>
 								</div>
 							</div>

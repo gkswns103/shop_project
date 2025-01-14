@@ -1,19 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Want It</title>
 <head>
 <link rel="icon" type="image/x-icon"
-   href="/shop/resources/img/favicon.ico" />
+	href="/shop/resources/img/favicon.ico" />
 <!-- Bootstrap icons-->
 <link
-   href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
-   rel="stylesheet" />
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <link href="/shop/resources/css/style1.css" rel="stylesheet" />
 <link href="/shop/resources/css/style2.css" rel="stylesheet" />
@@ -22,142 +22,273 @@
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
 <link href="/shop/resources/css/productDetail.css" rel="stylesheet" />
+<link href="/shop/resources/css/btnStyle.css" rel="stylesheet" />
+
+<style>
+.diagonal-strike {
+	display: inline-block;
+	position: relative;
+	font-size: 24px; /* 글자 크기 */
+	color: black;
+}
+
+.diagonal-strike::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-top: 1px solid red; /* 선의 색상과 두께 */
+	transform: rotate(-45deg); /* 대각선 방향 */
+	transform-origin: left top;
+	pointer-events: none; /* 클릭 불가능하게 설정 */
+}
+
+/* 테이블 스타일 */
+.styled-table {
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid #ccc; /* 테두리 색상 */
+	border-radius: 8px; /* 테두리 둥글게 */
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+	font-family: Arial, sans-serif;
+	background-color: #fdfdfd; /* 테이블 배경색 */
+}
+
+.styled-table td {
+	padding: 1px 6px; /* 테이블 셀 안쪽 간격 */
+	text-align: center;
+	font-size: 14px; /* 텍스트 크기 */
+	border: none; /* 셀 내부 테두리 제거 */
+}
+
+/* 입력 필드 스타일 */
+.styled-table input[type="text"] {
+	width: 60px;
+	height: 20px;
+	padding: 4px;
+	font-size: 14px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+/* 버튼 스타일 */
+.styled-table .amountBtn {
+	width: 25px;
+	height: 25px;
+	font-size: 12px;
+	background-color: #f5f5f5;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	cursor: pointer;
+	margin: 1px 0;
+	transition: all 0.3s ease;
+}
+
+.styled-table .amountBtn:hover {
+	background-color: #007bff;
+	color: white;
+	border-color: #007bff;
+}
+
+/* 수직 버튼 정렬 */
+.vertical-buttons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 컨테이너 스타일 */
+.styled-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	margin-top: 20px;
+}
+
+</style>
+
 </head>
 
 <body>
-   <jsp:include page="../header/header.jsp"></jsp:include>
+	<jsp:include page="../header/header.jsp"></jsp:include>
 
-   <input type="hidden" value=${vo.product_idx } name="product_idx">
-   <input type="hidden" value=${vo.selleridx } name="selleridx">
-   <input type="hidden" value=${vo.inventory } id="inventory">
+	<input type="hidden" value=${vo.product_idx } name="product_idx">
+	<input type="hidden" value=${vo.selleridx } name="selleridx">
+	<input type="hidden" value=${vo.inventory } id="inventory">
 
-   <div class="container1">
-      <div class="small1">
-         <a href="/shop/">홈</a> > <a
-            href="/shop/product?division=${vo.division}&category=">${vo.division}</a>
-         > <a
-            href="/shop/product?division=${vo.division}&category=${vo.category}">${vo.category}</a>
-         <br> <br> <img alt=""
-            src="/shop/resources/img/${vo.filepath }">
+	<div class="container1">
+		<div class="small1">
+			<a href="/shop/">홈</a> > <a
+				href="/shop/product?division=${vo.division}&category=">${vo.division}</a>
+			> <a
+				href="/shop/product?division=${vo.division}&category=${vo.category}">${vo.category}</a>
+			<br> <br> <img alt=""
+				src="/shop/resources/img/${vo.filepath }">
 
-      </div>
-          
-      <div class="small2">
-         <span style="font-weight: bold; font-size: 20px; margin-right: 10px;">${vo.name }</span>
-          <!-- 관심 상품 여부에 따라 이미지 변경 -->
-          <c:if test="${isInterest}">
-              <img id="productImage" src="/shop/resources/images/02.jpg" onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
-          </c:if>
-          <c:if test="${!isInterest}">
-              <img id="productImage" src="/shop/resources/images/01.jpg" onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
-          </c:if>
-         <hr>
-         ${vo.price }원 ( 할인율 : ${vo.discount }% )<br> 남은수량 :
-         ${vo.inventory }개
-         <hr>
-         배송비 : <br>
-         <hr>
+		</div>
 
-         ${vo.explain }
+		<div class="small2">
+			<span style="font-weight: bold; font-size: 20px; margin-right: 10px;">${vo.name }</span>
+			<!-- 관심 상품 여부에 따라 이미지 변경 -->
+			<c:if test="${isInterest}">
+				<img id="productImage" src="/shop/resources/images/02.jpg"
+					onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
+			</c:if>
+			<c:if test="${!isInterest}">
+				<img id="productImage" src="/shop/resources/images/01.jpg"
+					onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
+			</c:if>
+			<br> <img src="" id="ratingAvg" style="width: 120px;">
+			<hr>
+			<div class="mt-3 mb-3">
+				<c:if test="${vo.discount ne 0}">
+					<!-- 할인이 있는경우 -->
+					${vo.discount}%
+					<del>
+						<fmt:formatNumber value="${vo.price}" type="number"
+							groupingUsed="true" />
+						원
+					</del>
+					<br>
+					<span style="color: red; font-weight: bold; font-size: 25px;">
+						<fmt:formatNumber
+							value="${vo.price - (vo.price * vo.discount / 100)}"
+							type="number" groupingUsed="true" />원
+					</span>
+				</c:if>
+				<c:if test="${vo.discount eq 0}">
+					<!-- 할인이 없는경우 -->
+					<span style="color: red; font-weight: bold; font-size: 25px;"><fmt:formatNumber
+							value="${vo.price}" type="number" groupingUsed="true" />원</span>
+				</c:if>
+				<br> 남은수량 : ${vo.inventory }개
+			</div>
+			<hr>
+			<div class="explain mt-3 mb-3">
+				${vo.explain }
+			</div>
+			<div class="counter-container mt-4" style="display: flex;">
+				<div class="styled-container mt-5">
+					<table class="styled-table">
+						<tr>
+							<td><input id="amount" name="amount" type="text" value="1"
+								oninput="amountAlert()"></td>
+							<td class="vertical-buttons"><input type="button"
+								class="amountBtn" value="∧" id="increase" onclick="increase()">
+								<input type="button" class="amountBtn" value="∨" id="decrease"
+								onclick="decrease()"></td>
+						</tr>
+					</table>
+				</div>
+				<input type="button" class="btn cartAdd-button px-5 mt-5 ms-3"
+					value="장바구니 담기" onclick="cartAdd()"> <input type="button"
+					class="btn buyNodw-button px-5 mt-5 ms-3" value="바로 구매 > "
+					onclick="buyNow()">
+			</div>
 
-         <div class="counter-container">
-            <input id="amount" name="amount" value="1" onchange="amountAlert()">
 
-            <button id="decrease" onclick="decrease()">▼</button>
-            <button id="increase" onclick="increase()">▲</button>
-            <input type="button" value="장바구니 담기" onclick="cartAdd()"> 
-            <input type="button" value="바로 구매" onclick="buyNow()">
-            
-         </div>
-         
-      </div>
-      
-   </div>
-   
-   <div class="details-container">
-       <ul class="tab-menu">
-           <li onclick="showTab(0)" class="active">상품상세</li>
-           <li onclick="showTab(1)">상품평 (${count})</li>
-           <li onclick="showTab(2)">상품문의</li>
-           <li onclick="showTab(3)">교환/반품</li>
-       </ul>
-       
-       <div class="tab-content">
-           <div class="tab-view" id="tab-0">
-              상품 상세 내용
-           </div>
-           
-           <div class="tab-view" id="tab-1" style="display: none;">
-              
-              <div>
-              <input type="button" value="추천순">
-              <input type="button" value="최신순">
-              </div>
-              
-              <div style="padding-left: 20px;">
-                 <span style="font-weight: bold; font-size: 25px;">상품평</span> 
-                 <input type="button" value="상품평 쓰기 " onclick="purchaseList();" style="float: right;"> <br>
-                 <img src="" id="ratingAvg" style="width:200px;">
-                  <span style="font-weight: bold; font-size:20px;">(${ratingAvg} / 5.0)</span><br><br>
-              </div><hr>
-                
-              <c:forEach var="review" items="${reviewList}">
-                 <div style="padding-left: 20px;">
-                 ${review.name} <br>
-                 <c:if test="${review.rating == 1}">
-                   <img src="/shop/resources/reviewImg/1.png" id="rating" style="width:100px;">
-               </c:if>
-               <c:if test="${review.rating == 2}">
-                   <img src="/shop/resources/reviewImg/2.png" id="rating" style="width:100px;">
-               </c:if>
-               <c:if test="${review.rating == 3}">
-                   <img src="/shop/resources/reviewImg/3.png" id="rating" style="width:100px;">
-               </c:if>
-               <c:if test="${review.rating == 4}">
-                   <img src="/shop/resources/reviewImg/4.png" id="rating" style="width:100px;">
-               </c:if>
-               <c:if test="${review.rating == 5}">
-                   <img src="/shop/resources/reviewImg/5.png" id="rating" style="width:100px;">
-               </c:if>
-               
-               ${review.date.substring(0, 10)}<br>
-               ${review.product_name }<br>
-               
-                 <c:if test="${review.filepath != 'no_file' }">
-                        <img src="/shop/resources/reviewImg/${review.filepath }" style="width:80px;">
-                   </c:if> 
-                  
-                   <br>
-                  
-                 <span style="font-weight:bold;">${review.title }</span><br>
-                 <span>${review.comment }</span><br>
-                 <img src="/shop/resources/reviewImg/likebutton.png" style="width:30px;" onclick="likeup(${review.review_idx});">
-                 <span id="likeCount_${review_idx }">${review.likecount }</span>
-                 
-                 </div>
-                 <hr>
-              </c:forEach>
-           </div>
-           
-           <div class="tab-view" id="tab-2" style="display: none;">
-                상품문의 내용
-           </div>
-           <div class="tab-view" id="tab-3" style="display: none;">
-              교환/반품 내용
-           </div>
-       </div>
-   </div>
-   
-   <footer class="py-5 bg-dark">
-      <div class="container">
-          <p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
-         <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
-      </div>
-   </footer>
-   
-   <script src="/shop/resources/js/amount_counter.js"></script>
-   <script src="/shop/resources/js/httpRequest.js"></script>
-   <script>
+		</div>
+
+	</div>
+
+	<div class="details-container">
+		<ul class="tab-menu">
+			<li onclick="showTab(0)" class="active">상품상세</li>
+			<li onclick="showTab(1)">상품평 (${count})</li>
+			<li onclick="showTab(2)">상품문의</li>
+			<li onclick="showTab(3)">교환/반품</li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-view" id="tab-0">상품 상세 내용</div>
+
+			<div class="tab-view" id="tab-1" style="display: none;">
+
+				<div class="btn-content mb-3">
+					<input type="button" class="btn btn-outline-success" value="추천순"> <input type="button"
+						class="btn btn-outline-success" value="최신순">
+				</div>
+
+				<div style="padding-left: 20px;">
+					<span style="font-weight: bold; font-size: 25px;">상품평</span> <input
+						type="button" class="btn btn-outline-dark" value="상품평 쓰기 " onclick="purchaseList();"
+						style="float: right;"> <br> <img src=""
+						id="ratingAvg" style="width: 200px;"> <span
+						style="font-weight: bold; font-size: 20px;">(${ratingAvg} /
+						5.0)</span><br> <br>
+				</div>
+				<hr>
+
+				<c:forEach var="review" items="${reviewList}">
+					<div style="padding-left: 20px;">
+						${review.name} <br>
+						<c:if test="${review.rating == 1}">
+							<img src="/shop/resources/reviewImg/1.png" id="rating"
+								style="width: 100px;">
+						</c:if>
+						<c:if test="${review.rating == 2}">
+							<img src="/shop/resources/reviewImg/2.png" id="rating"
+								style="width: 100px;">
+						</c:if>
+						<c:if test="${review.rating == 3}">
+							<img src="/shop/resources/reviewImg/3.png" id="rating"
+								style="width: 100px;">
+						</c:if>
+						<c:if test="${review.rating == 4}">
+							<img src="/shop/resources/reviewImg/4.png" id="rating"
+								style="width: 100px;">
+						</c:if>
+						<c:if test="${review.rating == 5}">
+							<img src="/shop/resources/reviewImg/5.png" id="rating"
+								style="width: 100px;">
+						</c:if>
+
+						${review.date.substring(0, 10)}<br> ${review.product_name }<br>
+
+						<c:if test="${review.filepath != 'no_file' }">
+							<img src="/shop/resources/reviewImg/${review.filepath }"
+								style="width: 80px;">
+						</c:if>
+
+						<br> <span style="font-weight: bold;">${review.title }</span><br>
+						<span>${review.comment }</span><br> <img
+							src="/shop/resources/reviewImg/likebutton.png"
+							style="width: 30px;" onclick="likeup(${review.review_idx});">
+						<span id="likeCount_${review_idx }">${review.likecount }</span>
+
+					</div>
+					<hr>
+				</c:forEach>
+			</div>
+
+			<div class="tab-view" id="tab-2" style="display: none;">상품문의 내용
+			</div>
+			<div class="tab-view" id="tab-3" style="display: none;">교환/반품
+				내용</div>
+		</div>
+	</div>
+
+	<footer class="py-5 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터
+				: 010-3239-5204</p>
+			<p class="m-0 text-center text-white">
+				Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌
+				: 국민 852502-04-255054
+			</p>
+		</div>
+	</footer>
+
+	<script src="/shop/resources/js/amount_counter.js"></script>
+	<script src="/shop/resources/js/httpRequest.js"></script>
+	<script>
    
    function likeup(review_idx){
       if (${empty users}) {
@@ -180,10 +311,6 @@
 
        }
    }
-   
-   
-   
-
    
    window.onload=function(){
       let rating=document.getElementById("ratingAvg");
@@ -219,11 +346,19 @@
       
    }
 
-   
    function amountAlert() {
        let amountInput = document.getElementById("amount");
        let amount = parseInt(amountInput.value);
-
+		
+       var amount_check = /^[0-9]*$/;
+       
+       
+       
+       if(!amount_check.test(amount)){
+    	   amountInput.value = 1;
+    	   return;
+       } 
+       
        if (amount > 50) {
          alert("1회 구매한도는 최대 50개 입니다.");
          amountInput.value = 50;

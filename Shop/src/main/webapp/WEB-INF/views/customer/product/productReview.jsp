@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Want It 리뷰</title>
 		
 		<link rel="icon" type="image/x-icon" href="/shop/resources/img/favicon.ico" />
 		<!-- Bootstrap icons-->

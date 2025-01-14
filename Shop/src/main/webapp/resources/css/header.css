@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @charset "UTF-8";
 
 .container {
@@ -154,7 +153,6 @@
 }
 
 .btn-outline-dark {
->>>>>>> refs/remotes/origin/나성진3
     white-space: nowrap; /* 줄 바꿈 방지 */
 }
 .flex-container {
@@ -220,6 +218,3 @@ body {
     margin: 0;
     overflow-x: hidden; /* 가로 스크롤 방지 */
 }
-
-
->>>>>>> refs/remotes/origin/main
