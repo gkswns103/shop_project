@@ -9,5 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 values (#{user_idx} , #{review_idx})
 	</insert>
 	
+	<select id="check" parameterType="reviewLike" resultType="int">
+		select count(*) from reviewLike where user_idx=#{user_idx} and review_idx=#{review_idx}
+	</select>
 </mapper>
  

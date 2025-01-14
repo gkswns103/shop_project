@@ -201,10 +201,15 @@ input[type="checkbox"] {
 					</tr>
 					<tr>
 						<th>결제방법</th>
-						<td><label> <input name="checkbox" type="radio"
-								value="계좌이체">계좌이체
-						</label> <!--  <label><input name="checkbox" type="radio" value="토스">토스
-						</label> --></td>
+						<td>
+							<label> 
+								<input name="checkbox" type="radio" value="계좌이체">계좌이체
+							</label> 
+							
+							<label>
+								<input name="checkbox" type="radio" value="토스">토스
+							</label> 
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -224,6 +229,7 @@ input[type="checkbox"] {
 	</form>
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c7aefd977d4d59940d84d9223e46d62&libraries=services,clusterer,drawing"></script>
 
@@ -257,11 +263,17 @@ input[type="checkbox"] {
 			        let deliveryrequestField = document.getElementById("deliveryrequest");
 			            deliveryrequestField.value = deliveryrequest;
 			       
+			        if(f.checkbox.value=='계좌이체'){
 					alert("주문 완료");
 					 
 					f.action="purchase";
 					f.submit();
-				
+			        }
+					
+			        if(f.checkbox.value=='토스'){
+			        f.action="";
+			        f.submit();
+			        }
 			}
 			   
 	        function entryCheck(){

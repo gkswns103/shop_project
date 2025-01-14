@@ -25,6 +25,7 @@
 </head>
 
 <body>
+
 	<jsp:include page="../header/header.jsp"></jsp:include>
 
 	<input type="hidden" value=${vo.product_idx } name="product_idx">
@@ -50,7 +51,8 @@
 		    </c:if>
 		    <c:if test="${!isInterest}">
 		        <img id="productImage" src="/shop/resources/images/01.jpg" onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
-		    </c:if>
+		    </c:if> <br>
+		    <img src="" id="ratingAvg" style="width:120px;">
 			<hr>
 			${vo.price }원 ( 할인율 : ${vo.discount }% )<br> 남은수량 :
 			${vo.inventory }개
@@ -74,7 +76,7 @@
 		
 	</div>
 	
-	<div class="details-container">
+	<div class="details-container" >
 	    <ul class="tab-menu">
 	        <li onclick="showTab(0)" class="active">상품상세</li>
 	        <li onclick="showTab(1)">상품평 (${count})</li>
@@ -89,19 +91,23 @@
 	        
 	        <div class="tab-view" id="tab-1" style="display: none;">
 	        	
-	        	<div>
-	        	<input type="button" value="추천순">
-	        	<input type="button" value="최신순">
+        	<c:if test="${ratingAvg !='no_data'}">
+	        	<div class="details-container">
+	        		<ul class="tab-menu">
+			        	<li onclick="listOrderbyLike()">추천순</li>
+			        	<li onclick="listOrderbyRecent()">최신순</li>
+		        	</ul>
 	        	</div>
 	        	
 	        	<div style="padding-left: 20px;">
-		        	<span style="font-weight: bold; font-size: 25px;">상품평</span> 
+		        	<span style="font-weight: bold; font-size: 25px;">상품평</span>
 		        	<input type="button" value="상품평 쓰기 " onclick="purchaseList();" style="float: right;"> <br>
 	        		<img src="" id="ratingAvg" style="width:200px;">
 	        		 <span style="font-weight: bold; font-size:20px;">(${ratingAvg} / 5.0)</span><br><br>
-	        	</div><hr>
-	       		
-	        	<c:forEach var="review" items="${reviewList}">
+	        	</div>
+	       		 
+	       		<div id="orderbyRecent">
+	        	<c:forEach var="review" items="${listOrderbyRecent}">
 	        		<div style="padding-left: 20px;">
 	        		${review.name} <br>
 	        		<c:if test="${review.rating == 1}">
@@ -119,17 +125,14 @@
 					<c:if test="${review.rating == 5}">
 					    <img src="/shop/resources/reviewImg/5.png" id="rating" style="width:100px;">
 					</c:if>
-					
 					${review.date.substring(0, 10)}<br>
 					${review.product_name }<br>
 					
 	        		<c:if test="${review.filepath != 'no_file' }">
 	               		<img src="/shop/resources/reviewImg/${review.filepath }" style="width:80px;">
 	                </c:if> 
-	               
 	                <br>
-	               
-	        		<span style="font-weight:bold;">${review.title }</span><br>
+	            	<span style="font-weight:bold;">${review.title }</span><br>
 	        		<span>${review.comment }</span><br>
 	        		<img src="/shop/resources/reviewImg/likebutton.png" style="width:30px;" onclick="likeup(${review.review_idx});">
 	        		<span id="likeCount_${review_idx }">${review.likecount }</span>
@@ -137,6 +140,48 @@
 	        		</div>
 	        		<hr>
 	        	</c:forEach>
+	        	</div>
+	        	
+	        	<div id="orderbyLike">
+	        	<c:forEach var="review" items="${listOrderbyLike}">
+	        		<div style="padding-left: 20px;">
+	        		${review.name} <br>
+	        		<c:if test="${review.rating == 1}">
+    					<img src="/shop/resources/reviewImg/1.png" id="rating" style="width:100px;">
+					</c:if>
+					<c:if test="${review.rating == 2}">
+					    <img src="/shop/resources/reviewImg/2.png" id="rating" style="width:100px;">
+					</c:if>
+					<c:if test="${review.rating == 3}">
+					    <img src="/shop/resources/reviewImg/3.png" id="rating" style="width:100px;">
+					</c:if>
+					<c:if test="${review.rating == 4}">
+					    <img src="/shop/resources/reviewImg/4.png" id="rating" style="width:100px;">
+					</c:if>
+					<c:if test="${review.rating == 5}">
+					    <img src="/shop/resources/reviewImg/5.png" id="rating" style="width:100px;">
+					</c:if>
+					${review.date.substring(0, 10)}<br>
+					${review.product_name }<br>
+					
+	        		<c:if test="${review.filepath != 'no_file' }">
+	               		<img src="/shop/resources/reviewImg/${review.filepath }" style="width:80px;">
+	                </c:if> 
+	                <br>
+	            	<span style="font-weight:bold;">${review.title }</span><br>
+	        		<span>${review.comment }</span><br>
+	        		<img src="/shop/resources/reviewImg/likebutton.png" style="width:30px;" onclick="likeup(${review.review_idx});">
+	        		<span id="likeCount_${review_idx }">${review.likecount }</span>
+	        		
+	        		</div>
+	        		<hr>
+	        	</c:forEach>
+	        	</div>
+	        	</c:if>
+	        	
+	        	<c:if test="${ratingAvg == 'no_data'}">
+	        	<span style="text-align: center; margin:0 auto;">등록된 리뷰가 없습니다.</span>
+	        	</c:if>
 	        </div>
 	        
 	        <div class="tab-view" id="tab-2" style="display: none;">
@@ -154,11 +199,45 @@
          <p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
 		</div>
 	</footer>
+	<!-- 로딩 화면 -->
+	<div id="loadingScreen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.13); z-index: 1000;"></div>
 	
 	<script src="/shop/resources/js/amount_counter.js"></script>
 	<script src="/shop/resources/js/httpRequest.js"></script>
 	<script>
 	
+	function listOrderbyLike(){
+		  let loadingScreen = document.getElementById("loadingScreen");
+		  loadingScreen.style.display = "block";
+
+		    setTimeout(() => {
+		        let orderbyLike = document.getElementById("orderbyLike");
+		        let orderbyRecent = document.getElementById("orderbyRecent");
+
+		        orderbyRecent.style.display = "none";
+		        orderbyLike.style.display = "block";
+
+		        loadingScreen.style.display = "none"; 
+		    }, 200); 
+		}
+	
+	function listOrderbyRecent(){
+		let loadingScreen = document.getElementById("loadingScreen");
+		loadingScreen.style.display = "block";
+		
+		setTimeout(() => {
+			let orderbyLike=document.getElementById("orderbyLike");
+			let orderbyRecent=document.getElementById("orderbyRecent");
+			
+			orderbyRecent.style.display ="block";
+			orderbyLike.style.display ="none";
+			
+			loadingScreen.style.display = "none"; 
+		}, 200); 
+	}
+	
+	
+
 	function likeup(review_idx){
 		if (${empty users}) {
 	    	alert("로그인이 필요한 서비스입니다");
@@ -174,17 +253,12 @@
 	function likeupFn() {
 	    if (xhr.readyState == 4 && xhr.status == 200) {
 	        let data = xhr.responseText.trim();
-	        alert("추천되었습니다.");
-
-	         window.location.reload()
+	     	alert(data);
+	        window.location.reload()
 
 	    }
 	}
-	
-	
-	
 
-	
 	window.onload=function(){
 		let rating=document.getElementById("ratingAvg");
 		
@@ -250,6 +324,7 @@
 	}
 	
 	function showTab(index) {
+		
 	    let tabs = document.querySelectorAll(".tab-view");
 	    let menuItems = document.querySelectorAll(".tab-menu li");
 
@@ -263,7 +338,7 @@
 	    tabs[index].style.display = "block";
 	    menuItems[index].classList.add("active");
 	}
-	
+		
     
 	function toggleHeart() {
 	    if (${empty users}) {

@@ -60,7 +60,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/detail")
-	public String detailView(Model model, int product_idx, HttpSession session) {
+	public String detailView(Model model, int product_idx) {
 	    // 현재 상품 정보 가져오기
 	    ProductVO vo = product_dao.selectOne(product_idx);
 	    model.addAttribute("vo", vo);
@@ -81,9 +81,11 @@ public class ProductController {
 	        // 최대 크기 초과 시 가장 오래된 상품 제거
 	        viewedProducts.removeFirst();
 	    }
+	    
 	    viewedProducts.add(vo);
+	    
 	    // 세션에 업데이트된 리스트 저장
-	    session.setAttribute("viewedProducts", viewedProducts);
+
 	    UsersVO user = (UsersVO) session.getAttribute("users"); // 현재 로그인된 사용자 가져오기
 	       boolean isInterest = false; // 기본값: 관심 상품이 아님
 	       if (user != null) {
@@ -92,27 +94,33 @@ public class ProductController {
 	           interest.setProduct_idx(product_idx);
 	           isInterest = interest_dao.check_duplicate(interest); // DAO를 통해 중복 여부 확인
 	       }
-	       if(interest_dao !=null) {
-	       model.addAttribute("isInterest", isInterest); // 관심 여부를 뷰에 전달
-	       }
+	      
+	       List<ReviewVO> listOrderbyRecent = review_dao.selectList(product_idx);
+	       model.addAttribute("listOrderbyRecent", listOrderbyRecent);
+	       
+	       List<ReviewVO> listOrderbyLike =review_dao.listbyLike(product_idx);
+	       model.addAttribute("listOrderbyLike",listOrderbyLike);
 	       
 	       //리뷰 좋아요 갯수 갱신
 	       review_dao.updateLikeCount();
 	       
-	       List<ReviewVO> list=review_dao.selectList(product_idx);
-	       model.addAttribute("reviewList",list);
-	       
 	       float ratingAvg=0f;
-	       for(int i=0;i<list.size();i++) {
-	    	   ratingAvg+=list.get(i).getRating();
+	       for(int i=0;i<listOrderbyRecent.size();i++) {
+	    	   ratingAvg+=listOrderbyRecent.get(i).getRating();
 	       }
-	       ratingAvg=ratingAvg/list.size();
-	       DecimalFormat df = new DecimalFormat("#.0");
-	        String formattedNumber = df.format(ratingAvg);
-	       model.addAttribute("ratingAvg",formattedNumber);
-	       model.addAttribute("count",list.size());
+	       if(ratingAvg == 0) {
+	    	   model.addAttribute("ratingAvg","no_data");
+	       }else {
+	    	   DecimalFormat df = new DecimalFormat("#.0");
+	    	   String formattedNumber = df.format(ratingAvg);
+	    	   model.addAttribute("ratingAvg",formattedNumber);
+	    	   ratingAvg=ratingAvg/listOrderbyRecent.size();
+	       }
+	      
+	       model.addAttribute("count",listOrderbyRecent.size());
+	       model.addAttribute("isInterest", isInterest); // 관심 여부를 뷰에 전달
 	       
-	       
+	  
 	    // 상세 페이지로 이동
 	    return Common.Path.CUSTOMER_PATH + "product/productDetail.jsp";
 	}

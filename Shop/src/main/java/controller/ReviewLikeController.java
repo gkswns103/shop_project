@@ -29,9 +29,15 @@ public class ReviewLikeController {
 	@RequestMapping(value="likeup" ,produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String likeup(ReviewLikeVO vo) {
-		session.removeAttribute("reviewIdx");
- 
-	int res=reviewLike_dao.likeup(vo);
+	session.removeAttribute("reviewIdx");
+
+	int res=reviewLike_dao.check(vo); 
+	if(res>=1) {
+	 return "이미 추천을눌렀습니다."; 
+	}
+	 
+	//추천수 증가
+	res=reviewLike_dao.likeup(vo);
 	
 	//갱신
 	review_dao.updateLikeCount();
@@ -40,7 +46,7 @@ public class ReviewLikeController {
     int review_count=review_dao.getLikeCount(vo.getReview_idx());
     session.setAttribute("reviewIdx", vo.getReview_idx());
 	
-		return review_count+"";
+		return "추천을 눌렀습니다.";
 	}
 	
 

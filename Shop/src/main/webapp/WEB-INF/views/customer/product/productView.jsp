@@ -29,14 +29,8 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
-<<<<<<< HEAD
-
-=======
 <link href="/shop/resources/css/header.css" rel="stylesheet" />
->>>>>>> refs/remotes/origin/main
-<style>
 
-</style>
 </head>
 <body>
 <header>
@@ -94,7 +88,6 @@
 			</div>
 		</div>
 	</section>
-	<!-- Footer-->
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
 		<div class="container">

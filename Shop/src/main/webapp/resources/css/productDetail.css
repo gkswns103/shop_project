@@ -102,22 +102,11 @@ input[name="amount"] {
     border: 1px solid #ccc;
     background: #fff;
 }
-.tab-view{
-	/* height:600px; */
-}
 
-/* .container1 {
-    position: relative; 부모 요소에 상대적인 위치 지정
+#orderbyLike {
+	display:none;
+	
 }
-
-#productImage {
-    position: absolute; 절대 위치 지정
-    top: 10px;          상단에서 10px 떨어지게
-    right: 700px;        오른쪽에서 10px 떨어지게
-    z-index: 10;        다른 요소보다 위에 표시되도록
-    width:40px;
-}
- */
 
 
 
