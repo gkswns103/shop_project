@@ -171,8 +171,7 @@
 									<table class="table">
 										<tr align="center">
 											<th>배너번호</th>
-											<th>이름</th>
-											<th>배너 설명</th>
+											<th>이름</th>	
 											<th>이미지</th>
 											<th>수정</th>
 											<th>삭제</th>
@@ -184,8 +183,6 @@
 											<tr align="center">
 												<td style="color: red;">${banner.banner_idx}</td>
 												<td data-name="name" data-value="${banner.name}">${banner.name}</td>
-												<td data-name="explanation"
-													data-value="${banner.explanation}">${banner.explanation}</td>
 												<td data-name="image" data-value="${banner.image}">${banner.image}</td>
 												<td><input type="checkbox"
 													onchange="toggleDisplay(this)"></td>
@@ -193,12 +190,11 @@
 											</tr>
 											<tr class="hidden" align="right" style="display: none;">
 												<td colspan="4">
-													<form enctype="multipart/form-data">
+													<form action="update_banner" method="post" enctype="multipart/form-data">
 														<input type="hidden" name="banner_idx"
-															value="${banner.banner_idx}"> 
-														<input type="text" name="new_name" placeholder="이름" value="${banner.name }">
-														<input type="text" name="new_explanation" placeholder="설명" value="${banner.explanation}" >
-														<input type="file" name="new_image">
+															value="${banner.banner_idx}" required> 
+														<input type="text" name="new_name" placeholder="이름" value="${banner.name}" required>
+														<input type="file" name="new_photo" required>
 														<input type="button" class="btn btn-primary" value="수정하기" onclick="update(this.form)">
 													</form>
 
@@ -284,32 +280,19 @@
 		function update(f) {
 		   let banner_idx = f.banner_idx.value;
 		   let new_name = f.new_name.value;
-		   let new_explanation = f.new_explanation.value;
-		   let new_image = f.new_image.value;
+		   let new_photo = f.new_photo.value;
 		   
 		   if(new_name === ''){
 			   alert("이름을 입력하세요");
 			   return;
 		   }
 		   
-		   if(new_explanation === ''){
-			   alert("설명을 입력하세요");
-			   return;
-		   }
-		   
-		   if(new_image_name === ''){
-			   alert("사진이름을 입력하세요");
-			   return;
-		   }
-		   
 		   let image_test = /^.*\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg|jfif)$/i;
 
-			if (!image_test.test(f.image.value)) {
+			if (!image_test.test(f.new_photo.value)) {
 				alert("이미지 파일만 업로드 가능합니다.");
 				return;
 			}
-		   
-		   f.action = "update_banner";
 		   f.submit();
 		}
 

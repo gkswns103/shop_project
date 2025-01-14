@@ -107,7 +107,7 @@ public class ProductController {
     }
     
     @RequestMapping("/addproduct")
-	public String upload(Model model,ProductVO product,MultipartFile photo) {
+	public String upload(Model model,ProductVO product, MultipartFile photo) {
 		String webPath = "/resources/img/"; //상대경로
 		String savePath = application.getRealPath(webPath); //절대경로
 		System.out.println(savePath);

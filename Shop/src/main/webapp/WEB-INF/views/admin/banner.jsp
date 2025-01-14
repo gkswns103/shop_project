@@ -226,10 +226,8 @@
 									<table class="table">
 										<tr align="center">
 											<th>배너번호</th>
-											<th>이름</th>
-											<th>배너 설명</th>
+											<th>이름</th>							
 											<th>이미지</th>
-											<th>경로</th>
 											<th>온오프</th>
 										</tr>
 										<c:forEach var="banner" items="${list}">
@@ -238,10 +236,8 @@
 													value="${banner.banner_idx}">
 												<tr align="center">
 													<td style="color: red;">${banner.banner_idx}</td>
-													<td>${banner.name}</td>
-													<td>${banner.explanation}</td>
-													<td>${banner.image}</td>
-													<td>${banner.filepath}</td>
+													<td>${banner.name}</td>													
+													<td>${banner.image}</td>												
 													<td>${banner.status}</td>
 													<td><label class="switch"> <input
 															type="checkbox" ${banner.status == 'on' ? 'checked' : 'off'}
