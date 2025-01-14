@@ -37,7 +37,6 @@
 	href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&display=swap"
 	rel="stylesheet">
 
-
 <style>
 /* 헤더 고정 */
 header {

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	
 
 <!DOCTYPE html>
 <html>
@@ -118,13 +120,14 @@
 							 alt="${item.name}" 
 							 onclick="location.href='/shop/detail?product_idx=${item.product_idx}'"><br>
 						${item.name}<br>
-						${item.price}원<br>
+						  <fmt:formatNumber value="${item.price}" type="number" groupingUsed="true" />원<br>
 						<span style="color: red;">${item.discount}%</span><br> 
 						
 						<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
 						    <!-- 관심 상품 삭제 -->
 						    <form method="post" action="javascript:void(0);" style="margin: 0;">
 							    <input type="hidden" name="interest_idx" value="${item.interest_idx}">
+							    <input type="hidden" name="user_idx" value="${item.user_idx}">
 							    <input type="hidden" name="user_idx" value="${item.user_idx}">
 							    <button type="button" onclick="del(${item.interest_idx}, ${item.user_idx});" style="background: none; border: none; cursor: pointer;">
 							        <img src="/shop/resources/images/02.jpg" alt="관심 삭제" style="width: 50px; height: 50px;">

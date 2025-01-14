@@ -27,6 +27,25 @@
 	rel="stylesheet">
 
 <style>
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+/* 자동 줄바꿈 및 정렬 개선 */
+td.product-description {
+    max-width: 400px;
+    min-width: 250px;
+    line-height: 1.5;
+    padding: 8px;
+    text-align: left;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+
 .class {
 	border-top: 1px solid #E6E6E6;
 	border-bottom: 1px solid #E6E6E6;
@@ -177,10 +196,16 @@
 													<td>${product.filepath}</td>
 													<td>${product.category}</td>
 													<td>${product.division}</td>
+													<c:set var="safeDetails">
+													    <c:out value="${product.details}" escapeXml="true" />
+													</c:set>
+													<td>
+													    <a href="#" onclick="openDetails('${product.name}'); return false;" data-details="${safeDetails}">내용 확인</a>
+													</td>
 													<td>
 													<input type="button" style="top:auto;"
 														class="btn btn-danger rounded" value="상품 삭제"
-														onclick="delete_product(${product.product_idx});"></td>
+														onclick="delete_product(${product.product_idx});"></td> 
 												</tr>
 											</c:forEach>
 										</table>
@@ -250,6 +275,24 @@
 
 			location.href = "delete_product?product_idx=" + product_idx;
 		}
+		
+		function openDetails(name) {
+		    // a 태그에서 data-details 속성을 가져옴
+		    const details = event.target.getAttribute("data-details");
+
+		    // 특수문자 및 개행 처리
+		    const formattedDetails = details.replace(/\n/g, '<br>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+
+		    const detailWindow = window.open("", "_blank", "width=600,height=400,scrollbars=yes");
+		    detailWindow.document.write("<html><head><title>상품 세부 설명</title></head><body>");
+		    detailWindow.document.write("<h2>상품 세부 설명</h2>");
+		    detailWindow.document.write("<p><strong>상품 이름:</strong> " + name + "</p>");
+		    detailWindow.document.write("<p><strong>설명:</strong><br>" + formattedDetails + "</p>");
+		    detailWindow.document.write("</body></html>");
+		    detailWindow.document.close();
+		}
+		
+		
 	</script>
 
 </body>

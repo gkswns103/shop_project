@@ -4,10 +4,14 @@ import java.util.Objects;
 
 public class ProductVO {
 	private int product_idx,price,discount,inventory,selleridx,realprice;
-	private String name,explain,filepath,category,division;
+	private String name,explain,filepath,category,division ,details;
 	
-	  
-	
+	public String getDetails() {
+		return details;
+	}
+	public void setDetails(String details) {
+		this.details = details;
+	}
 	public int getRealprice() {
 		 return (int) (price * (1 - discount / 100.0)); 
 	}
