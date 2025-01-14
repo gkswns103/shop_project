@@ -1,26 +1,20 @@
 package controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.Common;
@@ -33,6 +27,7 @@ import vo.InterestVO;
 import vo.ProductVO;
 import vo.ReviewVO;
 import vo.UsersVO;
+
 
 @Controller
 public class ProductController {
@@ -168,47 +163,41 @@ public class ProductController {
         return Common.Path.CUSTOMER_PATH + "product/productInsert.jsp?res=" + res;
     }
     
-    @RequestMapping("/addproduct")
-	public String upload(Model model,ProductVO product,MultipartFile photo) {
-		String webPath = "/resources/img/"; //상대경로
-		String savePath = application.getRealPath(webPath); //절대경로
-		System.out.println("절대경로 : "+savePath);
-		//업로드를 위한 파일정보
-		String filename = "no_file";
-		
-		if( !photo.isEmpty() ) {
-			filename = photo.getOriginalFilename();
-			
-			//저장할 파일의 경로
-			File saveFile = new File(savePath,filename);
-			
-			if(!saveFile.exists()) {
-				saveFile.mkdirs();
-			}
-			else {
-				//동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
-				long time = System.currentTimeMillis();
-				filename = String.format("%d_%s",time,filename);
-				saveFile = new File(savePath,filename);
-			}
-			//파일을 절대 경로에 생성
-			try {
-				photo.transferTo(saveFile);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		product.setFilepath(filename);
-		
-		int res = product_dao.new_Product(product);
-		
-		if(res == 1)
-			return "redirect:/?res=" + res;
-		else
-			return "redirect:/registerForm?res=" + res;
-	}
+    @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
+    public String upload(Model model, ProductVO product, MultipartFile photo) {
+        String webPath = "/resources/img/"; // 상대경로
+        String savePath = application.getRealPath(webPath); // 절대경로
+        System.out.println(savePath);
+
+        String filename = "no_file";
+
+        if (!photo.isEmpty()) {
+            filename = photo.getOriginalFilename();
+            File saveFile = new File(savePath, filename);
+
+            if (!saveFile.exists()) {
+                saveFile.mkdirs();
+            } else {
+                // 동일한 이름의 파일이 존재하면 현재 업로드 시간을 붙여 중복 방지
+                long time = System.currentTimeMillis();
+                filename = String.format("%d_%s", time, filename);
+                saveFile = new File(savePath, filename);
+            }
+
+            // 파일을 절대 경로에 저장
+            try {
+                photo.transferTo(saveFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        product.setFilepath(filename);
+
+        int res = product_dao.new_Product(product);
+
+        return (res == 1) ? "redirect:/?res=" + res : "redirect:/registerForm?res=" + res;
+    }
     
     @RequestMapping("/product_search")
     public String product_search(String search, Model model) {
@@ -254,4 +243,42 @@ public class ProductController {
     	model.addAttribute("list",list);
     	return Common.Path.CUSTOMER_PATH + "product/sale_newyear.jsp";
     }
+    
+    @RequestMapping(value = "/uploading", method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadEditorImage(@RequestParam("file") MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return "error: 파일이 없습니다.";
+        }
+
+        String webPath = "/resources/img/";
+        String savePath = application.getRealPath(webPath);
+        File dir = new File(savePath);
+
+        if (!dir.exists()) {
+            dir.mkdirs();
+            System.out.println("이미지 저장 폴더 생성: " + savePath);
+        }
+
+        //  파일명에서 특수 문자 제거 (공백 -> _, 한글 제거)
+        String originalFilename = file.getOriginalFilename();
+        String safeFilename = originalFilename.replaceAll("[^a-zA-Z0-9.-]", "_");
+        
+        // 중복 방지를 위해 타임스탬프 추가
+        long time = System.currentTimeMillis();
+        safeFilename = time + "_" + safeFilename;
+
+        File saveFile = new File(savePath, safeFilename);
+
+        try {
+            file.transferTo(saveFile);
+            System.out.println("이미지 저장 완료: " + saveFile.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error: 업로드 실패";
+        }
+
+        return "/resources/img/" + safeFilename;
+    }
+
 }
