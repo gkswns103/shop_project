@@ -63,8 +63,8 @@
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">
-						<input type="button" class="login100-form-btn" value="로그인"
-							onclick="send(this.form)" />
+						<button type="button" class="login100-form-btn"
+							onclick="send(this.form)">로그인</button>
 					</div>
 
 					<div class="container-login100-form-btn m-t-17">

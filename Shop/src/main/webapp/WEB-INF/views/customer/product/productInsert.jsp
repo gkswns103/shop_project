@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 등록</title>
+<title>Want It 상품 신청</title>
 <link rel="icon" type="image/x-icon"
 	href="/shop/resources/img/favicon.ico" />
 <link
@@ -17,9 +17,6 @@
 <link href="/shop/resources/css/style4.css" rel="stylesheet" />
 <link href="/shop/resources/css/style5.css" rel="stylesheet" />
 <link href="/shop/resources/css/style6.css" rel="stylesheet" />
-<script src="/shop/resources/js/amount_counter.js"></script>
-<script src="/shop/resources/js/httpRequest.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
 .custom-file-input::-webkit-file-upload-button {
@@ -40,7 +37,7 @@
 	<div class="container mt-3">
 		<h1 class="display-5 text-center mb-5">상품 등록</h1>
 
-		<form action="addproduct" method="post" enctype="multipart/form-data">
+		<form enctype="multipart/form-data">
 			<div class="form-group row mb-2">
 				<label for="name" class="col-sm-2 col-form-label">상품명</label>
 				<div class="col-sm-8">
@@ -88,13 +85,8 @@
 
 			<div class="form-group row align-items-center mb-2">
 				<label class="col-sm-2 col-form-label">이미지</label>
-				<div class="col-sm-8" >
-
-<<<<<<< HEAD
-					<div class="d-flex mb-3 mt-3 ms-3" > 
-=======
+				<div class="col-sm-8">
 					<div class="d-flex mb-3 mt-3 ms-3">
->>>>>>> refs/remotes/origin/나성진3
 						<input type="file" name="photo" class="custom-file-input"
 							style="background-color: #f0f0f0; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
 					</div>
@@ -127,8 +119,9 @@
 			<!-- 버튼 -->
 			<div class="form-group text-center mb-3 mt-3">
 				<input type="button" class="btn btn-primary mt-5 mb-5"
-					onclick="send(this.form)" value="신청하기"> <input type="button"
-					class="btn btn-secondary mt-5 mb-5" onclick="history.back()" value="취소">
+					onclick="send(this.form)" value="신청하기"> <input
+					type="button" class="btn btn-secondary mt-5 mb-5"
+					onclick="history.back()" value="취소">
 			</div>
 		</form>
 
@@ -139,44 +132,50 @@
 				Website 2023</p>
 		</div>
 	</footer>
+
+	<script src="/shop/resources/js/amount_counter.js"></script>
+	<script src="/shop/resources/js/httpRequest.js"></script>
+	<script src="/shop/resources/smarteditor2/js/HuskyEZCreator.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-	    // Division에 따라 Category 데이터를 준비
-	    const categoryData = {
-	        의류: ["남성", "여성", "유아","잠옷","속옷","신발"],
-	        식품: ["육류", "채소", "해산물","조미료"],
-	        전자: ["TV", "냉장고", "세탁기", "건조기", "청소기", "PC", "휴대폰"],
-	        인테리어: ["디퓨저", "침구류", "커튼", "조명", "생활용품", "욕실용품", "가구", "원예", "셀프인테리어"],
-	        유아: ["생필품", "완구", "가구", "식품"],
-	        취미: ["스포츠", "헬스", "용품", "자전거", "낚시"],
-	        반려동물: ["반려식품", "반려용품", "반려의류"],
-	        생활용품: ["생활", "주방", "청소", "빨래"],
-	        뷰티: ["화장품", "스킨케어", "향수"]
-	    };
 	
-	    // Division 변경 시 Category 옵션 업데이트
-	    document.getElementById("division").addEventListener("change", function () {
-	        const selectedDivision = this.value; // 선택한 Division 값
-	        const categorySelect = document.getElementById("category");
-	
-	        // 기존 옵션 초기화
-	        categorySelect.innerHTML = '<option value="">::: 선택하세요 :::</option>';
-	
-	        // 선택된 Division에 해당하는 Category 추가
-	        if (selectedDivision && categoryData[selectedDivision]) {
-	            categoryData[selectedDivision].forEach(category => {
-	                const option = document.createElement("option");
-	                option.value = category;
-	                option.textContent = category;
-	                categorySelect.appendChild(option);
-	            });
-	        }
-	    });
-		
 		window.onload = function() {
 			var res = '${param.res}';
 			if (res != null && res != '') {
 				alert("상품 신청 완료");
 			}
+			
+		    // Division에 따라 Category 데이터를 준비
+		    const categoryData = {
+		        의류: ["남성", "여성", "유아","잠옷","속옷","신발"],
+		        식품: ["육류", "채소", "해산물","조미료"],
+		        전자: ["TV", "냉장고", "세탁기", "건조기", "청소기", "PC", "휴대폰"],
+		        인테리어: ["디퓨저", "침구류", "커튼", "조명", "생활용품", "욕실용품", "가구", "원예", "셀프인테리어"],
+		        유아: ["생필품", "완구", "가구", "식품"],
+		        취미: ["스포츠", "헬스", "용품", "자전거", "낚시"],
+		        반려동물: ["반려식품", "반려용품", "반려의류"],
+		        생활용품: ["생활", "주방", "청소", "빨래"],
+		        뷰티: ["화장품", "스킨케어", "향수"]
+		    };
+		
+		    // Division 변경 시 Category 옵션 업데이트
+		    document.getElementById("division").addEventListener("change", function () {
+		        const selectedDivision = this.value; // 선택한 Division 값
+		        const categorySelect = document.getElementById("category");
+		
+		        // 기존 옵션 초기화
+		        categorySelect.innerHTML = '<option value="">::: 선택하세요 :::</option>';
+		
+		        // 선택된 Division에 해당하는 Category 추가
+		        if (selectedDivision && categoryData[selectedDivision]) {
+		            categoryData[selectedDivision].forEach(category => {
+		                const option = document.createElement("option");
+		                option.value = category;
+		                option.textContent = category;
+		                categorySelect.appendChild(option);
+		            });
+		        }
+		    });
 		}
 
 		function send(f) {
@@ -226,7 +225,9 @@
 				alert("이미지 파일만 업로드 가능합니다.");
 				return;
 			}
-
+			
+			f.action="addproduct";
+			f.method="post";
 			f.submit();
 		}
 	</script>

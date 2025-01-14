@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Want It 주문</title>
 <link rel="icon" type="image/x-icon"
 	href="/shop/resources/img/favicon.ico" />
 <!-- Bootstrap icons-->
@@ -44,14 +44,14 @@
 	margin-bottom: 20px;
 	margin-top: 10px;
 	border-collapse: collapse;
-	width: 80%
+	width: 100%
 }
 
 .buyList {
 	border-top: 3px solid #dbdbdb;
 	border-bottom: 3px solid #dbdbdb;
 	border-collapse: collapse;
-	width: 80%;
+	width: 100%;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
@@ -85,15 +85,68 @@ input[type="checkbox"] {
 	text-align: center;
 }
 
-.pay {
-	width: 200px;
-	height: 50px;
-	margin-left: 400px;
-}
-
 #entryNum {
 	display: none;
 }
+
+.custom-btn {
+  width: 170px;
+  height: 50px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+.btn-11 {
+  border: none;
+  background: #454685;
+    background: linear-gradient(0deg, #454685 0%, #454685 100%);
+    color: #fff;
+    overflow: hidden;
+}
+.btn-11:hover {
+    text-decoration: none;
+    color: #fff;
+}
+.btn-11:before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: shiny-btn1 3s ease-in-out infinite;
+}
+.btn-11:hover{
+  opacity: .7;
+}
+.btn-11:active{
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
+
+@-webkit-keyframes shiny-btn1 {
+    0% { -webkit-transform: scale(0) rotate(45deg); opacity: 0; }
+    80% { -webkit-transform: scale(0) rotate(45deg); opacity: 0.5; }
+    81% { -webkit-transform: scale(4) rotate(45deg); opacity: 1; }
+    100% { -webkit-transform: scale(50) rotate(45deg); opacity: 0; }
+}
+
 </style>
 
 
@@ -208,9 +261,11 @@ input[type="checkbox"] {
 					</tr>
 				</table>
 			</div>
-			<br> <input class="pay" type="button" value="주문하기"
-				onclick="purchase(this.form)">
-
+			<div align="center">
+			<span>위 주문 내용을 확인 하였으며, 회원 본인은 개인정보 이용 및 제공(해외직구의 경우 국외제공) 및 결제에 동의합니다.</span>
+			<button class="custom-btn btn-11 mt-3 mb-5" type="button"
+				onclick="purchase(this.form)">주문하기<div class="dot"></div></button>
+			</div>
 		</div>
 
 		<input type="hidden" name="user_idx" value="${user.user_idx}">

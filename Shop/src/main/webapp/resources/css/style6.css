@@ -135,10 +135,6 @@ hr {
 	width: 200px;
 }
 
-.discount {
-	color: red;
-}
-
 .price {
 	color: gray;
 	text-decoration: line-through;
@@ -155,7 +151,3 @@ hr {
 	margin-top: 40px;
 	width: 90%;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/main
