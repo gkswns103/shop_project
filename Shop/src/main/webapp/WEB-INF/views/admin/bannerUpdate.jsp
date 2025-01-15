@@ -106,8 +106,7 @@
 					aria-labelledby="headingBanner" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="/shop/admin/banner">배너설정</a> <a
-							class="collapse-item" href="/shop/admin/banner_update">배너수정</a> <a
-							class="collapse-item" href="/shop/admin/banner_insert">배너추가</a>
+							class="collapse-item" href="/shop/admin/banner_update">배너 수정/추가</a> 
 					</div>
 				</div></li>
 
@@ -163,7 +162,9 @@
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">
 										배너
+										<input type="checkbox" id="toggleInsert" onchange="toggleInsertArea()" value="배너추가">
 									</h6>
+									
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -185,7 +186,10 @@
 												<td data-name="image" data-value="${banner.image}">${banner.image}</td>
 												<td><input type="checkbox"
 													onchange="toggleDisplay(this)"></td>
-												<td><input type="button" value="삭제" onclick="delete();"></td>
+												<td>
+												
+												<input type="button" value="삭제" onclick="delete_banner(${banner.banner_idx}, '${banner.name}');">
+												</td>
 											</tr>
 											<tr class="hidden" align="right" style="display: none;">
 												<td colspan="4">
@@ -206,6 +210,44 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="col-xl-12 col-lg-12" id="insert_area">
+							<div class="card shadow mb-4">
+								<!-- Card Header - Dropdown -->
+								<div
+									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
+								</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<table class="table">
+										<tr align="center">
+											<th>이름</th>
+											<th>이미지</th>
+											<th>활성화/비활성화</th>
+											<th>추가</th>
+										</tr>
+										<tr>
+											<td colspan="4">
+												<form action="insert_banner" method="post"
+													enctype="multipart/form-data">
+													<input type="text" name="name" placeholder="이름">
+													<input type="file" name="new_image">
+													<select name="status">
+														<option value="">상태</option>
+														<option value="on">on</option>
+														<option value="off">off</option>
+													</select>
+													<button type="button" onclick="insert(this.form);">추가</button>
+												</form>											
+											</td>
+										</tr>
+
+									</table>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 				<!-- /.container-fluid -->
@@ -276,6 +318,27 @@
 		    hiddenRow.style.display = checkbox.checked ? '' : 'none';
 		}
 		
+		function toggleInsertArea() {
+		    const checkbox = document.getElementById('toggleInsert');
+		    const insertArea = document.getElementById('insert_area');
+		    if (checkbox.checked) {
+		        insertArea.style.display = ''; // 보이게 설정
+		    } else {
+		        insertArea.style.display = 'none'; // 숨김
+		    }
+		}
+
+		// 페이지 로드 시 기본적으로 insert_area를 숨깁니다.
+		window.onload = function() {
+		    const insertArea = document.getElementById('insert_area');
+		    insertArea.style.display = 'none';
+
+		    if ('${admin}' == "" || '${admin}' === "" || '${admin}' == null) {
+		        alert("<접속제한>관리자 페이지입니다.");
+		        location.href = "/shop/";
+		    }
+		};
+		
 		function update(f) {
 		   let banner_idx = f.banner_idx.value;
 		   let new_name = f.new_name.value;
@@ -294,8 +357,45 @@
 			}
 		   f.submit();
 		}
-
 		
+	function  delete_banner(banner_idx,name){
+		if(confirm(name+" 배너를 삭제 하시겠습니까?")){
+		
+		location.href = "delete_banner?banner_idx="+banner_idx;
+		}
+	}
+		
+	function insert(f) {
+		// 폼 데이터 추출
+		let name = f.name.value;
+		let new_image = f.new_image.value;
+		let status = f.querySelector('select').value;
+
+		// 유효성 검사
+		if (name === "") {
+			alert("이름을 입력하세요.");
+			return;
+		}
+
+		if (new_image === "") {
+			alert("이미지를 선택하세요.");
+			return;
+		}
+
+		// 이미지 파일 확장자 검사
+		const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp)$/i;
+		if (!imageExtensions.test(new_image)) {
+			alert("유효한 이미지 파일을 선택하세요 (jpg, jpeg, png, gif, bmp, webp).");
+			return;
+		}
+
+		if (status === "") {
+			alert("상태를 선택하세요.");
+			return;
+		}
+		f.submit();
+	}
+	
 	</script>
 
 </body>

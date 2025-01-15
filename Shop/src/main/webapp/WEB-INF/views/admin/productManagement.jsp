@@ -128,8 +128,7 @@ td.product-description {
 				         aria-labelledby="headingBanner" data-parent="#accordionSidebar">
 				     <div class="bg-white py-2 collapse-inner rounded">
 				         <a class="collapse-item" href="/shop/admin/banner">배너설정</a>
-				         <a class="collapse-item" href="/shop/admin/banner_update">배너수정</a>
-				          <a class="collapse-item" href="/shop/admin/banner_insert">배너추가</a>
+				         <a class="collapse-item" href="/shop/admin/banner_update">배너 수정/추가</a>
 				     </div>
 				</div>
 			</li>

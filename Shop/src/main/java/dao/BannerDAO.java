@@ -42,4 +42,9 @@ SqlSession sqlSession;
 		int res = sqlSession.insert("b.insert", vo);
 		return res;
 	}
+	
+	public int banner_delete(int banner_idx) {
+		int res = sqlSession.delete("b.delete",banner_idx);
+		return res;
+	}
 }

@@ -112,10 +112,6 @@ public String sale_banner(Model model, int banner_idx) {
    model.addAttribute("list",list);
    return Common.Path.CUSTOMER_PATH + "product/bannerSale.jsp";
 }
-//----------------------------------------------------------------------------
-//배너 이미지
-
-
 
 //----------------------------------------------------------------------------
 //배너 수정
@@ -177,7 +173,7 @@ public String insert_banner(BannerVO vo, MultipartFile new_image,String on_off) 
 	System.out.println("test:"+on_off);
 	
 	if(new_image==null) {
-		System.out.println("사진을 못받는거임ㅋ");
+		System.out.println("사진을 못받아왔습니다");
 	}
 	
 	String webPath = "/resources/img/"; //상대경로
@@ -209,8 +205,7 @@ public String insert_banner(BannerVO vo, MultipartFile new_image,String on_off) 
 			e.printStackTrace();
 		}
 	}
-	System.out.println(vo.getName());
-	System.out.println(vo.getNew_name());
+	
 	
 	vo.setImage(filename);
 	
@@ -222,7 +217,18 @@ public String insert_banner(BannerVO vo, MultipartFile new_image,String on_off) 
 		}
 	
 	
-	return "/admin/banner";
+	return "/admin/banner_update";
+}
+//----------------------------------------------------------------------------
+//배너 삭제
+
+@RequestMapping("/admin/delete_banner")
+public String delete_banner(int banner_idx) {
+	
+	int res = banner_dao.banner_delete(banner_idx);
+	
+	
+	return "/admin/banner_update";
 }
 
 

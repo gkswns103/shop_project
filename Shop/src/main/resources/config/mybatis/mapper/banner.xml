@@ -4,27 +4,32 @@
 <mapper namespace="b">
 
 	<select id="list" resultType="vo.BannerVO">
-	select * from banner
+		select * from banner
 	</select>
-	
+
 	<update id="off" parameterType="int">
-    update banner set status = 'off' where banner_idx = #{banner_idx}
-</update>
-<update id="on" parameterType="int">
-    update banner set status = 'on' where banner_idx = #{banner_idx}
-</update>
+		update banner set status = 'off' where banner_idx = #{banner_idx}
+	</update>
+	<update id="on" parameterType="int">
+		update banner set status = 'on' where banner_idx = #{banner_idx}
+	</update>
 
-<select id="select_active" resultType="vo.BannerVO">
-	select * from banner where status = 'on'
-</select>
+	<select id="select_active" resultType="vo.BannerVO">
+		select * from banner where status = 'on'
+	</select>
 
- <update id="update" parameterType="vo.BannerVO">
-    update banner set name = #{new_name}, image=#{image} where banner_idx = #{banner_idx} 
-</update>
-	
+	<update id="update" parameterType="vo.BannerVO">
+		update banner set name = #{new_name}, image=#{image} where banner_idx =
+		#{banner_idx}
+	</update>
+
 	<insert id="insert" parameterType="vo.BannerVO">
-	insert into banner
-	(name, image, status) values (#{name},#{image},#{status})
+		insert into banner
+		(name, image, status) values (#{name},#{image},#{status})
 	</insert>
 	
+	<delete id="delete" parameterType="int">
+	delete from banner where banner_idx = #{banner_idx}
+	</delete>
+
 </mapper>
