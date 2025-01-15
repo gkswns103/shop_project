@@ -58,7 +58,8 @@
 
 					<div class="wrap-input100 validate-input"
 						data-validate="Password is required">
-						<input class="input100" type="password" name="c_pwd"> <span
+						<input class="input100" type="password" name="c_pwd"
+							onkeydown="enterKey(event,this.form)"> <span
 							class="focus-input100"></span>
 					</div>
 
@@ -153,6 +154,13 @@
 					+ "&redirect=" + encodeURIComponent(f.redirect.value);
 
 			sendRequest(url, param, resultlog, "post");
+		}
+
+		function enterKey(event, f) {
+			if (event.key === "Enter") {
+				event.preventDefault(); // 기본 Enter 키 동작(폼 제출)을 방지
+				send(f); // 원하는 함수 실행
+			}
 		}
 	</script>
 </body>

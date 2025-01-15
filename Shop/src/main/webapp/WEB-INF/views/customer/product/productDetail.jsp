@@ -233,27 +233,10 @@
 					<div id="orderbyRecent">
 						<c:forEach var="review" items="${listOrderbyRecent}">
 							<div style="padding-left: 20px;">
-								${review.name} <br>
-								<c:if test="${review.rating == 1}">
-									<img src="/shop/resources/reviewImg/1.png" id="rating"
-										style="width: 100px;">
-								</c:if>
-								<c:if test="${review.rating == 2}">
-									<img src="/shop/resources/reviewImg/2.png" id="rating"
-										style="width: 100px;">
-								</c:if>
-								<c:if test="${review.rating == 3}">
-									<img src="/shop/resources/reviewImg/3.png" id="rating"
-										style="width: 100px;">
-								</c:if>
-								<c:if test="${review.rating == 4}">
-									<img src="/shop/resources/reviewImg/4.png" id="rating"
-										style="width: 100px;">
-								</c:if>
-								<c:if test="${review.rating == 5}">
-									<img src="/shop/resources/reviewImg/5.png" id="rating"
-										style="width: 100px;">
-								</c:if>
+								${review.name} <br> <img
+									src="/shop/resources/reviewImg/${review.rating}.png"
+									id="rating" style="width: 100px;">
+
 								${review.date.substring(0, 10)}<br> ${review.product_name }<br>
 
 								<c:if test="${review.filepath != 'no_file' }">
@@ -274,27 +257,10 @@
 					<div id="orderbyLike">
 						<c:forEach var="review" items="${listOrderbyLike}">
 							<div style="padding-left: 20px;">
-								${review.name} <br>
-								<c:if test="${review.rating == 1}">
-									<img src="/shop/resources/reviewImg/1.png" id="rating"
-										style="width: 100px;">
-								</c:if>
-								<c:if test="${review.rating == 2}">
-									<img src="/shop/resources/reviewImg/2.png" id="rating"
-										style="width: 100px;">
-								</c:if>
-								<c:if test="${review.rating == 3}">
-									<img src="/shop/resources/reviewImg/3.png" id="rating"
-										style="width: 100px;">
-								</c:if>
-								<c:if test="${review.rating == 4}">
-									<img src="/shop/resources/reviewImg/4.png" id="rating"
-										style="width: 100px;">
-								</c:if>
-								<c:if test="${review.rating == 5}">
-									<img src="/shop/resources/reviewImg/5.png" id="rating"
-										style="width: 100px;">
-								</c:if>
+								${review.name} <br> <img
+									src="/shop/resources/reviewImg/${review.rating}.png"
+									id="rating" style="width: 100px;">
+
 								${review.date.substring(0, 10)}<br> ${review.product_name }<br>
 
 								<c:if test="${review.filepath != 'no_file' }">
@@ -320,10 +286,9 @@
 			</div>
 
 			<div class="tab-view" id="tab-2" style="display: none;">
-				<h2>상품 문의</h2>
-				<br>
+				<h2 class="mb-3">상품 문의</h2>
 				<hr>
-				<br>📌 상품 문의 전 아래 내용을 참고해 주세요!<br> <br> 1️⃣ 제품 정보 및
+				<span class="mt-3 mb-3">📌상품 문의 전 아래 내용을 참고해 주세요!<br> <br> 1️⃣ 제품 정보 및
 				재고 문의<br> Q. 상품의 재고가 있나요?<br> ➝ 실시간 재고 변동으로 인해 상세 페이지에서 재고
 				상태를 확인해 주세요.<br> Q. 상품 상세 정보가 궁금해요.<br> ➝ 상품 상세 페이지에 사이즈,
 				색상, 소재 등의 정보가 기재되어 있습니다. 추가 정보가 필요하시면 문의해 주세요.<br> <br>
@@ -334,13 +299,12 @@
 				차이가 있을 수 있으니, 상세 페이지의 사이즈표를 확인해 주세요.<br> Q. 착용감이나 핏이 궁금해요.<br>
 				➝ 상세 페이지 또는 리뷰 참고 및 궁금한 사항은 추가 문의를 이용해 주세요.<br> <br> 4️⃣
 				추가 문의 방법<br> 📞 고객센터: 0000-0000 (운영시간: 평일 09:00~18:00)<br>
-				📧 이메일 문의: kh@yourshop.com<br>
+				📧 이메일 문의: kh@yourshop.com</span>
 			</div>
 			<div class="tab-view" id="tab-3" style="display: none;">
-				<h2>교환/반품</h2>
-				<br>
+				<h2 class="mb-3">교환/반품</h2>
 				<hr>
-				<br> 교환 및 반품 안내<br> 고객님의 편리한 쇼핑을 위해 교환 및 반품 절차를 아래와 같이
+				<span class="mt-3 mb-3"> 교환 및 반품 안내<br> 고객님의 편리한 쇼핑을 위해 교환 및 반품 절차를 아래와 같이
 				안내드립니다. 상품을 반품하시기 전 반드시 확인해 주세요.<br> <br> 📌 교환 및 반품이 가능한
 				경우 상품을 수령한 날로부터 7일 이내 요청한 경우 배송된 상품이 주문한 상품과 다르거나,<br> 불량·파손이
 				발생한 경우 상품의 라벨, 태그, 포장 상태가 유지된 경우 (사용 흔적이 없어야 함)<br> <br> ❌
@@ -353,7 +317,7 @@
 				💰 환불 절차<br> 반품 도착 후 검수 완료 시, 최대 5일 이내 환불 처리됩니다. 신용카드 결제: 카드사
 				정책에 따라 최대 7일 소요될 수 있음<br> 계좌 이체 및 무통장 입금: 영업일 기준 2~3일 이내 환불<br>
 				<br> 📞 문의사항: 고객센터 0000-0000 (운영시간: 평일 09:00~18:00)<br> 📧
-				이메일 문의: kh@yourshop.com<br>
+				이메일 문의: kh@yourshop.com</span>
 
 			</div>
 		</div>
@@ -361,8 +325,6 @@
 
 	<div id="loadingScreen"
 		style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.13); z-index: 1000;"></div>
-
-
 
 	<footer class="py-5 bg-dark">
 		<div class="container">
@@ -394,9 +356,9 @@
    function likeupFn() {
        if (xhr.readyState == 4 && xhr.status == 200) {
            let data = xhr.responseText.trim();
-           alert("추천되었습니다.");
+           alert(data);
 
-            window.location.reload()
+            window.location.reload();
 
        }
    }
@@ -405,6 +367,8 @@
       let rating=document.getElementById("ratingAvg");
       
       ratingImg(rating,${ratingAvg});
+      
+      listOrderbyRecent();
       
       showTab(1);
    }

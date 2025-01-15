@@ -54,15 +54,15 @@
          <form class="d-flex me-auto ms-auto" style="width: 400px;"
             action="product_search">
             <input style="width:300px;" class="form-control me-2" type="search" name="search"
-               placeholder="Search" aria-label="Search"> <input
-               class="btn btn-outline-dark" type="button" value="Search"
+               placeholder="검색어를 입력해주세요." aria-label="Search"> <input
+               class="btn btn-outline-dark px-2" type="button" value="검 색"
                onclick="product_search(this.form)">
          </form>
 
          
             <c:if test="${empty users}">
-               <a onclick="signin_form()" class="nav-link active me-3 ms-3">SignIn</a>
-               <a href="signup" class="nav-link active me-3 ms-3">SignUp</a>
+               <a onclick="signin_form()" class="nav-link active me-3 ms-3">로그인</a>
+               <a href="signup" class="nav-link active me-3 ms-3">회원가입</a>
             </c:if>
 
             <c:if test="${!empty users}">

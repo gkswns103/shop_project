@@ -171,6 +171,13 @@
 
 			document.getElementById('addr2').removeAttribute("readonly");
 		}
+		
+		function enterKey(event, f) {
+			if (event.key === "Enter") {
+				event.preventDefault(); // 기본 Enter 키 동작(폼 제출)을 방지
+				send(f); // 원하는 함수 실행
+			}
+		}
 	</script>
 </body>
 </html>

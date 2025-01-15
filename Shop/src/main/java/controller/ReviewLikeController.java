@@ -32,13 +32,14 @@ public class ReviewLikeController {
 	session.removeAttribute("reviewIdx");
 
 	int res=reviewLike_dao.check(vo); 
+	
 	if(res>=1) {
 	 return "이미 추천을눌렀습니다."; 
 	}
 	 
 	//추천수 증가
 	res=reviewLike_dao.likeup(vo);
-	
+	System.out.println("컨트롤러" + res);
 	//갱신
 	review_dao.updateLikeCount();
 	

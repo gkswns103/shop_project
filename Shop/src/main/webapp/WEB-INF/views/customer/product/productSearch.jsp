@@ -28,7 +28,7 @@
 
 <!-- 상품 애니메이션 -->
 <script src="/shop/resources/dist/aos.js"></script>
-<link href="/shop/resources/dist/aos.css" rel="stylesheet"/>
+<link href="/shop/resources/dist/aos.css" rel="stylesheet" />
 
 <style>
 header {
@@ -43,19 +43,30 @@ header {
 	<header>
 		<jsp:include page="../header/header.jsp"></jsp:include>
 	</header>
-	
-	<!-- Section-->
-	<section class="py-5">
-	${search} 검색결과 
-		<div class="container px-4 px-lg-5 mt-5">
-			<div
-				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-				<!-- 상품 1개 시작 -->
-				<c:if test="${empty list}">
-					<span>검색결과 없음</span>
-				</c:if>
+	<c:if test="${empty list}">
+		<div align="center" style="margin-top: 200px; margin-bottom: 300px;">
+			<div class="mt-5">
+				<img src="/shop/resources/img/검색결과 없음.png" width="400px;"
+					height="300px" alt="검색결과 없음">
+				<div style="margin-top: 20px;">
+					<h4 class="mt-3 mb-2">검색어 "${param.search}"에 대한 검색결과가 없습니다.</h4>
+					단어의 철자가 정확한지 확인해 보세요.<br> 한글을 영어로 혹은 영어를 한글로 입력했는지 확인해 보세요.<br>
+					검색어의 단어 수를 줄이거나, 보다 일반적인 검색어로 다시 검색해 보세요.<br> 두 단어 이상의 검색어인
+					경우, 띄어쓰기를 확인해 보세요.
+				</div>
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${!empty list}">
+		<!-- Section-->
+		<section class="py-5">
+			<div class="container px-4 px-lg-5 mt-5">
+				<h4 class="mb-4">검색어 "${param.search}"에 대한 검색결과</h4>
 
-				<c:if test="${list ne null }">
+				<div
+					class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+					<!-- 상품 1개 시작 -->
+
 					<c:forEach var="vo" items="${list}">
 						<div class="col mb-5">
 							<div class="card h-100">
@@ -68,31 +79,49 @@ header {
 								<div class="card-body p-4">
 									<div class="text-center">
 										<!-- Product name-->
-										<h5 class="fw-bolder">${vo.name}</h5>
+										<h5 class="fw-bolder">${vo.name }</h5>
 										<!-- Product price-->
-										<fmt:formatNumber value="${vo.price}" type="number"
-											groupingUsed="true" />
-										원
+										<c:if test="${vo.discount ne 0}">
+											<!-- 할인이 있는경우 -->
+										${vo.discount}%
+										<del>
+												<fmt:formatNumber value="${vo.price}" type="number"
+													groupingUsed="true" />
+												원
+											</del>
+											<br>
+											<span style="color: red; font-weight: bold; font-size: 18px;">
+												<fmt:formatNumber
+													value="${vo.price - (vo.price * vo.discount / 100)}"
+													type="number" groupingUsed="true" maxFractionDigits="0"
+													minFractionDigits="0" />원
+											</span>
+										</c:if>
+										<c:if test="${vo.discount eq 0}">
+											<!-- 할인이 없는경우 -->
+											<span style="font-weight: bold; font-size: 18px;"><fmt:formatNumber
+													value="${vo.price}" type="number" groupingUsed="true" />원</span>
+										</c:if>
 									</div>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-				</c:if>
-				<!--상품 1개 끝  -->
+					<!--상품 1개 끝  -->
 
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	</c:if>
 	<!-- Footer-->
-	<footer class="py-5 bg-dark">
+	<footer class="pt-4 bg-dark">
 		<div class="container">
-			<p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터
-				: 010-3239-5204</p>
 			<p class="m-0 text-center text-white">
 				Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌
 				: 국민 852502-04-255054
 			</p>
+			<p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터
+				: 010-3239-5204</p>
 		</div>
 	</footer>
 	<!-- Bootstrap core JS-->
@@ -100,13 +129,13 @@ header {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
 	<script src="/shop/resources/js/scripts.js"></script>
-	
+
 	<script>
-    AOS.init({
-        duration: 800, // 애니메이션 지속 시간 (밀리초)
-        easing: 'ease-in-out', // 애니메이션 효과
-        once: false, // 애니메이션을 여러번 실행
-    });
-</script>
+		AOS.init({
+			duration : 800, // 애니메이션 지속 시간 (밀리초)
+			easing : 'ease-in-out', // 애니메이션 효과
+			once : false, // 애니메이션을 여러번 실행
+		});
+	</script>
 </body>
 </html>
