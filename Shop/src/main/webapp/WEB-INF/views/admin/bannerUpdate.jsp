@@ -42,6 +42,119 @@
 .class td {
 	padding: 0 20px;
 }
+
+.bn_udt_font {
+	font-weight: bold;
+	color: #5475e8
+}
+
+/* 커스텀 스위치 컨테이너 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+/* 체크박스 숨기기 */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* 슬라이더 스타일 */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+/* 슬라이더 안의 원 */
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+/* 체크박스가 선택되었을 때 슬라이더 색상 변경 */
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+/* 체크박스가 선택되었을 때 슬라이더 원 이동 */
+input:checked + .slider::before {
+    transform: translateX(20px);
+}
+
+input[name="new_name"] {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-left: -87px;
+    margin-right: 100px;
+    border: none; /* 기존 테두리 제거 */
+    border-bottom: 2px solid #007bff; /* 밑줄 추가 */
+    background: transparent; /* 배경 투명 */
+    outline: none; /* 포커스 시 기본 테두리 제거 */
+    font-size: 16px; /* 글자 크기 */
+    transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
+    color: #858796;
+}
+
+/* 포커스 시 밑줄 색상 변경 */
+input[name="new_name"]:focus {
+    border-bottom: 2px solid #0056b3; /* 포커스된 상태에서 더 어두운 색상 */
+    color: black;
+}
+
+input[name="new_image"]{
+	margin: 0;
+	padding: 0;
+	margin-left: 150px; 
+	margin-right: 120px;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px; /* 버튼 안의 여백 */
+    font-size: 16px; /* 글자 크기 */
+    font-weight: bold; /* 글자 굵기 */
+    color: white; /* 글자 색상 */
+    background-color: #5475e8; /* 기본 배경색 */
+    border: 1px solid #5475e8; /* 테두리 색상 */
+    border-radius: 5px; /* 둥근 테두리 */
+    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 전환 효과 */
+    
+}
+
+/* 버튼 호버 효과 */
+button:hover {
+    background-color: #2e59d9; /* 호버 시 배경색 */
+    border-color: #2e59d9; /* 호버 시 테두리 색상 */
+    transform: scale(1.05); /* 살짝 확대 */
+}
+
+/* 버튼 클릭 효과 */
+button:active {
+    background-color: #004085; /* 클릭 시 배경색 */
+    border-color: #004085; /* 클릭 시 테두리 색상 */
+    transform: scale(0.95); /* 살짝 축소 */
+}
+
 </style>
 
 </head>
@@ -160,11 +273,14 @@
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">
-										배너
+									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
+									<h6 style="margin-right: 200px;" class="bn_udt_font">
+										배너추가
+										<label class="switch">
 										<input type="checkbox" id="toggleInsert" onchange="toggleInsertArea()" value="배너추가">
-									</h6>
-									
+								    	<span class="slider"></span>
+								    	</label>
+								    </h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
@@ -181,26 +297,31 @@
 											<input type="hidden" name="banner_idx"
 												value="${banner.banner_idx}">
 											<tr align="center">
-												<td style="color: red;">${banner.banner_idx}</td>
+												<td>${banner.banner_idx}</td>
 												<td data-name="name" data-value="${banner.name}">${banner.name}</td>
 												<td data-name="image" data-value="${banner.image}">${banner.image}</td>
-												<td><input type="checkbox"
-													onchange="toggleDisplay(this)"></td>
 												<td>
-												
-												<input type="button" value="삭제" onclick="delete_banner(${banner.banner_idx}, '${banner.name}');">
+													<label class="switch">
+													<input type="checkbox" onchange="toggleDisplay(this)">
+													<span class="slider"></span>
+													</label>
+												</td>
+												<td>
+												<input type="button" value="삭제" class="btn btn-primary"
+													   onclick="delete_banner(${banner.banner_idx}, '${banner.name}');">
 												</td>
 											</tr>
-											<tr class="hidden" align="right" style="display: none;">
-												<td colspan="4">
+											<tr class="hidden" align="center" style="display: none;">
+												<td colspan="5">
 													<form action="update_banner" method="post" enctype="multipart/form-data">
 														<input type="hidden" name="banner_idx"
-															value="${banner.banner_idx}" required> 
-														<input type="text" name="new_name" placeholder="이름" value="${banner.name}" required>
+															value="${banner.banner_idx}" required>
+														<input type="text" name="new_name" 
+																   placeholder="이름" value="${banner.name}" required>
+														
 														<input type="file" name="new_image" accept="image/*" required>
-														<button type="submit" class="btn btn-primary">수정하기</button>
+														<button type="submit" style="margin-right: -200px;">수정하기</button>
 													</form>
-
 												</td>
 											</tr>
 

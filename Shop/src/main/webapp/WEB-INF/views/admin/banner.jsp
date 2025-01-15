@@ -234,7 +234,7 @@
 												<input type="hidden" name="banner_idx"
 													value="${banner.banner_idx}">
 												<tr align="center">
-													<td style="color: red;">${banner.banner_idx}</td>
+													<td>${banner.banner_idx}</td>
 													<td>${banner.name}</td>													
 													<td>${banner.image}</td>												
 													<td>${banner.status}</td>
