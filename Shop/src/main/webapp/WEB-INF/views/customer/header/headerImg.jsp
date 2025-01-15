@@ -51,7 +51,7 @@
             <!-- 동적 이미지 로드 -->
             <c:forEach var="banner_list" items="${banner_list}">
                 <div class="swiper-slide">
-                    <img src="/shop/resources/img/${banner_list.image}" alt="${banner_list.name}" onclick="location.href='banner?banner_idx=${banner_list.banner_idx}'">
+                    <img src="/shop/resources/img/${banner_list.image}" alt="${banner_list.name}" onclick="location.href='banner_view_product?banner_idx=${banner_list.banner_idx}'">
                 </div>
             </c:forEach>
         </div>

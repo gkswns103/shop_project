@@ -58,16 +58,11 @@ public String banner(Model model) {
 	return Common.Path.ADMIN_PATH + "banner.jsp";
 }
 
-@RequestMapping("/admin/banner_update")
+@RequestMapping("/admin/move_bn_update")
 public String banner_update(Model model) {
 	List<BannerVO> list = banner_dao.select_banner();
 	model.addAttribute("list",list);
 	return Common.Path.ADMIN_PATH + "bannerUpdate.jsp";
-}
-
-@RequestMapping("/admin/banner_insert")
-public String banner_insert() {
-	return Common.Path.ADMIN_PATH + "bannerInsert.jsp";
 }
 
 //----------------------------------------------------------------------------
@@ -93,10 +88,10 @@ public String banner_on(int banner_idx) {
 
 //----------------------------------------------------------------------------
 //배너
-@RequestMapping("/banner")
+@RequestMapping("/banner_view_product")
 public String sale_banner(Model model, int banner_idx) {
    List<ProductVO> list = null;
-   System.out.println(banner_idx);
+   
    if(banner_idx == 1) {
       list = product_dao.sale_product();
       
