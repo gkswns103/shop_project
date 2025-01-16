@@ -50,109 +50,205 @@
 
 /* 커스텀 스위치 컨테이너 */
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 20px;
 }
 
 /* 체크박스 숨기기 */
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+	opacity: 0;
+	width: 0;
+	height: 0;
 }
 
 /* 슬라이더 스타일 */
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 20px;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	transition: 0.4s;
+	border-radius: 20px;
 }
 
 /* 슬라이더 안의 원 */
 .slider::before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 2px;
-    bottom: 2px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
+	position: absolute;
+	content: "";
+	height: 16px;
+	width: 16px;
+	left: 2px;
+	bottom: 2px;
+	background-color: white;
+	transition: 0.4s;
+	border-radius: 50%;
 }
 
 /* 체크박스가 선택되었을 때 슬라이더 색상 변경 */
-input:checked + .slider {
-    background-color: #2196F3;
+input:checked+.slider {
+	background-color: #2196F3;
 }
 
 /* 체크박스가 선택되었을 때 슬라이더 원 이동 */
-input:checked + .slider::before {
-    transform: translateX(20px);
+input:checked+.slider::before {
+	transform: translateX(20px);
 }
 
 input[name="new_name"] {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    margin-left: -87px;
-    margin-right: 100px;
-    border: none; /* 기존 테두리 제거 */
-    border-bottom: 2px solid #007bff; /* 밑줄 추가 */
-    background: transparent; /* 배경 투명 */
-    outline: none; /* 포커스 시 기본 테두리 제거 */
-    font-size: 16px; /* 글자 크기 */
-    transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
-    color: #858796;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	margin-left: -100px;
+	margin-right: 100px;
+	border: none; /* 기존 테두리 제거 */
+	border-bottom: 2px solid #007bff; /* 밑줄 추가 */
+	background: transparent; /* 배경 투명 */
+	outline: none; /* 포커스 시 기본 테두리 제거 */
+	font-size: 16px; /* 글자 크기 */
+	transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
+	color: #858796;
 }
 
 /* 포커스 시 밑줄 색상 변경 */
 input[name="new_name"]:focus {
-    border-bottom: 2px solid #0056b3; /* 포커스된 상태에서 더 어두운 색상 */
-    color: black;
+	border-bottom: 2px solid #0056b3; /* 포커스된 상태에서 더 어두운 색상 */
+	color: black;
 }
 
-input[name="new_image"]{
+input[name="new_image"] {
 	margin: 0;
 	padding: 0;
-	margin-left: 150px; 
+	margin-left: 150px;
 	margin-right: 120px;
 }
 
 button {
-    display: inline-block;
-    padding: 10px 20px; /* 버튼 안의 여백 */
-    font-size: 16px; /* 글자 크기 */
-    font-weight: bold; /* 글자 굵기 */
-    color: white; /* 글자 색상 */
-    background-color: #5475e8; /* 기본 배경색 */
-    border: 1px solid #5475e8; /* 테두리 색상 */
-    border-radius: 5px; /* 둥근 테두리 */
-    cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* 전환 효과 */
-    
+	display: inline-block;
+	padding: 5px 10px; /* 버튼 안의 여백 */
+	font-size: 16px; /* 글자 크기 */
+	color: white; /* 글자 색상 */
+	background-color: #5475e8; /* 기본 배경색 */
+	border: 1px solid #5475e8; /* 테두리 색상 */
+	border-radius: 5px; /* 둥근 테두리 */
+	cursor: pointer; /* 마우스 포인터를 손 모양으로 변경 */
+	transition: background-color 0.3s ease, transform 0.2s ease;
+	/* 전환 효과 */
 }
 
 /* 버튼 호버 효과 */
 button:hover {
-    background-color: #2e59d9; /* 호버 시 배경색 */
-    border-color: #2e59d9; /* 호버 시 테두리 색상 */
-    transform: scale(1.05); /* 살짝 확대 */
+	background-color: #2e59d9; /* 호버 시 배경색 */
+	border-color: #2e59d9; /* 호버 시 테두리 색상 */
 }
 
 /* 버튼 클릭 효과 */
 button:active {
-    background-color: #004085; /* 클릭 시 배경색 */
-    border-color: #004085; /* 클릭 시 테두리 색상 */
-    transform: scale(0.95); /* 살짝 축소 */
+	background-color: #004085; /* 클릭 시 배경색 */
+	border-color: #004085; /* 클릭 시 테두리 색상 */
+}
+
+/* 기본 파일 선택 버튼 숨기기 */
+input[type="file"] {
+	display: none; /* 기본 파일 버튼 숨김 */
+}
+
+.custom-file-upload {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	margin-right: 180px;
+}
+
+.custom-file-upload {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	background-color: #5475e8;
+	border: 1px solid #5475e8;
+	border-radius: 5px;
+	cursor: pointer;
+	text-align: center;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 버튼 호버 효과 */
+.custom-file-upload:hover {
+	background-color: #2e59d9;
+}
+
+/* 파일 이름 표시 스타일 */
+.file-name {
+	display: inline-block;
+	margin-right: 10px;
+	margin-left: 160px; font-size : 16px;
+	color: #858796;
+	font-style: italic;
+	font-size: 16px;
+}
+
+/* 배너 추가 테이블 조정 */
+#insert_area {
+	max-width: 800px; /* 테이블 최대 너비 */
+	margin: 0 auto; /* 화면 가운데 정렬 */
+	padding: 0; /* 테이블 안쪽 여백 */
+}
+
+/* 테이블 헤더(th)와 데이터(td) 정렬 및 간격 */
+.banner-insert-table th, 
+.banner-insert-table td {
+    text-align: center; /* 텍스트를 수평 가운데 정렬 */
+    vertical-align: middle; /* 텍스트를 수직 가운데 정렬 */
+    padding: 10px; /* 안쪽 여백 */
+}
+
+/* 이름 입력 필드 스타일 */
+input[name="name"] {
+    width: 150px; /* 입력 필드 너비 */
+    height: 30px; /* 입력 필드 높이 */
+    font-size: 14px; /* 글자 크기 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    margin: 0 auto; /* 수평 가운데 정렬 */
+}
+
+/* 파일 선택 버튼 스타일 */
+label.custom-file-upload {
+    display: inline-block;
+    width: 100px; /* 파일 선택 버튼 너비 */
+    height: 30px; /* 파일 선택 버튼 높이 */
+    line-height: 30px; /* 버튼 내부 텍스트 가운데 정렬 */
+    font-size: 14px; /* 글자 크기 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    margin: 0 10px; /* 양쪽 간격 */
+    background-color: #5475e8; /* 버튼 색상 */
+    color: white; /* 텍스트 색상 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 */
+    cursor: pointer; /* 마우스 포인터 변경 */
+}
+
+/* 파일 이름 텍스트 스타일 */
+.file-name {
+    display: inline-block;
+    font-size: 14px; /* 글자 크기 */
+    color: #858796; /* 텍스트 색상 */
+    font-style: italic; /* 글자 스타일 */
+    margin-right: 10px; /* 파일 선택 버튼과 간격 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+/* 드롭다운 선택 박스 스타일 */
+select[name="status"] {
+    width: 80px; /* 드롭다운 너비 */
+    height: 30px; /* 드롭다운 높이 */
+    font-size: 14px; /* 글자 크기 */
+    margin-left: 10px; /* 왼쪽 간격 */
+    text-align: center; /* 텍스트 가운데 정렬 */
 }
 
 </style>
@@ -219,7 +315,8 @@ button:active {
 					aria-labelledby="headingBanner" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="/shop/admin/banner">배너설정</a> <a
-							class="collapse-item" href="/shop/admin/banner_update">배너 수정/추가</a> 
+							class="collapse-item" href="/shop/admin/banner_update">배너
+							수정/추가</a>
 					</div>
 				</div></li>
 
@@ -275,19 +372,18 @@ button:active {
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
 									<h6 style="margin-right: 200px;" class="bn_udt_font">
-										배너추가
-										<label class="switch">
-										<input type="checkbox" id="toggleInsert" onchange="toggleInsertArea()" value="배너추가">
-								    	<span class="slider"></span>
-								    	</label>
-								    </h6>
+										배너 추가 <label class="switch"> <input type="checkbox"
+											id="toggleInsert" onchange="toggleInsertArea()" value="배너추가">
+											<span class="slider"></span>
+										</label>
+									</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
 									<table class="table">
 										<tr align="center">
 											<th>배너번호</th>
-											<th>이름</th>	
+											<th>이름</th>
 											<th>이미지</th>
 											<th>수정</th>
 											<th>삭제</th>
@@ -300,27 +396,29 @@ button:active {
 												<td>${banner.banner_idx}</td>
 												<td data-name="name" data-value="${banner.name}">${banner.name}</td>
 												<td data-name="image" data-value="${banner.image}">${banner.image}</td>
-												<td>
-													<label class="switch">
-													<input type="checkbox" onchange="toggleDisplay(this)">
-													<span class="slider"></span>
-													</label>
-												</td>
-												<td>
-												<input type="button" value="삭제" class="btn btn-primary"
-													   onclick="delete_banner(${banner.banner_idx}, '${banner.name}');">
+												<td><label class="switch"> <input
+														type="checkbox" onchange="toggleDisplay(this)"> <span
+														class="slider"></span>
+												</label></td>
+												<td><input type="button" value="삭제"
+													class="btn btn-danger rounded"
+													onclick="delete_banner(${banner.banner_idx}, '${banner.name}');">
 												</td>
 											</tr>
 											<tr class="hidden" align="center" style="display: none;">
 												<td colspan="5">
-													<form action="update_banner" method="post" enctype="multipart/form-data">
+													<form action="update_banner" method="post"
+														enctype="multipart/form-data">
 														<input type="hidden" name="banner_idx"
-															value="${banner.banner_idx}" required>
-														<input type="text" name="new_name" 
-																   placeholder="이름" value="${banner.name}" required>
-														
-														<input type="file" name="new_image" accept="image/*" required>
-														<button type="submit" style="margin-right: -200px;">수정하기</button>
+															value="${banner.banner_idx}" required> <input
+															type="text" name="new_name" placeholder="이름"
+															value="${banner.name}" style="margin-left: 80px;" required> <span
+															class="file-name" id="file-name">선택된 파일 없음</span> <label
+															for="new_image" class="custom-file-upload">파일선택</label> <input
+															type="file" id="new_image" name="new_image"
+															accept="image/*" required>
+
+														<button type="submit" style="margin-left: 150px; margin-right: -40px;">수정하기</button>
 													</form>
 												</td>
 											</tr>
@@ -331,44 +429,50 @@ button:active {
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="col-xl-12 col-lg-12" id="insert_area">
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
+									<h6 class="m-0 font-weight-bold text-primary">배너 추가</h6>
+									<!-- "추가" 버튼 -->
+									<button type="button" onclick="insert(this.form);">추가</button>
 								</div>
 								<!-- Card Body -->
-								<div class="card-body">
-									<table class="table">
+								<div class="">
+									<table class="banner-insert-table">
+										<!-- 테이블 헤더 -->
 										<tr align="center">
 											<th>이름</th>
 											<th>이미지</th>
 											<th>활성화/비활성화</th>
-											<th>추가</th>
 										</tr>
+										<!-- 입력 필드와 버튼 -->
 										<tr>
-											<td colspan="4">
-												<form action="insert_banner" method="post"
-													enctype="multipart/form-data">
-													<input type="text" name="name" placeholder="이름">
-													<input type="file" name="new_image">
-													<select name="status">
-														<option value="">상태</option>
-														<option value="on">on</option>
-														<option value="off">off</option>
-													</select>
-													<button type="button" onclick="insert(this.form);">추가</button>
-												</form>											
+											<td align="center">
+												<!-- 이름 입력 필드 --> <input type="text" name="name"
+												placeholder="이름">
+											</td>
+											<td align="center">
+												<!-- 파일 이름과 파일 선택 버튼 --> <span class="file-name"
+												id="file-name">선택된 파일 없음</span> <label for="new_image"
+												class="custom-file-upload">파일선택</label> <input type="file"
+												id="new_image" name="new_image" accept="image/*" required>
+											</td>
+											<td align="center">
+												<!-- 상태 드롭다운 --> <select name="status">
+													<option value="">상태</option>
+													<option value="on">on</option>
+													<option value="off">off</option>
+											</select>
 											</td>
 										</tr>
-
 									</table>
 								</div>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 				<!-- /.container-fluid -->
@@ -448,6 +552,16 @@ button:active {
 		        insertArea.style.display = 'none'; // 숨김
 		    }
 		}
+		
+		document.getElementById('new_image').addEventListener('change', function() {
+		    const fileInput = this;
+		    const fileNameSpan = document.getElementById('file-name');
+		    if (fileInput.files.length > 0) {
+		        fileNameSpan.textContent = fileInput.files[0].name; // 선택된 파일 이름 표시
+		    } else {
+		        fileNameSpan.textContent = '선택된 파일 없음'; // 파일이 선택되지 않은 경우
+		    }
+		});
 
 		// 페이지 로드 시 기본적으로 insert_area를 숨깁니다.
 		window.onload = function() {
