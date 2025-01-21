@@ -389,6 +389,7 @@ select[name="status"] {
 											<th>카테고리2</th>
 											<th>키워드1</th>
 											<th>키워드2</th>
+											<th>최대할인율</th>
 											<th>수정</th>
 											<th>삭제</th>
 										</tr>
@@ -611,6 +612,14 @@ select[name="status"] {
 		   
 		   if(new_division ===''){
 			   alert("대분류가 없다면 '없음'으로 입력해주세요");
+			   return
+		   }
+		   if(new_category1 ===''){
+			   alert("카테고리가 없다면 '없음'으로 입력해주세요");
+			   return
+		   }
+		   if(new_keyword1 ===''){
+			   alert("키워드가 없다면 '없음'으로 입력해주세요");
 			   return
 		   }
 		   

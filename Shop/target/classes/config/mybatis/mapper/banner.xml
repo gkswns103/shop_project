@@ -23,8 +23,10 @@
 	</select>
 
 	<update id="update" parameterType="vo.BannerVO">
-		update banner set name = #{new_name}, image=#{image} where banner_idx =
-		#{banner_idx}
+		update banner 
+		set name = #{new_name}, image=#{image}, division = #{division}, category1 = #{category1}, category2 = #{category2},
+		keyword1 = #{keyword1}, keyword2 = #{keyword2}, discount= #{discount}
+		where banner_idx = #{banner_idx}
 	</update>
 
 	<insert id="insert" parameterType="vo.BannerVO">

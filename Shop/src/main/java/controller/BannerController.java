@@ -118,11 +118,20 @@ public class BannerController {
 //배너 수정
 
 	@RequestMapping("/admin/update_banner")
-	public String update_banner(int banner_idx, String new_name, MultipartFile new_image) {
+	public String update_banner(int banner_idx, int new_discount , MultipartFile new_image,
+								String new_name, String new_division, String new_category1,
+								String new_category2, String new_keyword1, String new_keyword2) {
 
 		if (new_image == null) {
-			System.out.println("사진을 못받는거임ㅋ");
+			System.out.println("사진을 못받고 있습니다.");
 		}
+		System.out.println(new_division);
+		System.out.println(new_category1);
+		System.out.println(new_category2);
+		System.out.println(new_keyword1);
+		System.out.println(new_keyword2);
+		System.out.println(new_discount);
+		
 
 		String webPath = "/resources/img/"; // 상대경로
 		String savePath = application.getRealPath(webPath); // 절대경로
@@ -155,6 +164,12 @@ public class BannerController {
 		BannerVO vo = new BannerVO();
 		vo.setImage(filename);
 		vo.setNew_name(new_name);
+		vo.setDivision(new_division);
+		vo.setCategory1(new_category1);
+		vo.setCategory2(new_category2);
+		vo.setKeyword1(new_keyword1);
+		vo.setKeyword2(new_keyword2);
+		vo.setDiscount(new_discount);
 		vo.setBanner_idx(banner_idx);
 
 		// DAO를 통해 배너 업데이트
@@ -164,9 +179,10 @@ public class BannerController {
 		} else {
 			System.out.println("배너 수정 실패");
 		}
-		return "redirect:/admin/banner_update";
+		return "/admin/move_bn_update/";
 	}
-
+//----------------------------------------------------------------------------
+//배너 추가
 	@RequestMapping("/admin/insert_banner")
 	public String insert_banner(BannerVO vo, MultipartFile new_image, String on_off) {
 		System.out.println("test:" + on_off);
