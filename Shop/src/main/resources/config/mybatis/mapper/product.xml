@@ -97,23 +97,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<select id="sale_product" resultType="product">
-		select * from product where discount > 50
+		select * from product where
+		discount > 50
 	</select>
 
 	<select id="sale_pet" resultType="product">
-		select * from product where division = "반려동물" and discount > 1
+		select * from product where
+		division = "반려동물" and discount > 1
 	</select>
 
 	<select id="sale_christmas" resultType="product">
-		SELECT * FROM product WHERE name LIKE '%산타%' or name like '%시나몬롤%'
+		SELECT * FROM product
+		WHERE name LIKE '%산타%' or name like '%시나몬롤%'
 	</select>
 
 	<select id="sale_it" resultType="product">
-		select * from product where category = 'PC' or category = '휴대폰'
+		select * from product where
+		category = 'PC' or category = '휴대폰'
 	</select>
 
 	<select id="sale_newyear" resultType="product">
-		select * from product where discount > 60
+		select * from product where
+		discount > 60
 	</select>
 
 	<delete id="delete_apply_product" parameterType="int">
@@ -121,22 +126,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		apply_product
 		where product_idx = #{product_idx}
 	</delete>
-	
-	<select id="view_banner_product" parameterType="vo.BannerVO" resultType="product">
-	    select * from product 
-	    where division = #{division}
-	       or category = #{category1}
-	       or category = #{category2}
-	       or name like CONCAT('%', #{keyword1}, '%')
-	       or name like CONCAT('%', #{keyword2}, '%')
-	       and discount >= #{discount}
-	</select>
-	
-	<select id="view_only_discount" parameterType="vo,BannerVO" resultType="product">
-	select * from product
-	where discount >= #{discount}
+
+	<select id="view_banner_product1" parameterType="vo.BannerVO"
+		resultType="product">
+		select * from product
+		where (division = #{division}
+		or
+		category = #{category1}
+		or category = #{category2}
+		or name like
+		CONCAT('%', #{keyword1}, '%')
+		or name like CONCAT('%', #{keyword2},
+		'%'))
+		and discount &lt; #{discount}
+		AND discount &gt; 1
 	</select>
 
+	<select id="view_banner_product2" parameterType="vo.BannerVO"
+		resultType="product">
+		select * from product
+		where division = #{division}
+		or
+		category = #{category1}
+		or category = #{category2}
+		or name like
+		CONCAT('%', #{keyword1}, '%')
+		or name like CONCAT('%', #{keyword2},
+		'%')
+	</select>
+
+	<select id="view_banner_product3" parameterType="vo.BannerVO"
+		resultType="product">
+		select * from product
+		where discount &lt; #{discount}
+		AND discount &gt; 1
+	</select>
 
 </mapper>
 

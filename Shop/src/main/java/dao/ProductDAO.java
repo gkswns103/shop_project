@@ -113,12 +113,20 @@ public class ProductDAO {
 		return list;
 	}
 	
-	public List<ProductVO> view_banner_product(BannerVO vo){
-		List<ProductVO> list = sqlSession.selectList("p.view_banner_product", vo);
+	public List<ProductVO> view_banner_product1(BannerVO vo){
+		List<ProductVO> list = sqlSession.selectList("p.view_banner_product1", vo);
 		return list;
 	}
-	public List<ProductVO> view_only_discount(BannerVO vo){
-		List<ProductVO> list = sqlSession.selectList("p.view_only_discount", vo);
+	
+	public List<ProductVO> view_banner_product2(BannerVO vo){
+		List<ProductVO> list = sqlSession.selectList("p.view_banner_product2", vo);
 		return list;
 	}
+	
+	public List<ProductVO> view_banner_product3(BannerVO vo){
+		List<ProductVO> list = sqlSession.selectList("p.view_banner_product3", vo);
+		return list;
+	}
+	
+	
 }

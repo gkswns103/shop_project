@@ -21,207 +21,209 @@ import vo.ProductVO;
 
 @Controller
 public class BannerController {
-BannerDAO banner_dao;
-ProductDAO product_dao;
+	BannerDAO banner_dao;
+	ProductDAO product_dao;
 
-@Autowired
-ServletContext application;
+	@Autowired
+	ServletContext application;
 
-@Autowired
-HttpSession session;
+	@Autowired
+	HttpSession session;
 
-SqlSession sqlSession;
+	SqlSession sqlSession;
 
-public void setBanner_dao(BannerDAO banner_dao) {
-	this.banner_dao = banner_dao;
-}
-public void setProduct_dao(ProductDAO product_dao) {
-	this.product_dao = product_dao;
-}
+	public void setBanner_dao(BannerDAO banner_dao) {
+		this.banner_dao = banner_dao;
+	}
+
+	public void setProduct_dao(ProductDAO product_dao) {
+		this.product_dao = product_dao;
+	}
 
 //----------------------------------------------------------------------------
 //메인페이지 배너 불러오기
-@RequestMapping("/headerimg")
-public String getHeaderImages(Model model) {
-    // DB에서 활성화된 배너만 가져옴
-    List<BannerVO> list = banner_dao.select_active_banners();
-    model.addAttribute("list", list);
-    return Common.Path.CUSTOMER_PATH + "home.jsp";
-}
+	@RequestMapping("/headerimg")
+	public String getHeaderImages(Model model) {
+		// DB에서 활성화된 배너만 가져옴
+		List<BannerVO> list = banner_dao.select_active_banners();
+		model.addAttribute("list", list);
+		return Common.Path.CUSTOMER_PATH + "home.jsp";
+	}
 
 //----------------------------------------------------------------------------
 //어드민 페이지(배너)
-@RequestMapping("/admin/banner")
-public String banner(Model model) {
-	List<BannerVO> list = banner_dao.select_banner();
-	model.addAttribute("list",list);
-	return Common.Path.ADMIN_PATH + "banner.jsp";
-}
+	@RequestMapping("/admin/banner")
+	public String banner(Model model) {
+		List<BannerVO> list = banner_dao.select_banner();
+		model.addAttribute("list", list);
+		return Common.Path.ADMIN_PATH + "banner.jsp";
+	}
 
-@RequestMapping("/admin/move_bn_update")
-public String banner_update(Model model) {
-	List<BannerVO> list = banner_dao.select_banner();
-	model.addAttribute("list",list);
-	return Common.Path.ADMIN_PATH + "bannerUpdate.jsp";
-}
+	@RequestMapping("/admin/move_bn_update")
+	public String banner_update(Model model) {
+		List<BannerVO> list = banner_dao.select_banner();
+		model.addAttribute("list", list);
+		return Common.Path.ADMIN_PATH + "bannerUpdate.jsp";
+	}
 
 //----------------------------------------------------------------------------
 //배너 온오프
-@RequestMapping("/banner_off")
-public String banner_off(int banner_idx) {
-	int res = banner_dao.banner_off(banner_idx);
-	
-	if(res>0) {
-	System.out.println("off성공");
+	@RequestMapping("/banner_off")
+	public String banner_off(int banner_idx) {
+		int res = banner_dao.banner_off(banner_idx);
+
+		if (res > 0) {
+			System.out.println("off성공");
+		}
+		return "redirect:/admin/banner";
 	}
-	 return "redirect:/admin/banner";
-}
-@RequestMapping("/banner_on")
-public String banner_on(int banner_idx) {
-	int res = banner_dao.banner_on(banner_idx);
-	
-	if(res>0) {
-		System.out.println("on성공");
+
+	@RequestMapping("/banner_on")
+	public String banner_on(int banner_idx) {
+		int res = banner_dao.banner_on(banner_idx);
+
+		if (res > 0) {
+			System.out.println("on성공");
+		}
+		return "redirect:/admin/banner";
 	}
-	return "redirect:/admin/banner";
-}
 
 //----------------------------------------------------------------------------
 //배너
-@RequestMapping("/banner_view_product")
-public String sale_banner(Model model, int banner_idx) {
-	
-     List<ProductVO> list = null;
-	 List<BannerVO> banner_list = banner_dao.select_banner();
+	@RequestMapping("/banner_view_product")
+	public String sale_banner(Model model, int banner_idx) {
 
-	 for(int i=0; i < banner_list.size(); i++) {
-		 
-	  if(banner_idx == banner_list.get(i).getBanner_idx()) {
-		list = product_dao.view_banner_product(banner_list.get(i));
-		model.addAttribute("list",list);
-	 }
-   
-	 }
-   
-	 return Common.Path.CUSTOMER_PATH + "product/bannerSale.jsp";
-}
+		List<ProductVO> list = null;
+		BannerVO banner = banner_dao.selectOne_banner(banner_idx);
+
+		if(banner.getDiscount() == 0) {
+			// 할인률 0%
+			list = product_dao.view_banner_product2(banner);
+		}
+		else{
+			list = product_dao.view_banner_product1(banner);
+		}
+		
+		if(list.isEmpty() || list == null) {
+			list = product_dao.view_banner_product3(banner);
+		}
+
+		model.addAttribute("list", list);
+
+		return Common.Path.CUSTOMER_PATH + "product/bannerSale.jsp";
+
+	}
 
 //----------------------------------------------------------------------------
 //배너 수정
 
-@RequestMapping("/admin/update_banner")
-public String update_banner(int banner_idx, String new_name, MultipartFile new_image ) {
-	
-	if(new_image==null) {
-		System.out.println("사진을 못받는거임ㅋ");
-	}
-	
-	String webPath = "/resources/img/"; //상대경로
-	String savePath = application.getRealPath(webPath); //절대경로
-	System.out.println(savePath);
-	//업로드를 위한 파일정보
-	String filename = "no_file";
-	
-	if( !new_image.isEmpty() ) {
-		filename = new_image.getOriginalFilename();
-		
-		//저장할 파일의 경로
-		File saveFile = new File(savePath,filename);
-		
-		if(!saveFile.exists()) {
-			saveFile.mkdirs();
-		}
-		else {
-			//동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
-			long time = System.currentTimeMillis();
-			filename = String.format("%d_%s",time,filename);
-			saveFile = new File(savePath,filename);
-		}
-		//파일을 절대 경로에 생성
-		try {
-			new_image.transferTo(saveFile);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-			BannerVO vo = new BannerVO();
-			vo.setImage(filename);
-			vo.setNew_name(new_name);
-			vo.setBanner_idx(banner_idx);
-	
-	        // DAO를 통해 배너 업데이트
-	        int res = banner_dao.update_banner(vo);
-	        if (res > 0) {
-	            System.out.println("배너 수정 성공");
-	        } else {
-	            System.out.println("배너 수정 실패");
-	        }
-	        return "redirect:/admin/banner_update";
-	        }
+	@RequestMapping("/admin/update_banner")
+	public String update_banner(int banner_idx, String new_name, MultipartFile new_image) {
 
+		if (new_image == null) {
+			System.out.println("사진을 못받는거임ㅋ");
+		}
 
-@RequestMapping("/admin/insert_banner")
-public String insert_banner(BannerVO vo, MultipartFile new_image,String on_off) {
-	System.out.println("test:"+on_off);
-	
-	if(new_image==null) {
-		System.out.println("사진을 못받아왔습니다");
+		String webPath = "/resources/img/"; // 상대경로
+		String savePath = application.getRealPath(webPath); // 절대경로
+		System.out.println(savePath);
+		// 업로드를 위한 파일정보
+		String filename = "no_file";
+
+		if (!new_image.isEmpty()) {
+			filename = new_image.getOriginalFilename();
+
+			// 저장할 파일의 경로
+			File saveFile = new File(savePath, filename);
+
+			if (!saveFile.exists()) {
+				saveFile.mkdirs();
+			} else {
+				// 동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
+				long time = System.currentTimeMillis();
+				filename = String.format("%d_%s", time, filename);
+				saveFile = new File(savePath, filename);
+			}
+			// 파일을 절대 경로에 생성
+			try {
+				new_image.transferTo(saveFile);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		BannerVO vo = new BannerVO();
+		vo.setImage(filename);
+		vo.setNew_name(new_name);
+		vo.setBanner_idx(banner_idx);
+
+		// DAO를 통해 배너 업데이트
+		int res = banner_dao.update_banner(vo);
+		if (res > 0) {
+			System.out.println("배너 수정 성공");
+		} else {
+			System.out.println("배너 수정 실패");
+		}
+		return "redirect:/admin/banner_update";
 	}
-	
-	String webPath = "/resources/img/"; //상대경로
-	String savePath = application.getRealPath(webPath); //절대경로
-	
-	//업로드를 위한 파일정보
-	String filename = "no_file";
-	
-	if( !new_image.isEmpty() ) {
-		filename = new_image.getOriginalFilename();
-		
-		//저장할 파일의 경로
-		File saveFile = new File(savePath,filename);
-		
-		if(!saveFile.exists()) {
-			saveFile.mkdirs();
+
+	@RequestMapping("/admin/insert_banner")
+	public String insert_banner(BannerVO vo, MultipartFile new_image, String on_off) {
+		System.out.println("test:" + on_off);
+
+		if (new_image == null) {
+			System.out.println("사진을 못받아왔습니다");
 		}
-		else {
-			//동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
-			long time = System.currentTimeMillis();
-			filename = String.format("%d_%s",time,filename);
-			saveFile = new File(savePath,filename);
+
+		String webPath = "/resources/img/"; // 상대경로
+		String savePath = application.getRealPath(webPath); // 절대경로
+
+		// 업로드를 위한 파일정보
+		String filename = "no_file";
+
+		if (!new_image.isEmpty()) {
+			filename = new_image.getOriginalFilename();
+
+			// 저장할 파일의 경로
+			File saveFile = new File(savePath, filename);
+
+			if (!saveFile.exists()) {
+				saveFile.mkdirs();
+			} else {
+				// 동일한 이름의 파일이 존재한다면 현재 업로드 시간을 붙여서 중복을 방지
+				long time = System.currentTimeMillis();
+				filename = String.format("%d_%s", time, filename);
+				saveFile = new File(savePath, filename);
+			}
+			// 파일을 절대 경로에 생성
+			try {
+				new_image.transferTo(saveFile);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		//파일을 절대 경로에 생성
-		try {
-			new_image.transferTo(saveFile);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	vo.setImage(filename);
-	
-	int res = banner_dao.banner_insert(vo);
-		if(res > 0) {
+
+		vo.setImage(filename);
+
+		int res = banner_dao.banner_insert(vo);
+		if (res > 0) {
 			System.out.println("배너 추가 성공");
-		}else {
+		} else {
 			System.out.println("배너 추가 실패");
 		}
-	
-	
-	return "/admin/banner_update";
-}
+
+		return "/admin/banner_update";
+	}
 //----------------------------------------------------------------------------
 //배너 삭제
 
-@RequestMapping("/admin/delete_banner")
-public String delete_banner(int banner_idx) {
-	
-	int res = banner_dao.banner_delete(banner_idx);
-	
-	
-	return "/admin/banner_update";
-}
+	@RequestMapping("/admin/delete_banner")
+	public String delete_banner(int banner_idx) {
 
+		int res = banner_dao.banner_delete(banner_idx);
+
+		return "/admin/banner_update";
+	}
 
 }

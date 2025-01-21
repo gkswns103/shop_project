@@ -20,6 +20,12 @@ SqlSession sqlSession;
 		return list;
 	}
 	
+	public BannerVO selectOne_banner(int banner_idx){
+		BannerVO vo = sqlSession.selectOne("b.one",banner_idx);
+		
+		return vo;
+	}
+	
 	public int banner_off(int banner_idx) {
 		int res = sqlSession.update("b.off",banner_idx);
 		return res;

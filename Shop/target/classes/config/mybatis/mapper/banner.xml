@@ -6,6 +6,10 @@
 	<select id="list" resultType="vo.BannerVO">
 		select * from banner order by banner_idx asc
 	</select>
+	
+	<select id="one" resultType="vo.BannerVO" parameterType="int">
+		select * from banner where banner_idx=#{banner_idx}
+	</select>
 
 	<update id="off" parameterType="int">
 		update banner set status = 'off' where banner_idx = #{banner_idx}
