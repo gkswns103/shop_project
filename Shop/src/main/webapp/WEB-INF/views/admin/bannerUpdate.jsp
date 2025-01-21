@@ -103,8 +103,6 @@ input[name="new_name"] {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	margin-left: -100px;
-	margin-right: 100px;
 	border: none; /* 기존 테두리 제거 */
 	border-bottom: 2px solid #007bff; /* 밑줄 추가 */
 	background: transparent; /* 배경 투명 */
@@ -123,8 +121,6 @@ input[name="new_name"]:focus {
 input[name="new_image"] {
 	margin: 0;
 	padding: 0;
-	margin-left: 150px;
-	margin-right: 120px;
 }
 
 button {
@@ -161,7 +157,6 @@ input[type="file"] {
 	display: inline-block;
 	margin: 0;
 	padding: 0;
-	margin-right: 180px;
 }
 
 .custom-file-upload {
@@ -186,8 +181,7 @@ input[type="file"] {
 /* 파일 이름 표시 스타일 */
 .file-name {
 	display: inline-block;
-	margin-right: 10px;
-	margin-left: 160px; font-size : 16px;
+	font-size : 16px;
 	color: #858796;
 	font-style: italic;
 	font-size: 16px;
@@ -249,6 +243,10 @@ select[name="status"] {
     font-size: 14px; /* 글자 크기 */
     margin-left: 10px; /* 왼쪽 간격 */
     text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.text {
+	width: 70px;
 }
 
 </style>
@@ -369,7 +367,8 @@ select[name="status"] {
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div
-									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+									class="card-header py-3 d-flex 
+									flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
 									<h6 style="margin-right: 200px;" class="bn_udt_font">
 										배너 추가 <label class="switch"> <input type="checkbox"
@@ -385,6 +384,11 @@ select[name="status"] {
 											<th>배너번호</th>
 											<th>이름</th>
 											<th>이미지</th>
+											<th>대분류</th>
+											<th>카테고리1</th>
+											<th>카테고리2</th>
+											<th>키워드1</th>
+											<th>키워드2</th>
 											<th>수정</th>
 											<th>삭제</th>
 										</tr>
@@ -396,6 +400,12 @@ select[name="status"] {
 												<td>${banner.banner_idx}</td>
 												<td data-name="name" data-value="${banner.name}">${banner.name}</td>
 												<td data-name="image" data-value="${banner.image}">${banner.image}</td>
+												<td data-name="image" data-value="${banner.division}">${banner.division}</td>
+												<td data-name="image" data-value="${banner.category1}">${banner.category1}</td>
+												<td data-name="image" data-value="${banner.category2}">${banner.category2}</td>
+												<td data-name="image" data-value="${banner.keyword1}">${banner.keyword1}</td>
+												<td data-name="image" data-value="${banner.keyword2}">${banner.keyword2}</td>
+												<td data-name="image" data-value="${banner.discount}">${banner.discount}</td>
 												<td><label class="switch"> <input
 														type="checkbox" onchange="toggleDisplay(this)"> <span
 														class="slider"></span>
@@ -409,16 +419,25 @@ select[name="status"] {
 												<td colspan="5">
 													<form action="update_banner" method="post"
 														enctype="multipart/form-data">
-														<input type="hidden" name="banner_idx"
-															value="${banner.banner_idx}" required> <input
-															type="text" name="new_name" placeholder="이름"
-															value="${banner.name}" style="margin-left: 80px;" required> <span
-															class="file-name" id="file-name">선택된 파일 없음</span> <label
-															for="new_image" class="custom-file-upload">파일선택</label> <input
-															type="file" id="new_image" name="new_image"
-															accept="image/*" required>
-
-														<button type="submit" style="margin-left: 150px; margin-right: -40px;">수정하기</button>
+														<input type="hidden" name="banner_idx" value="${banner.banner_idx}" required> 
+															<input type="text" name="new_name" placeholder="이름"
+															value="${banner.name}" required>
+															<span class="file-name" id="file-name">선택된 파일 없음</span> 
+															<label for="new_image" class="custom-file-upload">파일선택</label>
+															<input type="file" id="new_image" name="new_image" accept="image/*" required>
+															<input type="text" class="text" name="new_division" 
+															value="${banner.division}" placeholder="대분류">
+															<input type="text" class="text" name="new_category1" 
+															value="${banner.category1}" placeholder="카테고리1">
+															<input type="text" class="text" name="new_category2" 
+															value="${banner.category2}" placeholder="카테고리2">
+															<input type="text" class="text" name="new_keyword1" 
+															value="${banner.keyword1}" placeholder="키워드1">
+															<input type="text" class="text" name="new_keyword2" 
+															value="${banner.keyword2}" placeholder="키워드2">
+															<input type="text" class="text" name="new_discount" 
+															value="${banner.discount}" placeholder="할인율">
+														<button type="submit">수정하기</button>
 													</form>
 												</td>
 											</tr>
@@ -578,9 +597,33 @@ select[name="status"] {
 		   let banner_idx = f.banner_idx.value;
 		   let new_name = f.new_name.value;
 		   let new_image = f.new_image.value;
+		   let new_division = f.new_division.value;
+		   let new_category1 = f.new_category1.value;
+		   let new_category2 = f.new_category2.value;
+		   let new_keyword1 = f.new_keyword1.value;
+		   let new_keyword2 = f.new_keyword2.value;
+		   let new_discount = f.new_discount.value;
 		   
 		   if(new_name === ''){
 			   alert("이름을 입력하세요");
+			   return;
+		   }
+		   
+		   if(new_division ===''){
+			   alert("대분류가 없다면 '없음'으로 입력해주세요");
+			   return
+		   }
+		   
+		   if(new_category1 === '없음' && new_category2 !=='없음' ){
+			   alert("카테고리1 부터 입력해주세요");
+			   return;
+		   }
+		   if(new_keyword1 === '없음' && new_keyword2 !=='없음' ){
+			   alert("키워드1 부터 입력해주세요");
+			   return;
+		   }
+		   if(new_discount===''){
+			   alert("할인율이 없다면 '0'을 입력해주세요");
 			   return;
 		   }
 		   

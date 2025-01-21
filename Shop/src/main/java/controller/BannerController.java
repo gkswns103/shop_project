@@ -90,22 +90,20 @@ public String banner_on(int banner_idx) {
 //배너
 @RequestMapping("/banner_view_product")
 public String sale_banner(Model model, int banner_idx) {
-   List<ProductVO> list = null;
+	
+     List<ProductVO> list = null;
+	 List<BannerVO> banner_list = banner_dao.select_banner();
+
+	 for(int i=0; i < banner_list.size(); i++) {
+		 
+	  if(banner_idx == banner_list.get(i).getBanner_idx()) {
+		list = product_dao.view_banner_product(banner_list.get(i));
+		model.addAttribute("list",list);
+	 }
    
-   if(banner_idx == 1) {
-      list = product_dao.sale_product();
-      
-   }else if(banner_idx == 2) {
-      list = product_dao.sale_pet();
-   }else if(banner_idx == 3) {
-      list = product_dao.sale_christmas();
-   }else if(banner_idx == 4) {
-      list = product_dao.sale_it();
-   }else if(banner_idx == 5) {
-      list = product_dao.sale_newyear();
-   }
-   model.addAttribute("list",list);
-   return Common.Path.CUSTOMER_PATH + "product/bannerSale.jsp";
+	 }
+   
+	 return Common.Path.CUSTOMER_PATH + "product/bannerSale.jsp";
 }
 
 //----------------------------------------------------------------------------
@@ -200,7 +198,6 @@ public String insert_banner(BannerVO vo, MultipartFile new_image,String on_off) 
 			e.printStackTrace();
 		}
 	}
-	
 	
 	vo.setImage(filename);
 	

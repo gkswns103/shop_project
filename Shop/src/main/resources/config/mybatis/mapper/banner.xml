@@ -4,7 +4,7 @@
 <mapper namespace="b">
 
 	<select id="list" resultType="vo.BannerVO">
-		select * from banner
+		select * from banner order by banner_idx asc
 	</select>
 
 	<update id="off" parameterType="int">

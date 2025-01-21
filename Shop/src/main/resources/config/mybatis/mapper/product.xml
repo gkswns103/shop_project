@@ -121,6 +121,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		apply_product
 		where product_idx = #{product_idx}
 	</delete>
+	
+	<select id="view_banner_product" parameterType="vo.BannerVO" resultType="product">
+	    select * from product 
+	    where division = #{division}
+	       or category = #{category1}
+	       or category = #{category2}
+	       or name like CONCAT('%', #{keyword1}, '%')
+	       or name like CONCAT('%', #{keyword2}, '%')
+	       and discount >= #{discount}
+	</select>
+	
+	<select id="view_only_discount" parameterType="vo,BannerVO" resultType="product">
+	select * from product
+	where discount >= #{discount}
+	</select>
+
 
 </mapper>
 
