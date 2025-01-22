@@ -184,8 +184,7 @@ public class BannerController {
 //----------------------------------------------------------------------------
 //배너 추가
 	@RequestMapping("/admin/insert_banner")
-	public String insert_banner(BannerVO vo, MultipartFile new_image, String on_off) {
-		System.out.println("test:" + on_off);
+	public String insert_banner(BannerVO vo, MultipartFile new_image) {
 
 		if (new_image == null) {
 			System.out.println("사진을 못받아왔습니다");
@@ -229,7 +228,7 @@ public class BannerController {
 			System.out.println("배너 추가 실패");
 		}
 
-		return "/admin/banner_update";
+		return "/admin/move_bn_update";
 	}
 //----------------------------------------------------------------------------
 //배너 삭제
@@ -239,7 +238,7 @@ public class BannerController {
 
 		int res = banner_dao.banner_delete(banner_idx);
 
-		return "/admin/banner_update";
+		return "/admin/move_bn_update";
 	}
 
 }

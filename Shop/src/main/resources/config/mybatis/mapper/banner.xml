@@ -30,9 +30,11 @@
 	</update>
 
 	<insert id="insert" parameterType="vo.BannerVO">
-		insert into banner
-		(name, image, status) values (#{name},#{image},#{status})
-	</insert>
+    insert into banner
+    (name, image, division, category1, category2, keyword1, keyword2, discount, status)
+    values (#{name}, #{image}, #{division}, #{category1}, #{category2}, #{keyword1}, #{keyword2}, #{discount}, #{status})
+</insert>
+
 	
 	<delete id="delete" parameterType="int">
 	delete from banner where banner_idx = #{banner_idx}

@@ -187,13 +187,6 @@ input[type="file"] {
 	font-size: 16px;
 }
 
-/* 배너 추가 테이블 조정 */
-#insert_area {
-	max-width: 800px; /* 테이블 최대 너비 */
-	margin: 0 auto; /* 화면 가운데 정렬 */
-	padding: 0; /* 테이블 안쪽 여백 */
-}
-
 /* 테이블 헤더(th)와 데이터(td) 정렬 및 간격 */
 .banner-insert-table th, 
 .banner-insert-table td {
@@ -245,9 +238,6 @@ select[name="status"] {
     text-align: center; /* 텍스트 가운데 정렬 */
 }
 
-.text {
-	width: 70px;
-}
 
 </style>
 
@@ -371,8 +361,8 @@ select[name="status"] {
 									flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
 									<h6 style="margin-right: 200px;" class="bn_udt_font">
-										배너 추가 <label class="switch"> <input type="checkbox"
-											id="toggleInsert" onchange="toggleInsertArea()" value="배너추가">
+										배너 추가 <label class="switch"> 
+										<input type="checkbox" id="toggleInsert" onchange="toggleInsertArea()" value="배너추가">
 											<span class="slider"></span>
 										</label>
 									</h6>
@@ -394,7 +384,7 @@ select[name="status"] {
 											<th>삭제</th>
 										</tr>
 										<c:forEach var="banner" items="${list}">
-
+		
 											<input type="hidden" name="banner_idx"
 												value="${banner.banner_idx}">
 											<tr align="center">
@@ -423,9 +413,9 @@ select[name="status"] {
 														<input type="hidden" name="banner_idx" value="${banner.banner_idx}" required> 
 															<input type="text" name="new_name" placeholder="이름"
 															value="${banner.name}" required>
-															<span class="file-name" id="file-name">선택된 파일 없음</span> 
-															<label for="new_image" class="custom-file-upload">파일선택</label>
-															<input type="file" id="new_image" name="new_image" accept="image/*" required>
+															<span class="file-name" id="udt_file-name">선택된 파일 없음</span> 
+															<label for="udt_image" class="custom-file-upload">파일선택</label>
+															<input type="file" id="udt_image" name="udt_image" accept="image/*" required>
 															<input type="text" class="text" name="new_division" 
 															value="${banner.division}" placeholder="대분류">
 															<input type="text" class="text" name="new_category1" 
@@ -450,46 +440,58 @@ select[name="status"] {
 							</div>
 						</div>
 
-						<div class="col-xl-12 col-lg-12" id="insert_area">
+						<div class="col-xl-12 col-lg-12" id="insert_area" style="display: none;">
 							<div class="card shadow mb-4">
+							<form class="insert_text" action="insert_banner" method="post" enctype="multipart/form-data">
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">배너 추가</h6>
-									<!-- "추가" 버튼 -->
-									<button type="button" onclick="insert(this.form);">추가</button>
+									<button type="submit">추가</button>
 								</div>
 								<!-- Card Body -->
-								<div class="">
+								<div align="center" class="">
+								
 									<table class="banner-insert-table">
 										<!-- 테이블 헤더 -->
 										<tr align="center">
 											<th>이름</th>
 											<th>이미지</th>
+											<th>대분류</th>
+											<th>카테고리1</th>
+											<th>카테고리2</th>
+											<th>키워드1</th>
+											<th>키워드2</th>
+											<th>할인율</th>
 											<th>활성화/비활성화</th>
 										</tr>
 										<!-- 입력 필드와 버튼 -->
 										<tr>
-											<td align="center">
-												<!-- 이름 입력 필드 --> <input type="text" name="name"
-												placeholder="이름">
-											</td>
-											<td align="center">
-												<!-- 파일 이름과 파일 선택 버튼 --> <span class="file-name"
-												id="file-name">선택된 파일 없음</span> <label for="new_image"
-												class="custom-file-upload">파일선택</label> <input type="file"
-												id="new_image" name="new_image" accept="image/*" required>
-											</td>
-											<td align="center">
-												<!-- 상태 드롭다운 --> <select name="status">
-													<option value="">상태</option>
-													<option value="on">on</option>
-													<option value="off">off</option>
-											</select>
+											<td align="center" colspan="9">
+											
+												<!-- 이름 입력 필드 --> 
+												<input type="text" name="name" placeholder="이름" class="form-control">
+												<!-- 파일 이름과 파일 선택 버튼 --> 
+												<span class="file-name" id="file-name">선택된 파일 없음</span>
+												<label for="new_image" class="custom-file-upload">파일선택</label>
+												<input type="file" id="new_image" name="new_image" accept="image/*" required>
+												<input type="text" name="division" value="없음" placeholder="대분류" class="a">
+												<input type="text" name="category1" value="없음" placeholder="카테고리1" class="a">
+												<input type="text" name="category2" value="없음" placeholder="카테고리2" class="a">
+												<input type="text" name="keyword1" value="없음" placeholder="키워드1" class="a">
+												<input type="text" name="keyword2" value="없음" placeholder="키워드2" class="a">
+												<input type="text" name="discount" value="0" placeholder="할인율" class="b">
+												<!-- 상태 드롭다운 -->
+												<select name="status" required>
+														<option value="">상태</option>
+														<option value="on">on</option>
+														<option value="off">off</option>
+												</select>
 											</td>
 										</tr>
 									</table>
 								</div>
+								</form>
 							</div>
 						</div>
 
@@ -541,12 +543,20 @@ select[name="status"] {
 	<script src="/shop/resources/admin/js/demo/chart-pie-demo.js"></script>
 
 	<script>
+	// 페이지 로드 시 관리자 로그인 유무와 기본적으로 insert_area를 숨깁니다.
 		window.onload = function() {
 			if ('${admin}' == "" || '${admin}' === "" || '${admin}' == null) {
 				alert("<접속제한>관리자 페이지입니다.");
 				location.href = "/shop/"
 			}
-		}
+			 const insertArea = document.getElementById('insert_area');
+			    insertArea.style.display = 'none';
+
+			    if ('${admin}' == "" || '${admin}' === "" || '${admin}' == null) {
+			        alert("<접속제한>관리자 페이지입니다.");
+			        location.href = "/shop/";
+			    }
+			}
 		
 		function toggleDisplay(checkbox) {
 		    const row = checkbox.closest('tr'); // 현재 행을 찾습니다.
@@ -564,14 +574,24 @@ select[name="status"] {
 		}
 		
 		function toggleInsertArea() {
-		    const checkbox = document.getElementById('toggleInsert');
+		     const checkbox = document.getElementById('toggleInsert');
 		    const insertArea = document.getElementById('insert_area');
 		    if (checkbox.checked) {
 		        insertArea.style.display = ''; // 보이게 설정
 		    } else {
 		        insertArea.style.display = 'none'; // 숨김
-		    }
+		    } 
 		}
+		
+		document.getElementById('udt_image').addEventListener('change', function() {
+		    const fileInput = this;
+		    const fileNameSpan = document.getElementById('udt_file-name');
+		    if (fileInput.files.length > 0) {
+		        fileNameSpan.textContent = fileInput.files[0].name; // 선택된 파일 이름 표시
+		    } else {
+		        fileNameSpan.textContent = '선택된 파일 없음'; // 파일이 선택되지 않은 경우
+		    }
+		});
 		
 		document.getElementById('new_image').addEventListener('change', function() {
 		    const fileInput = this;
@@ -582,22 +602,11 @@ select[name="status"] {
 		        fileNameSpan.textContent = '선택된 파일 없음'; // 파일이 선택되지 않은 경우
 		    }
 		});
-
-		// 페이지 로드 시 기본적으로 insert_area를 숨깁니다.
-		window.onload = function() {
-		    const insertArea = document.getElementById('insert_area');
-		    insertArea.style.display = 'none';
-
-		    if ('${admin}' == "" || '${admin}' === "" || '${admin}' == null) {
-		        alert("<접속제한>관리자 페이지입니다.");
-		        location.href = "/shop/";
-		    }
-		};
+		
 		
 		function update(f) {
 		   let banner_idx = f.banner_idx.value;
 		   let new_name = f.new_name.value;
-		   let new_image = f.new_image.value;
 		   let new_division = f.new_division.value;
 		   let new_category1 = f.new_category1.value;
 		   let new_category2 = f.new_category2.value;
@@ -605,21 +614,23 @@ select[name="status"] {
 		   let new_keyword2 = f.new_keyword2.value;
 		   let new_discount = f.new_discount.value;
 		   
+		   const only_num = /^[0-9]+$/;
+		   
 		   if(new_name === ''){
 			   alert("이름을 입력하세요");
 			   return;
 		   }
 		   
 		   if(new_division ===''){
-			   alert("대분류가 없다면 '없음'으로 입력해주세요");
+			   alert("대분류가 없다면 없음 으로 입력해주세요");
 			   return
 		   }
 		   if(new_category1 ===''){
-			   alert("카테고리가 없다면 '없음'으로 입력해주세요");
+			   alert("카테고리가 없다면 없음 으로 입력해주세요");
 			   return
 		   }
 		   if(new_keyword1 ===''){
-			   alert("키워드가 없다면 '없음'으로 입력해주세요");
+			   alert("키워드가 없다면 없음 으로 입력해주세요");
 			   return
 		   }
 		   
@@ -632,13 +643,18 @@ select[name="status"] {
 			   return;
 		   }
 		   if(new_discount===''){
-			   alert("할인율이 없다면 '0'을 입력해주세요");
+			   alert("할인율이 없다면 0 을 입력해주세요");
+			   return;
+		   }
+		   if(!only_num.test(new_discount)){
+			   alert("숫자만 입력해주세요");
 			   return;
 		   }
 		   
+		   
 		   let image_test = /^.*\.(jpg|jpeg|png|gif|bmp|webp|tiff|svg|jfif)$/i;
 
-			if (!image_test.test(f.new_photo.value)) {
+			if (!image_test.test(f.udt_photo.value)) {
 				alert("이미지 파일만 업로드 가능합니다.");
 				return;
 			}
@@ -656,7 +672,15 @@ select[name="status"] {
 		// 폼 데이터 추출
 		let name = f.name.value;
 		let new_image = f.new_image.value;
+		let division = f.division.value;
+		let category1 = f.category1.value;
+	    let category2 = f.category2.value;
+  	    let keyword1 = f.keyword1.value;
+	    let keyword2 = f.keyword2.value;
+		let discount = f.discount.value;
 		let status = f.querySelector('select').value;
+		
+		const only_num = /^[0-9]+$/;
 
 		// 유효성 검사
 		if (name === "") {
@@ -668,6 +692,35 @@ select[name="status"] {
 			alert("이미지를 선택하세요.");
 			return;
 		}
+		
+		if(division === ''){
+			alert("대분류가 없다면 없음 으로 입력해주세요");
+			return;
+		}
+		if(category1 === ''){
+			alert("카테고리1이 없다면 없음 으로 입력해주세요");
+			return;
+		}
+		if(category1 === '없음' && category2 !== '없음'){
+			alert("카테고리1부터 입력해주세요");
+			return;
+		}
+		if(keyword1 === ''){
+			alert("키워드1이 없다면 없음 으로 입력해주세요");
+			return;
+		}
+		if(keyword1 === '없음' && keyword2 !== '없음'){
+			alert("키워드1부터 입력해주세요");
+			return;
+		}
+		if(discount === ''){
+			alert('할인율이 없다면 0 으로 입력해주세요');
+			return;
+		}
+		if(!only_num.test(discount)){
+			   alert("숫자만 입력해주세요");
+			   return;
+		   }
 
 		// 이미지 파일 확장자 검사
 		const imageExtensions = /\.(jpg|jpeg|png|gif|bmp|webp)$/i;
