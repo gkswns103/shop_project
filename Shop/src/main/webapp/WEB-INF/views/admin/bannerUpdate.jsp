@@ -238,6 +238,71 @@ select[name="status"] {
     text-align: center; /* 텍스트 가운데 정렬 */
 }
 
+input[name="new_division"], input[name="new_category1"], input[name="new_category2"], 
+input[name="new_keyword1"], input[name="new_keyword2"], input[name="new_discount"]
+ {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: none; /* 기존 테두리 제거 */
+	border-bottom: 2px solid #007bff; /* 밑줄 추가 */
+	background: transparent; /* 배경 투명 */
+	outline: none; /* 포커스 시 기본 테두리 제거 */
+	font-size: 16px; /* 글자 크기 */
+	transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
+	color: #858796;
+	width: 50px;
+	margin-right: 60px;
+}
+
+input[name="new_discount"]
+ {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: none; /* 기존 테두리 제거 */
+	border-bottom: 2px solid #007bff; /* 밑줄 추가 */
+	background: transparent; /* 배경 투명 */
+	outline: none; /* 포커스 시 기본 테두리 제거 */
+	font-size: 16px; /* 글자 크기 */
+	transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
+	color: #858796;
+	width: 40px;
+	margin-right: 50px;
+}
+
+input[name="division"], input[name="category1"], input[name="category2"], 
+input[name="keyword1"], input[name="keyword2"], input[name="discount"]
+ {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: none; /* 기존 테두리 제거 */
+	border-bottom: 2px solid #007bff; /* 밑줄 추가 */
+	background: transparent; /* 배경 투명 */
+	outline: none; /* 포커스 시 기본 테두리 제거 */
+	font-size: 16px; /* 글자 크기 */
+	transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
+	color: #858796;
+	width: 100px;
+	
+}
+
+input[name="discount"]
+ {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: none; /* 기존 테두리 제거 */
+	border-bottom: 2px solid #007bff; /* 밑줄 추가 */
+	background: transparent; /* 배경 투명 */
+	outline: none; /* 포커스 시 기본 테두리 제거 */
+	font-size: 16px; /* 글자 크기 */
+	transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
+	color: #858796;
+	width: 40px;
+	
+}
 
 </style>
 
@@ -407,14 +472,14 @@ select[name="status"] {
 												</td>
 											</tr>
 											<tr class="hidden" align="center" style="display: none;">
-												<td colspan="5">
+												<td colspan="10">
 													<form action="update_banner" method="post"
 														enctype="multipart/form-data">
 														<input type="hidden" name="banner_idx" value="${banner.banner_idx}" required> 
 															<input type="text" name="new_name" placeholder="이름"
-															value="${banner.name}" required>
+															value="${banner.name}"  style="margin-right: 70px; margin-left: 100px;" required>
 															<span class="file-name" id="udt_file-name">선택된 파일 없음</span> 
-															<label for="udt_image" class="custom-file-upload">파일선택</label>
+															<label for="udt_image" class="custom-file-upload" style="margin-right: 110px;">파일선택</label>
 															<input type="file" id="udt_image" name="udt_image" accept="image/*" required>
 															<input type="text" class="text" name="new_division" 
 															value="${banner.division}" placeholder="대분류">
@@ -426,9 +491,10 @@ select[name="status"] {
 															value="${banner.keyword1}" placeholder="키워드1">
 															<input type="text" class="text" name="new_keyword2" 
 															value="${banner.keyword2}" placeholder="키워드2">
-															<input type="text" class="text" name="new_discount" 
+															<input type="text" class="text2" name="new_discount" 
 															value="${banner.discount}" placeholder="할인율">
-														<button type="submit">수정하기</button>
+															<button type="submit">수정하기</button>
+															
 													</form>
 												</td>
 											</tr>
@@ -455,7 +521,6 @@ select[name="status"] {
 									<table class="banner-insert-table">
 										<!-- 테이블 헤더 -->
 										<tr align="center">
-											<th>이름</th>
 											<th>이미지</th>
 											<th>대분류</th>
 											<th>카테고리1</th>
@@ -467,10 +532,10 @@ select[name="status"] {
 										</tr>
 										<!-- 입력 필드와 버튼 -->
 										<tr>
-											<td align="center" colspan="9">
+											<td align="center" colspan="12">
 											
 												<!-- 이름 입력 필드 --> 
-												<input type="text" name="name" placeholder="이름" class="form-control">
+												<input type="text" name="name" placeholder="배너 이름(설명)" class="form-control">
 												<!-- 파일 이름과 파일 선택 버튼 --> 
 												<span class="file-name" id="file-name">선택된 파일 없음</span>
 												<label for="new_image" class="custom-file-upload">파일선택</label>
