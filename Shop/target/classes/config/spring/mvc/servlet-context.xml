@@ -83,6 +83,9 @@
 	    <beans:property name="banner_dao" ref="banner_daoBean"/>
 	    <beans:property name="product_dao" ref="product_daoBean"/>
 	</beans:bean>
+	
+	<beans:bean class="controller.GptController">
+	</beans:bean>
 
 </beans:beans>
 	

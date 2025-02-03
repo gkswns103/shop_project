@@ -152,6 +152,20 @@ ul {
 	z-index: 1000; /* 다른 요소 위로 올리기 */
 }
 
+/* recentView 고정 위치 */
+.gptImg {
+	position: fixed; /* 화면에 고정 */
+	top: 90%;
+	transform: translateY(-50%); /* 정확히 중앙 배치 */
+	right: 60px; /* 오른쪽 여백 */
+	background-color: #f8f9fa; /* 배경색 */
+	padding: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	z-index: 1000; /* 다른 요소 위로 올리기 */
+	cursor: pointer;
+}
+
 /* 섹션 스타일 */
 .py-5 {
 	flex: 1; /* 남은 공간을 차지 */
@@ -206,7 +220,7 @@ ul {
 					<dl>
 						<dt class="notice_dt">공 지</dt>
 						<dd>
-							<a href="">2025-12-25 업데이트</a>
+							<a href="#">2025-12-25 업데이트</a>
 						</dd>
 					</dl>
 				</li>
@@ -218,7 +232,7 @@ ul {
 					<dl>
 						<dt class="event_dt">이벤트</dt>
 						<dd>
-							<a href="">1월 신년 이벤트 진행중~</a>
+							<a href="#">1월 신년 이벤트 진행중~</a>
 						</dd>
 					</dl>
 				</li>
@@ -289,7 +303,8 @@ ul {
 			</c:forEach>
 		</ul>
 	</div>
-
+	<img class="gptImg" src="/shop/resources/img/gpt.png" width="60px" height="60px" onclick="location.href='/shop/gptView'">
+	
 	<!-- Footer-->
 	<footer class="pt-4 bg-dark">
 		<div class="container">

@@ -30,7 +30,7 @@ public class ReviewLikeController {
 	@ResponseBody
 	public String likeup(ReviewLikeVO vo) {
 	session.removeAttribute("reviewIdx");
-
+	
 	int res=reviewLike_dao.check(vo); 
 	
 	if(res>=1) {
