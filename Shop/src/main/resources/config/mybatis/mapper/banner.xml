@@ -4,22 +4,40 @@
 <mapper namespace="b">
 
 	<select id="list" resultType="vo.BannerVO">
-	select * from banner
+		select * from banner order by banner_idx asc
 	</select>
 	
+	<select id="one" resultType="vo.BannerVO" parameterType="int">
+		select * from banner where banner_idx=#{banner_idx}
+	</select>
+
 	<update id="off" parameterType="int">
-    update banner set status = 'off' where banner_idx = #{banner_idx}
-</update>
-<update id="on" parameterType="int">
-    update banner set status = 'on' where banner_idx = #{banner_idx}
-</update>
+		update banner set status = 'off' where banner_idx = #{banner_idx}
+	</update>
+	<update id="on" parameterType="int">
+		update banner set status = 'on' where banner_idx = #{banner_idx}
+	</update>
 
-<select id="select_active" resultType="vo.BannerVO">
-	select * from banner where status = 'on'
-</select>
+	<select id="select_active" resultType="vo.BannerVO">
+		select * from banner where status = 'on'
+	</select>
 
- <update id="update" parameterType="vo.BannerVO">
-    update banner set name = #{new_name}, image=#{image} where banner_idx = #{banner_idx} 
-</update>
+	<update id="update" parameterType="vo.BannerVO">
+		update banner 
+		set name = #{new_name}, image=#{image}, division = #{division}, category1 = #{category1}, category2 = #{category2},
+		keyword1 = #{keyword1}, keyword2 = #{keyword2}, discount= #{discount}
+		where banner_idx = #{banner_idx}
+	</update>
+
+	<insert id="insert" parameterType="vo.BannerVO">
+    insert into banner
+    (name, image, division, category1, category2, keyword1, keyword2, discount, status)
+    values (#{name}, #{image}, #{division}, #{category1}, #{category2}, #{keyword1}, #{keyword2}, #{discount}, #{status})
+</insert>
+
 	
+	<delete id="delete" parameterType="int">
+	delete from banner where banner_idx = #{banner_idx}
+	</delete>
+
 </mapper>

@@ -3,6 +3,7 @@ package dao;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.web.multipart.MultipartFile;
 
 import vo.BannerVO;
 
@@ -17,6 +18,12 @@ SqlSession sqlSession;
 		List<BannerVO> list = sqlSession.selectList("b.list");
 		
 		return list;
+	}
+	
+	public BannerVO selectOne_banner(int banner_idx){
+		BannerVO vo = sqlSession.selectOne("b.one",banner_idx);
+		
+		return vo;
 	}
 	
 	public int banner_off(int banner_idx) {
@@ -37,5 +44,13 @@ SqlSession sqlSession;
 	    return sqlSession.update("b.update", vo);
 	}
 
+	public int banner_insert(BannerVO vo) {
+		int res = sqlSession.insert("b.insert", vo);
+		return res;
+	}
 	
+	public int banner_delete(int banner_idx) {
+		int res = sqlSession.delete("b.delete",banner_idx);
+		return res;
+	}
 }

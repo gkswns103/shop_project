@@ -97,50 +97,50 @@
 }
 
 .buyBtn {
-  border: none;
-  display: block;
-  border-radius:10px;
-  text-align: center;
-  cursor: pointer;
-  text-transform: uppercase;
-  outline: none;
-  overflow: hidden;
-  position: relative;
-  color: black;
-  font-weight: 700;
-  font-size: 15px;
-  background-color: white;
-  padding: 10px 30px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.20);
-  transition: color 0.5s ease-in-out; /* 텍스트 색상 변경 시 애니메이션 */
+	border: none;
+	display: block;
+	border-radius: 10px;
+	text-align: center;
+	cursor: pointer;
+	text-transform: uppercase;
+	outline: none;
+	overflow: hidden;
+	position: relative;
+	color: black;
+	font-weight: 700;
+	font-size: 15px;
+	background-color: white;
+	padding: 10px 30px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+	transition: color 0.5s ease-in-out; /* 텍스트 색상 변경 시 애니메이션 */
 }
 
 .buyBtn span {
-  position: relative; 
-  z-index: 1;
+	position: relative;
+	z-index: 1;
 }
 
 .buyBtn:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 490%;
-  width: 170%;
-  background: #454685;
-  -webkit-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
-  -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
-  transform: translateX(-98%) translateY(-25%) rotate(45deg);
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 490%;
+	width: 170%;
+	background: #454685;
+	-webkit-transition: all .5s ease-in-out;
+	transition: all .5s ease-in-out;
+	-webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+	transform: translateX(-98%) translateY(-25%) rotate(45deg);
 }
 
 .buyBtn:hover:after {
-  -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-  transform: translateX(-9%) translateY(-25%) rotate(45deg);
+	-webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+	transform: translateX(-9%) translateY(-25%) rotate(45deg);
 }
 
 .buyBtn:hover {
-  color: white; /* 마우스를 올렸을 때 텍스트 색상을 흰색으로 변경 */
+	color: white; /* 마우스를 올렸을 때 텍스트 색상을 흰색으로 변경 */
 }
 </style>
 
@@ -183,36 +183,37 @@
 									<div class="box2">
 										${vo.name} <input type="hidden"
 											id="inventory-${vo.product_idx}" value="${vo.inventory }">(남은
-										수량:${vo.inventory }개) <br> <span
-											class="discount"><fmt:formatNumber
+										수량:${vo.inventory }개) <br> <span class="discount"><fmt:formatNumber
 												value="${vo.discount}" type="number" groupingUsed="true" />%</span>
 										<span id="price" class="price"><fmt:formatNumber
 												value="${vo.price * vo.quantity}" type="number"
 												groupingUsed="true" />원</span><br>
-										<h4 style="color:red;">
+										<h4 style="color: red;">
 											<fmt:formatNumber value="${vo.realprice * vo.quantity}"
 												type="number" groupingUsed="true" />
 											원
 										</h4>
 										<div class="counter-container mt-3" style="display: flex;">
 											<input id="prodidx-${vo.product_idx}" type="hidden"
-												value="${vo.product_idx}" maxlength="3"> 
-										<%-- 		수량 <input
-												id="amount-${vo.product_idx}" name="amount"
-												value="${vo.quantity}"
-												onchange="amountChange(${vo.product_idx})">
+												value="${vo.product_idx}" maxlength="3">
+											<%--       수량 <input
+                                    id="amount-${vo.product_idx}" name="amount"
+                                    value="${vo.quantity}"
+                                    onchange="amountChange(${vo.product_idx})">
 
-											<button id="decrease" onclick="decrease(${vo.product_idx})">▼</button>
-											<button id="increase" onclick="increase(${vo.product_idx})">▲</button> --%>
+                                 <button id="decrease" onclick="decrease(${vo.product_idx})">▼</button>
+                                 <button id="increase" onclick="increase(${vo.product_idx})">▲</button> --%>
 											<span class="mt-auto mb-auto">수량</span>
 											<table class="styled-table ms-2">
 												<tr>
-													<td><input id="amount-${vo.product_idx}" style="outline: none; border: none; font-size: 17px; padding: 1px;" name="amount" type="text"
-														value="${vo.quantity}" onchange="amountChange(${vo.product_idx})"></td>
+													<td><input id="amount-${vo.product_idx}"
+														style="outline: none; border: none; font-size: 17px; padding: 1px;"
+														name="amount" type="text" value="${vo.quantity}"
+														onchange="amountChange(${vo.product_idx})"></td>
 													<td class="vertical-buttons"><input type="button"
 														class="amountBtn" value="∧" id="increase"
-														onclick="increase(${vo.product_idx})"> <input type="button"
-														class="amountBtn" value="∨" id="decrease"
+														onclick="increase(${vo.product_idx})"> <input
+														type="button" class="amountBtn" value="∨" id="decrease"
 														onclick="decrease(${vo.product_idx})"></td>
 												</tr>
 											</table>
@@ -238,7 +239,10 @@
 						<hr>
 						최종 금액: <span id="finalsum" style="color: red;"><fmt:formatNumber
 								value="${totalprice - totaldiscount}" type="number"
-								groupingUsed="true" />원</span><button type="button" class="buyBtn mt-3" onclick="purchase();"><span>구매하기</span></button>
+								groupingUsed="true" />원</span>
+						<button type="button" class="buyBtn mt-3" onclick="purchase();">
+							<span>구매하기</span>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -246,8 +250,8 @@
 	</c:if>
 
 	<c:if test="${sessionScope.cart_count eq 0}">
-		장바구니에 암것도 없당께
-	</c:if>
+      장바구니가 비어있습니다.
+   </c:if>
 
 	<c:if test="${empty users }">
 		<!-- 로그인정보 없이 장바구니에 접근했을시 -->
@@ -255,9 +259,9 @@
 	</c:if>
 
 	<script src="/shop/resources/js/httpRequest.js"></script>
-	
+
 	<script>
-	window.onload = function() {
+   window.onload = function() {
           // 모든 체크박스를 찾기
           const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
@@ -407,5 +411,5 @@
        }
      
      </script>
-   </body>
+</body>
 </html>
