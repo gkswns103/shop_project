@@ -120,7 +120,7 @@ input[name="new_name"]:focus {
 
 input[name="new_image"] {
 	margin: 0;
-	padding: 0;
+	padding: 0;s
 }
 
 button {
@@ -271,7 +271,7 @@ input[name="new_discount"]
 	margin-right: 50px;
 }
 
-input[name="division"], input[name="category1"], input[name="category2"], 
+input[name="name"], input[name="division"], input[name="category1"], input[name="category2"], 
 input[name="keyword1"], input[name="keyword2"], input[name="discount"]
  {
 	margin: 0;
@@ -302,6 +302,20 @@ input[name="discount"]
 	color: #858796;
 	width: 40px;
 	
+}
+
+tr.inventory th {
+    padding: 15px 20px; /* 상하 15px, 좌우 20px 패딩 추가 */
+    min-width: 150px; /* 최소 너비 설정 */  
+    text-align: center; /* 텍스트 중앙 정렬 */
+    vertical-align: middle; /* 수직 중앙 정렬 */
+}
+
+/* inventory 행 전체 너비 조정 */
+tr.inventory {
+    display: table-row;
+    width: 100%;
+    table-layout: fixed; /* 각 th의 너비를 균등하게 유지 */
 }
 
 </style>
@@ -520,7 +534,8 @@ input[name="discount"]
 								
 									<table class="banner-insert-table">
 										<!-- 테이블 헤더 -->
-										<tr align="center">
+										<tr align="center" class="inventory">
+											<th>배너이름(설명)</th>
 											<th>이미지</th>
 											<th>대분류</th>
 											<th>카테고리1</th>
@@ -532,20 +547,17 @@ input[name="discount"]
 										</tr>
 										<!-- 입력 필드와 버튼 -->
 										<tr>
-											<td align="center" colspan="12">
-											
-												<!-- 이름 입력 필드 --> 
-												<input type="text" name="name" placeholder="배너 이름(설명)" class="form-control">
-												<!-- 파일 이름과 파일 선택 버튼 --> 
-												<span class="file-name" id="file-name">선택된 파일 없음</span>
-												<label for="new_image" class="custom-file-upload">파일선택</label>
-												<input type="file" id="new_image" name="new_image" accept="image/*" required>
-												<input type="text" name="division" value="없음" placeholder="대분류" class="a">
-												<input type="text" name="category1" value="없음" placeholder="카테고리1" class="a">
-												<input type="text" name="category2" value="없음" placeholder="카테고리2" class="a">
-												<input type="text" name="keyword1" value="없음" placeholder="키워드1" class="a">
-												<input type="text" name="keyword2" value="없음" placeholder="키워드2" class="a">
-												<input type="text" name="discount" value="0" placeholder="할인율" class="b">
+											<td><input type="text" name="name" placeholder="이름"></td>
+											<td><span class="file-name" id="file-name">선택된 파일 없음</span>
+											<label for="new_image" class="custom-file-upload">파일선택</label>
+											<input type="file" id="new_image" name="new_image" accept="image/*" required></td>
+											<td><input type="text" name="division" value="없음" placeholder="대분류"></td>
+											<td><input type="text" name="category1" value="없음" placeholder="카테고리1"></td>
+											<td><input type="text" name="category2" value="없음" placeholder="카테고리2"></td>
+											<td><input type="text" name="keyword1" value="없음" placeholder="키워드1"></td>
+											<td><input type="text" name="keyword2" value="없음" placeholder="키워드2"></td>
+											<td><input type="text" name="discount" value="0" placeholder="할인율"></td>
+											<td>
 												<!-- 상태 드롭다운 -->
 												<select name="status" required>
 														<option value="">상태</option>
