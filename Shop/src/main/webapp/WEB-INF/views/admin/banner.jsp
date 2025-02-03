@@ -164,8 +164,7 @@
 					aria-labelledby="headingBanner" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="/shop/admin/banner">배너설정</a>
-						<a class="collapse-item" href="/shop/admin/banner_update">배너수정</a>
-						 <a class="collapse-item" href="/shop/admin/banner_insert">배너추가</a>
+						<a class="collapse-item" href="/shop/admin/move_bn_update">배너 수정/추가</a>
 					</div>
 				</div></li>
 
@@ -228,6 +227,12 @@
 											<th>배너번호</th>
 											<th>이름</th>							
 											<th>이미지</th>
+											<th>대분류</th>
+											<th>카테고리1</th>
+											<th>카테고리2</th>
+											<th>키워드1</th>
+											<th>키워드2</th>
+											<th>할인율(%)</th>
 											<th>온오프</th>
 										</tr>
 										<c:forEach var="banner" items="${list}">
@@ -235,9 +240,15 @@
 												<input type="hidden" name="banner_idx"
 													value="${banner.banner_idx}">
 												<tr align="center">
-													<td style="color: red;">${banner.banner_idx}</td>
+													<td>${banner.banner_idx}</td>
 													<td>${banner.name}</td>													
 													<td>${banner.image}</td>												
+													<td>${banner.division}</td>												
+													<td>${banner.category1}</td>
+													<td>${banner.category2}</td>
+													<td>${banner.keyword1}</td>					
+													<td>${banner.keyword2}</td>
+													<td>${banner.discount}</td>
 													<td>${banner.status}</td>
 													<td><label class="switch"> <input
 															type="checkbox" ${banner.status == 'on' ? 'checked' : 'off'}
