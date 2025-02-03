@@ -87,7 +87,7 @@ public class ProductController {
 	    }
 	    
 	    viewedProducts.add(vo);
-	    
+	    session.setAttribute("viewedProducts", viewedProducts);
 	    // 세션에 업데이트된 리스트 저장
 
 	    UsersVO user = (UsersVO) session.getAttribute("users"); // 현재 로그인된 사용자 가져오기
