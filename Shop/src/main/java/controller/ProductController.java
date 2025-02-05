@@ -94,7 +94,7 @@ public class ProductController {
         // 메인 카테고리 목록 가져오기
         List<String> divisions = product_dao.getDistinctDivisions();
         model.addAttribute("divisions", divisions);
-
+       
         // 서브 카테고리 목록 가져오기
         List<String> categories = product_dao.getAllDistinctCategories();
         model.addAttribute("categories", categories);
@@ -104,6 +104,7 @@ public class ProductController {
 		}
         return Common.Path.CUSTOMER_PATH + "product/productInsert.jsp?res=" + res;
     }
+   
     
     @RequestMapping("/addproduct")
     public String upload(Model model, ProductVO product, MultipartFile photo) {
@@ -111,9 +112,9 @@ public class ProductController {
         String savePath = application.getRealPath(webPath); // 절대경로
         System.out.println(savePath);
 
-        String filename = "no_file";
+        String filename = product.getFilepath() != null ? product.getFilepath() : "no_file"; // 기존 파일명을 기본값으로 설정
 
-        if (!photo.isEmpty()) {
+        if (!photo.isEmpty()) { // 새로운 파일이 업로드된 경우
             filename = photo.getOriginalFilename();
             File saveFile = new File(savePath, filename);
 
@@ -134,12 +135,13 @@ public class ProductController {
             }
         }
 
-        product.setFilepath(filename);
+        product.setFilepath(filename); // 새로운 파일 또는 기존 파일 경로를 설정
 
         int res = product_dao.new_Product(product);
 
         return (res == 1) ? "redirect:/?res=" + res : "redirect:/registerForm?res=" + res;
     }
+
 
 
     
@@ -190,19 +192,114 @@ public class ProductController {
 
         return "/resources/img/" + safeFilename;
     }
+    
+    
+    
+    
+    
+    //수정페이지 수정 삭제를 위한 controller
+    @RequestMapping("/productList")
+    public String productList(@RequestParam("user_idx") int user_idx, Model model) {
+        List<ProductVO> productList = product_dao.getProductList(user_idx);
+        List<ProductVO> applyProductList = product_dao.getApplyProductList(user_idx);
+
+        model.addAttribute("productList", productList);
+        model.addAttribute("applyProductList", applyProductList);
+
+        return Common.Path.CUSTOMER_PATH + "product/productList.jsp";
+    }
+
+
+    @RequestMapping("/productEdit")
+    public String productEdit(@RequestParam("product_idx") int product_idx, Model model) {
+    	
+        ProductVO product = product_dao.selectOne(product_idx);
+        model.addAttribute("product", product);
+        model.addAttribute("status", "product"); // 판매 중 상태 전달
+        
+        List<String> divisions = product_dao.getDistinctDivisions();
+        model.addAttribute("divisions", divisions);
+       
+        // 서브 카테고리 목록 가져오기
+        List<String> categories = product_dao.getAllDistinctCategories();
+        model.addAttribute("categories", categories);
+        
+        return Common.Path.CUSTOMER_PATH + "product/ProductEdit.jsp";
+    }
+
+    @RequestMapping("/applyEdit")
+    public String applyEdit(@RequestParam("product_idx") int product_idx, Model model) {
+        ProductVO product = product_dao.new_Product_select_one(product_idx);
+        model.addAttribute("product", product);
+        model.addAttribute("status", "apply"); // 신청 중 상태 전달
+        
+        List<String> divisions = product_dao.getDistinctDivisions();
+        model.addAttribute("divisions", divisions);
+       
+        // 서브 카테고리 목록 가져오기
+        List<String> categories = product_dao.getAllDistinctCategories();
+        model.addAttribute("categories", categories);
+        
+        return Common.Path.CUSTOMER_PATH + "product/ProductEdit.jsp";
+    }
 
 
     
+    
+    @RequestMapping(value = "/updateProduct", method = RequestMethod.POST)    	
+    public String updateProduct(ProductVO product, Model model, MultipartFile photo,
+											@RequestParam("user_idx") int user_idx) {
+		String webPath = "/resources/img/"; // 상대경로
+		String savePath = application.getRealPath(webPath); // 절대경로
+		System.out.println(savePath);
+		
+		String filename = product.getFilepath() != null ? product.getFilepath() : "no_file"; // 기존 파일명을 기본값으로 설정
+		
+		if (!photo.isEmpty()) { // 새로운 파일이 업로드된 경우
+		filename = photo.getOriginalFilename();
+		File saveFile = new File(savePath, filename);
+		
+		if (!saveFile.exists()) {
+		saveFile.mkdirs();
+		} else {
+		// 동일한 이름의 파일이 존재하면 현재 업로드 시간을 붙여 중복 방지
+		long time = System.currentTimeMillis();
+		filename = String.format("%d_%s", time, filename);
+		saveFile = new File(savePath, filename);
+		}
+		
+		// 파일을 절대 경로에 저장
+		try {
+		photo.transferTo(saveFile);
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		}
+		
+		product.setFilepath(filename); // 새로운 파일 또는 기존 파일 경로를 설정
+   	
+       product_dao.updateProduct(product);
+       return "redirect:/productList?user_idx=" + user_idx;
+   }
+    
+
+    @RequestMapping("/deleteProduct")
+    public String deleteProduct(@RequestParam("product_idx") int product_idx, 
+                                 @RequestParam("user_idx") int user_idx) {
+        product_dao.delete_product(product_idx);
+        return "redirect:/productList?user_idx=" + user_idx;
+    }
+
+    @RequestMapping("/deleteApplyProduct")
+    public String deleteApplyProduct(@RequestParam("product_idx") int product_idx, 
+                                      @RequestParam("user_idx") int user_idx) {
+        product_dao.delete_apply_product(product_idx);
+        return "redirect:/productList?user_idx=" + user_idx;
+    }
+
+    
+  
 }
-
-
-
-
-
-
-
-
-
 
 
 

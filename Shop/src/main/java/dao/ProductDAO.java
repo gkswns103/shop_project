@@ -49,7 +49,7 @@ public class ProductDAO {
 		return sqlSession.selectList("p.getDistinctDivisions");
 	}
 
-	// 서브 카테고리 (중복 제거된 category 목록) 가져오기
+	// 서브 카테고리 (중복 제거된 	 목록) 가져오기
 	public List<String> getAllDistinctCategories() {
 		return sqlSession.selectList("p.getAllDistinctCategories");
 	}
@@ -64,7 +64,7 @@ public class ProductDAO {
 	// 제품 신규신청
 	public int new_Product(ProductVO vo) {
 		int res = sqlSession.insert("p.new_Product", vo);
-
+		
 		return res;
 	}
 	
@@ -89,25 +89,54 @@ public class ProductDAO {
 		return idx;
 	}
 	
+	
+	//수정페이지 수정 삭제를 위한 dao
+	
+	// 변경
 	public int delete_product(int product_idx) {
-		
 		int res = sqlSession.delete("p.delete_product",product_idx);
 		
 		return res;
-		
 	}
 	
 	public int delete_apply_product(int product_idx) {
-		
 		int res = sqlSession.delete("p.delete_apply_product",product_idx);
 		
 		return res;
-		
 	}
-	
 	public List<ProductVO> product_search(String search){
 		List<ProductVO> list = sqlSession.selectList("p.product_search",search);
 		
 		return list;
 	}
+	
+	public List<ProductVO> getProductList(int user_idx) {
+	    return sqlSession.selectList("p.getProductList", user_idx);
+	}
+
+	public List<ProductVO> getApplyProductList(int user_idx) {
+	    return sqlSession.selectList("p.getApplyProductList", user_idx);
+	}
+	
+	public int updateApplyProduct(ProductVO vo) {
+	    int res = sqlSession.update("p.updateApplyProduct", vo);
+	    return res;
+	}
+
+	 
+	 public int updateProduct(ProductVO product) { 
+		 return  sqlSession.update("p.updateProduct", product); 
+	 }
+	
+	 public int insertApplyProduct(ProductVO product) {
+		    return sqlSession.insert("p.insertApplyProduct", product);
+	}
+	 public List<ProductVO> getAllApplyProductList() {
+		    return sqlSession.selectList("p.getAllApplyProductList");
+	}
+	 public List<ProductVO> getProductListByStatus(String status) {
+		    return sqlSession.selectList("p.getProductListByStatus", status);
+	}
+	
+
 }

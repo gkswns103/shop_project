@@ -40,11 +40,10 @@
 	<!-- 상품 등록 폼 -->
 	<div class="container mt-3">
 		<br>
-		<h1 class="display-5 text-center mb-5">상품 등록</h1>
+		<h1 class="display-5 text-center mb-5">상품등록 신청</h1>
 		<hr><br><br>
-		<form action="addproduct" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="details" id="details"><!-- 스마트에디터2 -->
 		
+		<form action="addproduct" method="post" enctype="multipart/form-data">
 			<div class="form-group row mb-2">
 				<label for="name" class="col-sm-2 col-form-label">상품명</label>
 				<div class="col-sm-8">
@@ -88,8 +87,8 @@
 				</div>
 			</div>
 
-			<input type="hidden" name="selleridx" value="user_idx">
-
+			<input type="hidden" name="selleridx" value="${param.user_idx}">
+			
 			<div class="form-group row align-items-center mb-2">
 				<label class="col-sm-2 col-form-label">이미지</label>
 				<div class="col-sm-8">
@@ -102,14 +101,13 @@
 			</div>
 
 			<div class="form-group row mb-2">
-				<label for="division" class="col-sm-2 col-form-label">메인
-					카테고리</label>
+				<label for="division" class="col-sm-2 col-form-label">메인 카테고리</label>
 				<div class="col-sm-8">
 					<select name="division" id="division" class="form-control" required>
 						<option value="">::: 선택하세요 :::</option>
 						<c:forEach items="${divisions}" var="division">
 							<option value="${division}">${division}</option>
-						</c:forEach>
+						</c:forEach> 
 					</select>
 				</div>
 			</div>
@@ -155,11 +153,15 @@
 <script src="/shop/resources/js/amount_counter.js"></script>
 <script src="/shop/resources/js/httpRequest.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <!-- 네이버 스마트에디터 2.8.2.3 -->
 <script type="text/javascript" src="/shop/resources/smarteditor2/js/HuskyEZCreator.js"></script>
-	
 <script>
+	window.onload = function(){
+		if(${empty users}){
+			alert("로그인 필요");	
+			location.href="signin_form";
+		}
+	}	
     // Division에 따라 Category 데이터를 준비
     const categoryData = {
         의류: ["남성", "여성", "유아", "잠옷", "속옷", "신발"],
@@ -182,7 +184,7 @@
         categorySelect.innerHTML = '<option value="">::: 선택하세요 :::</option>';
 
         // 선택된 Division에 해당하는 Category 추가
-        if (selectedDivision && categoryData[selectedDivision]) {
+        if (selectedDivision && categoryData[selectedDivision]) {	
             categoryData[selectedDivision].forEach(category => {
                 const option = document.createElement("option");
                 option.value = category;
@@ -217,10 +219,10 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        console.log('✅ 업로드 성공:', response);
+                        console.log('업로드 성공:', response);
                     },
                     error: function(xhr, status, error) {
-                        console.log('❌ 업로드 실패:', error);
+                        console.log('업로드 실패:', error);
                     }
                 });
 
@@ -277,7 +279,7 @@
     
     function previewDetails() {
         if (typeof oEditors === "undefined" || oEditors.length === 0) {
-            alert("📌 스마트 에디터가 로드되지 않았습니다. 페이지를 새로고침하세요.");
+            alert(" 스마트 에디터가 로드되지 않았습니다. 페이지를 새로고침하세요.");
             return;
         }
 
@@ -285,19 +287,19 @@
             oEditors[0].exec("UPDATE_CONTENTS_FIELD", []);
             var editorContent = oEditors[0].getIR().trim();
         } catch (error) {
-            console.error("📌 [ERROR] 스마트 에디터 반영 실패: ", error);
-            alert("📌 스마트 에디터 데이터 반영 중 오류 발생!");
+            console.error(" 스마트 에디터 반영 실패: ", error);
+            alert(" 스마트 에디터 데이터 반영 중 오류 발생!");
             return;
         }
 
         if (editorContent === "") {
-            alert("📌 미리보기할 내용이 없습니다.");
+            alert(" 미리보기할 내용이 없습니다.");
             return;
         }
 
         var previewWindow = window.open("", "미리보기", "width=1000,height=600,scrollbars=yes");
         if (!previewWindow || previewWindow.closed || typeof previewWindow.closed === "undefined") {
-            alert("📌 팝업이 차단되었습니다. 브라우저 팝업 설정을 확인하세요.");
+            alert(" 팝업이 차단되었습니다. 브라우저 팝업 설정을 확인하세요.");
             return;
         }
 
@@ -328,7 +330,7 @@
         `);
         previewWindow.document.close();
 
-        // ✅ HTML이 렌더링된 후 editorContent를 innerHTML로 추가 (HTML 태그 유지)
+        //  HTML이 렌더링된 후 editorContent를 innerHTML로 추가 (HTML 태그 유지)
         previewWindow.document.getElementById("previewContent").innerHTML = editorContent;
     }
 

@@ -1,4 +1,4 @@
-package controller;
+			package controller;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import common.Common;
 import dao.CartDAO;
@@ -82,7 +83,7 @@ public class AdminController {
 	
 	@RequestMapping("/admin/delete_product")
 	public String product_delete(int product_idx) {
-		int res = product_dao.delete_product(product_idx);
+		int res = product_dao.delete_product(product_idx);	
 		return "redirect:/admin/productManagement";
 	}
 	
@@ -104,6 +105,7 @@ public class AdminController {
 		
 		return Common.Path.ADMIN_PATH + "applyProduct.jsp";
 	}
+
 	
 	@RequestMapping("/admin/apply")
 	public String apply(int product_idx) {
@@ -120,4 +122,30 @@ public class AdminController {
 		
 		return "redirect:/admin/apply_product";
 	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

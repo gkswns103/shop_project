@@ -57,9 +57,7 @@
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a
-				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="/shop/admin/admin_login">
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shop/admin/admin_login">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -183,7 +181,8 @@
 														onclick="alert('받기')">
 													<input type="button" style="top:auto;"
 														class="btn btn-danger rounded" value="주문 취소"
-														onclick="alert('취소')"></td>
+														onclick="alert('취소')">
+													</td>
 												</tr>
 											</c:forEach>
 										</table>

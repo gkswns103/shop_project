@@ -140,43 +140,42 @@
 
 					<!-- Content Row -->
 
-					<div class="row">
-
+					<div class="row">					
 						<!-- Area Chart -->
 						<div class="col-xl-12 col-lg-12">
 							<div class="card shadow mb-4">
 								<!-- Card Header - Dropdown -->
 								<div
 									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">신청 상품 리스트</h6>
+									<h6 class="m-0 font-weight-bold text-primary">상품 신청 리스트</h6>
 								</div>
 								<!-- Card Body -->
 								<div class="card-body">
 									<table class="table">
 										<tr align="center">
 											<th>상품번호</th>
+											<th>사진</th>
 											<th>상품이름</th>
 											<th>상품 원가</th>
 											<th>할인률</th>
 											<th>상품재고</th>
 											<th>상품설명</th>
 											<th>판매자IDX</th>
-											<th>사진</th>
 											<th>소분류</th>
 											<th>대분류</th>
 											<th>상품 세부설명</th>
 											<th>비고</th>
 										</tr>
-										<c:forEach var="product" items="${list}">
+										 <c:forEach var="product" items="${list}">
 											<tr align="center">
 												<td style="color: red;">${product.product_idx}</td>
+												<td> <img src="/shop/resources/img/${product.filepath}" width="100" height="100" style="margin-bottom: 10px;"></td>
 												<td>${product.name}</td>
 												<td>${product.price}원</td>
 												<td>${product.discount}%</td>
 												<td>${product.inventory}</td>
 												<td>${product.explain}</td>
 												<td>${product.selleridx}</td>
-												<td>${product.filepath}</td>
 												<td>${product.category}</td>
 												<td>${product.division}</td>
 													<c:set var="safeDetails">
@@ -186,11 +185,12 @@
 													    <a href="#" onclick="openDetails('${product.name}'); return false;" data-details="${safeDetails}">내용 확인</a>
 													</td>
 												<td><input type="button" style="top: auto;"
-													class="btn btn-primary rounded" value="상품 등록하기"
+													class="btn btn-primary rounded" value="상품 등록"
 													onclick="apply(${product.product_idx})">
 												<input type="button" style="top: auto;"
-													class="btn btn-danger rounded" value="삭제하기"
-													onclick="del(${product.product_idx})"></td>
+													class="btn btn-danger rounded" value="삭제"
+													onclick="del(${product.product_idx})">
+												</td>
 											</tr>
 										</c:forEach>
 									</table>
@@ -199,11 +199,8 @@
 						</div>
 					</div>
 				</div>
-				<!-- /.container-fluid -->
-
-			</div>
 			<!-- End of Main Content -->
-
+	
 			<!-- Footer -->
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
@@ -243,7 +240,7 @@
 	<!-- Page level custom scripts -->
 	<script src="/shop/resources/admin/js/demo/chart-area-demo.js"></script>
 	<script src="/shop/resources/admin/js/demo/chart-pie-demo.js"></script>
-
+	
 	<script>
 		window.onload = function() {
 			if ('${admin}' == "" || '${admin}' === "" || '${admin}' == null) {

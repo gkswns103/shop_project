@@ -21,20 +21,18 @@
 		<link href="/shop/resources/css/style6.css" rel="stylesheet" />
 			
 			<script>
-	
-		    function cartAdd(formId) {
-		    	if (${empty users}) {
-			        alert("로그인이 필요한 서비스입니다");
-			        location.href = "signin_form";
-			        return;
-			    }
-		    	
-		        let form = document.getElementById(formId);
-		        if (!form) {
-		            alert("폼을 찾을 수 없습니다.");
-		            return;
-		        }
-	
+			 function cartAdd(formId) {
+	             if (${empty users}) {
+	                 alert("로그인이 필요한 서비스입니다");
+	                 location.href = "signin_form";
+	                 return;
+	             }
+	             
+	              let form = document.getElementById(formId);
+	              if (!form) {
+	                  alert("폼을 찾을 수 없습니다.");
+	                  return;
+	              }
 		        let formData = new FormData(form);
 		        let xhr = new XMLHttpRequest();
 		        let params = new URLSearchParams(formData).toString();
@@ -159,7 +157,6 @@
 		<!-- Footer-->
 		<footer class="py-5 bg-dark">
 			<div class="container">
-				<p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6</p>
 				<p class="m-0 text-center text-white fw-bold" style="font-size: 20px">고객센터 : 010-3239-5204</p>
 				<p class="m-0 text-center text-white">Want It<br>대표이사:없음<br>서울특별시 강남구 강남구 테헤란로14길 6<br>후원계좌 : 국민 852502-04-255054 </p>
 			</div>
