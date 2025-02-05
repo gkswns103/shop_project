@@ -81,12 +81,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and discount=#{discount} and inventory=#{inventory}
 	</select>
 
-
-	<!-- 수정페이지 수정및 삭제를 위한 쿼리문 -->
-	<delete id="delete_apply_product" parameterType="int">
-	 delete from apply_product where product_idx = #{product_idx}
-	</delete>
-
 	<delete id="delete_product" parameterType="int"> 
 	delete from product where product_idx = #{product_idx} 
 	</delete>
