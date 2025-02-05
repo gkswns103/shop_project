@@ -120,7 +120,8 @@ input[name="new_name"]:focus {
 
 input[name="new_image"] {
 	margin: 0;
-	padding: 0;s
+	padding: 0;
+	s
 }
 
 button {
@@ -181,66 +182,65 @@ input[type="file"] {
 /* 파일 이름 표시 스타일 */
 .file-name {
 	display: inline-block;
-	font-size : 16px;
+	font-size: 16px;
 	color: #858796;
 	font-style: italic;
 	font-size: 16px;
 }
 
 /* 테이블 헤더(th)와 데이터(td) 정렬 및 간격 */
-.banner-insert-table th, 
-.banner-insert-table td {
-    text-align: center; /* 텍스트를 수평 가운데 정렬 */
-    vertical-align: middle; /* 텍스트를 수직 가운데 정렬 */
-    padding: 10px; /* 안쪽 여백 */
+.banner-insert-table th, .banner-insert-table td {
+	text-align: center; /* 텍스트를 수평 가운데 정렬 */
+	vertical-align: middle; /* 텍스트를 수직 가운데 정렬 */
+	padding: 10px; /* 안쪽 여백 */
 }
 
 /* 이름 입력 필드 스타일 */
 input[name="name"] {
-    width: 150px; /* 입력 필드 너비 */
-    height: 30px; /* 입력 필드 높이 */
-    font-size: 14px; /* 글자 크기 */
-    text-align: center; /* 텍스트를 가운데 정렬 */
-    margin: 0 auto; /* 수평 가운데 정렬 */
+	width: 150px; /* 입력 필드 너비 */
+	height: 30px; /* 입력 필드 높이 */
+	font-size: 14px; /* 글자 크기 */
+	text-align: center; /* 텍스트를 가운데 정렬 */
+	margin: 0 auto; /* 수평 가운데 정렬 */
 }
 
 /* 파일 선택 버튼 스타일 */
 label.custom-file-upload {
-    display: inline-block;
-    width: 100px; /* 파일 선택 버튼 너비 */
-    height: 30px; /* 파일 선택 버튼 높이 */
-    line-height: 30px; /* 버튼 내부 텍스트 가운데 정렬 */
-    font-size: 14px; /* 글자 크기 */
-    text-align: center; /* 텍스트 가운데 정렬 */
-    margin: 0 10px; /* 양쪽 간격 */
-    background-color: #5475e8; /* 버튼 색상 */
-    color: white; /* 텍스트 색상 */
-    border-radius: 5px; /* 버튼 모서리 둥글게 */
-    cursor: pointer; /* 마우스 포인터 변경 */
+	display: inline-block;
+	width: 100px; /* 파일 선택 버튼 너비 */
+	height: 30px; /* 파일 선택 버튼 높이 */
+	line-height: 30px; /* 버튼 내부 텍스트 가운데 정렬 */
+	font-size: 14px; /* 글자 크기 */
+	text-align: center; /* 텍스트 가운데 정렬 */
+	margin: 0 10px; /* 양쪽 간격 */
+	background-color: #5475e8; /* 버튼 색상 */
+	color: white; /* 텍스트 색상 */
+	border-radius: 5px; /* 버튼 모서리 둥글게 */
+	cursor: pointer; /* 마우스 포인터 변경 */
 }
 
 /* 파일 이름 텍스트 스타일 */
 .file-name {
-    display: inline-block;
-    font-size: 14px; /* 글자 크기 */
-    color: #858796; /* 텍스트 색상 */
-    font-style: italic; /* 글자 스타일 */
-    margin-right: 10px; /* 파일 선택 버튼과 간격 */
-    text-align: left; /* 텍스트 왼쪽 정렬 */
+	display: inline-block;
+	font-size: 14px; /* 글자 크기 */
+	color: #858796; /* 텍스트 색상 */
+	font-style: italic; /* 글자 스타일 */
+	margin-right: 10px; /* 파일 선택 버튼과 간격 */
+	text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
 /* 드롭다운 선택 박스 스타일 */
 select[name="status"] {
-    width: 80px; /* 드롭다운 너비 */
-    height: 30px; /* 드롭다운 높이 */
-    font-size: 14px; /* 글자 크기 */
-    margin-left: 10px; /* 왼쪽 간격 */
-    text-align: center; /* 텍스트 가운데 정렬 */
+	width: 80px; /* 드롭다운 너비 */
+	height: 30px; /* 드롭다운 높이 */
+	font-size: 14px; /* 글자 크기 */
+	margin-left: 10px; /* 왼쪽 간격 */
+	text-align: center; /* 텍스트 가운데 정렬 */
 }
 
-input[name="new_division"], input[name="new_category1"], input[name="new_category2"], 
-input[name="new_keyword1"], input[name="new_keyword2"], input[name="new_discount"]
- {
+input[name="new_division"], input[name="new_category1"], input[name="new_category2"],
+	input[name="new_keyword1"], input[name="new_keyword2"], input[name="new_discount"]
+	{
 	margin: 0;
 	padding: 0;
 	text-align: center;
@@ -255,8 +255,7 @@ input[name="new_keyword1"], input[name="new_keyword2"], input[name="new_discount
 	margin-right: 60px;
 }
 
-input[name="new_discount"]
- {
+input[name="new_discount"] {
 	margin: 0;
 	padding: 0;
 	text-align: center;
@@ -271,9 +270,9 @@ input[name="new_discount"]
 	margin-right: 50px;
 }
 
-input[name="name"], input[name="division"], input[name="category1"], input[name="category2"], 
-input[name="keyword1"], input[name="keyword2"], input[name="discount"]
- {
+input[name="name"], input[name="division"], input[name="category1"],
+	input[name="category2"], input[name="keyword1"], input[name="keyword2"],
+	input[name="discount"] {
 	margin: 0;
 	padding: 0;
 	text-align: center;
@@ -285,11 +284,9 @@ input[name="keyword1"], input[name="keyword2"], input[name="discount"]
 	transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
 	color: #858796;
 	width: 100px;
-	
 }
 
-input[name="discount"]
- {
+input[name="discount"] {
 	margin: 0;
 	padding: 0;
 	text-align: center;
@@ -301,23 +298,21 @@ input[name="discount"]
 	transition: border-color 0.3s ease; /* 포커스 시 전환 효과 */
 	color: #858796;
 	width: 40px;
-	
 }
 
 tr.inventory th {
-    padding: 15px 20px; /* 상하 15px, 좌우 20px 패딩 추가 */
-    min-width: 150px; /* 최소 너비 설정 */  
-    text-align: center; /* 텍스트 중앙 정렬 */
-    vertical-align: middle; /* 수직 중앙 정렬 */
+	padding: 15px 20px; /* 상하 15px, 좌우 20px 패딩 추가 */
+	min-width: 150px; /* 최소 너비 설정 */
+	text-align: center; /* 텍스트 중앙 정렬 */
+	vertical-align: middle; /* 수직 중앙 정렬 */
 }
 
 /* inventory 행 전체 너비 조정 */
 tr.inventory {
-    display: table-row;
-    width: 100%;
-    table-layout: fixed; /* 각 th의 너비를 균등하게 유지 */
+	display: table-row;
+	width: 100%;
+	table-layout: fixed; /* 각 th의 너비를 균등하게 유지 */
 }
-
 </style>
 
 </head>
@@ -333,7 +328,8 @@ tr.inventory {
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center"
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="/shop/admin/admin_login">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
@@ -440,8 +436,8 @@ tr.inventory {
 									flex-row align-items-center justify-content-between">
 									<h6 class="m-0 font-weight-bold text-primary">배너</h6>
 									<h6 style="margin-right: 200px;" class="bn_udt_font">
-										배너 추가 <label class="switch"> 
-										<input type="checkbox" id="toggleInsert" onchange="toggleInsertArea()" value="배너추가">
+										배너 추가 <label class="switch"> <input type="checkbox"
+											id="toggleInsert" onchange="toggleInsertArea()" value="배너추가">
 											<span class="slider"></span>
 										</label>
 									</h6>
@@ -463,7 +459,7 @@ tr.inventory {
 											<th>삭제</th>
 										</tr>
 										<c:forEach var="banner" items="${list}">
-		
+
 											<input type="hidden" name="banner_idx"
 												value="${banner.banner_idx}">
 											<tr align="center">
@@ -489,26 +485,30 @@ tr.inventory {
 												<td colspan="10">
 													<form action="update_banner" method="post"
 														enctype="multipart/form-data">
-														<input type="hidden" name="banner_idx" value="${banner.banner_idx}" required> 
-															<input type="text" name="new_name" placeholder="이름"
-															value="${banner.name}"  style="margin-right: 70px; margin-left: 100px;" required>
-															<span class="file-name" id="udt_file-name">선택된 파일 없음</span> 
-															<label for="udt_image" class="custom-file-upload" style="margin-right: 110px;">파일선택</label>
-															<input type="file" id="udt_image" name="udt_image" accept="image/*" required>
-															<input type="text" class="text" name="new_division" 
-															value="${banner.division}" placeholder="대분류">
-															<input type="text" class="text" name="new_category1" 
+														<input type="hidden" name="banner_idx"
+															value="${banner.banner_idx}" required> <input
+															type="text" name="new_name" placeholder="이름"
+															value="${banner.name}"
+															style="margin-right: 70px; margin-left: 100px;" required>
+														<span class="file-name" id="udt_file-name">선택된 파일
+															없음</span> <label for="udt_image" class="custom-file-upload"
+															style="margin-right: 110px;">파일선택</label> <input
+															type="file" id="udt_image" name="new_image"
+															accept="image/*" required> <input type="text"
+															class="text" name="new_division"
+															value="${banner.division}" placeholder="대분류"> <input
+															type="text" class="text" name="new_category1"
 															value="${banner.category1}" placeholder="카테고리1">
-															<input type="text" class="text" name="new_category2" 
+														<input type="text" class="text" name="new_category2"
 															value="${banner.category2}" placeholder="카테고리2">
-															<input type="text" class="text" name="new_keyword1" 
-															value="${banner.keyword1}" placeholder="키워드1">
-															<input type="text" class="text" name="new_keyword2" 
-															value="${banner.keyword2}" placeholder="키워드2">
-															<input type="text" class="text2" name="new_discount" 
+														<input type="text" class="text" name="new_keyword1"
+															value="${banner.keyword1}" placeholder="키워드1"> <input
+															type="text" class="text" name="new_keyword2"
+															value="${banner.keyword2}" placeholder="키워드2"> <input
+															type="text" class="text2" name="new_discount"
 															value="${banner.discount}" placeholder="할인율">
-															<button type="submit">수정하기</button>
-															
+														<button type="submit">수정하기</button>
+
 													</form>
 												</td>
 											</tr>
@@ -520,54 +520,62 @@ tr.inventory {
 							</div>
 						</div>
 
-						<div class="col-xl-12 col-lg-12" id="insert_area" style="display: none;">
+						<div class="col-xl-12 col-lg-12" id="insert_area"
+							style="display: none;">
 							<div class="card shadow mb-4">
-							<form class="insert_text" action="insert_banner" method="post" enctype="multipart/form-data">
-								<!-- Card Header - Dropdown -->
-								<div
-									class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-									<h6 class="m-0 font-weight-bold text-primary">배너 추가</h6>
-									<button type="submit">추가</button>
-								</div>
-								<!-- Card Body -->
-								<div align="center" class="">
-								
-									<table class="banner-insert-table">
-										<!-- 테이블 헤더 -->
-										<tr align="center" class="inventory">
-											<th>배너이름(설명)</th>
-											<th>이미지</th>
-											<th>대분류</th>
-											<th>카테고리1</th>
-											<th>카테고리2</th>
-											<th>키워드1</th>
-											<th>키워드2</th>
-											<th>할인율</th>
-											<th>활성화/비활성화</th>
-										</tr>
-										<!-- 입력 필드와 버튼 -->
-										<tr>
-											<td><input type="text" name="name" placeholder="이름"></td>
-											<td><span class="file-name" id="file-name">선택된 파일 없음</span>
-											<label for="new_image" class="custom-file-upload">파일선택</label>
-											<input type="file" id="new_image" name="new_image" accept="image/*" required></td>
-											<td><input type="text" name="division" value="없음" placeholder="대분류"></td>
-											<td><input type="text" name="category1" value="없음" placeholder="카테고리1"></td>
-											<td><input type="text" name="category2" value="없음" placeholder="카테고리2"></td>
-											<td><input type="text" name="keyword1" value="없음" placeholder="키워드1"></td>
-											<td><input type="text" name="keyword2" value="없음" placeholder="키워드2"></td>
-											<td><input type="text" name="discount" value="0" placeholder="할인율"></td>
-											<td>
-												<!-- 상태 드롭다운 -->
-												<select name="status" required>
+								<form class="insert_text" action="insert_banner" method="post"
+									enctype="multipart/form-data">
+									<!-- Card Header - Dropdown -->
+									<div
+										class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+										<h6 class="m-0 font-weight-bold text-primary">배너 추가</h6>
+										<button type="submit">추가</button>
+									</div>
+									<!-- Card Body -->
+									<div align="center" class="">
+
+										<table class="banner-insert-table">
+											<!-- 테이블 헤더 -->
+											<tr align="center" class="inventory">
+												<th>배너이름(설명)</th>
+												<th>이미지</th>
+												<th>대분류</th>
+												<th>카테고리1</th>
+												<th>카테고리2</th>
+												<th>키워드1</th>
+												<th>키워드2</th>
+												<th>할인율</th>
+												<th>활성화/비활성화</th>
+											</tr>
+											<!-- 입력 필드와 버튼 -->
+											<tr>
+												<td><input type="text" name="name" placeholder="이름"></td>
+												<td><span class="file-name" id="file-name">선택된
+														파일 없음</span> <label for="new_image" class="custom-file-upload">파일선택</label>
+													<input type="file" id="new_image" name="new_image"
+													accept="image/*" required></td>
+												<td><input type="text" name="division" value="없음"
+													placeholder="대분류"></td>
+												<td><input type="text" name="category1" value="없음"
+													placeholder="카테고리1"></td>
+												<td><input type="text" name="category2" value="없음"
+													placeholder="카테고리2"></td>
+												<td><input type="text" name="keyword1" value="없음"
+													placeholder="키워드1"></td>
+												<td><input type="text" name="keyword2" value="없음"
+													placeholder="키워드2"></td>
+												<td><input type="text" name="discount" value="0"
+													placeholder="할인율"></td>
+												<td>
+													<!-- 상태 드롭다운 --> <select name="status" required>
 														<option value="">상태</option>
 														<option value="on">on</option>
 														<option value="off">off</option>
 												</select>
-											</td>
-										</tr>
-									</table>
-								</div>
+												</td>
+											</tr>
+										</table>
+									</div>
 								</form>
 							</div>
 						</div>

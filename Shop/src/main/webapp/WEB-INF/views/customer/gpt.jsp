@@ -93,13 +93,14 @@ body {
 	</header>
 
 	<div class="content" align="center">
+		<h3 class="mt-3" style="height: 20%;">AI 상담</h3>
 		<div id="gpt"
-			style="width: 80%; height: 90%; overflow-y: auto; padding: 10px;"></div>
-		<div style="height: 10%;">
-			<form onsubmit="ai(this); return false;">
-				<input id="msg" name="msg"
+			style="width: 80%; height: 70%; overflow-y: auto; padding: 10px;"></div>
+		<div style="height:10%;">
+			<form onsubmit="ai(this); return false;" style="display:flex; margin-bottom: 20px;">
+				<input id="msg" class="form-control" style="margin-left: auto;" name="msg"
 					onkeydown="if(event.key==='Enter') { event.preventDefault(); ai(this.form); }">
-				<input type="button" value="클릭" onclick="ai(this.form)">
+				<input type="button" class="btn btn-success" style="margin-right: auto;" value=">" onclick="ai(this.form)">
 			</form>
 		</div>
 	</div>

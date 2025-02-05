@@ -83,7 +83,7 @@
 						<li><a class="dropdown-item"
 							href="productList?user_idx=${users.user_idx}">상품 등록 수정</a></li>
 						<li><a class="dropdown-item"
-							href="productEdit?user_idx=${users.user_idx}">내정보</a></li>
+							href="my_imformation?user_idx=${users.user_idx}">내정보</a></li>
 					</ul></li>
 			</ul>
 			<a style="max-width: 70px; min-width: 70px;" onclick="logout();"

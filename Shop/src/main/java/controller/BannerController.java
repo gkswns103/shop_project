@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -174,12 +175,14 @@ public class BannerController {
 
 		// DAO를 통해 배너 업데이트
 		int res = banner_dao.update_banner(vo);
+		
 		if (res > 0) {
 			System.out.println("배너 수정 성공");
 		} else {
 			System.out.println("배너 수정 실패");
 		}
-		return "/admin/move_bn_update/";
+		
+		return "redirect:/admin/move_bn_update/";
 	}
 //----------------------------------------------------------------------------
 //배너 추가
@@ -228,7 +231,7 @@ public class BannerController {
 			System.out.println("배너 추가 실패");
 		}
 
-		return "/admin/move_bn_update";
+		return "redirect:/admin/move_bn_update";
 	}
 //----------------------------------------------------------------------------
 //배너 삭제
@@ -238,7 +241,7 @@ public class BannerController {
 
 		int res = banner_dao.banner_delete(banner_idx);
 
-		return "/admin/move_bn_update";
+		return "redirect:/admin/move_bn_update";
 	}
 
 }

@@ -339,6 +339,47 @@ public class ProductController {
        return "redirect:/productList?user_idx=" + user_idx;
    }
     
+    @RequestMapping(value = "/updateApplyProduct", method = RequestMethod.POST)
+    public String updateApplyProduct(ProductVO product, Model model, MultipartFile photo,
+                               @RequestParam("user_idx") int user_idx) {
+        String webPath = "/resources/img/"; // 상대경로
+        String savePath = application.getRealPath(webPath); // 절대경로
+        System.out.println(savePath);
+
+        String filename = product.getFilepath() != null ? product.getFilepath() : "no_file"; // 기존 파일명을 기본값으로 설정
+
+        if (!photo.isEmpty()) { // 새로운 파일이 업로드된 경우
+            filename = photo.getOriginalFilename();
+            File saveFile = new File(savePath, filename);
+
+            if (!saveFile.exists()) {
+                saveFile.mkdirs();
+            } else {
+                // 동일한 이름의 파일이 존재하면 현재 업로드 시간을 붙여 중복 방지
+                long time = System.currentTimeMillis();
+                filename = String.format("%d_%s", time, filename);
+                saveFile = new File(savePath, filename);
+            }
+
+            // 파일을 절대 경로에 저장
+            try {
+                photo.transferTo(saveFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        product.setFilepath(filename); // 새로운 파일 또는 기존 파일 경로를 설정
+
+        int res = product_dao.updateApplyProduct(product);
+
+        if (res == 1) {
+            return "redirect:/productList?user_idx=" + user_idx; // 성공 시 productList.jsp로 이동
+        }
+        return "product/ProductEdit?user_idx=" + user_idx; // 실패 시 수정 페이지로 돌아감
+    }
+
+    
 
     @RequestMapping("/deleteProduct")
     public String deleteProduct(@RequestParam("product_idx") int product_idx, 
