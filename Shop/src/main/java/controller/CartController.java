@@ -17,6 +17,7 @@ import dao.InterestDAO;
 import dao.ProductDAO;
 import dao.UsersDAO;
 import vo.CartVO;
+import vo.ProductVO;
 import vo.UsersVO;
 
 @Controller
@@ -248,6 +249,49 @@ public class CartController {
 		
 		return "redirect:/purchaseList?user_idx="+user_idx;
 	}
+	
+	@RequestMapping("/easyPayment")
+	public String easyPayment(CartVO vo,Model model,int totalprice,String prodname) {
+		//카트 1차 업데이트
+		System.out.println(prodname);
+		model.addAttribute("prodname",prodname);
+		
+		vo.setOrdernumber(System.currentTimeMillis());
+		int res=cart_dao.updateFirst(vo);
+		/* int ordertime=cart_dao.getOrdertime(vo); */
+		 
+		System.out.println("1차:"+res);
+		
+		model.addAttribute("totalprice",totalprice);
+		model.addAttribute("ordernumber",vo.getOrdernumber());
+		System.out.println(vo.getUser_idx());
+		model.addAttribute("user_idx",vo.getUser_idx());
+		
+		/* model.addAttribute("ordertime",ordertime); */
+		
+		
+		/*
+		 * System.out.println(vo.getAddr()); System.out.println(vo.getCart_idx());
+		 * System.out.println(vo.getChecked());
+		 * System.out.println(vo.getDeliverymessage());
+		 * System.out.println(vo.getDeliveryrequest());
+		 */
+		return common.Common.Path.CUSTOMER_PATH+"buy/easyPayment.jsp";
+	}
+	
+	@RequestMapping("/purchaseSuccess")
+	public String purchaseSuccess(CartVO vo) {
+		
+		int res=cart_dao.buyFinish(vo);
+		System.out.println("수량변경:"+res);
+		res=cart_dao.updateSaled(vo);
+		System.out.println("상태변경:"+res);
+		
+		System.out.println("useridx="+vo.getUser_idx());
+		return "redirect:/purchaseList?user_idx="+vo.getUser_idx();
+	}
+	
+	
 	
 	@RequestMapping("/orderDetail")
 	public String orderDetail(CartVO vo, Model model) {

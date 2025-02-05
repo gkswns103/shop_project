@@ -121,6 +121,25 @@ public class CartDAO {
 	    // 중복된 항목이 있으면 true 반환
 	    return count > 0;
 	}
+	
+	public int updateFirst(CartVO vo) {
+		int res=sqlSession.update("c.updateFirst",vo);
+		return res;
+	}
+	
+	public int getOrdertime(CartVO vo) {
+		int res=sqlSession.selectOne("c.getOrdertime",vo);
+		return res;
+	}
+	
+	public int buyFinish(CartVO vo) {
+		int res=sqlSession.update("c.buyFinish",vo);
+		return res;
+	}
+	public int updateSaled(CartVO vo) {
+		int res=sqlSession.update("c.updateSaled",vo);
+		return res;
+	}
 
 
 

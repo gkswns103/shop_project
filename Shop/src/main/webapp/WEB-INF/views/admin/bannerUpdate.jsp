@@ -369,7 +369,7 @@ tr.inventory {
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="/shop/admin/productManagement">상품리스트</a>
 						<a class="collapse-item" href="/shop/admin/apply_product">상춤
-							신청 관리</a> <a class="collapse-item" href="#">재고관리</a>
+							신청 관리</a>
 					</div>
 				</div></li>
 

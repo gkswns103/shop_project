@@ -12,12 +12,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="list" resultType="cart">
 		select * from cart where status='saled'
 	</select>
-
+	
 	<insert id="insert_cart" parameterType="cart">
 	    INSERT INTO cart
 	    (user_idx, product_idx, quantity, status, name, price, discount, filepath, inventory, checked, ordernumber, ordertime, deliveryrequest, deliverymessage, addr)
 	    VALUES
-	    (#{user_idx}, #{product_idx}, #{quantity}, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, #{checked}, #{ordernumber}, NOW(), #{deliveryrequest}, #{deliverymessage}, #{addr})
+	    (#{user_idx}, #{product_idx}, #{quantity}, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, '1', #{ordernumber}, NOW(), #{deliveryrequest}, #{deliverymessage}, #{addr})
 	</insert>
 
 
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		product_idx=${product_idx} and status='active'
 
 	</select>
-
+	
 	<select id="cart_count" parameterType="int" resultType="int">
 		select
 		count(*) from cart where user_idx=#{user_idx} and status='active'
@@ -64,26 +64,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		checked=#{checked} where user_idx=#{user_idx} and
 		product_idx=#{product_idx}
 	</update>
-
+	
 	<select id="cart_list" resultType="cart" parameterType="int">
 		select *
 		from cart where user_idx=#{user_idx} and checked='1' and
 		status='active'
 	</select>
-
+	
 	<update id="updateState" parameterType="cart">
 		update cart
 		set status='saled',ordernumber = #{ordernumber} ,ordertime = NOW(),deliveryrequest=#{deliveryrequest} , deliverymessage=#{deliverymessage},addr=#{addr}
 		where user_idx=#{user_idx} and checked='1' and status='active'
 	</update>
-
+	
+	<!-- 02/05 추가 1차 카트 업데이트 -->
+	<update id="updateFirst" parameterType="cart">
+		update cart
+		set ordernumber = #{ordernumber} ,ordertime = NOW(),deliveryrequest=#{deliveryrequest} , deliverymessage=#{deliverymessage},addr=#{addr}
+		where user_idx=#{user_idx} and checked='1' and status='active'
+	</update>
+	
+	<update id="updateSaled" parameterType="cart">
+		update cart 
+		set status='saled'
+		where user_idx=#{user_idx} and checked='1' and status='active' and ordernumber=#{ordernumber}
+	</update>
+	 
+	<select id="getOrdertime" parameterType="cart" resultType="int">
+		select ordertime from cart where ordernumber=#{ordernumber}
+	</select>
+	
 	<update id="updateInventory" parameterType="int">
 		UPDATE cart AS c1
 		JOIN (
 		SELECT cart_idx
 		FROM cart
 		WHERE user_idx = #{user_idx}
-		AND status = 'active'
+		AND status = 'saled'
 		AND checked = '1'
 		) AS c2
 		ON c1.cart_idx = c2.cart_idx
@@ -130,5 +147,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    VALUES
 	    (#{user_idx}, #{product_idx}, 1, 'active', #{name}, #{price}, #{discount}, #{filepath}, #{inventory}, 0, 0, NOW(), '', '', '')
 	</insert>
+	
+	<update id="buyFinish" parameterType="cart">
+		UPDATE cart AS c1
+		JOIN (
+		SELECT cart_idx
+		FROM cart
+		WHERE user_idx = #{user_idx}
+		AND status = 'active'
+		AND checked = '1'
+		AND ordernumber=#{ordernumber}
+		) AS c2
+		ON c1.cart_idx = c2.cart_idx
+		SET c1.inventory = c1.inventory - c1.quantity
+		AND status="saled";
+	</update>
 	
 </mapper>
