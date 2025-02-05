@@ -86,6 +86,14 @@
 	
 	<beans:bean class="controller.GptController">
 	</beans:bean>
+	
+		<!-- 네이버 스마트 에디터 2.8.2.3 -->
+	<!-- MultipartResolver 설정 (Spring 3) -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <beans:property name="maxUploadSize" value="52428800"/>  <!-- 50MB 제한 -->
+	    <beans:property name="maxInMemorySize" value="1048576"/>  <!-- 1MB 메모리 캐싱 -->
+	    <beans:property name="defaultEncoding" value="UTF-8"/>
+	</beans:bean>	
 
 </beans:beans>
 	
