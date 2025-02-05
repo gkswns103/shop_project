@@ -91,27 +91,6 @@ public class ProductDAO {
 		return idx;
 	}
 	
-	public int delete_product(int product_idx) {
-		
-		int res = sqlSession.delete("p.delete_product",product_idx);
-		
-		return res;
-		
-	}
-	
-	public int delete_apply_product(int product_idx) {
-		
-		int res = sqlSession.delete("p.delete_apply_product",product_idx);
-		
-		return res;
-		
-	}
-	
-	public List<ProductVO> product_search(String search){
-		List<ProductVO> list = sqlSession.selectList("p.product_search",search);
-		
-		return list;
-	}
 	
 	public List<ProductVO> view_banner_product1(BannerVO vo){
 		List<ProductVO> list = sqlSession.selectList("p.view_banner_product1", vo);
@@ -128,5 +107,52 @@ public class ProductDAO {
 		return list;
 	}
 	
+	//수정페이지 수정 삭제를 위한 dao
+	
+	// 변경
+	public int delete_product(int product_idx) {
+		int res = sqlSession.delete("p.delete_product",product_idx);
+		
+		return res;
+	}
+	
+	public int delete_apply_product(int product_idx) {
+		int res = sqlSession.delete("p.delete_apply_product",product_idx);
+		
+		return res;
+	}
+	public List<ProductVO> product_search(String search){
+		List<ProductVO> list = sqlSession.selectList("p.product_search",search);
+		
+		return list;
+	}
+	
+	public List<ProductVO> getProductList(int user_idx) {
+	    return sqlSession.selectList("p.getProductList", user_idx);
+	}
+
+	public List<ProductVO> getApplyProductList(int user_idx) {
+	    return sqlSession.selectList("p.getApplyProductList", user_idx);
+	}
+	
+	public int updateApplyProduct(ProductVO vo) {
+	    int res = sqlSession.update("p.updateApplyProduct", vo);
+	    return res;
+	}
+
+	 
+	 public int updateProduct(ProductVO product) { 
+		 return  sqlSession.update("p.updateProduct", product); 
+	 }
+	
+	 public int insertApplyProduct(ProductVO product) {
+		    return sqlSession.insert("p.insertApplyProduct", product);
+	}
+	 public List<ProductVO> getAllApplyProductList() {
+		    return sqlSession.selectList("p.getAllApplyProductList");
+	}
+	 public List<ProductVO> getProductListByStatus(String status) {
+		    return sqlSession.selectList("p.getProductListByStatus", status);
+	}
 	
 }

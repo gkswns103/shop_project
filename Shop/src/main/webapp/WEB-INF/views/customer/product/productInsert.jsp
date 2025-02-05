@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 등록</title>
+<title>상품 등록 수정</title>
 <link rel="icon" type="image/x-icon"
 	href="/shop/resources/img/favicon.ico" />
 <link
@@ -37,7 +37,7 @@
 	<!-- 상품 등록 폼 -->
 	<div class="container mt-3">
 		<br>
-		<h1 class="display-5 text-center mb-5">상품 등록</h1>
+		<h1 class="display-5 text-center mb-5">상품등록신청</h1>
 		<hr>
 		<br> <br>
 		<div>
@@ -86,9 +86,9 @@
 							required></textarea>
 					</div>
 				</div>
-
-				<input type="hidden" name="selleridx" value="user_idx">
-
+				
+				<input type="hidden" name="selleridx" value="${param.user_idx}">	
+						
 				<div class="form-group row align-items-center mb-2">
 					<label class="col-sm-2 col-form-label">대표 이미지</label>
 					<div class="col-sm-8">
@@ -172,6 +172,14 @@
 		src="/shop/resources/smarteditor2/js/HuskyEZCreator.js"></script>
 
 	<script>
+	
+	window.onload = function(){
+		if(${empty users}){
+			alert("로그인 필요");	
+			location.href="signin_form";
+		}
+	}
+	
     // Division에 따라 Category 데이터를 준비
     const categoryData = {
         의류: ["남성", "여성", "유아", "잠옷", "속옷", "신발"],

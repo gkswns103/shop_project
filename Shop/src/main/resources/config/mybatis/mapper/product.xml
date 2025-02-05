@@ -161,7 +161,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where discount &lt; #{discount}
 		AND discount &gt; 1
 	</select>
+	
+	<!--  수정페이지 수정및 삭제를 위한 쿼리문  -->
+<select id="getProductList" parameterType="int" resultType="vo.ProductVO"> SELECT * FROM product WHERE selleridx = #{user_idx}; </select>
+<select id="getApplyProductList" parameterType="int" resultType="vo.ProductVO"> SELECT * FROM apply_product WHERE selleridx = #{user_idx}; </select>
+<update id="updateProduct" parameterType="vo.ProductVO"> UPDATE product SET name = #{name}, price = #{price}, discount = #{discount}, inventory = #{inventory}, `explain` = #{explain}, filepath = #{filepath}, division = #{division}, category = #{category}, details = #{details} WHERE product_idx = #{product_idx} </update>
+<update id="updateApplyProduct" parameterType="vo.ProductVO"> UPDATE apply_product SET name = #{name}, price = #{price}, discount = #{discount}, inventory = #{inventory}, `explain` = #{explain}, filepath = #{filepath}, category = #{category}, division = #{division}, details = #{details} WHERE product_idx = #{product_idx} </update>
+<select id="getAllApplyProductList" resultType="vo.ProductVO"> SELECT * FROM apply_product; </select>
+<insert id="insertApplyProduct" parameterType="vo.ProductVO"> INSERT INTO apply_product (product_idx, name, price, discount, inventory, `explain`, filepath, division, category, details, selleridx) VALUES (#{product_idx}, #{name}, #{price}, #{discount}, #{inventory}, #{explain}, #{filepath}, #{division}, #{category}, #{details}, #{selleridx}); </insert>
+<select id="getProductListByStatus" parameterType="string" resultType="vo.ProductVO"> SELECT * FROM apply_product WHERE status = #{status} </select>
+<update id="updateProductStatus" parameterType="vo.ProductVO"> UPDATE product SET status = #{status} WHERE product_idx = #{productIdx} </update>
 
+	
 </mapper>
 
 
