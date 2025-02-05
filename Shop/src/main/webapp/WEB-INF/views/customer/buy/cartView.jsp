@@ -275,57 +275,64 @@
       
       function amountChange(product_idx) {
           
-         let amountInput = parseInt(document.getElementById("amount-" + product_idx).value, 10);
-         let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
-         let user_idx = "${sessionScope.users.user_idx}";
-           
-           if(amountInput >50 && amountInput < inventory){
-              alert("구매한도는 50개 입니다");
-              location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=50";
-              return;
-           }
-           if(amountInput > inventory){
-              alert("남은 수량은"+inventory+"개 입니다");
-              location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + inventory;
-              return;
-           }
-           
-       
-         
-           location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
-       }
-
-       function decrease(product_idx) {
           let amountInput = parseInt(document.getElementById("amount-" + product_idx).value, 10);
-         let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
-         let user_idx = "${sessionScope.users.user_idx}";
-           
-           if(amountInput == 1){
-              alert("최소수량입니다");
-              return;
-           }
-           amountInput = parseInt(amountInput) - 1;
+          let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
+          let user_idx = "${sessionScope.users.user_idx}";
+            
+          var amount_check = /^[1-9]*$/;
+          if(!amount_check.test(amountInput)){
+             document.getElementById("amount-" + product_idx).value = 1;
+             location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=1";
+             return;
+          } 
           
-           location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
-       }
+            if(amountInput >50){
+               alert("1회 구매한도는 50개 입니다");
+               location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=50";
+               return;
+            }
+            if(amountInput < 50 && amountInput > inventory){
+               alert("남은 수량은"+inventory+"개 입니다");
+               location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + inventory;
+               return;
+            }
+            
+        
+          
+            location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
+        }
 
-       function increase(product_idx) {
-          let amountInput = parseInt(document.getElementById("amount-" + product_idx).value, 10);
-         let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
-         let user_idx = "${sessionScope.users.user_idx}";
+        function decrease(product_idx) {
+           let amountInput = parseInt(document.getElementById("amount-" + product_idx).value, 10);
+          let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
+          let user_idx = "${sessionScope.users.user_idx}";
+            
+            if(amountInput == 1){
+               return;
+            }
+            amountInput = parseInt(amountInput) - 1;
            
-           if(amountInput == inventory){
-              alert("남은 수량은"+inventory+"개 입니다");
-              return;
-           }
-           if(amountInput>=50){
-              alert("구매한도는 50개 입니다");
-              return;
-           }
-           amountInput= parseInt(amountInput) + 1;
-           
-           location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
-       }
+            location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
+        }
+
+        function increase(product_idx) {
+           let amountInput = parseInt(document.getElementById("amount-" + product_idx).value, 10);
+          let inventory = parseInt(document.getElementById("inventory-" + product_idx).value, 10);
+          let user_idx = "${sessionScope.users.user_idx}";
+            
+            if(amountInput == inventory){
+               alert("남은 수량은"+inventory+"개 입니다");
+               return;
+            }
+            if(amountInput>=50){
+               alert("1회 구매한도는 50개 입니다");
+               return;
+            }
+            amountInput= parseInt(amountInput) + 1;
+            
+            location.href="amount_update?product_idx=" + product_idx + "&user_idx=" + user_idx + "&quantity=" + amountInput;
+        }
+      
        function updateTotal() {
            let totalPrice = 0;
            let totalDiscount = 0;

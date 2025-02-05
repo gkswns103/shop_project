@@ -51,6 +51,12 @@ a {
 	flex-direction: column;
 }
 
+.py-5 {
+   flex: 1; /* 남은 공간을 차지 */
+   margin: 0 auto;
+   transform-origin: top center; /* 축소 기준점 */
+}
+
 input[name="amount"] {
 	text-align: center; /* 텍스트 가운데 정렬 */
 	width: 50px; /* 입력 필드 너비 */

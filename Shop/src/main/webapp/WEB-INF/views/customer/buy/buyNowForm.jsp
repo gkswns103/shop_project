@@ -219,11 +219,6 @@ input[type="checkbox"] {
 			<hr>
 			<br>
 			<h4>배송 정보</h4>
-<<<<<<< HEAD
-			<!-- <input type="button" value="배송지 변경" onclick="addr_search()"> -->
-=======
-			<input type="button" value="배송지 변경" class="button-green" onclick="addr_search()">
->>>>>>> refs/remotes/origin/강성수01
 			<table class="purchaseInfo">
 				<tr>
 					<th>배송 주소</th>

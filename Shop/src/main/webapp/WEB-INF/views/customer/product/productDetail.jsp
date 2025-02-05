@@ -121,210 +121,220 @@
 	<input type="hidden" value=${vo.selleridx } name="selleridx">
 	<input type="hidden" value=${vo.inventory } id="inventory">
 
-	<div class="container1">
-		<div class="small1">
-			<a href="/shop/">홈</a> > <a
-				href="/shop/product?division=${vo.division}&category=">${vo.division}</a>
-			> <a
-				href="/shop/product?division=${vo.division}&category=${vo.category}">${vo.category}</a>
-			<br> <br> <img alt=""
-				src="/shop/resources/img/${vo.filepath }">
+	<section class="py-5">
 
-		</div>
+		<div class="container1">
+			<div class="small1">
+				<a href="/shop/">홈</a> > <a
+					href="/shop/product?division=${vo.division}&category=">${vo.division}</a>
+				> <a
+					href="/shop/product?division=${vo.division}&category=${vo.category}">${vo.category}</a>
+				<br> <br> <img alt=""
+					src="/shop/resources/img/${vo.filepath }">
 
-		<div class="small2">
-			<span style="font-weight: bold; font-size: 20px; margin-right: 10px;">${vo.name }</span>
-			<!-- 관심 상품 여부에 따라 이미지 변경 -->
-			<c:if test="${isInterest}">
-				<img id="productImage" src="/shop/resources/images/02.jpg"
-					onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
-			</c:if>
-			<c:if test="${!isInterest}">
-				<img id="productImage" src="/shop/resources/images/01.jpg"
-					onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
-			</c:if>
-			<br> <img src="" id="ratingAvg" style="width: 120px;">
-			<hr>
-			<div class="mt-3 mb-3">
-				<c:if test="${vo.discount ne 0}">
-					<!-- 할인이 있는경우 -->
-					${vo.discount}%
-					<del>
-						<fmt:formatNumber value="${vo.price}" type="number"
-							groupingUsed="true" />
-						원
-					</del>
-					<br>
-					<span style="color: red; font-weight: bold; font-size: 25px;">
-						<fmt:formatNumber
-							value="${vo.price - (vo.price * vo.discount / 100)}"
-							type="number" groupingUsed="true" />원
-					</span>
-				</c:if>
-				<c:if test="${vo.discount eq 0}">
-					<!-- 할인이 없는경우 -->
-					<span style="color: red; font-weight: bold; font-size: 25px;"><fmt:formatNumber
-							value="${vo.price}" type="number" groupingUsed="true" />원</span>
-				</c:if>
-				<br> 남은수량 : ${vo.inventory }개
 			</div>
-			<hr>
-			<div class="explain mt-3 mb-3">${vo.explain }</div>
-			<div class="counter-container mt-4" style="display: flex;">
-				<div class="styled-container mt-5">
-					<table class="styled-table">
-						<tr>
-							<td><input id="amount" name="amount" type="text" value="1"
-								oninput="amountAlert()"></td>
-							<td class="vertical-buttons"><input type="button"
-								class="amountBtn" value="∧" id="increase" onclick="increase()">
-								<input type="button" class="amountBtn" value="∨" id="decrease"
-								onclick="decrease()"></td>
-						</tr>
-					</table>
+
+			<div class="small2">
+				<span
+					style="font-weight: bold; font-size: 20px; margin-right: 10px;">${vo.name }</span>
+				<!-- 관심 상품 여부에 따라 이미지 변경 -->
+				<c:if test="${isInterest}">
+					<img id="productImage" src="/shop/resources/images/02.jpg"
+						onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
+				</c:if>
+				<c:if test="${!isInterest}">
+					<img id="productImage" src="/shop/resources/images/01.jpg"
+						onclick="toggleHeart(${vo.product_idx}, ${sessionScope.users.user_idx})">
+				</c:if>
+				<br> <img src="" id="ratingAvg" style="width: 120px;">
+				<hr>
+				<div class="mt-3 mb-3">
+					<c:if test="${vo.discount ne 0}">
+						<!-- 할인이 있는경우 -->
+										${vo.discount}%
+										<del>
+							<fmt:formatNumber value="${vo.price}" type="number"
+								groupingUsed="true" />
+							원
+						</del>
+						<br>
+						<span style="color: red; font-weight: bold; font-size: 25px;">
+							<fmt:formatNumber
+								value="${vo.price - (vo.price * vo.discount / 100)}"
+								type="number" groupingUsed="true" maxFractionDigits="0"
+								minFractionDigits="0" />원
+						</span>
+					</c:if>
+					<c:if test="${vo.discount eq 0}">
+						<!-- 할인이 없는경우 -->
+						<span style="font-weight: bold; font-size: 25px;"><fmt:formatNumber
+								value="${vo.price}" type="number" groupingUsed="true" />원</span>
+					</c:if>
+					<br> 남은수량 : ${vo.inventory }개
 				</div>
-				<input type="button" class="btn cartAdd-button px-5 mt-5 ms-3"
-					value="장바구니 담기" onclick="cartAdd()"> <input type="button"
-					class="btn buyNodw-button px-5 mt-5 ms-3" value="바로 구매 > "
-					onclick="buyNow()">
-			</div>
+				<hr>
+				<div class="explain mt-3 mb-3">${vo.explain }</div>
+				<div class="counter-container mt-4" style="display: flex;">
+					<div class="styled-container mt-5">
+						<table class="styled-table">
+							<tr>
+								<td><input id="amount" name="amount" type="text" value="1"
+									oninput="amountAlert()"></td>
+								<td class="vertical-buttons"><input type="button"
+									class="amountBtn" value="∧" id="increase" onclick="increase()">
+									<input type="button" class="amountBtn" value="∨" id="decrease"
+									onclick="decrease()"></td>
+							</tr>
+						</table>
+					</div>
+					<input type="button" class="btn cartAdd-button px-5 mt-5 ms-3"
+						value="장바구니 담기" onclick="cartAdd()"> <input type="button"
+						class="btn buyNodw-button px-5 mt-5 ms-3" value="바로 구매 > "
+						onclick="buyNow()">
+				</div>
 
+
+			</div>
 
 		</div>
 
-	</div>
+		<div class="details-container">
+			<ul class="tab-menu">
+				<li onclick="showTab(0)" class="active">상품상세</li>
+				<li onclick="showTab(1)">상품평 (${count})</li>
+				<li onclick="showTab(2)">상품문의</li>
+				<li onclick="showTab(3)">교환/반품</li>
+			</ul>
 
-	<div class="details-container">
-		<ul class="tab-menu">
-			<li onclick="showTab(0)" class="active">상품상세</li>
-			<li onclick="showTab(1)">상품평 (${count})</li>
-			<li onclick="showTab(2)">상품문의</li>
-			<li onclick="showTab(3)">교환/반품</li>
-		</ul>
+			<div class="tab-content">
+				<div class="tab-view" id="tab-0">
+					<h2>상품 상세 설명</h2>
+					<br>
+					<hr>
+					<br> ${vo.details}
+				</div>
+				<div class="tab-view" id="tab-1" style="display: none;">
 
-		<div class="tab-content">
-			<div class="tab-view" id="tab-0">
-				<h2>상품 상세 설명</h2>
-				<br>
-				<hr>
-				<br> ${vo.details}
-			</div>
-			<div class="tab-view" id="tab-1" style="display: none;">
-
-				<c:if test="${ratingAvg !='no_data'}">
-					<div class="details-container">
-						<div class="btn-content mb-3">
-							<input type="button" class="btn btn-outline-success"
-								onclick="listOrderbyLike()" value="추천순"> <input
-								type="button" class="btn btn-outline-success"
-								onclick="listOrderbyRecent()" value="최신순">
+					<c:if test="${ratingAvg !='no_data'}">
+						<div class="details-container">
+							<div class="btn-content mb-3">
+								<input type="button" class="btn btn-outline-success"
+									onclick="listOrderbyLike()" value="추천순"> <input
+									type="button" class="btn btn-outline-success"
+									onclick="listOrderbyRecent()" value="최신순">
+							</div>
 						</div>
-					</div>
 
-					<div style="padding-left: 20px;">
-						<span style="font-weight: bold; font-size: 25px;">상품평</span> <input
-							type="button" class="btn btn-outline-dark" value="상품평 쓰기 "
-							onclick="purchaseList();" style="float: right;"> <br>
-						<img src="" id="ratingAvg" style="width: 200px;"> <span
-							style="font-weight: bold; font-size: 20px;">(${ratingAvg}
-							/ 5.0)</span><br> <br>
-					</div>
+						<div style="padding-left: 20px;">
+							<span style="font-weight: bold; font-size: 25px;">상품평</span> <input
+								type="button" class="btn btn-outline-dark" value="상품평 쓰기 "
+								onclick="purchaseList();" style="float: right;"> <br>
+							<img src="" id="ratingAvg" style="width: 200px;"> <span
+								style="font-weight: bold; font-size: 20px;">(${ratingAvg}
+								/ 5.0)</span><br> <br>
+						</div>
 
-					<div id="orderbyRecent">
-						<c:forEach var="review" items="${listOrderbyRecent}">
-							<div style="padding-left: 20px;">
-								${review.name} <br> <img
-									src="/shop/resources/reviewImg/${review.rating}.png"
-									id="rating" style="width: 100px;">
+						<div id="orderbyRecent">
+							<c:forEach var="review" items="${listOrderbyRecent}">
+								<div style="padding-left: 20px;">
+									${review.name} <br> <img
+										src="/shop/resources/reviewImg/${review.rating}.png"
+										id="rating" style="width: 100px;">
 
-								${review.date.substring(0, 10)}<br> ${review.product_name }<br>
+									${review.date.substring(0, 10)}<br> ${review.product_name }<br>
 
-								<c:if test="${review.filepath != 'no_file' }">
-									<img src="/shop/resources/reviewImg/${review.filepath }"
-										style="width: 80px;">
-								</c:if>
-								<br> <span style="font-weight: bold;">${review.title }</span><br>
-								<span>${review.comment }</span><br> <img
-									src="/shop/resources/reviewImg/likebutton.png"
-									style="width: 30px;" onclick="likeup(${review.review_idx});">
-								<span id="likeCount_${review_idx }">${review.likecount }</span>
+									<c:if test="${review.filepath != 'no_file' }">
+										<img src="/shop/resources/reviewImg/${review.filepath }"
+											style="width: 80px;">
+									</c:if>
+									<br> <span style="font-weight: bold;">${review.title }</span><br>
+									<span>${review.comment }</span><br> <img
+										src="/shop/resources/reviewImg/likebutton.png"
+										style="width: 30px;" onclick="likeup(${review.review_idx});">
+									<span id="likeCount_${review_idx }">${review.likecount }</span>
 
-							</div>
-							<hr>
-						</c:forEach>
-					</div>
+								</div>
+								<hr>
+							</c:forEach>
+						</div>
 
-					<div id="orderbyLike">
-						<c:forEach var="review" items="${listOrderbyLike}">
-							<div style="padding-left: 20px;">
-								${review.name} <br> <img
-									src="/shop/resources/reviewImg/${review.rating}.png"
-									id="rating" style="width: 100px;">
+						<div id="orderbyLike">
+							<c:forEach var="review" items="${listOrderbyLike}">
+								<div style="padding-left: 20px;">
+									${review.name} <br> <img
+										src="/shop/resources/reviewImg/${review.rating}.png"
+										id="rating" style="width: 100px;">
 
-								${review.date.substring(0, 10)}<br> ${review.product_name }<br>
+									${review.date.substring(0, 10)}<br> ${review.product_name }<br>
 
-								<c:if test="${review.filepath != 'no_file' }">
-									<img src="/shop/resources/reviewImg/${review.filepath }"
-										style="width: 80px;">
-								</c:if>
-								<br> <span style="font-weight: bold;">${review.title }</span><br>
-								<span>${review.comment }</span><br> <img
-									src="/shop/resources/reviewImg/likebutton.png"
-									style="width: 30px;" onclick="likeup(${review.review_idx});">
-								<span id="likeCount_${review_idx }">${review.likecount }</span>
+									<c:if test="${review.filepath != 'no_file' }">
+										<img src="/shop/resources/reviewImg/${review.filepath }"
+											style="width: 80px;">
+									</c:if>
+									<br> <span style="font-weight: bold;">${review.title }</span><br>
+									<span>${review.comment }</span><br> <img
+										src="/shop/resources/reviewImg/likebutton.png"
+										style="width: 30px;" onclick="likeup(${review.review_idx});">
+									<span id="likeCount_${review_idx }">${review.likecount }</span>
 
-							</div>
-							<hr>
-						</c:forEach>
-					</div>
-				</c:if>
+								</div>
+								<hr>
+							</c:forEach>
+						</div>
+					</c:if>
 
-				<c:if test="${ratingAvg == 'no_data'}">
-					<span style="text-align: center; margin: 0 auto;">등록된 리뷰가
-						없습니다.</span>
-				</c:if>
-			</div>
+					<c:if test="${ratingAvg == 'no_data'}">
+						<span style="text-align: center; margin: 0 auto;">등록된 리뷰가
+							없습니다.</span>
+					</c:if>
+				</div>
 
-			<div class="tab-view" id="tab-2" style="display: none;">
-				<h2 class="mb-3">상품 문의</h2>
-				<hr>
-				<span class="mt-3 mb-3">📌상품 문의 전 아래 내용을 참고해 주세요!<br> <br> 1️⃣ 제품 정보 및
-				재고 문의<br> Q. 상품의 재고가 있나요?<br> ➝ 실시간 재고 변동으로 인해 상세 페이지에서 재고
-				상태를 확인해 주세요.<br> Q. 상품 상세 정보가 궁금해요.<br> ➝ 상품 상세 페이지에 사이즈,
-				색상, 소재 등의 정보가 기재되어 있습니다. 추가 정보가 필요하시면 문의해 주세요.<br> <br>
-				2️⃣ 배송 관련 문의<br> Q. 주문 후 배송 기간은 얼마나 걸리나요?<br> ➝ 일반적으로 주문 후
-				1~3일 내 출고되며, 지역에 따라 배송 기간이 다를 수 있습니다.<br> Q. 배송 조회는 어디서 하나요?<br>
-				➝ 마이페이지 > 주문목록에서 확인 가능하며, 송장 번호를 통해 택배사에서도 조회할 수 있습니다.<br> <br>
-				3️⃣ 사이즈 및 착용감 관련 문의<br> Q. 사이즈가 어떻게 나오나요?<br> ➝ 상품마다 사이즈
-				차이가 있을 수 있으니, 상세 페이지의 사이즈표를 확인해 주세요.<br> Q. 착용감이나 핏이 궁금해요.<br>
-				➝ 상세 페이지 또는 리뷰 참고 및 궁금한 사항은 추가 문의를 이용해 주세요.<br> <br> 4️⃣
-				추가 문의 방법<br> 📞 고객센터: 0000-0000 (운영시간: 평일 09:00~18:00)<br>
-				📧 이메일 문의: kh@yourshop.com</span>
-			</div>
-			<div class="tab-view" id="tab-3" style="display: none;">
-				<h2 class="mb-3">교환/반품</h2>
-				<hr>
-				<span class="mt-3 mb-3"> 교환 및 반품 안내<br> 고객님의 편리한 쇼핑을 위해 교환 및 반품 절차를 아래와 같이
-				안내드립니다. 상품을 반품하시기 전 반드시 확인해 주세요.<br> <br> 📌 교환 및 반품이 가능한
-				경우 상품을 수령한 날로부터 7일 이내 요청한 경우 배송된 상품이 주문한 상품과 다르거나,<br> 불량·파손이
-				발생한 경우 상품의 라벨, 태그, 포장 상태가 유지된 경우 (사용 흔적이 없어야 함)<br> <br> ❌
-				교환 및 반품이 불가능한 경우❌ <br> 상품을 이미 사용했거나, 세탁/수선을 한 경우 개봉 후 재판매가 어려운
-				제품 <br> (예: 화장품, 식품, 속옷 등) 주문 제작 상품 및 한정 판매 상품 구성품이 빠져있거나, 포장
-				상태가 훼손된 경우<br> <br> 📦 교환 및 반품 신청 방법<br> 홈페이지 > 주문내역
-				> 반품/교환 신청 고객센터(📞0000-0000) 또는 1:1 문의를 통해 접수 지정된 택배사를 통해 상품 회수 진행 <br>
-				<br> 🚚 반품/교환 배송비 안내 <br> 단순 변심 : 왕복 배송비 3,000 ~ 5,000원
-				(고객 부담) <br> 상품 불량, 오배송: 무료 교환/반품 가능 (판매자 부담)<br> <br>
-				💰 환불 절차<br> 반품 도착 후 검수 완료 시, 최대 5일 이내 환불 처리됩니다. 신용카드 결제: 카드사
-				정책에 따라 최대 7일 소요될 수 있음<br> 계좌 이체 및 무통장 입금: 영업일 기준 2~3일 이내 환불<br>
-				<br> 📞 문의사항: 고객센터 0000-0000 (운영시간: 평일 09:00~18:00)<br> 📧
-				이메일 문의: kh@yourshop.com</span>
+				<div class="tab-view" id="tab-2" style="display: none;">
+					<h2 class="mb-3">상품 문의</h2>
+					<hr>
+					<span class="mt-3 mb-3">📌상품 문의 전 아래 내용을 참고해 주세요!<br> <br>
+						1️⃣ 제품 정보 및 재고 문의<br> Q. 상품의 재고가 있나요?<br> ➝ 실시간 재고 변동으로
+						인해 상세 페이지에서 재고 상태를 확인해 주세요.<br> Q. 상품 상세 정보가 궁금해요.<br> ➝
+						상품 상세 페이지에 사이즈, 색상, 소재 등의 정보가 기재되어 있습니다. 추가 정보가 필요하시면 문의해 주세요.<br>
+						<br> 2️⃣ 배송 관련 문의<br> Q. 주문 후 배송 기간은 얼마나 걸리나요?<br>
+						➝ 일반적으로 주문 후 1~3일 내 출고되며, 지역에 따라 배송 기간이 다를 수 있습니다.<br> Q. 배송
+						조회는 어디서 하나요?<br> ➝ 마이페이지 > 주문목록에서 확인 가능하며, 송장 번호를 통해 택배사에서도
+						조회할 수 있습니다.<br> <br> 3️⃣ 사이즈 및 착용감 관련 문의<br> Q.
+						사이즈가 어떻게 나오나요?<br> ➝ 상품마다 사이즈 차이가 있을 수 있으니, 상세 페이지의 사이즈표를 확인해
+						주세요.<br> Q. 착용감이나 핏이 궁금해요.<br> ➝ 상세 페이지 또는 리뷰 참고 및 궁금한
+						사항은 추가 문의를 이용해 주세요.<br> <br> 4️⃣ 추가 문의 방법<br> 📞
+						고객센터: 0000-0000 (운영시간: 평일 09:00~18:00)<br> 📧 이메일 문의:
+						kh@yourshop.com
+					</span>
+				</div>
+				<div class="tab-view" id="tab-3" style="display: none;">
+					<h2 class="mb-3">교환/반품</h2>
+					<hr>
+					<span class="mt-3 mb-3"> 교환 및 반품 안내<br> 고객님의 편리한 쇼핑을 위해
+						교환 및 반품 절차를 아래와 같이 안내드립니다. 상품을 반품하시기 전 반드시 확인해 주세요.<br> <br>
+						📌 교환 및 반품이 가능한 경우 상품을 수령한 날로부터 7일 이내 요청한 경우 배송된 상품이 주문한 상품과 다르거나,<br>
+						불량·파손이 발생한 경우 상품의 라벨, 태그, 포장 상태가 유지된 경우 (사용 흔적이 없어야 함)<br> <br>
+						❌ 교환 및 반품이 불가능한 경우❌ <br> 상품을 이미 사용했거나, 세탁/수선을 한 경우 개봉 후 재판매가
+						어려운 제품 <br> (예: 화장품, 식품, 속옷 등) 주문 제작 상품 및 한정 판매 상품 구성품이
+						빠져있거나, 포장 상태가 훼손된 경우<br> <br> 📦 교환 및 반품 신청 방법<br>
+						홈페이지 > 주문내역 > 반품/교환 신청 고객센터(📞0000-0000) 또는 1:1 문의를 통해 접수 지정된 택배사를
+						통해 상품 회수 진행 <br> <br> 🚚 반품/교환 배송비 안내 <br> 단순 변심 :
+						왕복 배송비 3,000 ~ 5,000원 (고객 부담) <br> 상품 불량, 오배송: 무료 교환/반품 가능
+						(판매자 부담)<br> <br> 💰 환불 절차<br> 반품 도착 후 검수 완료 시, 최대
+						5일 이내 환불 처리됩니다. 신용카드 결제: 카드사 정책에 따라 최대 7일 소요될 수 있음<br> 계좌 이체
+						및 무통장 입금: 영업일 기준 2~3일 이내 환불<br> <br> 📞 문의사항: 고객센터
+						0000-0000 (운영시간: 평일 09:00~18:00)<br> 📧 이메일 문의:
+						kh@yourshop.com
+					</span>
 
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div id="loadingScreen"
-		style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.13); z-index: 1000;"></div>
+		<div id="loadingScreen"
+			style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.13); z-index: 1000;"></div>
+
+	</section>
 
 	<footer class="py-5 bg-dark">
 		<div class="container">
@@ -403,7 +413,7 @@
        let amountInput = document.getElementById("amount");
        let amount = parseInt(amountInput.value);
 		
-       var amount_check = /^[0-9]*$/;
+       var amount_check = /^[1-9]*$/;
        
        
        
